@@ -47,7 +47,8 @@ public class GUIGrid extends JPanel {
     private void MakeLayout(Veld veld) {
         //TODO: Maak een dot a.d.h van de array uit de klasse veld d.m.v drawOval
 
-        for (int i = 0; i < row; i++) {
+        super.setLayout(new GridLayout(6,6));
+        for (int i = 0; i < veld.getVeld().size(); i++) {
                 final DotKleur dotKleur = veld.getVeld().get(i).getDotKleur();
                 final DotUI dc = new DotUI();
 

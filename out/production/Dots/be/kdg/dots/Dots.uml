@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement />
+  <OriginalElement>be.kdg.dots</OriginalElement>
   <nodes>
-    <node x="-30.343470483005376" y="1.3792486583183745">be.kdg.dots.view.GUIView</node>
-    <node x="699.3184257602863" y="283.01967799642205">be.kdg.dots.model.Score</node>
-    <node x="404.1627906976745" y="485.175313059034">be.kdg.dots.model.Dot</node>
-    <node x="834.4454382826475" y="63.71914132379243">be.kdg.dots.model.Speler</node>
-    <node x="-276.65295169946336" y="7.427549194991023">be.kdg.dots.view.GUIStartScreen</node>
-    <node x="832.4060822898032" y="156.9141323792486">be.kdg.dots.model.DotsException</node>
-    <node x="805.3184257602863" y="283.01967799642205">be.kdg.dots.model.Level</node>
-    <node x="375.6565295169946" y="1.3792486583183745">be.kdg.dots.controller.SpelController</node>
-    <node x="909.3184257602863" y="283.01967799642205">be.kdg.dots.model.Spel</node>
-    <node x="398.51162790697674" y="275.0017889087656">be.kdg.dots.model.Veld</node>
-    <node x="-272.4865831842576" y="418.9713774597495">be.kdg.dots.view.DrawingClass</node>
-    <node x="-291.0214669051878" y="182.59212880143107">be.kdg.dots.view.GUIGrid</node>
-    <node x="678.5903398926655" y="423.1091234347048">be.kdg.dots.model.DotKleur</node>
+    <node x="-99.19146157019134" y="776.6753059260279">be.kdg.dots.view.DotUI</node>
+    <node x="102.0" y="966.0">be.kdg.dots.view.GUIView</node>
+    <node x="701.9829443447038" y="582.822262118492">be.kdg.dots.model.DotsException</node>
+    <node x="330.5" y="346.0">be.kdg.dots.model.Dot</node>
+    <node x="313.5" y="719.0">be.kdg.dots.controller.SpelController</node>
+    <node x="287.0" y="494.0">be.kdg.dots.model.Veld</node>
+    <node x="17.5" y="708.0">be.kdg.dots.view.GUIGrid</node>
+    <node x="178.0" y="1312.0">be.kdg.dots.view.GUIStartScreen</node>
+    <node x="281.5" y="0.0">be.kdg.dots.model.DotKleur</node>
   </nodes>
   <notes />
   <edges>
@@ -31,15 +27,11 @@
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
-    <edge source="be.kdg.dots.view.GUIGrid" target="be.kdg.dots.view.DrawingClass">
+    <edge source="be.kdg.dots.view.GUIGrid" target="be.kdg.dots.view.DotUI">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
     <edge source="be.kdg.dots.model.Dot" target="be.kdg.dots.model.DotKleur">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-    <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.model.Speler">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
@@ -52,8 +44,10 @@
       <point x="0.0" y="0.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.7250324254215305" x="346.59212880143116" y="375.5" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Group" zoom="0.9723262032085559" x="104.96878867042506" y="965.0661350199368" />
+  <SelectedNodes>
+    <node>be.kdg.dots.view.DotUI</node>
+  </SelectedNodes>
   <Categories>
     <Category>Methods</Category>
     <Category>Constructors</Category>
