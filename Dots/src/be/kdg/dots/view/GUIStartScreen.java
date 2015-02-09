@@ -24,7 +24,6 @@ public class GUIStartScreen extends JFrame {
 
     private void MakeComponents() {
         start = new JButton("Start game");
-
     }
 
     private void MakeLayout() {

@@ -1,23 +1,16 @@
 package be.kdg.dots.view;
 
-import javax.swing.*;
+import be.kdg.dots.model.DotKleur;
+
 import java.awt.*;
 
 /**
- * Created by alexander on 5/02/2015.
+ * Created by alexander on 6/02/2015.
  */
 
-class DotUI extends JPanel{
-    public DotUI(){
-
-    }
-
-
-    public void paint(Graphics g){
-        super.paint(g);
-        g.setColor(Color.red);
-        g.fillOval(0, 0, 10, 10);
+public class DotUI {
+    public void draw(Graphics2D g2d, int w, int h, DotKleur dotKleur) {
+        g2d.setColor(new Color(dotKleur.getRood(), dotKleur.getGroen(), dotKleur.getBlauw()));
+        g2d.fillOval(5, 5, w / 2, h / 2);
     }
 }
-
-

@@ -23,7 +23,7 @@ public class GUIView extends JFrame {
         MakeComponents();
         MakeLayout();
         MakeEventListener();
-        super.setSize(300, 500);
+        super.setSize(300, 300);
         super.setVisible(true);
     }
 
@@ -35,7 +35,6 @@ public class GUIView extends JFrame {
     }
 
     private void MakeLayout() {
-
         gamePanel = new JPanel(new BorderLayout());
         gridSouth = new JPanel(new GridLayout());
         gridGame = new GUIGrid(controller);

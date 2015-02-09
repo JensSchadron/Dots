@@ -1,7 +1,5 @@
 package be.kdg.dots.model;
 
-import java.util.Random;
-
 /**
  * Created by alexander on 4/02/2015.
  */

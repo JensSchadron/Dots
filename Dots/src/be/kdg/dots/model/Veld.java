@@ -1,32 +1,28 @@
 package be.kdg.dots.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by alexander on 4/02/2015.
  */
 public class Veld {
-    private Dot[][] rooster;
+    private ArrayList<Dot> rooster;
     private int row, colum;
 
     public Veld(int row, int colum) {
         this.row = row;
         this.colum = colum;
+        this.rooster = new ArrayList<Dot>(this.row*this.colum);
+        vulVeld();
     }
-
-    public Dot[][] ListOfDots() {
-        this.rooster = new Dot[row][colum];
-        for (int i=0;i<row;i++) {
-            for (int j =0;i<colum;i++){
-                rooster[i][j] = new Dot();
-            }
-
+    
+    public void vulVeld(){
+        for (int i = 0; i < this.row*this.colum; i++) {
+            rooster.add(new Dot());
         }
-        return rooster;
     }
 
-    public Dot[][] getRooster() {
+    public ArrayList<Dot> getVeld() {
         return rooster;
     }
 }
