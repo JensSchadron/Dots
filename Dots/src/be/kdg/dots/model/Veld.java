@@ -7,7 +7,8 @@ import java.util.ArrayList;
  */
 public class Veld {
     private ArrayList<Dot> rooster;
-    private int row, colum;
+    private final int row;
+    private final int colum;
 
     public Veld(int row, int colum) {
         this.row = row;
@@ -24,5 +25,13 @@ public class Veld {
 
     public ArrayList<Dot> getVeld() {
         return rooster;
+    }
+
+    public int getColum() {
+        return colum;
+    }
+
+    public int getRow() {
+        return row;
     }
 }

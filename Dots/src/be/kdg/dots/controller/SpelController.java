@@ -7,11 +7,11 @@ import be.kdg.dots.model.*;
  */
 public class SpelController {
     private Veld veld;
-    private int row=6;
-    private int colum=6;
+    //private int row=6;
+    //private int colum=6;
 
     public SpelController() {
-        veld = new Veld(row, colum);
+        veld = new Veld(6, 6);
     }
 
     public Veld getVeld() {
@@ -19,10 +19,10 @@ public class SpelController {
     }
 
     public int getRow() {
-        return row;
+        return veld.getRow();
     }
 
     public int getColum() {
-        return colum;
+        return veld.getColum();
     }
 }
