@@ -4,20 +4,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 
 /**
  * Created by alexander on 4/02/2015.
  */
 public class GUIStartScreen extends JFrame {
-    private JPanel main;
-    private JButton start;
-    private JLabel banner;
+    private JPanel main, gameMode;
+    private JButton moveMode, timeMode, endlessMode, settings, about;
+    private JLabel banner, highscore;
 
     public GUIStartScreen() throws HeadlessException {
         super("Dots Game");
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        super.getContentPane().setBackground(new Color(154,36,69));
         MakeComponents();
         MakeLayout();
         MakeEventListener();
@@ -26,8 +26,16 @@ public class GUIStartScreen extends JFrame {
     }
 
     private void MakeComponents() {
-        start = new JButton("Start game");
-        banner = new JLabel("Dots...");
+        moveMode = new JButton("Moves");
+        timeMode = new JButton("Timed");
+        endlessMode = new JButton("Endless");
+        banner = new JLabel("Dots");
+        banner.setForeground(new Color(83,93,245));
+        banner.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+        /*moveMode.setBorder(new RoundedBorder(20));
+        moveMode.setBackground(new Color(45, 24, 185));
+        moveMode.setForeground(Color.white);
+        moveMode.setFocusPainted(false);*/
 
         try {
             Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("../fonts/dotness.ttf").openStream());
@@ -45,13 +53,17 @@ public class GUIStartScreen extends JFrame {
 
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
-        main.add(start, BorderLayout.CENTER);
+        gameMode = new JPanel(new GridLayout(2,2));
+        gameMode.add(timeMode);
+        gameMode.add(moveMode);
+        gameMode.add(endlessMode);
         main.add(banner, BorderLayout.NORTH);
+        main.add(gameMode, BorderLayout.CENTER);
         super.add(main);
     }
 
     private void MakeEventListener() {
-        start.addActionListener(new ActionListener() {
+        moveMode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
