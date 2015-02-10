@@ -17,7 +17,6 @@ public class GUIStartScreen extends JFrame {
     public GUIStartScreen() throws HeadlessException {
         super("Dots Game");
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        super.getContentPane().setBackground(new Color(154,36,69));
         MakeComponents();
         MakeLayout();
         MakeEventListener();
@@ -54,6 +53,8 @@ public class GUIStartScreen extends JFrame {
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
         gameMode = new JPanel(new GridLayout(2,2));
+        main.setBackground(Color.white);
+        gameMode.setBackground(Color.white);
         gameMode.add(timeMode);
         gameMode.add(moveMode);
         gameMode.add(endlessMode);

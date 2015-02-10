@@ -38,6 +38,9 @@ public class GUIView extends JFrame {
         gamePanel = new JPanel(new BorderLayout());
         gridSouth = new JPanel(new GridLayout());
         gridGame = new GUIGrid(controller);
+        gamePanel.setBackground(Color.white);
+        gridSouth.setBackground(Color.white);
+        gridGame.setBackground(Color.white);
         gridSouth.add(lblLevel);
         gridSouth.add(lblScore);
         gamePanel.add(gridSouth, BorderLayout.SOUTH);

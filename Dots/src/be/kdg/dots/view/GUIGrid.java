@@ -55,6 +55,7 @@ public class GUIGrid extends JPanel {
                 JPanel testPanel = new JPanel() {
                     protected void paintComponent(Graphics g) {
                         super.paintComponent(g);
+                        super.setBackground(Color.white);
                         Graphics2D g2d = (Graphics2D) g;
                         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                         dc.draw(g2d, 50, 50,dotKleur);
