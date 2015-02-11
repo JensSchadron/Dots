@@ -4,7 +4,7 @@ import be.kdg.dots.model.*;
 import be.kdg.dots.view.GUIStartScreen;
 import be.kdg.dots.view.GUIView;
 
-import javax.swing.*;
+import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 public class SpelController{
     private Veld veld;
     private Highscore highscore;
-    private javax.swing.Timer timer;
+    private Timer timer;
     private GUIStartScreen guiStartScreen;
     private GUIView guiView;
 
@@ -25,7 +25,7 @@ public class SpelController{
     public SpelController() {
         veld = new Veld(6, 6);
         highscore = new Highscore();
-        timer = new javax.swing.Timer(1000, new ActionListener() {
+        timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (aantalSeconden == 1) { //aantalSeconden moet 1 zijn omdat stopTimer() deze methode nog eens triggerd
