@@ -25,7 +25,7 @@ public class GUIView extends JFrame{
         MakeComponents();
         MakeLayout();
         MakeEventListener();
-        super.setSize(300, 300);
+        super.setSize(380, 420);
         super.setVisible(true);
     }
 
@@ -48,8 +48,8 @@ public class GUIView extends JFrame{
         gridSouth.add(lblScore);
         gridSouth.add(lblTime);
         gamePanel.add(gridSouth, BorderLayout.SOUTH);
-        super.add(gamePanel);
         gamePanel.add(gridGame, BorderLayout.CENTER);
+        super.add(gamePanel);
     }
 
     private void MakeEventListener() {

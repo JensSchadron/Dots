@@ -20,10 +20,21 @@ public class GUIGrid extends JPanel {
     private int row, colum;
     private DotUI[] dotUI;
     private final int aantal;
+    private SpelController controller;
+    private GridLayout grid;
+    private GridBagConstraints gbc;
 
 
     public GUIGrid(SpelController controller) throws HeadlessException {
-        super(new GridLayout(controller.getRow(), controller.getColum()));
+        //super.setLayout(new GridLayout(controller.getRow(), controller.getColum()));
+        super.setLayout(new GridBagLayout());
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.NONE;
+        /*gbc.gridheight = 360;
+        gbc.gridwidth = 360;*/
+
+
+        this.controller = controller;
         this.row = controller.getRow();
         this.colum = controller.getColum();
         aantal = this.row * this.colum;
@@ -51,10 +62,13 @@ public class GUIGrid extends JPanel {
     private void MakeLayout() {
         //TODO: Maak een dot a.d.h van de array uit de klasse veld d.m.v drawOval
 
-        super.setLayout(new GridLayout(6, 6));
-        for (JPanel jPanel : dotUI) {
-            super.add(jPanel);
+        for (int i = 0; i < dotUI.length; i++) {
+            gbc.gridx = i%6;
+            gbc.gridy = i/6;
+            System.out.println("Cell x: " + gbc.gridx + " Cell y: " + gbc.gridy);
+            super.add(dotUI[i],gbc);
         }
+
     }
 
 
@@ -78,6 +92,9 @@ public class GUIGrid extends JPanel {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     System.out.println("Debug: Geklikt op dot " + i2);
+                    /*dotUI[i2].removeMouseListener(this);
+                    dotUI[i2] = null;
+                    controller.getVeld().getVeld().remove(i2);*/
                 }
 
                 @Override

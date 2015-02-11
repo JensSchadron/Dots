@@ -14,13 +14,13 @@ import java.awt.event.ActionListener;
 public class SpelController{
     private Veld veld;
     private Highscore highscore;
-    private Timer timer;
+    private Timer timer, debugTimer;
     private GUIStartScreen guiStartScreen;
     private GUIView guiView;
 
     //Timer attributen
     private static final int MAX_AANTAL_SECONDEN = 45;
-    private int aantalSeconden = MAX_AANTAL_SECONDEN;
+    private int aantalSeconden;
 
     public SpelController() {
         veld = new Veld(6, 6);
@@ -32,13 +32,17 @@ public class SpelController{
                     timer.stop();
                 }
                 guiView.updateTimer(--aantalSeconden);
-                //aantalSeconden--;
-
                 System.out.println("Time: " + aantalSeconden); //DEBUG INFO
             }
         });
         guiStartScreen = new GUIStartScreen(this);
 
+        debugTimer = new Timer(500, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.printf("Width: %d - Height: %d\n",guiView.getWidth(),guiView.getHeight());
+            }
+        });
     }
 
     public Veld getVeld() {
@@ -54,8 +58,10 @@ public class SpelController{
     }
 
     public void startSpel(){
+        aantalSeconden = MAX_AANTAL_SECONDEN;
         guiView = new GUIView(this);
         timer.start();
+        debugTimer.start();
     }
 
 }

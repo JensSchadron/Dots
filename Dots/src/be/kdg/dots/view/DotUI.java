@@ -17,12 +17,11 @@ public class DotUI extends JPanel {
     private int y;
     private int diameter;
     private DotKleur kleur;
-    private static final Dimension dimension = new Dimension(52, 52);
+    private static final Dimension dimension = new Dimension(MAX_SIZE, MAX_SIZE);
 
     public DotUI(DotKleur kleur) {
         super.setOpaque(false);
-        super.setSize(dimension);
-        super.setMaximumSize(dimension);
+        super.setPreferredSize(dimension);
         this.x = 5;
         this.y = 5;
         this.diameter = MIN_SIZE;
