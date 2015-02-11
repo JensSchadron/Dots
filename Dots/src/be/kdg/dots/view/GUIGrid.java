@@ -7,8 +7,8 @@ import be.kdg.dots.model.Veld;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.dnd.MouseDragGestureRecognizer;
+import java.awt.event.*;
 //import java.awt.geom.Ellipse2D;
 
 /**
@@ -19,7 +19,8 @@ public class GUIGrid extends JPanel {
 //Todo: De bedoeling om de grid waar de dots op komen in deze klasse op een panel te zetten.
 
     private int row, colum;
-    private JLabel lbldot[];
+    private JLabel[] lbldot;
+    private JPanel[] jPanels;
     private final int aantal;
 
 
@@ -29,43 +30,47 @@ public class GUIGrid extends JPanel {
         this.colum = controller.getColum();
         aantal = this.row * this.colum;
 
-        MakeComponents();
-        MakeLayout(controller.getVeld());
+        MakeComponents(controller.getVeld());
+        MakeLayout();
         MakeEventListener();
     }
 
-    private void MakeComponents() {
-        lbldot = new JLabel[this.row * this.colum];
+    private void MakeComponents(Veld veld) {
+        jPanels = new JPanel[this.row * this.colum];
+        /*lbldot = new JLabel[this.row * this.colum];
 
         for (int i = 0; i < lbldot.length; i++) {
             lbldot[i] = new JLabel(Integer.toString(i));
             lbldot[i].setHorizontalAlignment(SwingConstants.CENTER);
             lbldot[i].setOpaque(true);
+        }*/
+        for (int i = 0; i < veld.getVeld().size(); i++) {
+            final DotKleur dotKleur = veld.getVeld().get(i).getDotKleur(); //Kleur dot opvragen
+            final DotUI dc = new DotUI(); //DotUI klasse aanmaken (bevat logica om dots te tekenen
+
+            JPanel testPanel = new JPanel() {
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    super.setBackground(Color.white);
+                    Graphics2D g2d = (Graphics2D) g;
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    dc.draw(g2d, 50, 50, dotKleur);
+                }
+            };
+            jPanels[i] = testPanel;
         }
     }
 
-    private void MakeLayout(Veld veld) {
+    private void MakeLayout() {
         //TODO: Maak een dot a.d.h van de array uit de klasse veld d.m.v drawOval
 
-        super.setLayout(new GridLayout(6,6));
-        for (int i = 0; i < veld.getVeld().size(); i++) {
-                final DotKleur dotKleur = veld.getVeld().get(i).getDotKleur();
-                final DotUI dc = new DotUI();
-
-                JPanel testPanel = new JPanel() {
-                    protected void paintComponent(Graphics g) {
-                        super.paintComponent(g);
-                        super.setBackground(Color.white);
-                        Graphics2D g2d = (Graphics2D) g;
-                        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                        dc.draw(g2d, 50, 50,dotKleur);
-                    }
-                };
-                super.add(testPanel);
-
+        super.setLayout(new GridLayout(6, 6));
+        for (JPanel jPanel : jPanels) {
+            super.add(jPanel);
         }
-
     }
+
+
 
 /*@Override
     protected void paintComponent(Graphics g) {
@@ -80,12 +85,12 @@ public class GUIGrid extends JPanel {
     }*/
 
     private void MakeEventListener() {
-        for (int i = 0; i < aantal; i++) {
-            //final int i2 =i;
-            lbldot[i].addMouseListener(new MouseAdapter() {
+        for (int i = 0; i < jPanels.length; i++) {
+            final int i2 = i;
+            jPanels[i].addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-
+                    System.out.println("Debug: Geklikt op dot " + i2);
                 }
             });
         }

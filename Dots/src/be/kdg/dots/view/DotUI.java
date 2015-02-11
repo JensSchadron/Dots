@@ -2,6 +2,7 @@ package be.kdg.dots.view;
 
 import be.kdg.dots.model.DotKleur;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**

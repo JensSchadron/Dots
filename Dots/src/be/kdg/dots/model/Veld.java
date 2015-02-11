@@ -13,12 +13,12 @@ public class Veld {
     public Veld(int row, int colum) {
         this.row = row;
         this.colum = colum;
-        this.rooster = new ArrayList<Dot>(this.row*this.colum);
+        this.rooster = new ArrayList<Dot>(this.row * this.colum);
         vulVeld();
     }
-    
-    public void vulVeld(){
-        for (int i = 0; i < this.row*this.colum; i++) {
+
+    public void vulVeld() {
+        for (int i = 0; i < this.row * this.colum; i++) {
             rooster.add(new Dot());
         }
     }

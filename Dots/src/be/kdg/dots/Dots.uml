@@ -3,18 +3,25 @@
   <ID>JAVA</ID>
   <OriginalElement>be.kdg.dots</OriginalElement>
   <nodes>
-    <node x="-99.19146157019134" y="776.6753059260279">be.kdg.dots.view.DotUI</node>
-    <node x="102.0" y="966.0">be.kdg.dots.view.GUIView</node>
-    <node x="701.9829443447038" y="582.822262118492">be.kdg.dots.model.DotsException</node>
-    <node x="330.5" y="346.0">be.kdg.dots.model.Dot</node>
-    <node x="313.5" y="719.0">be.kdg.dots.controller.SpelController</node>
-    <node x="287.0" y="494.0">be.kdg.dots.model.Veld</node>
-    <node x="17.5" y="708.0">be.kdg.dots.view.GUIGrid</node>
-    <node x="178.0" y="1312.0">be.kdg.dots.view.GUIStartScreen</node>
-    <node x="281.5" y="0.0">be.kdg.dots.model.DotKleur</node>
+    <node x="780.0" y="583.0">be.kdg.dots.view.DotUI</node>
+    <node x="444.0" y="494.0">be.kdg.dots.model.Timer</node>
+    <node x="437.75" y="1032.0">be.kdg.dots.view.GUIView</node>
+    <node x="1321.0" y="0.0">be.kdg.dots.model.DotsException</node>
+    <node x="" y="">be.kdg.dots.view.RoundedBorder</node>
+    <node x="258.5" y="774.0">be.kdg.dots.controller.SpelController</node>
+    <node x="63.5" y="346.0">be.kdg.dots.model.Dot</node>
+    <node x="0.0" y="505.0">be.kdg.dots.model.Veld</node>
+    <node x="787.5" y="763.0">be.kdg.dots.view.GUIGrid</node>
+    <node x="463.75" y="1422.0">be.kdg.dots.view.GUIStartScreen</node>
+    <node x="336.0" y="594.0">be.kdg.dots.model.Highscore</node>
+    <node x="14.5" y="0.0">be.kdg.dots.model.DotKleur</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.model.Highscore">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
     <edge source="be.kdg.dots.view.GUIView" target="be.kdg.dots.controller.SpelController">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
@@ -43,15 +50,17 @@
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
+    <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.model.Timer">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.9723262032085559" x="104.96878867042506" y="965.0661350199368" />
-  <SelectedNodes>
-    <node>be.kdg.dots.view.DotUI</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="0.5309229305423406" x="504.68906810035844" y="527.1487455197132" />
+  <SelectedNodes />
   <Categories>
-    <Category>Methods</Category>
-    <Category>Constructors</Category>
     <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

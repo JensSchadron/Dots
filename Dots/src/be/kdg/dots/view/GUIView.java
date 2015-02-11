@@ -4,11 +4,13 @@ import be.kdg.dots.controller.SpelController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by alexander on 4/02/2015.
  */
-public class GUIView extends JFrame {
+public class GUIView extends JFrame implements ActionListener{
 
     private JPanel gamePanel, gridSouth;
     private GUIGrid gridGame;
@@ -16,9 +18,9 @@ public class GUIView extends JFrame {
     private JButton btnMenu;
     private SpelController controller;
 
-    public GUIView() throws HeadlessException {
+    public GUIView(SpelController controller) throws HeadlessException {
         super("Dots");
-        controller = new SpelController();
+        this.controller = controller;
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         MakeComponents();
         MakeLayout();
@@ -28,10 +30,11 @@ public class GUIView extends JFrame {
     }
 
     private void MakeComponents() {
+        btnMenu = new JButton("Menu");
+        gridGame = new GUIGrid(controller);
         lblLevel = new JLabel("Level:");
         lblScore = new JLabel("Score:");
-        lblTime = new JLabel("Time");
-        btnMenu = new JButton("Menu");
+        lblTime = new JLabel("Time: ");
     }
 
     private void MakeLayout() {
@@ -43,6 +46,7 @@ public class GUIView extends JFrame {
         gridGame.setBackground(Color.white);
         gridSouth.add(lblLevel);
         gridSouth.add(lblScore);
+        gridSouth.add(lblTime);
         gamePanel.add(gridSouth, BorderLayout.SOUTH);
         super.add(gamePanel);
         gamePanel.add(gridGame, BorderLayout.CENTER);
@@ -52,4 +56,12 @@ public class GUIView extends JFrame {
 
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        updateTimer(controller.getTimer().getAantalSeconden());
+    }
+
+    public void updateTimer(int aantalSeconden){
+        lblTime.setText("Time: " + aantalSeconden);
+    }
 }

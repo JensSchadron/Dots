@@ -1,5 +1,7 @@
 package be.kdg.dots.view;
 
+import be.kdg.dots.controller.SpelController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,13 +12,15 @@ import java.io.IOException;
  * Created by alexander on 4/02/2015.
  */
 public class GUIStartScreen extends JFrame {
+    private SpelController controller;
     private JPanel main, gameMode;
     private JButton moveMode, timeMode, endlessMode, settings, about;
     private JLabel banner, highscore;
 
-    public GUIStartScreen() throws HeadlessException {
+    public GUIStartScreen(SpelController controller) throws HeadlessException {
         super("Dots Game");
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.controller = controller;
         MakeComponents();
         MakeLayout();
         MakeEventListener();
@@ -64,11 +68,18 @@ public class GUIStartScreen extends JFrame {
     }
 
     private void MakeEventListener() {
+        timeMode.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+                controller.startSpel();
+            }
+        });
         moveMode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                new GUIView();
+                controller.startSpel();
             }
         });
     }

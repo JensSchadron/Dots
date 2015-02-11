@@ -1,3 +1,4 @@
+import be.kdg.dots.controller.SpelController;
 import be.kdg.dots.view.*;
 
 /**
@@ -5,6 +6,7 @@ import be.kdg.dots.view.*;
  */
 public class Main {
     public static void main(String[] args) {
-        new GUIStartScreen();
+        //new GUIStartScreen();
+        new SpelController();
     }
 }
