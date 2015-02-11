@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by alexander on 4/02/2015.
  */
-public class GUIView extends JFrame implements ActionListener{
+public class GUIView extends JFrame{
 
     private JPanel gamePanel, gridSouth;
     private GUIGrid gridGame;
@@ -34,7 +34,7 @@ public class GUIView extends JFrame implements ActionListener{
         gridGame = new GUIGrid(controller);
         lblLevel = new JLabel("Level:");
         lblScore = new JLabel("Score:");
-        lblTime = new JLabel("Time: ");
+        lblTime = new JLabel("Time: 45");
     }
 
     private void MakeLayout() {
@@ -54,11 +54,6 @@ public class GUIView extends JFrame implements ActionListener{
 
     private void MakeEventListener() {
 
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        updateTimer(controller.getTimer().getAantalSeconden());
     }
 
     public void updateTimer(int aantalSeconden){

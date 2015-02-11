@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 /**
  * Created by Jens on 10-2-2015.
  */
+
+//TODO: Niet meer nodig, zit nu in spelcontroller class
+
 public class Timer {
     private static int aantalSeconden;
     private static final int MAX_AANTAL_SECONDEN = 45;

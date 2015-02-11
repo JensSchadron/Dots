@@ -4,22 +4,39 @@ import be.kdg.dots.model.*;
 import be.kdg.dots.view.GUIStartScreen;
 import be.kdg.dots.view.GUIView;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  * Created by alexander on 4/02/2015.
  */
-public class SpelController {
+public class SpelController{
     private Veld veld;
     private Highscore highscore;
-    private Timer timer;
+    private javax.swing.Timer timer;
     private GUIStartScreen guiStartScreen;
     private GUIView guiView;
-    //private int row=6;
-    //private int colum=6;
+
+    //Timer attributen
+    private static final int MAX_AANTAL_SECONDEN = 45;
+    private int aantalSeconden = MAX_AANTAL_SECONDEN;
 
     public SpelController() {
         veld = new Veld(6, 6);
         highscore = new Highscore();
-        timer = new Timer();
+        timer = new javax.swing.Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (aantalSeconden == 1) { //aantalSeconden moet 1 zijn omdat stopTimer() deze methode nog eens triggerd
+                    timer.stop();
+                }
+                guiView.updateTimer(--aantalSeconden);
+                //aantalSeconden--;
+
+                System.out.println("Time: " + aantalSeconden); //DEBUG INFO
+            }
+        });
         guiStartScreen = new GUIStartScreen(this);
 
     }
@@ -36,12 +53,9 @@ public class SpelController {
         return veld.getColum();
     }
 
-    public Timer getTimer(){
-        return this.timer;
-    }
-
     public void startSpel(){
         guiView = new GUIView(this);
-        timer.startTimer();
+        timer.start();
     }
+
 }

@@ -3,59 +3,84 @@
   <ID>JAVA</ID>
   <OriginalElement>be.kdg.dots</OriginalElement>
   <nodes>
-    <node x="780.0" y="583.0">be.kdg.dots.view.DotUI</node>
-    <node x="444.0" y="494.0">be.kdg.dots.model.Timer</node>
-    <node x="437.75" y="1032.0">be.kdg.dots.view.GUIView</node>
-    <node x="1321.0" y="0.0">be.kdg.dots.model.DotsException</node>
-    <node x="" y="">be.kdg.dots.view.RoundedBorder</node>
-    <node x="258.5" y="774.0">be.kdg.dots.controller.SpelController</node>
-    <node x="63.5" y="346.0">be.kdg.dots.model.Dot</node>
-    <node x="0.0" y="505.0">be.kdg.dots.model.Veld</node>
-    <node x="787.5" y="763.0">be.kdg.dots.view.GUIGrid</node>
-    <node x="463.75" y="1422.0">be.kdg.dots.view.GUIStartScreen</node>
-    <node x="336.0" y="594.0">be.kdg.dots.model.Highscore</node>
-    <node x="14.5" y="0.0">be.kdg.dots.model.DotKleur</node>
+    <node x="0.0" y="637.0">be.kdg.dots.view.GUIView</node>
+    <node x="1343.0" y="0.0">be.kdg.dots.model.Timer</node>
+    <node x="1045.5" y="412.0">be.kdg.dots.model.Dot</node>
+    <node x="518.0" y="626.0">be.kdg.dots.view.GUIStartScreen</node>
+    <node x="410.00000000000006" y="781.0">be.kdg.dots.model.Highscore</node>
+    <node x="61.5" y="122.0">be.kdg.dots.view.DotUI</node>
+    <node x="229.0" y="1489.0">be.kdg.dots.model.DotsException</node>
+    <node x="0.0" y="1489.0">be.kdg.dots.view.RoundedBorder</node>
+    <node x="372.5000000000001" y="1046.0">be.kdg.dots.controller.SpelController</node>
+    <node x="982.0" y="692.0">be.kdg.dots.model.Veld</node>
+    <node x="69.0" y="346.0">be.kdg.dots.view.GUIGrid</node>
+    <node x="456.5000000000001" y="1392.0">Main</node>
+    <node x="996.5" y="0.0">be.kdg.dots.model.DotKleur</node>
   </nodes>
   <notes />
   <edges>
     <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.model.Highscore">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="-16.150000000000034" y="-148.0" />
+      <point x="517.85" y="986.0" />
+      <point x="476.00000000000006" y="986.0" />
+      <point x="22.0" y="15.0" />
     </edge>
     <edge source="be.kdg.dots.view.GUIView" target="be.kdg.dots.controller.SpelController">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="130.0" y="159.0" />
+      <point x="325.0" y="1006.0" />
+      <point x="453.25" y="1006.0" />
+      <point x="-80.75000000000006" y="-148.0" />
     </edge>
     <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.model.Veld">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="113.04999999999995" y="-148.0" />
+      <point x="647.0500000000001" y="1016.0" />
+      <point x="1061.0" y="1016.0" />
+      <point x="-79.0" y="104.0" />
     </edge>
     <edge source="be.kdg.dots.view.GUIView" target="be.kdg.dots.view.GUIGrid">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="-97.5" y="-159.0" />
+      <point x="97.5" y="601.0" />
+      <point x="132.0" y="601.0" />
+      <point x="-63.0" y="115.0" />
     </edge>
     <edge source="be.kdg.dots.view.GUIGrid" target="be.kdg.dots.view.DotUI">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="0.0" y="-115.0" />
+      <point x="0.0" y="26.0" />
     </edge>
     <edge source="be.kdg.dots.model.Dot" target="be.kdg.dots.model.DotKleur">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="0.0" y="-49.0" />
+      <point x="0.0" y="148.0" />
     </edge>
-    <edge source="be.kdg.dots.view.GUIStartScreen" target="be.kdg.dots.view.GUIView">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.view.GUIStartScreen">
+      <point x="48.44999999999999" y="-148.0" />
+      <point x="582.45" y="996.0" />
+      <point x="740.0" y="996.0" />
+      <point x="0.0" y="170.0" />
+    </edge>
+    <edge source="Main" target="be.kdg.dots.controller.SpelController">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="148.0" />
+    </edge>
+    <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.view.GUIView">
+      <point x="-113.05000000000007" y="-148.0" />
+      <point x="420.95000000000005" y="1016.0" />
+      <point x="195.0" y="1016.0" />
+      <point x="0.0" y="159.0" />
     </edge>
     <edge source="be.kdg.dots.model.Veld" target="be.kdg.dots.model.Dot">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="-79.0" y="-104.0" />
+      <point x="1061.0" y="601.0" />
+      <point x="1092.75" y="601.0" />
+      <point x="-47.25" y="49.0" />
     </edge>
-    <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.model.Timer">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="be.kdg.dots.view.GUIStartScreen" target="be.kdg.dots.controller.SpelController">
+      <point x="148.0" y="170.0" />
+      <point x="888.0" y="1006.0" />
+      <point x="614.7500000000001" y="1006.0" />
+      <point x="80.75" y="-148.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.5309229305423406" x="504.68906810035844" y="527.1487455197132" />
+  <settings layout="Hierarchic Group" zoom="0.8309229305423406" x="977.0919500744303" y="1109.4231077522043" />
   <SelectedNodes />
   <Categories>
     <Category>Fields</Category>
