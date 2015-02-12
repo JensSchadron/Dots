@@ -37,12 +37,12 @@ public class SpelController{
         });
         guiStartScreen = new GUIStartScreen(this);
 
-        debugTimer = new Timer(500, new ActionListener() {
+        /*debugTimer = new Timer(500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.printf("Width: %d - Height: %d\n",guiView.getWidth(),guiView.getHeight());
             }
-        });
+        });*/
     }
 
     public Veld getVeld() {
@@ -61,7 +61,7 @@ public class SpelController{
         aantalSeconden = MAX_AANTAL_SECONDEN;
         guiView = new GUIView(this);
         timer.start();
-        debugTimer.start();
+        //debugTimer.start();
     }
 
 }

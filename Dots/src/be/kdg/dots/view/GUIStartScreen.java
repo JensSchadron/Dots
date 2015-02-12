@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 /**
@@ -14,7 +16,8 @@ import java.io.IOException;
 public class GUIStartScreen extends JFrame {
     private SpelController controller;
     private JPanel main, gameMode;
-    private JButton moveMode, timeMode, endlessMode, settings, about;
+    private JButton moveMode, settings, about;
+    JLabel timeMode, endlessMode;
     private JLabel banner, highscore;
 
     public GUIStartScreen(SpelController controller) throws HeadlessException {
@@ -29,9 +32,19 @@ public class GUIStartScreen extends JFrame {
     }
 
     private void MakeComponents() {
+        //timeMode = new JButton("Timed");
+        //endlessMode = new JButton("Endless");
+
+        ImageIcon iconTimed = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/btnTimed.png"));
+        timeMode = new JLabel("Timed mode",JLabel.CENTER);
+        timeMode.setIcon(iconTimed);
+
+        ImageIcon iconEndless = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/btnInfinity.png"));
+        endlessMode = new JLabel("Endless mode", JLabel.CENTER);
+        endlessMode.setIcon(iconEndless);
+
         moveMode = new JButton("Moves");
-        timeMode = new JButton("Timed");
-        endlessMode = new JButton("Endless");
+
         banner = new JLabel("Dots");
         banner.setForeground(new Color(83,93,245));
         banner.setHorizontalAlignment(SwingConstants.HORIZONTAL);
@@ -46,9 +59,7 @@ public class GUIStartScreen extends JFrame {
             genv.registerFont(font);
             font = font.deriveFont(120f);
             banner.setFont(font);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch(FontFormatException e) {
+        } catch (IOException|FontFormatException e) {
             e.printStackTrace();
         }
 
@@ -56,18 +67,37 @@ public class GUIStartScreen extends JFrame {
 
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
-        gameMode = new JPanel(new GridLayout(2,2));
+        gameMode = new JPanel(new GridLayout(1,2));
         main.setBackground(Color.white);
         gameMode.setBackground(Color.white);
         gameMode.add(timeMode);
-        gameMode.add(moveMode);
+        //gameMode.add(moveMode);
         gameMode.add(endlessMode);
         main.add(banner, BorderLayout.NORTH);
         main.add(gameMode, BorderLayout.CENTER);
         super.add(main);
+        super.revalidate();
     }
 
     private void MakeEventListener() {
+        timeMode.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("Debug info - Time mode selected");
+                setVisible(false);
+                controller.startSpel();
+            }
+        });
+
+        endlessMode.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("Debug info - Endless mode selected");
+                setVisible(false);
+                controller.startSpel();
+            }
+        });
+        /*
         timeMode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,7 +111,7 @@ public class GUIStartScreen extends JFrame {
                 setVisible(false);
                 controller.startSpel();
             }
-        });
+        });*/
     }
 
 

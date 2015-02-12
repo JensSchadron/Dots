@@ -65,7 +65,7 @@ public class GUIGrid extends JPanel {
         for (int i = 0; i < dotUI.length; i++) {
             gbc.gridx = i%6;
             gbc.gridy = i/6;
-            System.out.println("Cell x: " + gbc.gridx + " Cell y: " + gbc.gridy);
+            //System.out.println("Debug info - Cell x: " + gbc.gridx + " Cell y: " + gbc.gridy);
             super.add(dotUI[i],gbc);
         }
 
