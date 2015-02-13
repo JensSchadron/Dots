@@ -23,6 +23,7 @@ public class GUIStartScreen extends JFrame {
     public GUIStartScreen(SpelController controller) throws HeadlessException {
         super("Dots Game");
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLocationRelativeTo(this);
         this.controller = controller;
         MakeComponents();
         MakeLayout();
