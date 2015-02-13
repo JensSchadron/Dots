@@ -16,7 +16,7 @@ public class DotUI extends Ellipse2D.Double {
 
     private double x;
     private double y;
-    private double diameter = MIN_DIAMETER;
+    private double diameter;
 
     public DotUI(double x, double y) {
         super(x, y, MIN_DIAMETER, MIN_DIAMETER);
@@ -26,7 +26,6 @@ public class DotUI extends Ellipse2D.Double {
     }
 
     public void toggleDiameter() {
-        System.out.println("Trying to toggle diameter");
         this.diameter = (this.diameter == MAX_DIAMETER) ? MIN_DIAMETER : MAX_DIAMETER;
         this.x = (this.diameter == MAX_DIAMETER) ? this.x - 5 : this.x + 5;
         this.y = (this.diameter == MAX_DIAMETER) ? this.y - 5 : this.y + 5;

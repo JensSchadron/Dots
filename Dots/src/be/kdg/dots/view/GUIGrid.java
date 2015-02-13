@@ -21,44 +21,29 @@ public class GUIGrid extends JPanel {
 
     private ArrayList<DotUI> dotUI;
     private SpelController controller;
-    //private GridBagConstraints gbc;
-
 
     public GUIGrid(SpelController controller) throws HeadlessException {
-        /*super.setLayout(new GridBagLayout());
-        gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.NONE;*/
+        super.setOpaque(true);
+        super.setBackground(Color.BLUE);
+
 
         this.controller = controller;
         this.dotIndex = -1;
         this.dotIndexAmount = 0;
 
         makeComponents(controller.getVeld());
-        makeLayout();
         makeEventListener();
     }
 
     protected void makeComponents(Veld veld) {
         dotUI = new ArrayList<>(controller.getColum() * controller.getRow());
-        double width = -((this.getWidth()-DotUI.getMaxDiameter()*controller.getColum()))/2;
-        double height = -((this.getHeight()-DotUI.getMaxDiameter()*controller.getRow()))/2;
+        double width = -((this.getWidth() - DotUI.getMaxDiameter() * controller.getColum())) / 2;
+        double height = -((this.getHeight() - DotUI.getMaxDiameter() * controller.getRow())) / 2;
 
         for (int i = 0; i < veld.getVeld().size(); i++) {
             dotUI.add(new DotUI(width + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i % GUIGrid.this.controller.getColum()), height + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i / GUIGrid.this.controller.getRow()))); //Bevat een array van dotUI objecten met kleur en grootte
         }
         repaint();
-    }
-
-    private void makeLayout() {
-        //TODO: Maak een dot a.d.h van de array uit de klasse veld d.m.v drawOval
-
-        /*for (int i = 0; i < dotUI.size(); i++) {
-            gbc.gridx = i%6;
-            gbc.gridy = i/6;
-            //System.out.println("Debug info - Cell x: " + gbc.gridx + " Cell y: " + gbc.gridy);
-            super.add(dotUI.get(i),gbc);
-        }*/
-
     }
 
     @Override
@@ -73,9 +58,6 @@ public class GUIGrid extends JPanel {
             g2d.fill(dot);
         }
     }
-    /*private Graphics MakeDot(Graphics g){
-        return g.drawOval(0,0,10,10);
-    }*/
 
     private void makeEventListener() {
         this.addMouseListener(new MouseAdapter() {
@@ -97,24 +79,30 @@ public class GUIGrid extends JPanel {
 
                 for (int i = 0; i < dotUI.size(); i++) {
                     if (dotUI.get(i).contains(e.getX(), e.getY())) {
+                        if (dotIndex != i) {
+                            if (dotIndex != -1) {
+                                System.out.println("Debug info - Mouse exit detected on dot " + dotIndex);
+                                dotUI.get(dotIndex).toggleDiameter();
+                                dotIndexAmount = 0;
+                            }
+                        }
                         dotIndex = i;
                         dotIndexAmount++;
                         break;
                     }
-                    if (!dotUI.get(i).contains(e.getX(), e.getY()) && i == dotUI.size()-1) {
-                        if(dotIndex!=-1) {
+                    if (!dotUI.get(i).contains(e.getX(), e.getY()) && i == dotUI.size() - 1) {
+                        if (dotIndex != -1) {
                             System.out.println("Debug info - Mouse exit detected on dot " + dotIndex);
                             dotUI.get(dotIndex).toggleDiameter();
                         }
                         dotIndex = -1;
                         dotIndexAmount = 0;
-                        GUIGrid.this.repaint();
+                        repaint();
                     }
                 }
                 if (dotIndex != -1 && dotIndexAmount == 1) {
                     System.out.println("Debug info - Mouse enter detected on dot " + dotIndex);
                     dotUI.get(dotIndex).toggleDiameter();
-                    GUIGrid.this.repaint();
                     repaint();
                 }
             }
@@ -123,20 +111,14 @@ public class GUIGrid extends JPanel {
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                double width = (GUIGrid.this.getWidth()-(DotUI.getMaxDiameter()*GUIGrid.this.controller.getColum()))/2;
-                double height = (GUIGrid.this.getHeight()-(DotUI.getMaxDiameter()*GUIGrid.this.controller.getRow()))/2;
-                System.out.printf("Panel width: %f - Panel height: %f\n",width,height);
+                double width = (GUIGrid.this.getWidth() - (DotUI.getMaxDiameter() * controller.getColum())) / 2;
+                double height = (GUIGrid.this.getHeight() - (DotUI.getMaxDiameter() * controller.getRow())) / 2;
 
                 for (int i = 0; i < dotUI.size(); i++) {
-                    //System.out.println(dotUI.get(i).getX() + ", " + dotUI.get(i).getY());
-                    dotUI.get(i).updateXY(width + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i % GUIGrid.this.controller.getColum()), height + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i / GUIGrid.this.controller.getRow()));
-                    //System.out.println(dotUI.get(i).getX() + ", " + dotUI.get(i).getY());
-                }
-                //GUIGrid.this.repaint();
-                repaint();
 
-                //dotUI.clear();
-                //makeComponents(controller.getVeld());
+                    dotUI.get(i).updateXY(width + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i % GUIGrid.this.controller.getColum()), height + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i / GUIGrid.this.controller.getRow()));
+                }
+                repaint();
             }
         });
 
