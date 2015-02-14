@@ -1,8 +1,6 @@
 package be.kdg.dots.view;
 
-import be.kdg.dots.model.DotKleur;
 
-import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
 /**
@@ -74,22 +72,4 @@ public class DotUI extends Ellipse2D.Double {
         return AFSTAND_TUSSEN_DOTS;
     }
 
-    /*  private DotKleur kleur;
-    private static final Dimension dimension = new Dimension(MAX_SIZE, MAX_SIZE);
-
-    public DotUI(DotKleur kleur) {
-        this.x = 5;
-        this.y = 5;
-        this.diameter = MIN_SIZE;
-        this.kleur = kleur;
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(new Color(kleur.getRood(), kleur.getGroen(), kleur.getBlauw()));
-        g2d.fillOval(this.x, this.y, diameter, diameter);
-    }*/
 }

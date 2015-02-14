@@ -13,19 +13,29 @@ import java.util.ArrayList;
 /**
  * Created by alexander on 4/02/2015.
  */
-public class GUIGrid extends JPanel {
 
+public class GUIGrid extends JPanel {
     //Todo: De bedoeling om de grid waar de dots op komen in deze klasse op een panel te zetten.
+    //Variabelen nodig om dots te resizen als erover gehoverd wordt
     private int dotIndex;
     private int dotIndexAmount;
+
+    //Variabelen nodig om een lijn te tekenen tussen dots
+    private ArrayList<LijnUI> lijnUI;
+    private double x0;
+    private double y0;
+    private double x1;
+    private double y1;
+    private Color dotKleur;
 
     private ArrayList<DotUI> dotUI;
     private SpelController controller;
 
     public GUIGrid(SpelController controller) throws HeadlessException {
-        super.setOpaque(true);
-        super.setBackground(Color.BLUE);
+        setOpaque(false);
+        setBackground(Color.BLUE);
 
+        lijnUI = new ArrayList<>();
 
         this.controller = controller;
         this.dotIndex = -1;
@@ -37,13 +47,18 @@ public class GUIGrid extends JPanel {
 
     protected void makeComponents(Veld veld) {
         dotUI = new ArrayList<>(controller.getColum() * controller.getRow());
-        double width = -((this.getWidth() - DotUI.getMaxDiameter() * controller.getColum())) / 2;
-        double height = -((this.getHeight() - DotUI.getMaxDiameter() * controller.getRow())) / 2;
+
+        double width = (this.getWidth() - (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * controller.getColum()) / 2;
+        double height = (this.getHeight() - (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * controller.getRow()) / 2;
 
         for (int i = 0; i < veld.getVeld().size(); i++) {
             dotUI.add(new DotUI(width + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i % GUIGrid.this.controller.getColum()), height + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i / GUIGrid.this.controller.getRow()))); //Bevat een array van dotUI objecten met kleur en grootte
         }
         repaint();
+    }
+
+    private void tekenLijn(double x0, double y0, double x1, double y1, Color lijnKleur) {
+
     }
 
     @Override
@@ -57,15 +72,37 @@ public class GUIGrid extends JPanel {
             g2d.setColor(new Color(dotKleur.getRood(), dotKleur.getGroen(), dotKleur.getBlauw()));
             g2d.fill(dot);
         }
+        if (lijnUI.size() != 0) {
+            g2d.setColor(dotKleur);
+            g2d.setStroke(new BasicStroke(5,BasicStroke.CAP_ROUND,BasicStroke.JOIN_MITER));
+            for (int i = 0; i < lijnUI.size(); i++) {
+                g2d.draw(lijnUI.get(i));
+            }
+        }
     }
 
     private void makeEventListener() {
         this.addMouseListener(new MouseAdapter() {
             @Override
+            public void mousePressed(MouseEvent e) {
+                for (int i = 0; i < dotUI.size(); i++) {
+                    if (dotUI.get(i).contains(e.getX(), e.getY())) {
+                        System.out.println("Debug info - Mouse press detected on dot " + i);
+                        GUIGrid.this.x0 = dotUI.get(i).getCenterX();
+                        GUIGrid.this.y0 = dotUI.get(i).getCenterY();
+                        DotKleur kleur = controller.getVeld().getVeld().get(i).getDotKleur();
+                        GUIGrid.this.dotKleur = new Color(kleur.getRood(), kleur.getGroen(), kleur.getBlauw());
+                    }
+                }
+            }
+
+            @Override
             public void mouseReleased(MouseEvent e) {
                 for (int i = 0; i < dotUI.size(); i++) {
                     if (dotUI.get(i).contains(e.getX(), e.getY())) {
                         System.out.println("Debug info - Mouse release detected on dot " + i);
+                        GUIGrid.this.lijnUI.clear();
+                        repaint();
                     }
                 }
             }
@@ -106,55 +143,39 @@ public class GUIGrid extends JPanel {
                     repaint();
                 }
             }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                mouseMoved(e);
+                for (int i = 0; i < dotUI.size(); i++) {
+                    if (dotUI.get(i).contains(e.getX(), e.getY())) {
+                        System.out.println("Debug info - Mouse drag detected to dot " + i);
+                        DotKleur kleur = controller.getVeld().getVeld().get(i).getDotKleur();
+                        if (dotKleur.equals(new Color(kleur.getRood(), kleur.getGroen(), kleur.getBlauw()))) {
+                            GUIGrid.this.x1 = dotUI.get(i).getCenterX();
+                            GUIGrid.this.y1 = dotUI.get(i).getCenterY();
+                            lijnUI.add(new LijnUI(x0, y0, x1, y1));
+                            x0 = x1;
+                            y0 = y1;
+                            repaint();
+                        }
+                    }
+                }
+            }
         });
 
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                double width = (GUIGrid.this.getWidth() - (DotUI.getMaxDiameter() * controller.getColum())) / 2;
-                double height = (GUIGrid.this.getHeight() - (DotUI.getMaxDiameter() * controller.getRow())) / 2;
+                double width = (GUIGrid.this.getWidth() - (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * controller.getColum()) / 2;
+                double height = (GUIGrid.this.getHeight() - (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * controller.getRow()) / 2;
 
                 for (int i = 0; i < dotUI.size(); i++) {
-
                     dotUI.get(i).updateXY(width + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i % GUIGrid.this.controller.getColum()), height + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i / GUIGrid.this.controller.getRow()));
                 }
                 repaint();
             }
         });
-
-            /*this.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouse(MouseEvent e) {
-                    if (dotUI.get(i2).contains(e.getX(), e.getY())){
-                        System.out.println("Debug info - Mouse enter detected on dot " + i2);
-                        dotUI.get(i2).toggleDiameter();
-                        repaint();
-                    }
-                }
-            });*/
-
-            /*
-            dotUI.get(i).addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    System.out.println("Debug: Geklikt op dot " + i2);
-                    dotUI[i2].removeMouseListener(this);
-                    dotUI[i2] = null;
-                    controller.getVeld().getVeld().remove(i2);
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    dotUI.get(i2).toggleDiameter();
-                    dotUI.get(i2).repaint();
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    dotUI.get(i2).toggleDiameter();
-                    dotUI.get(i2).repaint();
-                }
-            });*/
     }
 
 }

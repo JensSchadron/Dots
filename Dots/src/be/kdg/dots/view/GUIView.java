@@ -25,7 +25,7 @@ public class GUIView extends JFrame{
         MakeComponents();
         MakeLayout();
         MakeEventListener();
-        super.setSize(380, 420);
+        super.setSize(500, 500);
         super.setVisible(true);
     }
 
