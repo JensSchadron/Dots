@@ -22,10 +22,10 @@ public class GUIGrid extends JPanel {
 
     //Variabelen nodig om een lijn te tekenen tussen dots
     private ArrayList<LijnUI> lijnUI;
-    private double x0;
+    /*private double x0;
     private double y0;
     private double x1;
-    private double y1;
+    private double y1;*/
     private Color dotKleur;
 
     private ArrayList<DotUI> dotUI;
@@ -48,17 +48,13 @@ public class GUIGrid extends JPanel {
     protected void makeComponents(Veld veld) {
         dotUI = new ArrayList<>(controller.getColum() * controller.getRow());
 
-        double width = (this.getWidth() - (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * controller.getColum()) / 2;
-        double height = (this.getHeight() - (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * controller.getRow()) / 2;
+        double width = (this.getWidth() - (DotUI.getAfstandTussenDots() * (controller.getColum() - 1) + DotUI.getMaxDiameter() * controller.getColum())) / 2;
+        double height = (this.getHeight() - (DotUI.getAfstandTussenDots() * (controller.getColum() - 1) + DotUI.getMaxDiameter() * controller.getRow())) / 2;
 
         for (int i = 0; i < veld.getVeld().size(); i++) {
             dotUI.add(new DotUI(width + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i % GUIGrid.this.controller.getColum()), height + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i / GUIGrid.this.controller.getRow()))); //Bevat een array van dotUI objecten met kleur en grootte
         }
         repaint();
-    }
-
-    private void tekenLijn(double x0, double y0, double x1, double y1, Color lijnKleur) {
-
     }
 
     @Override
@@ -74,7 +70,7 @@ public class GUIGrid extends JPanel {
         }
         if (lijnUI.size() != 0) {
             g2d.setColor(dotKleur);
-            g2d.setStroke(new BasicStroke(5,BasicStroke.CAP_ROUND,BasicStroke.JOIN_MITER));
+            g2d.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
             for (int i = 0; i < lijnUI.size(); i++) {
                 g2d.draw(lijnUI.get(i));
             }
@@ -88,8 +84,7 @@ public class GUIGrid extends JPanel {
                 for (int i = 0; i < dotUI.size(); i++) {
                     if (dotUI.get(i).contains(e.getX(), e.getY())) {
                         System.out.println("Debug info - Mouse press detected on dot " + i);
-                        GUIGrid.this.x0 = dotUI.get(i).getCenterX();
-                        GUIGrid.this.y0 = dotUI.get(i).getCenterY();
+                        controller.getVeld().voegConnectedDotToe(i);
                         DotKleur kleur = controller.getVeld().getVeld().get(i).getDotKleur();
                         GUIGrid.this.dotKleur = new Color(kleur.getRood(), kleur.getGroen(), kleur.getBlauw());
                     }
@@ -101,10 +96,12 @@ public class GUIGrid extends JPanel {
                 for (int i = 0; i < dotUI.size(); i++) {
                     if (dotUI.get(i).contains(e.getX(), e.getY())) {
                         System.out.println("Debug info - Mouse release detected on dot " + i);
-                        GUIGrid.this.lijnUI.clear();
-                        repaint();
                     }
                 }
+                GUIGrid.this.lijnUI.clear();
+                controller.getVeld().clearConnectedDots();
+                GUIGrid.this.repaint();
+                System.out.println("Mouse release detected");
             }
         });
 
@@ -152,12 +149,14 @@ public class GUIGrid extends JPanel {
                         System.out.println("Debug info - Mouse drag detected to dot " + i);
                         DotKleur kleur = controller.getVeld().getVeld().get(i).getDotKleur();
                         if (dotKleur.equals(new Color(kleur.getRood(), kleur.getGroen(), kleur.getBlauw()))) {
-                            GUIGrid.this.x1 = dotUI.get(i).getCenterX();
-                            GUIGrid.this.y1 = dotUI.get(i).getCenterY();
-                            lijnUI.add(new LijnUI(x0, y0, x1, y1));
-                            x0 = x1;
-                            y0 = y1;
-                            repaint();
+                            controller.getVeld().voegConnectedDotToe(i);
+                            ArrayList connectedDots = controller.getVeld().getConnectedDots();
+                            if(connectedDots.size()>=2) {
+                                int indexDot1 = (int) connectedDots.get(connectedDots.size() - 2);
+                                int indexDot2 = (int) connectedDots.get(connectedDots.size() - 1);
+                                lijnUI.add(new LijnUI(dotUI.get(indexDot1).getCenterX(), dotUI.get(indexDot1).getCenterY(), dotUI.get(indexDot2).getCenterX(), dotUI.get(indexDot2).getCenterY()));
+                                repaint();
+                            }
                         }
                     }
                 }
@@ -167,8 +166,8 @@ public class GUIGrid extends JPanel {
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                double width = (GUIGrid.this.getWidth() - (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * controller.getColum()) / 2;
-                double height = (GUIGrid.this.getHeight() - (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * controller.getRow()) / 2;
+                double width = (GUIGrid.this.getWidth() - (DotUI.getAfstandTussenDots() * (controller.getColum() - 1) + DotUI.getMaxDiameter() * controller.getColum())) / 2;
+                double height = (GUIGrid.this.getHeight() - (DotUI.getAfstandTussenDots() * (controller.getColum() - 1) + DotUI.getMaxDiameter() * controller.getRow())) / 2;
 
                 for (int i = 0; i < dotUI.size(); i++) {
                     dotUI.get(i).updateXY(width + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i % GUIGrid.this.controller.getColum()), height + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i / GUIGrid.this.controller.getRow()));
@@ -177,5 +176,4 @@ public class GUIGrid extends JPanel {
             }
         });
     }
-
 }
