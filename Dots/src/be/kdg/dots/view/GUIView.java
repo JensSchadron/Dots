@@ -4,8 +4,6 @@ import be.kdg.dots.controller.SpelController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by alexander on 4/02/2015.
