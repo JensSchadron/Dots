@@ -1,9 +1,6 @@
 package be.kdg.dots.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Created by alexander on 4/02/2015.
@@ -11,6 +8,7 @@ import java.util.TreeSet;
 public class Veld {
     private ArrayList<Dot> rooster;
     private ArrayList<Integer> connectedDots;
+    private final int[] dotIndexCheck = new int[8];
     private final int row;
     private final int colum;
 
@@ -19,7 +17,20 @@ public class Veld {
         this.colum = colum;
         this.rooster = new ArrayList<>(this.row * this.colum);
         this.connectedDots = new ArrayList<>();
+        vuldotIndexCheck();
         vulVeld();
+    }
+
+    public void vuldotIndexCheck() {
+        dotIndexCheck[0] = -this.colum - 1;
+        dotIndexCheck[1] = -this.colum;
+        dotIndexCheck[2] = -this.colum + 1;
+        dotIndexCheck[3] = -1;
+        dotIndexCheck[4] = 1;
+        dotIndexCheck[5] = this.colum - 1;
+        dotIndexCheck[6] = this.colum;
+        dotIndexCheck[7] = this.colum + 1;
+        //dotIndexCheck = {-this.colum-1, -this.colum, -this.colum, -1, 1, this.colum + 5, this.colum + 6, this.colum + 7};
     }
 
     public void vulVeld() {
@@ -41,8 +52,19 @@ public class Veld {
     }
 
     public void voegConnectedDotToe(int index) {
-        if (!connectedDots.contains(index))
-            connectedDots.add(index);
+        if (!connectedDots.contains(index)) {
+            if (connectedDots.size() > 0) {
+                int lastDotIndex = connectedDots.get(connectedDots.size() - 1);
+                for (int dotIndex : dotIndexCheck) {
+                    if (lastDotIndex + dotIndex == index) {
+                        connectedDots.add(index);
+                        break;
+                    }
+                }
+            } else {
+                connectedDots.add(index);
+            }
+        }
     }
 
     public ArrayList<Integer> getConnectedDots() {
@@ -51,25 +73,24 @@ public class Veld {
 
     public void clearConnectedDots() {
         if (connectedDots.size() >= 2) {
-            for (int index = 0; index < connectedDots.size(); index++) {
-                rooster.set(connectedDots.get(index), null);
+            for (Integer connectedDot : connectedDots) {
+                rooster.set(connectedDot.intValue(), null);
             }
         }
 
         for (int i = this.row * this.colum - 1; i > -1; i--) {
-            Object dotOrNull = rooster.get(i);
+            Dot dotOrNull = rooster.get(i);
             if (dotOrNull == null) {
-                Dot dot = null;
-                for (int j = i; j > -1; j -= 6) {
+                for (int j = i; j >= 0 && dotOrNull == null; j -= this.colum) {
                     if (rooster.get(j) != null) {
-                        dot = rooster.get(j);
+                        dotOrNull = rooster.get(j);
                         rooster.set(j, null);
                     }
                 }
-                if (dot == null) {
-                    dot = new Dot();
+                if (dotOrNull == null) {
+                    dotOrNull = new Dot();
                 }
-                rooster.set(i, dot);
+                rooster.set(i, dotOrNull);
             }
         }
         connectedDots.clear();

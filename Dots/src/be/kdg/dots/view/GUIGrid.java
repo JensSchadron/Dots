@@ -62,19 +62,21 @@ public class GUIGrid extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //Teken dot(s)
         for (int i = 0; i < dotUI.size(); i++) {
             DotUI dot = dotUI.get(i);
             DotKleur dotKleur = controller.getVeld().getVeld().get(i).getDotKleur();
             g2d.setColor(new Color(dotKleur.getRood(), dotKleur.getGroen(), dotKleur.getBlauw()));
             g2d.fill(dot);
         }
-        if (lijnUI.size() != 0) {
-            g2d.setColor(dotKleur);
-            g2d.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
-            for (int i = 0; i < lijnUI.size(); i++) {
-                g2d.draw(lijnUI.get(i));
-            }
+
+        //Teken lijn(en)
+        g2d.setColor(dotKleur);
+        g2d.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+        for (LijnUI lijn : lijnUI) {
+            g2d.draw(lijn);
         }
+
     }
 
     private void makeEventListener() {
@@ -100,7 +102,7 @@ public class GUIGrid extends JPanel {
                 }
                 GUIGrid.this.lijnUI.clear();
                 controller.getVeld().clearConnectedDots();
-                GUIGrid.this.repaint();
+                repaint();
                 System.out.println("Mouse release detected");
             }
         });
@@ -151,7 +153,7 @@ public class GUIGrid extends JPanel {
                         if (dotKleur.equals(new Color(kleur.getRood(), kleur.getGroen(), kleur.getBlauw()))) {
                             controller.getVeld().voegConnectedDotToe(i);
                             ArrayList connectedDots = controller.getVeld().getConnectedDots();
-                            if(connectedDots.size()>=2) {
+                            if (connectedDots.size() >= 2) {
                                 int indexDot1 = (int) connectedDots.get(connectedDots.size() - 2);
                                 int indexDot2 = (int) connectedDots.get(connectedDots.size() - 1);
                                 lijnUI.add(new LijnUI(dotUI.get(indexDot1).getCenterX(), dotUI.get(indexDot1).getCenterY(), dotUI.get(indexDot2).getCenterX(), dotUI.get(indexDot2).getCenterY()));

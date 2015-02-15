@@ -50,10 +50,6 @@ public class DotUI extends Ellipse2D.Double {
         return y;
     }
 
-    public double getDiameter() {
-        return diameter;
-    }
-
     @Override
     public double getHeight() {
         return diameter;
