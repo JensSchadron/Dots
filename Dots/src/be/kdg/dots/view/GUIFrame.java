@@ -10,19 +10,18 @@ import java.awt.*;
  */
 public class GUIFrame extends JFrame{
     private SpelController controller;
-    private JPanel panel;
 
-    public GUIFrame(SpelController controller, JPanel panel) throws HeadlessException {
+    public GUIFrame(SpelController controller) throws HeadlessException {
         super("Dots");
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.controller = controller;
-        this.panel = panel;
-        MakeComponents();
         super.setSize(500, 500);
         super.setVisible(true);
     }
 
-    private void MakeComponents() {
-        super.add(panel);
+    public void updateFrame(JPanel panel){
+        super.removeAll();
+        super.add(panel, BorderLayout.CENTER);
+        super.validate();
     }
 }

@@ -26,6 +26,8 @@ public class SpelController{
     private int aantalSeconden;
 
     public SpelController() {
+        guiFrame = new GUIFrame(this);
+        guiHoofdMenu = new GUIHoofdMenu(this);
         veld = new Veld(6, 6);
         highscore = new Highscore();
         timer = new Timer(1000, new ActionListener() {
@@ -38,7 +40,7 @@ public class SpelController{
                 System.out.println("Debug info - Time: " + aantalSeconden);
             }
         });
-        guiFrame = new GUIFrame(this, new GUIHoofdMenu(this));
+        guiFrame.updateFrame(guiHoofdMenu);
 
         /*debugTimer = new Timer(500, new ActionListener() {
             @Override
@@ -62,7 +64,7 @@ public class SpelController{
 
     public void startSpel(){
         aantalSeconden = MAX_AANTAL_SECONDEN;
-        guiFrame = new GUIFrame(this, new GUISpel(this));
+        guiFrame.updateFrame(guiSpel = new GUISpel(this));
         timer.start();
         //debugTimer.start();
     }

@@ -17,9 +17,7 @@ public class GUISpel extends JPanel {
     private SpelController controller;
 
     public GUISpel(SpelController controller) throws HeadlessException {
-        super("Dots");
         this.controller = controller;
-        super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         MakeComponents();
         MakeLayout();
         MakeEventListener();
@@ -46,7 +44,8 @@ public class GUISpel extends JPanel {
         gridSouth.add(lblTime);
         gamePanel.add(gridSouth, BorderLayout.SOUTH);
         gamePanel.add(gridGame, BorderLayout.CENTER);
-        super.add(gamePanel);
+        super.add(gamePanel, BorderLayout.CENTER);
+        super.revalidate();
     }
 
     private void MakeEventListener() {

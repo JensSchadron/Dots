@@ -23,7 +23,6 @@ public class GUIHoofdMenu extends JPanel {
         MakeComponents();
         MakeLayout();
         MakeEventListener();
-        super.setSize(400, 300);
         super.setVisible(true);
     }
 
