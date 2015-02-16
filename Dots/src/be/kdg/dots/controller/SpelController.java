@@ -2,7 +2,6 @@ package be.kdg.dots.controller;
 
 import be.kdg.dots.model.highscore.Highscore;
 import be.kdg.dots.model.veld.Veld;
-import be.kdg.dots.view.GUIFrame;
 import be.kdg.dots.view.GUIHoofdMenu;
 import be.kdg.dots.view.GUISpel;
 
@@ -19,7 +18,6 @@ public class SpelController{
     private Timer timer, debugTimer;
     private GUIHoofdMenu guiHoofdMenu;
     private GUISpel guiSpel;
-    private GUIFrame guiFrame;
 
     //Timer attributen
     private static final int MAX_AANTAL_SECONDEN = 45;
@@ -38,8 +36,7 @@ public class SpelController{
                 System.out.println("Debug info - Time: " + aantalSeconden);
             }
         });
-
-        guiFrame = new GUIFrame(this, guiHoofdMenu = new GUIHoofdMenu(this));
+        guiHoofdMenu = new GUIHoofdMenu(this);
 
         /*debugTimer = new Timer(500, new ActionListener() {
             @Override
@@ -63,7 +60,7 @@ public class SpelController{
 
     public void startSpel(){
         aantalSeconden = MAX_AANTAL_SECONDEN;
-        guiFrame = new GUIFrame(this, guiSpel = new GUISpel(this));
+        guiSpel = new GUISpel(this,true);
         timer.start();
         //debugTimer.start();
     }

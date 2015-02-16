@@ -42,7 +42,7 @@ public class HighScoreIO {
     }
 
     public void saveHighScores(String highScores) {
-        //Files.write(filePath, encodeHighScore(highScores), Charset.defaultCharset());
+        Files.write(filePath, encodeHighScore(highScores), Charset.defaultCharset());
     }
 
     public String loadHighScores() {
@@ -64,7 +64,7 @@ public class HighScoreIO {
         try {
             decodedString = new String(Base64.getDecoder().decode(encodedHighScores));
         } catch (IllegalArgumentException e) {
-            decodedString = "You tried to cheat, you little bastard! :p";
+            decodedString = "You tried to cheat, you little bastard";
         }
         return decodedString;
     }
