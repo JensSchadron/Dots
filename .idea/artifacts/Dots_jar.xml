@@ -3,6 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Dots_jar</output-path>
     <root id="archive" name="Dots.jar">
       <element id="module-output" name="Dots" />
+      <element id="dir-copy" path="$PROJECT_DIR$/Dots/src/be/kdg/dots/resources" />
     </root>
   </artifact>
 </component>

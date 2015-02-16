@@ -19,13 +19,10 @@ public class GUIGrid extends JPanel {
     //Variabelen nodig om dots te resizen als erover gehoverd wordt
     private int dotIndex;
     private int dotIndexAmount;
+    private MouseMotionListener[] listeners;
 
     //Variabelen nodig om een lijn te tekenen tussen dots
     private ArrayList<LijnUI> lijnUI;
-    /*private double x0;
-    private double y0;
-    private double x1;
-    private double y1;*/
     private Color dotKleur;
 
     private ArrayList<DotUI> dotUI;
@@ -104,6 +101,11 @@ public class GUIGrid extends JPanel {
                 controller.getVeld().clearConnectedDots();
                 repaint();
                 System.out.println("Mouse release detected");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
             }
         });
 

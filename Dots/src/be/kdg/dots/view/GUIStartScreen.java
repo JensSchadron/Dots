@@ -4,8 +4,6 @@ import be.kdg.dots.controller.SpelController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -36,18 +34,20 @@ public class GUIStartScreen extends JFrame {
         //timeMode = new JButton("Timed");
         //endlessMode = new JButton("Endless");
 
-        ImageIcon iconTimed = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/btnTimed.png"));
-        timeMode = new JLabel("Timed mode",JLabel.CENTER);
-        timeMode.setIcon(iconTimed);
 
-        ImageIcon iconEndless = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/btnInfinity.png"));
+        ///be/kdg/dots/resources/
+        ImageIcon iconTimed = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png"));
+        timeMode = new JLabel("Timed mode", JLabel.CENTER);
+        timeMode.setIcon(iconTimed);
+        ///be/kdg/dots/resources/
+        ImageIcon iconEndless = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png"));
         endlessMode = new JLabel("Endless mode", JLabel.CENTER);
         endlessMode.setIcon(iconEndless);
 
         moveMode = new JButton("Moves");
 
         banner = new JLabel("Dots");
-        banner.setForeground(new Color(83,93,245));
+        banner.setForeground(new Color(83, 93, 245));
         banner.setHorizontalAlignment(SwingConstants.HORIZONTAL);
         /*moveMode.setBorder(new RoundedBorder(20));
         moveMode.setBackground(new Color(45, 24, 185));
@@ -55,12 +55,13 @@ public class GUIStartScreen extends JFrame {
         moveMode.setFocusPainted(false);*/
 
         try {
-            Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("../fonts/dotness.ttf").openStream());
+            //../fonts/
+            Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/be/kdg/dots/resources/fonts/dotness.ttf").openStream());
             GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             genv.registerFont(font);
             font = font.deriveFont(120f);
             banner.setFont(font);
-        } catch (IOException|FontFormatException e) {
+        } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
 
@@ -68,7 +69,7 @@ public class GUIStartScreen extends JFrame {
 
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
-        gameMode = new JPanel(new GridLayout(1,2));
+        gameMode = new JPanel(new GridLayout(1, 2));
         main.setBackground(Color.white);
         gameMode.setBackground(Color.white);
         gameMode.add(timeMode);

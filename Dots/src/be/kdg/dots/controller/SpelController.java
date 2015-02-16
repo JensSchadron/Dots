@@ -32,7 +32,7 @@ public class SpelController{
                     timer.stop();
                 }
                 guiView.updateTimer(--aantalSeconden);
-                System.out.println("Time: " + aantalSeconden); //DEBUG INFO
+                System.out.println("Debug info - Time: " + aantalSeconden);
             }
         });
         guiStartScreen = new GUIStartScreen(this);
