@@ -8,17 +8,20 @@ import java.awt.*;
 /**
  * Created by alexander on 4/02/2015.
  */
-public class GUIView extends JFrame{
+public class GUISpel extends JFrame{
 
     private JPanel gamePanel, gridSouth;
     private GUIGrid gridGame;
     private JLabel lblLevel, lblScore, lblTime;
     private JButton btnMenu;
     private SpelController controller;
+    private boolean visible;
+    private GUIHoofdMenu startScreen;
 
-    public GUIView(SpelController controller) throws HeadlessException {
+    public GUISpel(SpelController controller, boolean visible) throws HeadlessException {
         super("Dots");
         this.controller = controller;
+        this.visible = visible;
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         MakeComponents();
         MakeLayout();
@@ -36,17 +39,27 @@ public class GUIView extends JFrame{
     }
 
     private void MakeLayout() {
-        gamePanel = new JPanel(new BorderLayout());
-        gridSouth = new JPanel(new GridLayout());
-        gamePanel.setBackground(Color.white);
-        gridSouth.setBackground(Color.white);
-        gridGame.setBackground(Color.white);
-        gridSouth.add(lblLevel);
-        gridSouth.add(lblScore);
-        gridSouth.add(lblTime);
-        gamePanel.add(gridSouth, BorderLayout.SOUTH);
-        gamePanel.add(gridGame, BorderLayout.CENTER);
-        super.add(gamePanel);
+
+        if (visible == false){
+            startScreen = new GUIHoofdMenu(controller);
+            super.add(startScreen);
+        } else {
+            gamePanel = new JPanel(new BorderLayout());
+            gridSouth = new JPanel(new GridLayout());
+            gamePanel.setBackground(Color.white);
+            gridSouth.setBackground(Color.white);
+            gridGame.setBackground(Color.white);
+            gridSouth.add(lblLevel);
+            gridSouth.add(lblScore);
+            gridSouth.add(lblTime);
+            gamePanel.add(gridSouth, BorderLayout.SOUTH);
+            gamePanel.add(gridGame, BorderLayout.CENTER);
+            super.add(gamePanel);
+        }
+
+
+
+
     }
 
     private void MakeEventListener() {

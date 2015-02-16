@@ -11,17 +11,17 @@ import java.io.IOException;
 /**
  * Created by alexander on 4/02/2015.
  */
-public class GUIStartScreen extends JFrame {
+public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
     private JPanel main, gameMode;
     private JButton moveMode, settings, about;
     JLabel timeMode, endlessMode;
     private JLabel banner, highscore;
 
-    public GUIStartScreen(SpelController controller) throws HeadlessException {
-        super("Dots Game");
-        super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLocationRelativeTo(this);
+    public GUIHoofdMenu(SpelController controller) throws HeadlessException {
+        //super("Dots Game");
+        //super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        //setLocationRelativeTo(this);
         this.controller = controller;
         MakeComponents();
         MakeLayout();
@@ -64,7 +64,6 @@ public class GUIStartScreen extends JFrame {
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
-
     }
 
     private void MakeLayout() {

@@ -3,55 +3,98 @@
   <ID>JAVA</ID>
   <OriginalElement>be.kdg.dots</OriginalElement>
   <nodes>
-    <node x="-99.19146157019134" y="776.6753059260279">be.kdg.dots.view.DotUI</node>
-    <node x="102.0" y="966.0">be.kdg.dots.view.GUIView</node>
-    <node x="701.9829443447038" y="582.822262118492">be.kdg.dots.model.DotsException</node>
-    <node x="330.5" y="346.0">be.kdg.dots.model.Dot</node>
-    <node x="313.5" y="719.0">be.kdg.dots.controller.SpelController</node>
-    <node x="287.0" y="494.0">be.kdg.dots.model.Veld</node>
-    <node x="17.5" y="708.0">be.kdg.dots.view.GUIGrid</node>
-    <node x="178.0" y="1312.0">be.kdg.dots.view.GUIStartScreen</node>
-    <node x="281.5" y="0.0">be.kdg.dots.model.DotKleur</node>
+    <node x="304.6012396694215" y="0.0">be.kdg.dots.view.DotUI</node>
+    <node x="347.0" y="503.0">be.kdg.dots.view.GUIView</node>
+    <node x="0.0" y="1023.0">be.kdg.dots.model.DotsException</node>
+    <node x="970.6012396694214" y="0.0">be.kdg.dots.view.RoundedBorder</node>
+    <node x="731.6012396694215" y="301.0">be.kdg.dots.model.Dot</node>
+    <node x="272.8929063360881" y="735.0">be.kdg.dots.controller.SpelController</node>
+    <node x="642.6012396694215" y="426.0">be.kdg.dots.model.Veld</node>
+    <node x="392.46935261707983" y="312.5">be.kdg.dots.view.GUIGrid</node>
+    <node x="0.0" y="514.5">be.kdg.dots.view.GUIStartScreen</node>
+    <node x="305.8929063360881" y="926.0">Main</node>
+    <node x="239.0" y="525.5">be.kdg.dots.model.Highscore</node>
+    <node x="680.6012396694215" y="22.0">be.kdg.dots.model.DotKleur</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="be.kdg.dots.view.GUIView" target="be.kdg.dots.controller.SpelController">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.model.Highscore">
+      <point x="-40.18181818181819" y="-70.5" />
+      <point x="343.21108815426993" y="685.0" />
+      <point x="261.0" y="685.0" />
+      <point x="-22.0" y="15.0" />
     </edge>
-    <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.model.Veld">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="be.kdg.dots.view.GUIView" target="be.kdg.dots.controller.SpelController">
+      <point x="68.33333333333331" y="37.5" />
+      <point x="517.8333333333333" y="685.0" />
+      <point x="423.5747245179063" y="685.0" />
+      <point x="40.18181818181819" y="-70.5" />
     </edge>
     <edge source="be.kdg.dots.view.GUIView" target="be.kdg.dots.view.GUIGrid">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="51.25" y="-37.5" />
+      <point x="500.75" y="401.0" />
+      <point x="483.46935261707983" y="401.0" />
+      <point x="0.0" y="26.0" />
     </edge>
-    <edge source="be.kdg.dots.view.GUIGrid" target="be.kdg.dots.view.DotUI">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-    <edge source="be.kdg.dots.model.Dot" target="be.kdg.dots.model.DotKleur">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-    <edge source="be.kdg.dots.view.GUIStartScreen" target="be.kdg.dots.view.GUIView">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+    <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.view.GUIStartScreen">
+      <point x="-80.36363636363637" y="-70.5" />
+      <point x="303.02926997245174" y="705.0" />
+      <point x="109.5" y="705.0" />
+      <point x="0.0" y="26.0" />
     </edge>
     <edge source="be.kdg.dots.model.Veld" target="be.kdg.dots.model.Dot">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="-70.75" y="-114.5" />
+      <point x="713.3512396694215" y="401.0" />
+      <point x="757.8512396694215" y="401.0" />
+      <point x="-26.25" y="37.5" />
+    </edge>
+    <edge source="be.kdg.dots.view.GUIStartScreen" target="be.kdg.dots.controller.SpelController">
+      <point x="73.0" y="26.0" />
+      <point x="182.5" y="695.0" />
+      <point x="323.12017906336087" y="695.0" />
+      <point x="-60.27272727272725" y="-70.5" />
+    </edge>
+    <edge source="be.kdg.dots.view.GUIGrid" target="be.kdg.dots.controller.SpelController">
+      <point x="60.66666666666663" y="26.0" />
+      <point x="544.1360192837465" y="401.0" />
+      <point x="562.5" y="401.0" />
+      <point x="562.5" y="695.0" />
+      <point x="443.66563360881537" y="695.0" />
+      <point x="60.27272727272725" y="-70.5" />
+    </edge>
+    <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.model.Veld">
+      <point x="100.45454545454544" y="-70.5" />
+      <point x="483.84745179063356" y="715.0" />
+      <point x="854.8512396694215" y="715.0" />
+      <point x="70.75" y="114.5" />
+    </edge>
+    <edge source="be.kdg.dots.model.Dot" target="be.kdg.dots.model.DotKleur">
+      <point x="0.0" y="-37.5" />
+      <point x="0.0" y="103.5" />
+    </edge>
+    <edge source="be.kdg.dots.view.GUIGrid" target="be.kdg.dots.view.DotUI">
+      <point x="45.5" y="-26.0" />
+      <point x="528.9693526170798" y="276.0" />
+      <point x="571.6012396694215" y="276.0" />
+      <point x="89.0" y="125.5" />
+    </edge>
+    <edge source="Main" target="be.kdg.dots.controller.SpelController">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="70.5" />
+    </edge>
+    <edge source="be.kdg.dots.controller.SpelController" target="be.kdg.dots.view.GUIView">
+      <point x="0.0" y="-70.5" />
+      <point x="383.3929063360881" y="715.0" />
+      <point x="381.16666666666663" y="715.0" />
+      <point x="-68.33333333333331" y="37.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="0.9723262032085559" x="104.96878867042506" y="965.0661350199368" />
-  <SelectedNodes>
-    <node>be.kdg.dots.view.DotUI</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="0.6000000000000001" x="620.4999999999999" y="716.1666666666665" />
+  <SelectedNodes />
   <Categories>
-    <Category>Methods</Category>
-    <Category>Constructors</Category>
     <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
   </Categories>
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
