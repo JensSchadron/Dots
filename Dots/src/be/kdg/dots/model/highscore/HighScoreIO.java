@@ -25,12 +25,6 @@ public class HighScoreIO {
             e.printStackTrace();
         }
 
-        System.out.println(filePath);
-
-        //Encode / decode highscores
-        String originalString = "Hallo";
-        System.err.println(originalString);
-
         /*if(Files.exists(filePath)) {
             try {
                 highScores = Files.readAllLines(filePath);
@@ -42,7 +36,13 @@ public class HighScoreIO {
     }
 
     public void saveHighScores(String highScores) {
-        //Files.write(filePath, encodeHighScore(highScores), Charset.defaultCharset());
+        ArrayList<String> tmp = new ArrayList<String>();
+        tmp.add(encodeHighScore(highScores));
+        try {
+            Files.write(filePath, tmp, Charset.defaultCharset());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String loadHighScores() {
