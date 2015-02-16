@@ -25,13 +25,14 @@ public class HighScoreIO {
             e.printStackTrace();
         }
 
-        System.out.println(filePath);
+        //
+        /*System.out.println(filePath);
 
         //Encode / decode highscores
         String originalString = "Hallo";
         System.err.println(originalString);
 
-        /*if(Files.exists(filePath)) {
+        if(Files.exists(filePath)) {
             try {
                 highScores = Files.readAllLines(filePath);
             } catch (IOException e) {
@@ -42,7 +43,13 @@ public class HighScoreIO {
     }
 
     public void saveHighScores(String highScores) {
-        Files.write(filePath, encodeHighScore(highScores), Charset.defaultCharset());
+        ArrayList<String> tmp = new ArrayList<String>();
+        tmp.add(encodeHighScore(highScores));
+        try {
+            Files.write(filePath, tmp, Charset.defaultCharset());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public String loadHighScores() {
@@ -55,11 +62,11 @@ public class HighScoreIO {
         return decodeHighScore(encodedHighScores.get(0));
     }
 
-    protected String encodeHighScore(String decodedHighScores) {
+    private String encodeHighScore(String decodedHighScores) {
         return Base64.getEncoder().encodeToString(decodedHighScores.getBytes());
     }
 
-    protected String decodeHighScore(String encodedHighScores) {
+    private String decodeHighScore(String encodedHighScores) {
         String decodedString = "";
         try {
             decodedString = new String(Base64.getDecoder().decode(encodedHighScores));

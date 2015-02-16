@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by alexander on 4/02/2015.
  */
-public class SpelController{
+public class SpelController {
     private Veld veld;
     private Highscore highscore;
     private Timer timer, debugTimer;
@@ -58,9 +58,9 @@ public class SpelController{
         return veld.getColum();
     }
 
-    public void startSpel(){
+    public void startSpel() {
         aantalSeconden = MAX_AANTAL_SECONDEN;
-        guiSpel = new GUISpel(this,true);
+        guiSpel = new GUISpel(this, false);
         timer.start();
         //debugTimer.start();
     }

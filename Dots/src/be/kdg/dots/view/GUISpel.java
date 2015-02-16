@@ -40,7 +40,7 @@ public class GUISpel extends JFrame{
 
     private void MakeLayout() {
 
-        if (visible == false){
+        if (!visible){
             startScreen = new GUIHoofdMenu(controller);
             super.add(startScreen);
         } else {
