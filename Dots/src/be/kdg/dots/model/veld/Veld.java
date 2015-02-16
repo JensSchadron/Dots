@@ -1,4 +1,4 @@
-package be.kdg.dots.model;
+package be.kdg.dots.model.veld;
 
 import java.util.ArrayList;
 

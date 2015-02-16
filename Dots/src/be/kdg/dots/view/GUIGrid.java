@@ -1,9 +1,9 @@
 package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
-import be.kdg.dots.model.DotKleur;
-import be.kdg.dots.model.Veld;
-//import be.kdg.dots.model.Dot;
+import be.kdg.dots.model.veld.DotKleur;
+import be.kdg.dots.model.veld.Veld;
+//import be.kdg.dots.model.veld.Dot;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package be.kdg.dots.model;
+package be.kdg.dots.model.exception;
 
 /**
  * Created by Jens on 5-2-2015.

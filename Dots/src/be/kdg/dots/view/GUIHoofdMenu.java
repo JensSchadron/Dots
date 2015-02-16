@@ -34,7 +34,6 @@ public class GUIHoofdMenu extends JPanel {
         //timeMode = new JButton("Timed");
         //endlessMode = new JButton("Endless");
 
-
         ///be/kdg/dots/resources/
         ImageIcon iconTimed = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png"));
         timeMode = new JLabel("Timed mode", JLabel.CENTER);

@@ -1,4 +1,4 @@
-package be.kdg.dots.model;
+package be.kdg.dots.model.veld;
 
 /**
  * Created by alexander on 4/02/2015.

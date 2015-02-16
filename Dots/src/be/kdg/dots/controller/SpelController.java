@@ -1,6 +1,7 @@
 package be.kdg.dots.controller;
 
-import be.kdg.dots.model.*;
+import be.kdg.dots.model.highscore.Highscore;
+import be.kdg.dots.model.veld.Veld;
 import be.kdg.dots.view.GUIHoofdMenu;
 import be.kdg.dots.view.GUISpel;
 
@@ -35,13 +36,12 @@ public class SpelController{
                 System.out.println("Debug info - Time: " + aantalSeconden);
             }
         });
-        guiSpel = new GUISpel(this, false);
-        //guiStartScreen = new GUIStartScreen(this);
+        guiHoofdMenu = new GUIHoofdMenu(this);
 
         /*debugTimer = new Timer(500, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.printf("Width: %d - Height: %d\n",guiView.getWidth(),guiView.getHeight());
+                System.out.printf("Width: %d - Height: %d\n",guiSpel.getWidth(),guiSpel.getHeight());
             }
         });*/
     }
@@ -60,7 +60,7 @@ public class SpelController{
 
     public void startSpel(){
         aantalSeconden = MAX_AANTAL_SECONDEN;
-        guiSpel = new GUISpel(this, true);
+        guiSpel = new GUISpel(this,true);
         timer.start();
         //debugTimer.start();
     }
