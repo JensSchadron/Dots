@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 /**
- * Created by alexander on 4/02/2015.
+ * Created by jens & alexander on 4/02/2015.
  */
 public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
