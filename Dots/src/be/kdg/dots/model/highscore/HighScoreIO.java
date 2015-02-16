@@ -42,7 +42,7 @@ public class HighScoreIO {
     }
 
     public void saveHighScores(String highScores) {
-        Files.write(filePath, encodeHighScore(highScores), Charset.defaultCharset());
+        //Files.write(filePath, encodeHighScore(highScores), Charset.defaultCharset());
     }
 
     public String loadHighScores() {

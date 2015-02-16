@@ -19,9 +19,6 @@ public class GUIHoofdMenu extends JPanel {
     private JLabel banner, highscore;
 
     public GUIHoofdMenu(SpelController controller) throws HeadlessException {
-        //super("Dots Game");
-        //super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //setLocationRelativeTo(this);
         this.controller = controller;
         MakeComponents();
         MakeLayout();
