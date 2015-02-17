@@ -31,15 +31,6 @@ public class GUIGlassPane extends JPanel{
 
     }
 
-    /*private void init() {
-        inited = true;
-        JLabel label = new JLabel("test2:");
-        label.setForeground(Color.blue);
-        add(label);
-        label.setBounds(40, getHeight()/2, 350, 20);
-
-    }*/
-
     @Override
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);

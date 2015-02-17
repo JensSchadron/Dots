@@ -1,7 +1,6 @@
 package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -13,10 +12,11 @@ import java.io.IOException;
  */
 public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
-    private JPanel main, gameMode, setting;
-    private JButton btnSettings, btnAbout;
-    JLabel lblTimeMode, lblEndlessMode, lblMoveMode;
+    private JPanel main, gameMode;
+    private JButton btnAbout;
+    JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblSettings;
     private JLabel lblBanner, lblHighscore;
+    private ImageIcon iconTimed, iconEndless, iconSettings;
 
     public GUIHoofdMenu(SpelController controller) throws HeadlessException {
         setOpaque(true);
@@ -28,19 +28,19 @@ public class GUIHoofdMenu extends JPanel {
     }
 
     private void MakeComponents() {
-        btnSettings = new JButton("Settings");
-
         ///be/kdg/dots/resources/
-        ImageIcon iconTimed = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png"));
-        iconTimed = new ImageIcon(resize(iconTimed, 120,120));
+        iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120,120));
         lblTimeMode = new JLabel("", JLabel.CENTER);
         lblTimeMode.setIcon(iconTimed);
 
         ///be/kdg/dots/resources/
-        ImageIcon iconEndless = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png"));
-        iconEndless = new ImageIcon(resize(iconEndless, 120,120));
+        iconEndless = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png")), 120,120));
         lblEndlessMode = new JLabel("", JLabel.CENTER);
         lblEndlessMode.setIcon(iconEndless);
+
+        iconSettings = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnSettings.png")), 120,120));
+        lblSettings = new JLabel("", JLabel.CENTER);
+        lblSettings.setIcon(iconSettings);
 
         lblBanner = new JLabel("Dots");
         lblBanner.setForeground(new Color(83, 93, 245));
@@ -70,17 +70,15 @@ public class GUIHoofdMenu extends JPanel {
 
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
-        gameMode = new JPanel(new GridLayout(1, 2));
-        setting = new JPanel(new BorderLayout());
+        gameMode = new JPanel(new GridLayout(2, 2, 10, 10));
         gameMode.setSize(50, 50);
         main.setBackground(Color.white);
         gameMode.setBackground(Color.white);
         gameMode.add(lblTimeMode);
         gameMode.add(lblEndlessMode);
-        setting.add(btnSettings);
+        gameMode.add(lblSettings);
         main.add(lblBanner, BorderLayout.NORTH);
         main.add(gameMode, BorderLayout.CENTER);
-        main.add(setting, BorderLayout.SOUTH);
         super.add(main);
         super.revalidate();
     }
@@ -92,7 +90,6 @@ public class GUIHoofdMenu extends JPanel {
                 System.out.println("Debug info - Time mode selected");
                 setVisible(false);
                 controller.startSpel("Time");
-                //new Test();
             }
         });
 
@@ -105,7 +102,7 @@ public class GUIHoofdMenu extends JPanel {
             }
         });
 
-        btnSettings.addMouseListener(new MouseAdapter() {
+        lblSettings.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Settings selected");

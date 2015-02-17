@@ -3,8 +3,6 @@ package be.kdg.dots.view;
 import be.kdg.dots.controller.SpelController;
 import be.kdg.dots.model.veld.DotKleur;
 import be.kdg.dots.model.veld.Veld;
-//import be.kdg.dots.model.veld.Dot;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

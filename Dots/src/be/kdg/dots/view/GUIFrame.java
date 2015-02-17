@@ -1,11 +1,8 @@
 package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
-
-import javax.smartcardio.Card;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 /**
  * Created by jens & alexander on 16/02/2015.
@@ -35,9 +32,11 @@ public class GUIFrame extends JFrame{
         switch (optie) {
             case "hoofdMenu":
                 cl.show(this.getContentPane(), "hoofdMenu");
+                super.setSize(500, 500);
                 break;
             case "startSpel":
                 cl.show(this.getContentPane(), "startSpel");
+                super.setSize(500, 650);
                 break;
             case "glassPane":
                 setGlassPane(new GUIGlassPane(getContentPane()));
