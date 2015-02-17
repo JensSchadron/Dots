@@ -2,10 +2,13 @@ package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -14,8 +17,8 @@ import java.io.IOException;
 public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
     private JPanel main, gameMode;
-    private JButton moveMode, settings, about;
-    JLabel timeMode, endlessMode;
+    private JButton settings, about;
+    JLabel timeMode, endlessMode, moveMode;
     private JLabel banner, highscore;
 
     public GUIHoofdMenu(SpelController controller) throws HeadlessException {
@@ -28,19 +31,18 @@ public class GUIHoofdMenu extends JPanel {
     }
 
     private void MakeComponents() {
-        //timeMode = new JButton("Timed");
-        //endlessMode = new JButton("Endless");
 
         ///be/kdg/dots/resources/
         ImageIcon iconTimed = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png"));
-        timeMode = new JLabel("Timed mode", JLabel.CENTER);
+        iconTimed = new ImageIcon(resize(iconTimed, 120,120));
+        timeMode = new JLabel("", JLabel.CENTER);
         timeMode.setIcon(iconTimed);
+
         ///be/kdg/dots/resources/
         ImageIcon iconEndless = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png"));
-        endlessMode = new JLabel("Endless mode", JLabel.CENTER);
+        iconEndless = new ImageIcon(resize(iconEndless, 120,120));
+        endlessMode = new JLabel("", JLabel.CENTER);
         endlessMode.setIcon(iconEndless);
-
-        moveMode = new JButton("Moves");
 
         banner = new JLabel("Dots");
         banner.setForeground(new Color(83, 93, 245));
@@ -62,9 +64,16 @@ public class GUIHoofdMenu extends JPanel {
         }
     }
 
+    public static Image resize(ImageIcon imageIcon, int width, int height) {
+        Image image = imageIcon.getImage();
+        Image newImg = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+        return newImg;
+    }
+
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
         gameMode = new JPanel(new GridLayout(1, 2));
+        gameMode.setSize(50, 50);
         main.setBackground(Color.white);
         gameMode.setBackground(Color.white);
         gameMode.add(timeMode);
