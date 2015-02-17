@@ -3,6 +3,7 @@ package be.kdg.dots.controller;
 import be.kdg.dots.model.highscore.Highscore;
 import be.kdg.dots.model.veld.Veld;
 import be.kdg.dots.view.GUIFrame;
+import be.kdg.dots.view.GUIGlassPane;
 import be.kdg.dots.view.GUIHoofdMenu;
 import be.kdg.dots.view.GUISpel;
 
@@ -31,6 +32,7 @@ public class SpelController {
         guiHoofdMenu = new GUIHoofdMenu(this);
         guiSpel = new GUISpel(this);
         guiFrame = new GUIFrame(this);
+
         guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
         guiFrame.getContentPane().add("startSpel", guiSpel);
         //guiFrame.getCl().addLayoutComponent(GUISpel, "guiSpel");
@@ -63,6 +65,10 @@ public class SpelController {
 
     public int getColum() {
         return veld.getColum();
+    }
+
+    public void setclassPane(){
+        guiFrame.updateFrame("glassPane");
     }
 
     public void startSpel(String modus) {

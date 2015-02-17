@@ -5,13 +5,15 @@ import be.kdg.dots.controller.SpelController;
 import javax.smartcardio.Card;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 /**
  * Created by jens & alexander on 16/02/2015.
  */
-public class GUIFrame extends JFrame {
+public class GUIFrame extends JFrame{
     private CardLayout cl;
     private SpelController controller;
+
 
     public GUIFrame(SpelController controller) throws HeadlessException {
         super("Dots");
@@ -35,8 +37,12 @@ public class GUIFrame extends JFrame {
                 cl.show(this.getContentPane(), "hoofdMenu");
                 break;
             case "startSpel":
-                cl.show(this.getContentPane(),"startSpel");
+                cl.show(this.getContentPane(), "startSpel");
                 break;
+            case "glassPane":
+                setGlassPane(new GUIGlassPane(getContentPane()));
+                getGlassPane().setVisible(true);
         }
     }
+
 }

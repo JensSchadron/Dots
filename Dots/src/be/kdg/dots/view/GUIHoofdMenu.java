@@ -2,13 +2,10 @@ package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -16,10 +13,10 @@ import java.io.IOException;
  */
 public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
-    private JPanel main, gameMode;
-    private JButton settings, about;
-    JLabel timeMode, endlessMode, moveMode;
-    private JLabel banner, highscore;
+    private JPanel main, gameMode, setting;
+    private JButton btnSettings, btnAbout;
+    JLabel lblTimeMode, lblEndlessMode, lblMoveMode;
+    private JLabel lblBanner, lblHighscore;
 
     public GUIHoofdMenu(SpelController controller) throws HeadlessException {
         setOpaque(true);
@@ -31,26 +28,27 @@ public class GUIHoofdMenu extends JPanel {
     }
 
     private void MakeComponents() {
+        btnSettings = new JButton("Settings");
 
         ///be/kdg/dots/resources/
         ImageIcon iconTimed = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png"));
         iconTimed = new ImageIcon(resize(iconTimed, 120,120));
-        timeMode = new JLabel("", JLabel.CENTER);
-        timeMode.setIcon(iconTimed);
+        lblTimeMode = new JLabel("", JLabel.CENTER);
+        lblTimeMode.setIcon(iconTimed);
 
         ///be/kdg/dots/resources/
         ImageIcon iconEndless = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png"));
         iconEndless = new ImageIcon(resize(iconEndless, 120,120));
-        endlessMode = new JLabel("", JLabel.CENTER);
-        endlessMode.setIcon(iconEndless);
+        lblEndlessMode = new JLabel("", JLabel.CENTER);
+        lblEndlessMode.setIcon(iconEndless);
 
-        banner = new JLabel("Dots");
-        banner.setForeground(new Color(83, 93, 245));
-        banner.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-        /*moveMode.setBorder(new RoundedBorder(20));
-        moveMode.setBackground(new Color(45, 24, 185));
-        moveMode.setForeground(Color.white);
-        moveMode.setFocusPainted(false);*/
+        lblBanner = new JLabel("Dots");
+        lblBanner.setForeground(new Color(83, 93, 245));
+        lblBanner.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+        /*lblMoveMode.setBorder(new RoundedBorder(20));
+        lblMoveMode.setBackground(new Color(45, 24, 185));
+        lblMoveMode.setForeground(Color.white);
+        lblMoveMode.setFocusPainted(false);*/
 
         try {
             //../fonts/
@@ -58,7 +56,7 @@ public class GUIHoofdMenu extends JPanel {
             GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             genv.registerFont(font);
             font = font.deriveFont(120f);
-            banner.setFont(font);
+            lblBanner.setFont(font);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
@@ -73,29 +71,32 @@ public class GUIHoofdMenu extends JPanel {
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
         gameMode = new JPanel(new GridLayout(1, 2));
+        setting = new JPanel(new BorderLayout());
         gameMode.setSize(50, 50);
         main.setBackground(Color.white);
         gameMode.setBackground(Color.white);
-        gameMode.add(timeMode);
-        //gameMode.add(moveMode);
-        gameMode.add(endlessMode);
-        main.add(banner, BorderLayout.NORTH);
+        gameMode.add(lblTimeMode);
+        gameMode.add(lblEndlessMode);
+        setting.add(btnSettings);
+        main.add(lblBanner, BorderLayout.NORTH);
         main.add(gameMode, BorderLayout.CENTER);
+        main.add(setting, BorderLayout.SOUTH);
         super.add(main);
         super.revalidate();
     }
 
     private void MakeEventListener() {
-        timeMode.addMouseListener(new MouseAdapter() {
+        lblTimeMode.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Time mode selected");
                 setVisible(false);
                 controller.startSpel("Time");
+                //new Test();
             }
         });
 
-        endlessMode.addMouseListener(new MouseAdapter() {
+        lblEndlessMode.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Endless mode selected");
@@ -103,15 +104,23 @@ public class GUIHoofdMenu extends JPanel {
                 controller.startSpel("Endless");
             }
         });
+
+        btnSettings.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("Debug info - Settings selected");
+                controller.setclassPane();
+            }
+        });
         /*
-        timeMode.addActionListener(new ActionListener() {
+        lblTimeMode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
                 controller.startSpel();
             }
         });
-        moveMode.addActionListener(new ActionListener() {
+        lblMoveMode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
