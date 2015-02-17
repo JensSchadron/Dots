@@ -19,11 +19,12 @@ public class GUIHoofdMenu extends JPanel {
     private JLabel banner, highscore;
 
     public GUIHoofdMenu(SpelController controller) throws HeadlessException {
+        setOpaque(true);
+        setBackground(Color.white);
         this.controller = controller;
         MakeComponents();
         MakeLayout();
         MakeEventListener();
-        super.setVisible(true);
     }
 
     private void MakeComponents() {
@@ -81,7 +82,7 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Time mode selected");
                 setVisible(false);
-                controller.startSpel();
+                controller.startSpel("Time");
             }
         });
 
@@ -90,7 +91,7 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Endless mode selected");
                 setVisible(false);
-                controller.startSpel();
+                controller.startSpel("Endless");
             }
         });
         /*

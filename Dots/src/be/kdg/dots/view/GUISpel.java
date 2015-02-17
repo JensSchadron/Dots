@@ -17,12 +17,13 @@ public class GUISpel extends JPanel {
     private SpelController controller;
 
     public GUISpel(SpelController controller) throws HeadlessException {
+        super.setLayout(new BorderLayout());
+        setOpaque(true);
+        setBackground(Color.white);
         this.controller = controller;
         MakeComponents();
         MakeLayout();
         MakeEventListener();
-        super.setSize(500, 500);
-        super.setVisible(true);
     }
 
     private void MakeComponents() {
@@ -44,8 +45,8 @@ public class GUISpel extends JPanel {
         gridSouth.add(lblTime);
         gamePanel.add(gridSouth, BorderLayout.SOUTH);
         gamePanel.add(gridGame, BorderLayout.CENTER);
-        super.add(gamePanel, BorderLayout.CENTER);
-        super.revalidate();
+        super.add(gamePanel);
+
     }
 
     private void MakeEventListener() {

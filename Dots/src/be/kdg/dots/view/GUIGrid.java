@@ -32,6 +32,7 @@ public class GUIGrid extends JPanel {
         setOpaque(false);
         setBackground(Color.BLUE);
 
+
         lijnUI = new ArrayList<>();
 
         this.controller = controller;

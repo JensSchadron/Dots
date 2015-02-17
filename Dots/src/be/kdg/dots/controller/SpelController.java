@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by alexander on 4/02/2015.
  */
-public class SpelController{
+public class SpelController {
     private Veld veld;
     private Highscore highscore;
     private Timer timer, debugTimer;
@@ -26,10 +26,14 @@ public class SpelController{
     private int aantalSeconden;
 
     public SpelController() {
-        guiFrame = new GUIFrame(this);
-        guiHoofdMenu = new GUIHoofdMenu(this);
         veld = new Veld(6, 6);
         highscore = new Highscore();
+        guiHoofdMenu = new GUIHoofdMenu(this);
+        guiSpel = new GUISpel(this);
+        guiFrame = new GUIFrame(this);
+        guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
+        guiFrame.getContentPane().add("startSpel", guiSpel);
+        //guiFrame.getCl().addLayoutComponent(GUISpel, "guiSpel");
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -40,7 +44,6 @@ public class SpelController{
                 System.out.println("Debug info - Time: " + aantalSeconden);
             }
         });
-        guiFrame.updateFrame(guiHoofdMenu);
 
         /*debugTimer = new Timer(500, new ActionListener() {
             @Override
@@ -62,9 +65,9 @@ public class SpelController{
         return veld.getColum();
     }
 
-    public void startSpel(){
+    public void startSpel(String modus) {
         aantalSeconden = MAX_AANTAL_SECONDEN;
-        guiFrame.updateFrame(guiSpel = new GUISpel(this));
+        guiFrame.updateFrame("startSpel");
         timer.start();
         //debugTimer.start();
     }
