@@ -9,7 +9,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 /**
- * Created by alexander on 4/02/2015.
+ * Created by jens & alexander on 4/02/2015.
  */
 
 public class GUIGrid extends JPanel {
