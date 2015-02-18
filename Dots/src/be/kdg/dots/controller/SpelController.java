@@ -35,7 +35,7 @@ public class SpelController {
         guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
         guiFrame.getContentPane().add("startSpel", guiSpel);
         //guiFrame.getCl().addLayoutComponent(GUISpel, "guiSpel");
-        timer = new Timer(1000, new ActionListener() {
+        /*timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (aantalSeconden == 1) { //aantalSeconden moet 1 zijn omdat stopTimer() deze methode nog eens triggerd
@@ -44,7 +44,7 @@ public class SpelController {
                 guiSpel.updateTimer(--aantalSeconden);
                 System.out.println("Debug info - Time: " + aantalSeconden);
             }
-        });
+        });*/
 
         /*debugTimer = new Timer(500, new ActionListener() {
             @Override
@@ -66,24 +66,50 @@ public class SpelController {
         return veld.getColum();
     }
 
-    public void setclassPane(){
+    public void setclassPane() {
         guiFrame.updateFrame("glassPane");
     }
 
-    public void stopTimer(){
+    public void stopTimer() {
         timer.stop();
     }
-    public void startTimer(){
+
+    public void startTimer() {
         timer.start();
     }
 
-    public void setGuiHoofdMenu(){
+    public void setGuiHoofdMenu() {
         guiFrame.updateFrame("hoofdMenu");
         stopTimer();
         guiSpel.updateTimer(45);
     }
 
     public void startSpel(String modus) {
+        switch (modus) {
+            case "Time":
+                aantalSeconden = MAX_AANTAL_SECONDEN;
+                timer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (aantalSeconden == 0) { //aantalSeconden moet 1 zijn omdat stopTimer() deze methode nog eens triggerd
+                            timer.stop();
+                        }
+                        guiSpel.updateTimer(aantalSeconden--);
+                        System.out.println("Debug info - Time: " + aantalSeconden);
+                    }
+                });
+                break;
+            case "Infinity":
+                aantalSeconden = 0;
+                timer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        guiSpel.updateTimer(aantalSeconden++);
+                        System.out.println("Debug info - Time: " + aantalSeconden);
+                    }
+                });
+                break;
+        }
         aantalSeconden = MAX_AANTAL_SECONDEN;
         guiFrame.updateFrame("startSpel");
         timer.start();

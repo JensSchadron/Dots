@@ -32,7 +32,6 @@ public class HighScoreIO {
                 e.printStackTrace();
             }
         }*/
-
     }
 
     public void saveHighScores(String highScores) {

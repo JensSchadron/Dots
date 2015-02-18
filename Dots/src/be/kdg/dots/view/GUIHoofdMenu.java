@@ -96,9 +96,9 @@ public class GUIHoofdMenu extends JPanel {
         lblEndlessMode.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - Endless mode selected");
+                System.out.println("Debug info - Infinity mode selected");
                 setVisible(false);
-                controller.startSpel("Endless");
+                controller.startSpel("Infinity");
             }
         });
 
