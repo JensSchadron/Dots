@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class HighScoreIO {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-
+        loadHighScores();
         /*if(Files.exists(filePath)) {
             try {
                 highScores = Files.readAllLines(filePath);
@@ -34,24 +35,40 @@ public class HighScoreIO {
         }*/
     }
 
-    public void saveHighScores(String highScores) {
-        ArrayList<String> tmp = new ArrayList<String>();
-        tmp.add(encodeHighScore(highScores));
+    public void saveHighScores(ArrayList<String> decodedHighScores) {
+        ArrayList<String> encodedHighScores = new ArrayList<>();
+        for (int i = 0; i < decodedHighScores.size(); i++) {
+            encodedHighScores.add(i,encodeHighScore(decodedHighScores.get(i)));
+        }
+
         try {
-            Files.write(filePath, tmp, Charset.defaultCharset());
+            Files.write(filePath, encodedHighScores);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public String loadHighScores() {
-        List<String> encodedHighScores = new ArrayList<>();
-        try {
-            encodedHighScores = Files.readAllLines(filePath);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public ArrayList<String> loadHighScores() {
+        ArrayList<String> decodedHighScores = new ArrayList<>();
+        if(Files.exists(filePath)) {
+            List<String> encodedHighScores = new ArrayList<>();
+            try {
+                encodedHighScores = Files.readAllLines(filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            for (int i = 0; i < encodedHighScores.size(); i++) {
+                decodedHighScores.add(i, decodeHighScore(encodedHighScores.get(i)));
+            }
+        } else {
+            try {
+                Files.createFile(filePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return decodeHighScore(encodedHighScores.get(0));
+        return decodedHighScores;
     }
 
     protected String encodeHighScore(String decodedHighScores) {

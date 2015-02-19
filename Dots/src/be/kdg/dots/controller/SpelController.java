@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 public class SpelController {
     private Veld veld;
     private Highscore highscore;
-    private Timer timer, debugTimer;
+    private Timer timer;
     private GUIHoofdMenu guiHoofdMenu;
     private GUISpel guiSpel;
     private GUIFrame guiFrame;
@@ -26,8 +26,8 @@ public class SpelController {
     private int aantalSeconden;
 
     public SpelController() {
-        veld = new Veld(6, 6);
-        highscore = new Highscore();
+        veld = new Veld(6, 6, this);
+        highscore = new Highscore(this);
         guiHoofdMenu = new GUIHoofdMenu(this);
         guiSpel = new GUISpel(this);
         guiFrame = new GUIFrame(this);
@@ -35,23 +35,6 @@ public class SpelController {
         guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
         guiFrame.getContentPane().add("startSpel", guiSpel);
         //guiFrame.getCl().addLayoutComponent(GUISpel, "guiSpel");
-        /*timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (aantalSeconden == 1) { //aantalSeconden moet 1 zijn omdat stopTimer() deze methode nog eens triggerd
-                    timer.stop();
-                }
-                guiSpel.updateTimer(--aantalSeconden);
-                System.out.println("Debug info - Time: " + aantalSeconden);
-            }
-        });*/
-
-        /*debugTimer = new Timer(500, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.printf("Width: %d - Height: %d\n",guiSpel.getWidth(),guiSpel.getHeight());
-            }
-        });*/
     }
 
     public Veld getVeld() {
@@ -68,6 +51,14 @@ public class SpelController {
 
     public void setGlassPane() {
         guiFrame.updateFrame("glassPane");
+    }
+
+    public Highscore getHighscore() {
+        return highscore;
+    }
+
+    public GUISpel getGuiSpel(){
+        return guiSpel;
     }
 
     public void stopTimer() {
@@ -88,32 +79,31 @@ public class SpelController {
         switch (modus) {
             case "Time":
                 aantalSeconden = MAX_AANTAL_SECONDEN;
+                guiSpel.updateTimer(aantalSeconden);
                 timer = new Timer(1000, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (aantalSeconden == 0) { //aantalSeconden moet 1 zijn omdat stopTimer() deze methode nog eens triggerd
-                            timer.stop();
+                        guiSpel.updateTimer(--aantalSeconden);
+                        if (aantalSeconden == 0) {
+                            timer.stop(); //actionPerformed wordt nog eens getriggerd als timer.stop(); wordt aangeroepen!
                         }
-                        guiSpel.updateTimer(aantalSeconden--);
                         System.out.println("Debug info - Time: " + aantalSeconden);
                     }
                 });
                 break;
             case "Infinity":
                 aantalSeconden = 0;
+                guiSpel.updateTimer(aantalSeconden);
                 timer = new Timer(1000, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        guiSpel.updateTimer(aantalSeconden++);
+                        guiSpel.updateTimer(++aantalSeconden);
                         System.out.println("Debug info - Time: " + aantalSeconden);
                     }
                 });
                 break;
         }
-        aantalSeconden = MAX_AANTAL_SECONDEN;
         guiFrame.updateFrame("startSpel");
         timer.start();
-        //debugTimer.start();
     }
-
 }

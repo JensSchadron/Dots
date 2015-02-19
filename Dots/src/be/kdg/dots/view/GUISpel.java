@@ -28,7 +28,7 @@ public class GUISpel extends JPanel {
     }
 
     private void MakeComponents() {
-        gridGame = new GUIGrid(controller);
+        gridGame = new GUIGrid(this);
 
         iconLevel = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/lblLevel.png")), 20,20));
         lblLevel = new JLabel("Level:");
@@ -41,7 +41,7 @@ public class GUISpel extends JPanel {
         lblScore.setForeground(Color.blue);
 
         iconTime = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/lblTime.png")), 20,20));
-        lblTime = new JLabel("Time: 45");
+        lblTime = new JLabel("Time: ");
         lblTime.setIcon(iconTime);
         lblTime.setForeground(Color.red);
 
@@ -84,11 +84,12 @@ public class GUISpel extends JPanel {
         lblPauze.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-               if (lblPauze.getName() == "pauze"){
+               if (lblPauze.getName().equals("pauze")){
                    iconPlay = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPlay.png")), 50,50));
                    lblPauze.setIcon(iconPlay);
                    lblPauze.setName("play");
                    controller.stopTimer();
+
                }else {
                    iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPauze.png")), 50,50));
                    lblPauze.setName("pauze");
@@ -107,5 +108,13 @@ public class GUISpel extends JPanel {
 
     public void updateTimer(int aantalSeconden) {
         lblTime.setText("Time: " + aantalSeconden);
+    }
+
+    public void updateScore(int score){
+        lblScore.setText("Score: " + score);
+    }
+
+    public SpelController getController(){
+        return controller;
     }
 }

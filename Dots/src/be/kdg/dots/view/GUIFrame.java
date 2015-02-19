@@ -11,7 +11,6 @@ public class GUIFrame extends JFrame{
     private CardLayout cl;
     private SpelController controller;
 
-
     public GUIFrame(SpelController controller) throws HeadlessException {
         super("Dots");
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -21,12 +20,7 @@ public class GUIFrame extends JFrame{
         //MaakLayout();
         super.setSize(500, 500);
         super.setVisible(true);
-
     }
-
-    /*public void updateFrame(JPanel panel){
-        add(panel);
-    }*/
 
     public void updateFrame(String optie) {
         switch (optie) {
@@ -39,9 +33,8 @@ public class GUIFrame extends JFrame{
                 super.setSize(500, 650);
                 break;
             case "glassPane":
-                setGlassPane(new GUIGlassPane(getContentPane()));
+                setGlassPane(new GUISettingsPane(getContentPane()));
                 getGlassPane().setVisible(true);
         }
     }
-
 }

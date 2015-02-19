@@ -8,12 +8,12 @@ import java.awt.event.MouseEvent;
 /**
  * Created by jens & alexander on 17/02/2015.
  */
-public class GUIGlassPane extends JPanel{
+public class GUISettingsPane extends JPanel{
     private Container contentPane;
     private boolean inited;
     private JButton btnSave;
 
-    public GUIGlassPane(Container contentPane) {
+    public GUISettingsPane(Container contentPane) {
         this.contentPane = contentPane;
         setLayout(null);
         MakeComponents();
@@ -28,7 +28,6 @@ public class GUIGlassPane extends JPanel{
         btnSave.setForeground(Color.BLUE);
         add(btnSave);
         btnSave.setBounds(40, getHeight() / 2, 350, 30);
-
     }
 
     @Override

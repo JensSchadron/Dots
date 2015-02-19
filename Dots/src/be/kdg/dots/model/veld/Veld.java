@@ -1,5 +1,7 @@
 package be.kdg.dots.model.veld;
 
+import be.kdg.dots.controller.SpelController;
+
 import java.util.ArrayList;
 
 /**
@@ -11,8 +13,10 @@ public class Veld {
     private final int[] dotIndexCheck = new int[8];
     private final int row;
     private final int colum;
+    private SpelController controller;
 
-    public Veld(int row, int colum) {
+    public Veld(int row, int colum, SpelController controller) {
+        this.controller = controller;
         this.row = row;
         this.colum = colum;
         this.rooster = new ArrayList<>(this.row * this.colum);
@@ -77,6 +81,8 @@ public class Veld {
                 rooster.set(connectedDot.intValue(), null);
             }
         }
+
+        controller.getHighscore().getScore().berekenScore(connectedDots);
 
         for (int i = this.row * this.colum - 1; i > -1; i--) {
             Dot dotOrNull = rooster.get(i);
