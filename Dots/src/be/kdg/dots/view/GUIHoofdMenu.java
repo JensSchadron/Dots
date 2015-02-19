@@ -12,11 +12,11 @@ import java.io.IOException;
  */
 public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
-    private JPanel main, gameMode;
-    private JButton btnAbout;
+    private JPanel main, gameMode, southPanel;
     JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblSettings;
     private JLabel lblBanner, lblHighscore;
     private ImageIcon iconTimed, iconEndless, iconSettings;
+    private JButton btnSettings, btnAbout, btnHelp;
 
     public GUIHoofdMenu(SpelController controller) throws HeadlessException {
         setOpaque(true);
@@ -28,6 +28,10 @@ public class GUIHoofdMenu extends JPanel {
     }
 
     private void MakeComponents() {
+        btnSettings = new JButton("Settings");
+        btnAbout = new JButton("About");
+        btnHelp = new JButton("Help");
+
         ///be/kdg/dots/resources/
         iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120,120));
         lblTimeMode = new JLabel("", JLabel.CENTER);
@@ -71,14 +75,19 @@ public class GUIHoofdMenu extends JPanel {
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
         gameMode = new JPanel(new GridLayout(2, 2, 10, 10));
+        southPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 10));
         gameMode.setSize(50, 50);
         main.setBackground(Color.white);
         gameMode.setBackground(Color.white);
         gameMode.add(lblTimeMode);
         gameMode.add(lblEndlessMode);
         gameMode.add(lblSettings);
+        southPanel.add(btnAbout);
+        southPanel.add(btnSettings);
+        southPanel.add(btnHelp);
         main.add(lblBanner, BorderLayout.NORTH);
         main.add(gameMode, BorderLayout.CENTER);
+        main.add(southPanel, BorderLayout.SOUTH);
         super.add(main);
         super.revalidate();
     }
@@ -102,10 +111,17 @@ public class GUIHoofdMenu extends JPanel {
             }
         });
 
-        lblSettings.addMouseListener(new MouseAdapter() {
+        btnSettings.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Settings selected");
+                controller.setGlassPane();
+            }
+        });
+        btnAbout.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("Debug info - About selected");
                 controller.setGlassPane();
             }
         });
