@@ -66,7 +66,7 @@ public class SpelController {
         return veld.getColum();
     }
 
-    public void setclassPane() {
+    public void setGlassPane() {
         guiFrame.updateFrame("glassPane");
     }
 
