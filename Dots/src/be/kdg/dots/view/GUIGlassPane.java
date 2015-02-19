@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * Created by alexander on 17/02/2015.
+ * Created by jens & alexander on 17/02/2015.
  */
 public class GUIGlassPane extends JPanel{
     private Container contentPane;
