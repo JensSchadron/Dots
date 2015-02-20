@@ -80,24 +80,25 @@ public class Veld {
             for (Integer connectedDot : connectedDots) {
                 rooster.set(connectedDot.intValue(), null);
             }
-        }
+            controller.getSpeler().getScore().berekenScore(connectedDots);
 
-        controller.getHighscore().getScore().berekenScore(connectedDots);
 
-        for (int i = this.row * this.colum - 1; i > -1; i--) {
-            Dot dotOrNull = rooster.get(i);
-            if (dotOrNull == null) {
-                for (int j = i; j >= 0 && dotOrNull == null; j -= this.colum) {
-                    if (rooster.get(j) != null) {
-                        dotOrNull = rooster.get(j);
-                        rooster.set(j, null);
-                    }
-                }
+            for (int i = this.row * this.colum - 1; i > -1; i--) {
+                Dot dotOrNull = rooster.get(i);
                 if (dotOrNull == null) {
-                    dotOrNull = new Dot();
+                    for (int j = i; j >= 0 && dotOrNull == null; j -= this.colum) {
+                        if (rooster.get(j) != null) {
+                            dotOrNull = rooster.get(j);
+                            rooster.set(j, null);
+                        }
+                    }
+                    if (dotOrNull == null) {
+                        dotOrNull = new Dot();
+                    }
+                    rooster.set(i, dotOrNull);
                 }
-                rooster.set(i, dotOrNull);
             }
+            controller.getGuiSpel().updateScore(controller.getSpeler().getScore().getScore());
         }
         connectedDots.clear();
     }

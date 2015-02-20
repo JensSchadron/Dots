@@ -1,6 +1,7 @@
 package be.kdg.dots.controller;
 
 import be.kdg.dots.model.highscore.Highscore;
+import be.kdg.dots.model.speler.Speler;
 import be.kdg.dots.model.veld.Veld;
 import be.kdg.dots.view.GUIFrame;
 import be.kdg.dots.view.GUIHoofdMenu;
@@ -16,6 +17,7 @@ import java.awt.event.ActionListener;
 public class SpelController {
     private Veld veld;
     private Highscore highscore;
+    private Speler speler;
     private Timer timer;
     private GUIHoofdMenu guiHoofdMenu;
     private GUISpel guiSpel;
@@ -31,7 +33,7 @@ public class SpelController {
         guiHoofdMenu = new GUIHoofdMenu(this);
         guiSpel = new GUISpel(this);
         guiFrame = new GUIFrame(this);
-
+        speler = new Speler(this, "Jens");
         guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
         guiFrame.getContentPane().add("startSpel", guiSpel);
         //guiFrame.getCl().addLayoutComponent(GUISpel, "guiSpel");
@@ -57,8 +59,12 @@ public class SpelController {
         return highscore;
     }
 
-    public GUISpel getGuiSpel(){
+    public GUISpel getGuiSpel() {
         return guiSpel;
+    }
+
+    public Speler getSpeler() {
+        return speler;
     }
 
     public void stopTimer() {
@@ -67,6 +73,10 @@ public class SpelController {
 
     public void startTimer() {
         timer.start();
+    }
+
+    public int getAantalSeconden() {
+        return aantalSeconden;
     }
 
     public void setGuiHoofdMenu() {
@@ -103,6 +113,8 @@ public class SpelController {
                 });
                 break;
         }
+        guiSpel.setModus(modus);
+        speler.getScore().resetScore();
         guiFrame.updateFrame("startSpel");
         timer.start();
     }

@@ -16,12 +16,14 @@ public class GUISpel extends JPanel {
     private JLabel lblLevel, lblScore, lblTime, lblPauze, lblHome;
     private SpelController controller;
     private ImageIcon iconLevel,iconScore,iconTime, iconPauze, iconPlay, iconHome;
+    private String modus;
 
     public GUISpel(SpelController controller) throws HeadlessException {
         super.setLayout(new BorderLayout());
         setOpaque(true);
         setBackground(Color.white);
         this.controller = controller;
+        this.modus = "";
         MakeComponents();
         MakeLayout();
         MakeEventListener();
@@ -57,8 +59,8 @@ public class GUISpel extends JPanel {
 
     public static Image resize(ImageIcon imageIcon, int width, int height) {
         Image image = imageIcon.getImage();
-        Image newImg = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
-        return newImg;
+        image = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+        return image;
     }
 
     private void MakeLayout() {
@@ -101,9 +103,14 @@ public class GUISpel extends JPanel {
         lblHome.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                controller.getHighscore().addHighScore(modus);
                 controller.setGuiHoofdMenu();
             }
         });
+    }
+
+    public void setModus(String modus){
+        this.modus = modus;
     }
 
     public void updateTimer(int aantalSeconden) {

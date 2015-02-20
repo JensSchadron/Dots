@@ -19,23 +19,16 @@ import java.util.List;
 public class HighScoreIO {
     private Path filePath;
 
-    public HighScoreIO() {
+    protected HighScoreIO() {
         try {
             this.filePath = Paths.get(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().toString(), "highscores.txt");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
         loadHighScores();
-        /*if(Files.exists(filePath)) {
-            try {
-                highScores = Files.readAllLines(filePath);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }*/
     }
 
-    public void saveHighScores(ArrayList<String> decodedHighScores) {
+    protected void saveHighScores(ArrayList<String> decodedHighScores) {
         ArrayList<String> encodedHighScores = new ArrayList<>();
         for (int i = 0; i < decodedHighScores.size(); i++) {
             encodedHighScores.add(i,encodeHighScore(decodedHighScores.get(i)));
@@ -48,7 +41,7 @@ public class HighScoreIO {
         }
     }
 
-    public ArrayList<String> loadHighScores() {
+    protected ArrayList<String> loadHighScores() {
         ArrayList<String> decodedHighScores = new ArrayList<>();
         if(Files.exists(filePath)) {
             List<String> encodedHighScores = new ArrayList<>();
@@ -71,11 +64,11 @@ public class HighScoreIO {
         return decodedHighScores;
     }
 
-    protected String encodeHighScore(String decodedHighScores) {
+    private String encodeHighScore(String decodedHighScores) {
         return Base64.getEncoder().encodeToString(decodedHighScores.getBytes());
     }
 
-    protected String decodeHighScore(String encodedHighScores) {
+    private String decodeHighScore(String encodedHighScores) {
         String decodedString = "";
         try {
             decodedString = new String(Base64.getDecoder().decode(encodedHighScores));
