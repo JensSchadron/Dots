@@ -8,11 +8,11 @@ import java.awt.event.MouseEvent;
 /**
  * Created by jens & alexander on 17/02/2015.
  */
-public class GUISettingsPane extends JPanel{
+public class GUIAboutPane extends JPanel{
     private Container contentPane;
-    private JButton btnSave;
+    private JButton btnClose;
 
-    public GUISettingsPane(Container contentPane) {
+    public GUIAboutPane(Container contentPane) {
         super();
         this.contentPane = contentPane;
         setLayout(null);
@@ -22,13 +22,13 @@ public class GUISettingsPane extends JPanel{
     }
 
     private void MakeComponents() {
-        btnSave = new JButton("Save settings");
+        btnClose = new JButton("Close");
     }
 
     private void MakeLayout() {
-        btnSave.setForeground(Color.BLUE);
-        add(btnSave);
-        btnSave.setBounds(40, getHeight() / 2, 350, 30);
+        btnClose.setForeground(Color.BLUE);
+        add(btnClose);
+        btnClose.setBounds(40, getHeight() / 2, 350, 30);
     }
 
     @Override
@@ -48,12 +48,12 @@ public class GUISettingsPane extends JPanel{
         AlphaComposite solid = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 1f);
         g.setComposite(solid);
         g.setColor(Color.black);
-        g.drawString("Hier komen de settings", 50, 100);
+        g.drawString("Hier komt de about info (Info over onszelf en het spel)", 50, 100);
         g.drawString("test!", 50, 120);
     }
 
     private void MakeEventListener() {
-        btnSave.addMouseListener(new MouseAdapter() {
+        btnClose.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 setVisible(false);

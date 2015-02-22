@@ -3,14 +3,12 @@ package be.kdg.dots.model.highscore;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,6 +20,7 @@ public class HighScoreIO {
     protected HighScoreIO() {
         try {
             this.filePath = Paths.get(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().toString(), "highscores.txt");
+            System.out.println(filePath);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

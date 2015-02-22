@@ -51,6 +51,10 @@ public class SpelController {
         return veld.getColum();
     }
 
+    public GUIFrame getGuiFrame(){
+        return guiFrame;
+    }
+
     public void setGlassPane() {
         guiFrame.updateFrame("glassPane");
     }
@@ -113,6 +117,7 @@ public class SpelController {
                 });
                 break;
         }
+        veld = new Veld(6,6,this);
         guiSpel.setModus(modus);
         speler.getScore().resetScore();
         guiFrame.updateFrame("startSpel");

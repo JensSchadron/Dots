@@ -115,14 +115,14 @@ public class GUIHoofdMenu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Settings selected");
-                controller.setGlassPane();
+                controller.getGuiFrame().updateFrame("instellingenPanel");
             }
         });
         btnAbout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - About selected");
-                controller.setGlassPane();
+                controller.getGuiFrame().updateFrame("aboutPanel");
             }
         });
         /*

@@ -94,15 +94,11 @@ public class GUIGrid extends JPanel {
                         System.out.println("Debug info - Mouse release detected on dot " + i);
                     }
                 }*/
+                dotKleur = null;
                 GUIGrid.this.lijnUI.clear();
                 guiSpel.getController().getVeld().clearConnectedDots();
                 repaint();
                 //System.out.println("Mouse release detected");
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
             }
         });
 
@@ -149,6 +145,9 @@ public class GUIGrid extends JPanel {
                     if (dotUI.get(i).contains(e.getX(), e.getY())) {
                         //System.out.println("Debug info - Mouse drag detected to dot " + i);
                         DotKleur kleur = guiSpel.getController().getVeld().getVeld().get(i).getDotKleur();
+                        if(dotKleur == null){
+                            dotKleur = new Color(kleur.getRood(), kleur.getGroen(), kleur.getBlauw());
+                        }
                         if (dotKleur.equals(new Color(kleur.getRood(), kleur.getGroen(), kleur.getBlauw()))) {
                             guiSpel.getController().getVeld().voegConnectedDotToe(i);
                             ArrayList connectedDots = guiSpel.getController().getVeld().getConnectedDots();

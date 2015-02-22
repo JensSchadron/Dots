@@ -59,16 +59,16 @@ public class Highscore {
                 break;
             case "Infinity":
                 if (infinityHighScores.get(0).isEmpty() || infinityHighScores.size() == 0) {
-                    infinityHighScores.set(0, String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
+                    infinityHighScores.set(0, String.format("%-20s %5d %5d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getAantalSeconden()));
                     break;
                 }
                 for (int i = 0; i < infinityHighScores.size(); i++) {
-                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(infinityHighScores.get(i).substring(20).trim())) {
-                        infinityHighScores.add(i, String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
+                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(infinityHighScores.get(i).substring(20,26).trim())) {
+                        infinityHighScores.add(i, String.format("%-20s %5d %5d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(),controller.getAantalSeconden()));
                         break;
                     }
                     if(i==infinityHighScores.size()-1){
-                        infinityHighScores.add(infinityHighScores.size(),String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
+                        infinityHighScores.add(infinityHighScores.size(),String.format("%-20s %5d %5d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getAantalSeconden()));
                         break;
                     }
                 }

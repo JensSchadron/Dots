@@ -17,7 +17,6 @@ public class GUIFrame extends JFrame{
         cl = new CardLayout();
         setLayout(cl);
         this.controller = controller;
-        //MaakLayout();
         super.setSize(500, 500);
         super.setVisible(true);
     }
@@ -32,9 +31,14 @@ public class GUIFrame extends JFrame{
                 cl.show(this.getContentPane(), "startSpel");
                 super.setSize(500, 650);
                 break;
-            case "glassPane":
+            case "instellingenPanel":
                 setGlassPane(new GUISettingsPane(getContentPane()));
                 getGlassPane().setVisible(true);
+                break;
+            case "aboutPanel":
+                setGlassPane(new GUIAboutPane(getContentPane()));
+                getGlassPane().setVisible(true);
+                break;
         }
     }
 }

@@ -103,6 +103,7 @@ public class GUISpel extends JPanel {
         lblHome.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                System.out.println("Debug info - Mouse release detected on Home button");
                 controller.getHighscore().addHighScore(modus);
                 controller.setGuiHoofdMenu();
             }
