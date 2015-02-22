@@ -25,5 +25,6 @@ public class Score {
 
     public void resetScore(){
         score = 0;
+        speler.getController().getGuiSpel().updateScore(score);
     }
 }

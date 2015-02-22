@@ -10,13 +10,13 @@ import java.awt.event.MouseEvent;
  * Created by alexander on 4/02/2015.
  */
 public class GUISpel extends JPanel {
-
     private JPanel gamePanel, panelNorth, flowLayout;
     private GUIGrid gridGame;
     private JLabel lblLevel, lblScore, lblTime, lblPauze, lblHome;
     private SpelController controller;
     private ImageIcon iconLevel,iconScore,iconTime, iconPauze, iconPlay, iconHome;
     private String modus;
+    private boolean paused;
 
     public GUISpel(SpelController controller) throws HeadlessException {
         super.setLayout(new BorderLayout());
@@ -79,7 +79,6 @@ public class GUISpel extends JPanel {
         gamePanel.add(gridGame, BorderLayout.CENTER);
         gamePanel.add(flowLayout, BorderLayout.SOUTH);
         super.add(gamePanel);
-
     }
 
     private void MakeEventListener() {
@@ -91,7 +90,7 @@ public class GUISpel extends JPanel {
                    lblPauze.setIcon(iconPlay);
                    lblPauze.setName("play");
                    controller.stopTimer();
-
+                   //controller.getGuiFrame().);
                }else {
                    iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPauze.png")), 50,50));
                    lblPauze.setName("pauze");
@@ -104,10 +103,14 @@ public class GUISpel extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Mouse release detected on Home button");
-                controller.getHighscore().addHighScore(modus);
-                controller.setGuiHoofdMenu();
+                eindigSpel();
             }
         });
+    }
+
+    public void eindigSpel(){
+        controller.getHighscore().addHighScore(modus);
+        controller.setGuiHoofdMenu();
     }
 
     public void setModus(String modus){

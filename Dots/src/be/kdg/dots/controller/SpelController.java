@@ -102,6 +102,9 @@ public class SpelController {
                             timer.stop(); //actionPerformed wordt nog eens getriggerd als timer.stop(); wordt aangeroepen!
                         }
                         System.out.println("Debug info - Time: " + aantalSeconden);
+                        if(aantalSeconden == 0){
+                            getGuiSpel().eindigSpel();
+                        }
                     }
                 });
                 break;
@@ -119,8 +122,9 @@ public class SpelController {
         }
         veld = new Veld(6,6,this);
         guiSpel.setModus(modus);
-        speler.getScore().resetScore();
+
         guiFrame.updateFrame("startSpel");
+        speler.getScore().resetScore();
         timer.start();
     }
 }

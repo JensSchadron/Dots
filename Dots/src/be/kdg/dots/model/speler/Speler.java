@@ -17,6 +17,7 @@ public class Speler {
     public Speler(SpelController controller, String username) {
         this.username = username;
         this.score = new Score(this);
+        this.controller = controller;
     }
 
     public String getUsername() {
