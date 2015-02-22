@@ -42,7 +42,10 @@ public class HighScoreIO {
     }
 
     protected ArrayList<String> loadHighScores() {
-        ArrayList<String> decodedHighScores = new ArrayList<>();
+        ArrayList<String> decodedHighScores = new ArrayList<>(3);
+        for (int i = 0; i < 3; i++) {
+            decodedHighScores.add("");
+        }
         if(Files.exists(filePath)) {
             List<String> encodedHighScores = new ArrayList<>();
             try {
@@ -52,7 +55,7 @@ public class HighScoreIO {
             }
 
             for (int i = 0; i < encodedHighScores.size(); i++) {
-                decodedHighScores.add(i, decodeHighScore(encodedHighScores.get(i)));
+                decodedHighScores.set(i, decodeHighScore(encodedHighScores.get(i)));
             }
         } else {
             try {
