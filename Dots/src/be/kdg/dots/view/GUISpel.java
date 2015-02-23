@@ -110,7 +110,7 @@ public class GUISpel extends JPanel {
 
     public void eindigSpel(){
         controller.getHighscore().addHighScore(modus);
-        controller.setGuiHoofdMenu();
+        controller.getGuiFrame().updateFrame("hoofdMenu");
     }
 
     public void setModus(String modus){

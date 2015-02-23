@@ -75,7 +75,7 @@ public class HighScoreIO {
         try {
             decodedString = new String(Base64.getDecoder().decode(encodedHighScores));
         } catch (IllegalArgumentException e) {
-            decodedString = "You tried to cheat, you little bastard";
+            decodedString = "You tried to cheat, you little bastard!";
         }
         return decodedString;
     }

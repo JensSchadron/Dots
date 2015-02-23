@@ -39,6 +39,10 @@ public class GUIFrame extends JFrame{
                 setGlassPane(new GUIAboutPane(getContentPane()));
                 getGlassPane().setVisible(true);
                 break;
+            case "highScorePanel":
+                setGlassPane(new GUIHighScore(getContentPane()));
+                getGlassPane().setVisible(true);
+                break;
         }
     }
 }

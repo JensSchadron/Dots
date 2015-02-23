@@ -55,10 +55,6 @@ public class SpelController {
         return guiFrame;
     }
 
-    public void setGlassPane() {
-        guiFrame.updateFrame("glassPane");
-    }
-
     public Highscore getHighscore() {
         return highscore;
     }
@@ -83,12 +79,6 @@ public class SpelController {
         return aantalSeconden;
     }
 
-    public void setGuiHoofdMenu() {
-        guiFrame.updateFrame("hoofdMenu");
-        stopTimer();
-        guiSpel.updateTimer(45);
-    }
-
     public void startSpel(String modus) {
         switch (modus) {
             case "Time":
@@ -109,7 +99,7 @@ public class SpelController {
                 });
                 break;
             case "Infinity":
-                aantalSeconden = 0;
+                aantalSeconden = 10000;
                 guiSpel.updateTimer(aantalSeconden);
                 timer = new Timer(1000, new ActionListener() {
                     @Override

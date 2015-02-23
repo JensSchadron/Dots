@@ -13,9 +13,8 @@ import java.io.IOException;
 public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
     private JPanel main, gameMode, southPanel;
-    JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblSettings;
-    private JLabel lblBanner, lblHighscore;
-    private ImageIcon iconTimed, iconEndless, iconSettings;
+    private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblSettings,lblBanner, lblHighscore;
+    private ImageIcon iconTimed, iconEndless, iconSettings, iconHighscore;
     private JButton btnSettings, btnAbout, btnHelp;
 
     public GUIHoofdMenu(SpelController controller) throws HeadlessException {
@@ -32,12 +31,10 @@ public class GUIHoofdMenu extends JPanel {
         btnAbout = new JButton("About");
         btnHelp = new JButton("Help");
 
-        ///be/kdg/dots/resources/
         iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120,120));
         lblTimeMode = new JLabel("", JLabel.CENTER);
         lblTimeMode.setIcon(iconTimed);
 
-        ///be/kdg/dots/resources/
         iconEndless = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png")), 120,120));
         lblEndlessMode = new JLabel("", JLabel.CENTER);
         lblEndlessMode.setIcon(iconEndless);
@@ -45,6 +42,10 @@ public class GUIHoofdMenu extends JPanel {
         iconSettings = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnSettings.png")), 120,120));
         lblSettings = new JLabel("", JLabel.CENTER);
         lblSettings.setIcon(iconSettings);
+
+        iconHighscore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnHighscore.png")), 120,120));
+        lblHighscore = new JLabel("", JLabel.CENTER);
+        lblHighscore.setIcon(iconHighscore);
 
         lblBanner = new JLabel("Dots");
         lblBanner.setForeground(new Color(83, 93, 245));
@@ -82,6 +83,7 @@ public class GUIHoofdMenu extends JPanel {
         gameMode.add(lblTimeMode);
         gameMode.add(lblEndlessMode);
         gameMode.add(lblSettings);
+        gameMode.add(lblHighscore);
         southPanel.add(btnAbout);
         southPanel.add(btnSettings);
         southPanel.add(btnHelp);
@@ -123,6 +125,12 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - About selected");
                 controller.getGuiFrame().updateFrame("aboutPanel");
+            }
+        });
+        lblHighscore.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                controller.getGuiFrame().updateFrame("highScorePanel");
             }
         });
         /*
