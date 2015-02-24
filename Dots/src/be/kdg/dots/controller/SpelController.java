@@ -67,6 +67,9 @@ public class SpelController {
     public Speler getSpeler() {
         return speler;
     }
+    public void setSpeler(String username) {
+        speler.setUsername(username);
+    }
 
     public void stopTimer() {
         timer.stop();
@@ -100,7 +103,7 @@ public class SpelController {
                 });
                 break;
             case "Infinity":
-                aantalSeconden = 10000;
+                aantalSeconden = 0;
                 guiSpel.updateTimer(aantalSeconden);
                 timer = new Timer(1000, new ActionListener() {
                     @Override

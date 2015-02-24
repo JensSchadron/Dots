@@ -37,6 +37,7 @@ public class GUIGrid extends JPanel {
 
         makeComponents(guiSpel.getController().getVeld());
         makeEventListener();
+        //setEnabledAll(this, false);
     }
 
     protected void makeComponents(Veld veld) {
@@ -50,6 +51,18 @@ public class GUIGrid extends JPanel {
         }
         repaint();
     }
+
+   /* public static void setEnabledAll(Container container, boolean enabled) {
+        Component[] components = container.getComponents();
+        if (components.length > 0) {
+            for (Component component : components) {
+                component.setEnabled(enabled);
+                if (component instanceof Container) { // has to be a container to contain components
+                    setEnabledAll((Container)component, enabled); // the recursive call
+                }
+            }
+        }
+    }*/
 
     @Override
     protected void paintComponent(Graphics g) {

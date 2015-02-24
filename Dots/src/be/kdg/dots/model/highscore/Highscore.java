@@ -24,17 +24,24 @@ public class Highscore {
         loadHighScores();
     }
 
-    /*public String[][] getTimeHighScores() {
-        String[][] arr = timeHighScores.toArray(new String[timeHighScores.size()][]);
-        for (int i = 0; i < timeHighScores.size(); i++) {
-            arr[i] = timeHighScores.get(i).toObjectArray();
-        }
-        return arr;
-    }*/
 
-    public String getTimeHighScores() {
+    public String getTimeHighScore() {
         String result= "name \t score \n";
         for (String s : timeHighScores){
+            result += "\n" + s + "\t";
+        }
+        return result;
+    }
+    public String getMoveHighScore() {
+        String result= "name \t score \n";
+        for (String s : moveHighScores){
+            result += "\n" + s + "\t";
+        }
+        return result;
+    }
+    public String getInfinityHighScore() {
+        String result= "name \t score \t time\n";
+        for (String s : infinityHighScores){
             result += "\n" + s + "\t";
         }
         return result;

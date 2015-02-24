@@ -12,10 +12,10 @@ import java.io.IOException;
  */
 public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
-    private JPanel main, gameMode, southPanel;
+    private JPanel main, gameMode, southPanel, loginPanel, rightPanel;
     private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblSettings,lblBanner, lblHighscore;
     private ImageIcon iconTimed, iconEndless, iconSettings, iconHighscore;
-    private JButton btnSettings, btnAbout, btnHelp;
+    private JButton btnSettings, btnAbout, btnHelp, btnInloggen;
 
     public GUIHoofdMenu(SpelController controller) throws HeadlessException {
         setOpaque(true);
@@ -30,6 +30,8 @@ public class GUIHoofdMenu extends JPanel {
         btnSettings = new JButton("Settings");
         btnAbout = new JButton("About");
         btnHelp = new JButton("Help");
+        btnInloggen = new JButton("Inloggen");
+        btnInloggen.setSize(200,50);
 
         iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120,120));
         lblTimeMode = new JLabel("", JLabel.CENTER);
@@ -77,9 +79,12 @@ public class GUIHoofdMenu extends JPanel {
         main = new JPanel(new BorderLayout());
         gameMode = new JPanel(new GridLayout(2, 2, 10, 10));
         southPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 10));
+        loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,30,10));
+        rightPanel = new JPanel(new BorderLayout());
         gameMode.setSize(50, 50);
         main.setBackground(Color.white);
         gameMode.setBackground(Color.white);
+        loginPanel.setBackground(Color.white);
         gameMode.add(lblTimeMode);
         gameMode.add(lblEndlessMode);
         gameMode.add(lblSettings);
@@ -87,9 +92,14 @@ public class GUIHoofdMenu extends JPanel {
         southPanel.add(btnAbout);
         southPanel.add(btnSettings);
         southPanel.add(btnHelp);
-        main.add(lblBanner, BorderLayout.NORTH);
+        rightPanel.add(lblBanner, BorderLayout.CENTER);
+        rightPanel.add(loginPanel, BorderLayout.EAST);
+
+        loginPanel.add(btnInloggen, BorderLayout.NORTH);
+        main.add(rightPanel, BorderLayout.NORTH);
         main.add(gameMode, BorderLayout.CENTER);
         main.add(southPanel, BorderLayout.SOUTH);
+        //main.add(loginPanel, BorderLayout.EAST);
         super.add(main);
         super.revalidate();
     }
@@ -125,6 +135,14 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - About selected");
                 controller.getGuiFrame().updateFrame("aboutPanel", controller);
+            }
+        });
+        btnInloggen.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                //String username = JOptionPane.showInputDialog("Give a username",JOptionPane.PLAIN_MESSAGE);
+                controller.getGuiFrame().updateFrame("login", controller);
+                //controller.setSpeler(username);
             }
         });
         lblHighscore.addMouseListener(new MouseAdapter() {
