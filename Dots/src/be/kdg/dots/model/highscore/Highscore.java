@@ -2,6 +2,7 @@ package be.kdg.dots.model.highscore;
 
 import be.kdg.dots.controller.SpelController;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,6 +22,22 @@ public class Highscore {
         this.highScoreIO = new HighScoreIO();
 
         loadHighScores();
+    }
+
+    /*public String[][] getTimeHighScores() {
+        String[][] arr = timeHighScores.toArray(new String[timeHighScores.size()][]);
+        for (int i = 0; i < timeHighScores.size(); i++) {
+            arr[i] = timeHighScores.get(i).toObjectArray();
+        }
+        return arr;
+    }*/
+
+    public String getTimeHighScores() {
+        String result= "name \t score \n";
+        for (String s : timeHighScores){
+            result += "\n" + s + "\t";
+        }
+        return result;
     }
 
     public void addHighScore(String modus) {

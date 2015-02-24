@@ -21,7 +21,7 @@ public class GUIFrame extends JFrame{
         super.setVisible(true);
     }
 
-    public void updateFrame(String optie) {
+    public void updateFrame(String optie, SpelController controller) {
         switch (optie) {
             case "hoofdMenu":
                 cl.show(this.getContentPane(), "hoofdMenu");
@@ -40,7 +40,7 @@ public class GUIFrame extends JFrame{
                 getGlassPane().setVisible(true);
                 break;
             case "highScorePanel":
-                setGlassPane(new GUIHighScore(getContentPane()));
+                setGlassPane(new GUIHighScore(getContentPane(), controller));
                 getGlassPane().setVisible(true);
                 break;
         }

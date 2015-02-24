@@ -1,5 +1,6 @@
 package be.kdg.dots.controller;
 
+import be.kdg.dots.model.highscore.HighScoreIO;
 import be.kdg.dots.model.highscore.Highscore;
 import be.kdg.dots.model.speler.Speler;
 import be.kdg.dots.model.veld.Veld;
@@ -113,7 +114,7 @@ public class SpelController {
         veld = new Veld(6,6,this);
         guiSpel.setModus(modus);
 
-        guiFrame.updateFrame("startSpel");
+        guiFrame.updateFrame("startSpel", this);
         speler.getScore().resetScore();
         timer.start();
     }
