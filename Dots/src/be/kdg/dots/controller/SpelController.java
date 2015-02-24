@@ -117,7 +117,7 @@ public class SpelController {
         veld = new Veld(6,6,this);
         guiSpel.setModus(modus);
 
-        guiFrame.updateFrame("startSpel", this);
+        guiFrame.updateFrame("startSpel");
         speler.getScore().resetScore();
         timer.start();
     }

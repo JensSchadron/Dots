@@ -24,8 +24,15 @@ public class Highscore {
         loadHighScores();
     }
 
+    /*public String[][] getTimeHighScores() {
+        String[][] arr = timeHighScores.toArray(new String[timeHighScores.size()][]);
+        for (int i = 0; i < timeHighScores.size(); i++) {
+            arr[i] = timeHighScores.get(i).toObjectArray();
+        }
+        return arr;
+    }*/
 
-    public String getTimeHighScore() {
+    public String getTimeHighScores() {
         String result= "name \t score \n";
         for (String s : timeHighScores){
             result += "\n" + s + "\t";

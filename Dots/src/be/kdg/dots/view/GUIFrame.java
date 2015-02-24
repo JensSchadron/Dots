@@ -21,7 +21,7 @@ public class GUIFrame extends JFrame{
         super.setVisible(true);
     }
 
-    public void updateFrame(String optie, SpelController controller) {
+    public void updateFrame(String optie) {
         switch (optie) {
             case "hoofdMenu":
                 cl.show(this.getContentPane(), "hoofdMenu");
@@ -30,6 +30,10 @@ public class GUIFrame extends JFrame{
             case "startSpel":
                 cl.show(this.getContentPane(), "startSpel");
                 super.setSize(500, 650);
+                break;
+            case "pauzePanel":
+                setGlassPane(new GUIPauzePane(getContentPane(),this));
+                getContentPane().setVisible(true);
                 break;
             case "instellingenPanel":
                 setGlassPane(new GUISettingsPane(getContentPane()));
@@ -48,5 +52,9 @@ public class GUIFrame extends JFrame{
                 getGlassPane().setVisible(true);
                 break;
         }
+    }
+
+    public SpelController getController(){
+        return controller;
     }
 }

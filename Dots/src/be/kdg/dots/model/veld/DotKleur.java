@@ -5,7 +5,7 @@ package be.kdg.dots.model.veld;
  */
 
 public enum DotKleur {
-    BLUE(127, 26, 243), RED(245, 0, 82), GREEN(0, 245, 122), YELLOW(255, 255, 0), PURPLE(255, 0, 255), ORANGE(1, 104, 179);
+    BLUE(127, 26, 243), RED(245, 0, 82), GREEN(0, 245, 122), YELLOW(255, 255, 0), PURPLE(255, 0, 255);
 
     private final int rood;
     private final int groen;

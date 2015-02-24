@@ -127,28 +127,28 @@ public class GUIHoofdMenu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Settings selected");
-                controller.getGuiFrame().updateFrame("instellingenPanel", controller);
+                controller.getGuiFrame().updateFrame("instellingenPanel");
             }
         });
         btnAbout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - About selected");
-                controller.getGuiFrame().updateFrame("aboutPanel", controller);
+                controller.getGuiFrame().updateFrame("aboutPanel");
             }
         });
         btnInloggen.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 //String username = JOptionPane.showInputDialog("Give a username",JOptionPane.PLAIN_MESSAGE);
-                controller.getGuiFrame().updateFrame("login", controller);
+                controller.getGuiFrame().updateFrame("login");
                 //controller.setSpeler(username);
             }
         });
         lblHighscore.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                controller.getGuiFrame().updateFrame("highScorePanel", controller);
+                controller.getGuiFrame().updateFrame("highScorePanel");
             }
         });
         /*

@@ -15,7 +15,7 @@ public class GUIHighScore extends JPanel {
     private JButton btnClose;
     private JPanel panelTime, panelInifinty;
     private JTabbedPane tabbedPane;
-    private JTextArea txtTime, txtInfinity;
+    private JTextArea txtTest;
     private SpelController controller;
 
     public GUIHighScore(Container contentPane, SpelController controller) {
@@ -30,7 +30,6 @@ public class GUIHighScore extends JPanel {
 
     private void MakeComponents() {
         btnClose = new JButton("Close");
-        btnClose.setSize(50,50);
         UIManager.put("TabbedPane.contentOpaque", Boolean.FALSE);
         tabbedPane = new JTabbedPane();
         tabbedPane.setOpaque(false);
@@ -42,19 +41,16 @@ public class GUIHighScore extends JPanel {
         tabbedPane.addTab("Time", panelTime);
         tabbedPane.addTab("Infinity", panelInifinty);
 
-        txtTime = new JTextArea(controller.getHighscore().getTimeHighScore());
-        txtTime.setOpaque(false);
-        panelTime.add(txtTime);
-        txtInfinity = new JTextArea(controller.getHighscore().getInfinityHighScore());
-        txtInfinity.setOpaque(false);
-        panelInifinty.add(txtInfinity);
+        txtTest = new JTextArea(controller.getHighscore().getTimeHighScores());
+        txtTest.setOpaque(false);
+        panelTime.add(txtTest);
     }
 
     private void MakeLayout() {
         btnClose.setForeground(Color.BLUE);
         //add(btnClose);
         add(tabbedPane);
-        btnClose.setBounds(getWidth(), 0, 350, 30);
+        btnClose.setBounds(40, getHeight() / 2, 350, 30);
         tabbedPane.setBounds(0,0, this.getWidth(), this.getHeight());
         tabbedPane.setVisible(true);
         tabbedPane.setUI(new javax.swing.plaf.basic.BasicTabbedPaneUI(){

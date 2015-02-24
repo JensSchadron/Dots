@@ -14,10 +14,8 @@ public class GUIAboutPane extends JPanel{
     private JTextArea txtAreaInfo;
 
     public GUIAboutPane(Container contentPane) {
-        super();
         this.contentPane = contentPane;
         setLayout(new BorderLayout());
-        //setLayout(null);
         MakeComponents();
         MakeLayout();
         MakeEventListener();
@@ -41,6 +39,8 @@ public class GUIAboutPane extends JPanel{
         txtAreaInfo.setWrapStyleWord(true);
         txtAreaInfo.setOpaque(false);
         txtAreaInfo.setEditable(false);
+        txtAreaInfo.setHighlighter(null);
+        txtAreaInfo.setMargin(new Insets(10,10,10,10));
         btnClose = new JButton("Close");
     }
 
@@ -48,7 +48,6 @@ public class GUIAboutPane extends JPanel{
         add(txtAreaInfo, BorderLayout.CENTER);
         btnClose.setForeground(Color.BLUE);
         add(btnClose, BorderLayout.SOUTH);
-        //btnClose.setBounds(40, getHeight() / 2, 350, 30);
     }
 
     @Override
@@ -64,12 +63,6 @@ public class GUIAboutPane extends JPanel{
         contentPane.paint(gr);
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
-
-        /*AlphaComposite solid = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 1f);
-        g.setComposite(solid);
-        g.setColor(Color.black);
-        g.drawString("Hier komt de about info (Info over onszelf en het spel)", 50, 100);
-        g.drawString("test!", 50, 120);*/
     }
 
     private void MakeEventListener() {
