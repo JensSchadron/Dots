@@ -37,7 +37,7 @@ public class GUIFrame extends JFrame {
                 getGlassPane().setVisible(true);
                 break;
             case "instellingenPanel":
-                setGlassPane(new GUISettingsPane(getContentPane()));
+                setGlassPane(new GUISettingsPane(getContentPane(), controller));
                 getGlassPane().setVisible(true);
                 break;
             case "aboutPanel":
