@@ -41,9 +41,9 @@ public class GUILogin extends JPanel {
     private void MakeLayout() {
         panel = new JPanel(new BorderLayout());
         panel.setOpaque(false);
-        panel.add(lbllabel);
-        panel.add(txtUsername);
-        panel.add(btnOK);
+        panel.add(lbllabel, BorderLayout.NORTH);
+        panel.add(txtUsername, BorderLayout.CENTER);
+        panel.add(btnOK, BorderLayout.SOUTH);
         this.add(panel);
     }
 

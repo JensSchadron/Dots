@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 /**
  * Created by alexander on 23/02/2015.
@@ -70,6 +71,20 @@ public class GUIHighScore extends JPanel {
             protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) {
             }
         });
+
+        try {
+            //../fonts/
+            Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/be/kdg/dots/resources/fonts/AUdimat-Regular.ttf").openStream());
+            GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            genv.registerFont(font);
+            font = font.deriveFont(15f);
+            tabbedPane.setFont(font);
+            txtInfinity.setFont(font);
+            txtTime.setFont(font);
+            btnClose.setFont(font);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

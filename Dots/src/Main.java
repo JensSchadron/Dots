@@ -27,4 +27,5 @@ public class Main {
         }
         new SpelController();
     }
+    //TODO: Help, instellingen, move modus, inloggen, (uitbreidingen: achievements)
 }

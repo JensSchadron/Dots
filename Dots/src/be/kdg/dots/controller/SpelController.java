@@ -38,7 +38,7 @@ public class SpelController {
         guiHoofdMenu = new GUIHoofdMenu(this);
         guiSpel = new GUISpel(this);
         guiFrame = new GUIFrame(this);
-        speler = new Speler(this, "Jens");
+        speler = new Speler(this, null);
         guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
         guiFrame.getContentPane().add("startSpel", guiSpel);
         level = new Level(speler);
@@ -102,47 +102,48 @@ public class SpelController {
     }
 
     public void startSpel(String modus) {
-        switch (modus) {
-            case "Time":
-                aantalSeconden = MAX_AANTAL_SECONDEN;
-                guiSpel.updateTimer(aantalSeconden);
-                guiSpel.updateLevel(level.getLevel());
-                timer = new Timer(1000, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        guiSpel.updateTimer(--aantalSeconden);
+        if (speler.getUsername()==null){
+            JOptionPane.showMessageDialog(null, "Gelieve u eerst in te loggen alvorens te spelen", "InfoBox: " + "Inloggen", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            switch (modus) {
+                case "Time":
+                    aantalSeconden = MAX_AANTAL_SECONDEN;
+                    guiSpel.updateTimer(aantalSeconden);
+                    guiSpel.updateLevel(level.getLevel());
+                    timer = new Timer(1000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            guiSpel.updateTimer(--aantalSeconden);
+                            if (aantalSeconden == 0) {
+                                timer.stop(); //actionPerformed wordt nog eens getriggerd als timer.stop(); wordt aangeroepen!
+                                JOptionPane.showMessageDialog(null, "Proficiat! U hebt level " + level.getLevel() + " behaald", "InfoBox: " + "Winner", JOptionPane.INFORMATION_MESSAGE);
+                                guiSpel.eindigSpel();
+                            }
+                            System.out.println("Debug info - Time: " + aantalSeconden);
 
-                        /*else{
-                            //JOptionPane.showMessageDialog(null, "Je hebt het level niet gehaald", "InfoBox: " + "Lose", JOptionPane.INFORMATION_MESSAGE);
-                            getGuiSpel().eindigSpel();
-                            speler.getScore().setScoreDoel(level.getLevel());
-                        }*/
-                        if (aantalSeconden == 0) {
-                            timer.stop(); //actionPerformed wordt nog eens getriggerd als timer.stop(); wordt aangeroepen!
                         }
-                        System.out.println("Debug info - Time: " + aantalSeconden);
+                    });
+                    break;
+                case "Infinity":
+                    aantalSeconden = 0;
+                    guiSpel.updateTimer(aantalSeconden);
+                    timer = new Timer(1000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            guiSpel.updateTimer(++aantalSeconden);
+                            System.out.println("Debug info - Time: " + aantalSeconden);
+                        }
+                    });
+                    break;
+            }
+            veld = new Veld(6, 6, this);
+            guiSpel.setModus(modus);
 
-                    }
-                });
-                break;
-            case "Infinity":
-                aantalSeconden = 0;
-                guiSpel.updateTimer(aantalSeconden);
-                timer = new Timer(1000, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        guiSpel.updateTimer(++aantalSeconden);
-                        System.out.println("Debug info - Time: " + aantalSeconden);
-                    }
-                });
-                break;
+            guiFrame.updateFrame("startSpel");
+            speler.getScore().resetScore();
+            timer.start();
         }
-        veld = new Veld(6, 6, this);
-        guiSpel.setModus(modus);
 
-        guiFrame.updateFrame("startSpel");
-        speler.getScore().resetScore();
-        timer.start();
     }
 
     public void checkScore() {

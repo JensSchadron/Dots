@@ -2,11 +2,13 @@ package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.URL;
 
 /**
  * Created by jens & alexander on 4/02/2015.
@@ -81,9 +83,7 @@ public class GUIHoofdMenu extends JPanel {
         main = new JPanel(new BorderLayout());
         gameMode = new JPanel(new GridLayout(2, 2, 10, 10));
         southPanel = new JPanel(new GridLayout(1, 4));
-        //southPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 10));
         loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
-        rightPanel = new JPanel(new BorderLayout());
         gameMode.setSize(50, 50);
         main.setBackground(Color.white);
         gameMode.setBackground(Color.white);
@@ -96,11 +96,8 @@ public class GUIHoofdMenu extends JPanel {
         southPanel.add(btnSettings);
         southPanel.add(btnHelp);
         southPanel.add(btnInloggen);
-        rightPanel.add(lblBanner, BorderLayout.CENTER);
-        //rightPanel.add(loginPanel, BorderLayout.EAST);
 
-        //loginPanel.add(btnInloggen, BorderLayout.NORTH);
-        main.add(rightPanel, BorderLayout.NORTH);
+        main.add(lblBanner, BorderLayout.NORTH);
         main.add(gameMode, BorderLayout.CENTER);
         main.add(southPanel, BorderLayout.SOUTH);
         //main.add(loginPanel, BorderLayout.EAST);
