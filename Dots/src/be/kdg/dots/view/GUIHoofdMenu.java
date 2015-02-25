@@ -31,6 +31,7 @@ public class GUIHoofdMenu extends JPanel {
         btnAbout = new JButton("About");
         btnHelp = new JButton("Help");
         btnInloggen = new JButton("Inloggen");
+
         btnInloggen.setSize(200,50);
 
         iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120,120));

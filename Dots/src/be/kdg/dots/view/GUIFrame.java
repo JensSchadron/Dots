@@ -32,8 +32,8 @@ public class GUIFrame extends JFrame{
                 super.setSize(500, 650);
                 break;
             case "pauzePanel":
-                setGlassPane(new GUIPauzePane(getContentPane(),this));
-                getContentPane().setVisible(true);
+                setGlassPane(new GUIPauzePane(getContentPane(),controller));
+                getGlassPane().setVisible(true);
                 break;
             case "instellingenPanel":
                 setGlassPane(new GUISettingsPane(getContentPane()));

@@ -15,8 +15,9 @@ public class GUIHighScore extends JPanel {
     private JButton btnClose;
     private JPanel panelTime, panelInifinty, panelButton, mainPanel;
     private JTabbedPane tabbedPane;
-    private JTextArea txtTest;
+    private JTextArea txtTime, txtInfinity;
     private SpelController controller;
+    private JScrollBar scrollBarTime;
 
     public GUIHighScore(Container contentPane, SpelController controller) {
         super();
@@ -33,6 +34,7 @@ public class GUIHighScore extends JPanel {
         UIManager.put("TabbedPane.contentOpaque", Boolean.FALSE);
         tabbedPane = new JTabbedPane();
         tabbedPane.setOpaque(false);
+        //scrollBarTime = new JScrollBar(Adjustable.VERTICAL);
 
         panelTime = new JPanel(new FlowLayout());
         panelInifinty =new JPanel(new FlowLayout());
@@ -41,9 +43,12 @@ public class GUIHighScore extends JPanel {
         tabbedPane.addTab("Time", panelTime);
         tabbedPane.addTab("Infinity", panelInifinty);
 
-        txtTest = new JTextArea(controller.getHighscore().getTimeHighScores());
-        txtTest.setOpaque(false);
-        panelTime.add(txtTest);
+        txtTime = new JTextArea(controller.getHighscore().getHighScores("Time"));
+        txtTime.setOpaque(false);
+        panelTime.add(txtTime);
+        txtInfinity = new JTextArea(controller.getHighscore().getHighScores("Infinity"));
+        txtInfinity.setOpaque(false);
+        panelInifinty.add(txtInfinity);
     }
 
     private void MakeLayout() {
@@ -52,7 +57,7 @@ public class GUIHighScore extends JPanel {
         mainPanel = new JPanel(new BorderLayout());
         mainPanel.setOpaque(false);
         panelButton.setOpaque(false);
-
+        //scrollBarTime.add(tabbedPane);
         panelButton.add(btnClose);
         //add(tabbedPane);
         mainPanel.add(panelButton, BorderLayout.NORTH);

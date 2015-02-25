@@ -21,10 +21,6 @@ public class Highscore {
         this.controller = controller;
         this.highScoreIO = new HighScoreIO();
 
-        timeHighScores = new ArrayList<>(3);
-        moveHighScores = new ArrayList<>(3);
-        infinityHighScores = new ArrayList<>(3);
-
         loadHighScores();
     }
 
@@ -41,35 +37,23 @@ public class Highscore {
         String result = "";
         switch (modus) {
             case "Time":
+                result= "name \t score \n";
+                for (String s : timeHighScores){
+                    result += "\n" + s + "\t";
+                }
                 break;
             case "Move":
+                result= "name \t score \n";
+                for (String s : moveHighScores){
+                    result += "\n" + s + "\t";
+                }
                 break;
             case "Infinity":
+                result= "name \t score \t time\n";
+                for (String s : infinityHighScores){
+                    result += "\n" + s + "\t";
+                }
                 break;
-        }
-        return result;
-    }
-
-    public String getTimeHighScores() {
-        String result = "name \t score \n";
-        for (String s : timeHighScores) {
-            result += "\n" + s + "\t";
-        }
-        return result;
-    }
-
-    public String getMoveHighScore() {
-        String result = "name \t score \n";
-        for (String s : moveHighScores) {
-            result += "\n" + s + "\t";
-        }
-        return result;
-    }
-
-    public String getInfinityHighScore() {
-        String result = "name \t score \t time\n";
-        for (String s : infinityHighScores) {
-            result += "\n" + s + "\t";
         }
         return result;
     }
@@ -86,8 +70,8 @@ public class Highscore {
                         timeHighScores.add(i, String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                         break;
                     }
-                    if (i == timeHighScores.size() - 1) {
-                        timeHighScores.add(timeHighScores.size(), String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
+                    if(i==timeHighScores.size()-1){
+                        timeHighScores.add(timeHighScores.size(),String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                         break;
                     }
                 }
@@ -102,8 +86,8 @@ public class Highscore {
                         moveHighScores.add(i, String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                         break;
                     }
-                    if (i == moveHighScores.size() - 1) {
-                        moveHighScores.add(moveHighScores.size(), String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
+                    if(i==moveHighScores.size()-1){
+                        moveHighScores.add(moveHighScores.size(),String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                         break;
                     }
                 }
@@ -114,12 +98,12 @@ public class Highscore {
                     break;
                 }
                 for (int i = 0; i < infinityHighScores.size(); i++) {
-                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(infinityHighScores.get(i).substring(20, 26).trim())) {
-                        infinityHighScores.add(i, String.format("%-20s %5d %5d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getAantalSeconden()));
+                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(infinityHighScores.get(i).substring(20,26).trim())) {
+                        infinityHighScores.add(i, String.format("%-20s %5d %5d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(),controller.getAantalSeconden()));
                         break;
                     }
-                    if (i == infinityHighScores.size() - 1) {
-                        infinityHighScores.add(infinityHighScores.size(), String.format("%-20s %5d %5d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getAantalSeconden()));
+                    if(i==infinityHighScores.size()-1){
+                        infinityHighScores.add(infinityHighScores.size(),String.format("%-20s %5d %5d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getAantalSeconden()));
                         break;
                     }
                 }
@@ -128,73 +112,15 @@ public class Highscore {
         saveHighScores();
     }
 
-    public void resetHighScores() {
-        resetHighScores("Time");
-        resetHighScores("Move");
-        resetHighScores("Infinity");
-    }
-
-    public void resetHighScores(String modus) {
-        switch (modus) {
-            case "Time":
-                timeHighScores.clear();
-                break;
-            case "Move":
-                moveHighScores.clear();
-                break;
-            case "Infinity":
-                infinityHighScores.clear();
-                break;
-        }
-        saveHighScores();
-    }
-
     private void loadHighScores() {
-        /*ArrayList<String> decodedHighScores = highScoreIO.loadHighScores();
+        ArrayList<String> decodedHighScores = highScoreIO.loadHighScores();
         System.out.println("Debug info - decodedHighScores.size(): " + decodedHighScores.size());
         //System.out.println("Debug info - TimeHighScores: " + decodedHighScores.get(0));
         timeHighScores = new ArrayList<>(Arrays.asList(decodedHighScores.get(0).split("㏠")));
         //System.out.println("Debug info - MoveHighScores: " + decodedHighScores.get(1));
         moveHighScores = new ArrayList<>(Arrays.asList(decodedHighScores.get(1).split("㏠")));
         //System.out.println("Debug info - InfinityHighScores: " + decodedHighScores.get(2));
-        infinityHighScores = new ArrayList<>(Arrays.asList(decodedHighScores.get(2).split("㏠")));*/
-        ArrayList<String> decodedHighScores = highScoreIO.loadHighScores();
-        ArrayList<String> tmp;
-        for (int i = 0; i < decodedHighScores.size(); i++) {
-            tmp = new ArrayList<>(Arrays.asList(decodedHighScores.get(i).split("㏠")));
-            switch (i) {
-                case 0:
-                    for (int j = 0; j < tmp.size(); j++) {
-                        System.out.println(tmp.get(0));
-                        if (tmp.get(0).isEmpty()) {
-                            timeHighScores.add("");
-                            break;
-                        }
-                        timeHighScores.add(String.format("%-20s %11s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1]));
-                    }
-                    break;
-                case 1:
-                    for (int j = 0; j < tmp.size(); j++) {
-                        System.out.println(tmp.get(0));
-                        if (tmp.get(0).isEmpty()) {
-                            moveHighScores.add("");
-                            break;
-                        }
-                        moveHighScores.add(String.format("%-20s %11s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1]));
-                    }
-                    break;
-                case 2:
-                    for (int j = 0; j < tmp.size(); j++) {
-                        System.out.println(tmp.get(0));
-                        if (tmp.get(0).isEmpty()) {
-                            infinityHighScores.add("");
-                            break;
-                        }
-                        infinityHighScores.add(String.format("%-20s %5s %5s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1], tmp.get(j).split(";")[2]));
-                    }
-                    break;
-            }
-        }
+        infinityHighScores = new ArrayList<>(Arrays.asList(decodedHighScores.get(2).split("㏠")));
     }
 
     private void saveHighScores() {
@@ -205,7 +131,7 @@ public class Highscore {
 
         //timeHighScores omvormen naar datastructuur om op te slaan
         for (String timeHighScore : timeHighScores) {
-            tmp.append(timeHighScore.replaceAll("[ ]+", ";")).append("㏠");
+            tmp.append(timeHighScore).append("㏠");
         }
         decodedHighScores.add(0, tmp.deleteCharAt(tmp.length() - 1).toString());
         System.out.println(tmp.toString());
@@ -213,7 +139,7 @@ public class Highscore {
 
         //moveHighScores omvormen naar datastructuur om op te slaan
         for (String moveHighScore : moveHighScores) {
-            tmp.append(moveHighScore.replaceAll("[ ]+", ";")).append("㏠");
+            tmp.append(moveHighScore).append("㏠");
         }
         decodedHighScores.add(1, tmp.deleteCharAt(tmp.length() - 1).toString());
         System.out.println(tmp.toString());
@@ -221,7 +147,7 @@ public class Highscore {
 
         //infinityHighScores omvormen naar datastructuur om op te slaan
         for (String infinityHighScore : infinityHighScores) {
-            tmp.append(infinityHighScore.replaceAll("[ ]+", ";")).append("㏠");
+            tmp.append(infinityHighScore).append("㏠");
         }
         decodedHighScores.add(2, tmp.deleteCharAt(tmp.length() - 1).toString());
         System.out.println(tmp.toString());
