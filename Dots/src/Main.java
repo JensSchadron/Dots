@@ -1,17 +1,10 @@
 import be.kdg.dots.controller.SpelController;
-import be.kdg.dots.view.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import javax.swing.*;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Created by alexander on 29/01/2015.
@@ -28,6 +21,7 @@ public class Main {
             // shouldn't happen for localhost
         } catch (IOException e) {
             // port taken, so app is already running
+            JOptionPane.showMessageDialog(null,"Application has already started.","Dots",JOptionPane.INFORMATION_MESSAGE);
             System.out.println("Application has already started");
             System.exit(0);
         }

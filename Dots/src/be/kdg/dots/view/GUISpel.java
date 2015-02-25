@@ -91,7 +91,7 @@ public class GUISpel extends JPanel {
                    lblPauze.setIcon(iconPlay);
                    lblPauze.setName("play");
                    controller.stopTimer();
-                   controller.getGuiFrame().updateFrame("pauzePanel");
+                   //controller.getGuiFrame().updateFrame("pauzePanel");
                }else {
                    iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPauze.png")), 50,50));
                    lblPauze.setName("pauze");
@@ -110,6 +110,7 @@ public class GUISpel extends JPanel {
     }
 
     public void eindigSpel() {
+        controller.stopTimer();
         controller.getHighscore().addHighScore(modus);
         controller.getGuiFrame().updateFrame("hoofdMenu");
     }

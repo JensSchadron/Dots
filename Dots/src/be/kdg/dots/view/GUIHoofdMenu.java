@@ -142,6 +142,7 @@ public class GUIHoofdMenu extends JPanel {
         btnInloggen.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                System.out.println("Debug info - Login selected");
                 //String username = JOptionPane.showInputDialog("Give a username",JOptionPane.PLAIN_MESSAGE);
                 controller.getGuiFrame().updateFrame("login");
                 //controller.setSpeler(username);
