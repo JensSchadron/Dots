@@ -1,6 +1,7 @@
 package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -13,7 +14,7 @@ import java.io.IOException;
 public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
     private JPanel main, gameMode, southPanel, loginPanel, rightPanel;
-    private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblSettings,lblBanner, lblHighscore;
+    private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblSettings, lblBanner, lblHighscore;
     private ImageIcon iconTimed, iconEndless, iconSettings, iconHighscore;
     private JButton btnSettings, btnAbout, btnHelp, btnInloggen;
 
@@ -32,21 +33,21 @@ public class GUIHoofdMenu extends JPanel {
         btnHelp = new JButton("Help");
         btnInloggen = new JButton("Inloggen");
 
-        btnInloggen.setSize(200,50);
+        btnInloggen.setSize(200, 50);
 
-        iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120,120));
+        iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120, 120));
         lblTimeMode = new JLabel("", JLabel.CENTER);
         lblTimeMode.setIcon(iconTimed);
 
-        iconEndless = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png")), 120,120));
+        iconEndless = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png")), 120, 120));
         lblEndlessMode = new JLabel("", JLabel.CENTER);
         lblEndlessMode.setIcon(iconEndless);
 
-        iconSettings = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnSettings.png")), 120,120));
+        iconSettings = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnSettings.png")), 120, 120));
         lblSettings = new JLabel("", JLabel.CENTER);
         lblSettings.setIcon(iconSettings);
 
-        iconHighscore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnHighscore.png")), 120,120));
+        iconHighscore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnHighscore.png")), 120, 120));
         lblHighscore = new JLabel("", JLabel.CENTER);
         lblHighscore.setIcon(iconHighscore);
 
@@ -79,9 +80,9 @@ public class GUIHoofdMenu extends JPanel {
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
         gameMode = new JPanel(new GridLayout(2, 2, 10, 10));
-        southPanel = new JPanel(new GridLayout(1,4));
-                //southPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 10));
-        loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,30,10));
+        southPanel = new JPanel(new GridLayout(1, 4));
+        //southPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 10));
+        loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
         rightPanel = new JPanel(new BorderLayout());
         gameMode.setSize(50, 50);
         main.setBackground(Color.white);

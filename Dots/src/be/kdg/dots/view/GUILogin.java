@@ -11,7 +11,7 @@ import java.awt.event.MouseAdapter;
 /**
  * Created by alexander on 24/02/2015.
  */
-public class GUILogin extends JPanel{
+public class GUILogin extends JPanel {
     private Container contentPane;
     private SpelController controller;
     private JLabel lbllabel;
@@ -53,13 +53,13 @@ public class GUILogin extends JPanel{
         Graphics2D g = (Graphics2D) gr;
 
         //create transparency
-        AlphaComposite transparent = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , .9f);
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING , RenderingHints.VALUE_ANTIALIAS_ON);
+        AlphaComposite transparent = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .9f);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setComposite(transparent);
 
         contentPane.paint(gr);
         g.setColor(Color.white);
-        g.fillRect(getWidth()/4, getHeight()/4, getWidth()/2, getHeight()/2);
+        g.fillRect(getWidth() / 4, getHeight() / 4, getWidth() / 2, getHeight() / 2);
 
         /*AlphaComposite solid = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , 1f);
         g.setComposite(solid);

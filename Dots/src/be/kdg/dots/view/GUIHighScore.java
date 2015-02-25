@@ -22,7 +22,7 @@ public class GUIHighScore extends JPanel {
     public GUIHighScore(Container contentPane, SpelController controller) {
         super();
         this.contentPane = contentPane;
-        setLayout(new GridLayout(1,1));
+        setLayout(new GridLayout(1, 1));
         this.controller = controller;
         MakeComponents();
         MakeLayout();
@@ -37,7 +37,7 @@ public class GUIHighScore extends JPanel {
         //scrollBarTime = new JScrollBar(Adjustable.VERTICAL);
 
         panelTime = new JPanel(new FlowLayout());
-        panelInifinty =new JPanel(new FlowLayout());
+        panelInifinty = new JPanel(new FlowLayout());
         panelTime.setOpaque(false);
         panelInifinty.setOpaque(false);
         tabbedPane.addTab("Time", panelTime);
@@ -64,10 +64,11 @@ public class GUIHighScore extends JPanel {
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
         add(mainPanel);
         btnClose.setBounds(40, getHeight() / 2, 350, 30);
-        tabbedPane.setBounds(0,0, this.getWidth(), this.getHeight());
+        tabbedPane.setBounds(0, 0, this.getWidth(), this.getHeight());
         tabbedPane.setVisible(true);
-        tabbedPane.setUI(new javax.swing.plaf.basic.BasicTabbedPaneUI(){
-            protected void paintContentBorder(Graphics g,int tabPlacement,int selectedIndex){}
+        tabbedPane.setUI(new javax.swing.plaf.basic.BasicTabbedPaneUI() {
+            protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) {
+            }
         });
     }
 

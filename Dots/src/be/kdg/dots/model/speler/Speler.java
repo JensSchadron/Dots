@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class Speler {
     private SpelController controller;
-    private String username="";
+    private String username = "";
     private Score score;
 
 

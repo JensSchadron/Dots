@@ -1,13 +1,14 @@
 package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
+
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * Created by jens & alexander on 16/02/2015.
  */
-public class GUIFrame extends JFrame{
+public class GUIFrame extends JFrame {
     private CardLayout cl;
     private SpelController controller;
 
@@ -32,7 +33,7 @@ public class GUIFrame extends JFrame{
                 super.setSize(500, 650);
                 break;
             case "pauzePanel":
-                setGlassPane(new GUIPauzePane(getContentPane(),controller));
+                setGlassPane(new GUIPauzePane(getContentPane(), controller));
                 getGlassPane().setVisible(true);
                 break;
             case "instellingenPanel":
@@ -48,13 +49,13 @@ public class GUIFrame extends JFrame{
                 getGlassPane().setVisible(true);
                 break;
             case "login":
-                setGlassPane(new GUILogin(getContentPane(),controller));
+                setGlassPane(new GUILogin(getContentPane(), controller));
                 getGlassPane().setVisible(true);
                 break;
         }
     }
 
-    public SpelController getController(){
+    public SpelController getController() {
         return controller;
     }
 }

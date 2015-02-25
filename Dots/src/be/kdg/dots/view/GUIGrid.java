@@ -2,6 +2,7 @@ package be.kdg.dots.view;
 
 import be.kdg.dots.model.veld.DotKleur;
 import be.kdg.dots.model.veld.Veld;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -158,7 +159,7 @@ public class GUIGrid extends JPanel {
                     if (dotUI.get(i).contains(e.getX(), e.getY())) {
                         //System.out.println("Debug info - Mouse drag detected to dot " + i);
                         DotKleur kleur = guiSpel.getController().getVeld().getVeld().get(i).getDotKleur();
-                        if(dotKleur == null){
+                        if (dotKleur == null) {
                             dotKleur = new Color(kleur.getRood(), kleur.getGroen(), kleur.getBlauw());
                         }
                         if (dotKleur.equals(new Color(kleur.getRood(), kleur.getGroen(), kleur.getBlauw()))) {

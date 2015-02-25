@@ -57,7 +57,7 @@ public class SpelController {
         return veld.getColum();
     }
 
-    public GUIFrame getGuiFrame(){
+    public GUIFrame getGuiFrame() {
         return guiFrame;
     }
 
@@ -65,11 +65,17 @@ public class SpelController {
         return highscore;
     }
 
-    public Level getlevel(){ return level;}
+    public Level getlevel() {
+        return level;
+    }
 
-    public void setLevel(int lvl){level.setLevel(lvl);}
+    public void setLevel(int lvl) {
+        level.setLevel(lvl);
+    }
 
-    public void setscoreDoel(int lvl){score.setScoreDoel(lvl);}
+    public void setscoreDoel(int lvl) {
+        score.setScoreDoel(lvl);
+    }
 
     public GUISpel getGuiSpel() {
         return guiSpel;
@@ -109,14 +115,14 @@ public class SpelController {
                             timer.stop(); //actionPerformed wordt nog eens getriggerd als timer.stop(); wordt aangeroepen!
                         }
                         System.out.println("Debug info - Time: " + aantalSeconden);
-                        if(aantalSeconden == 0){
+                        if (aantalSeconden == 0) {
                             //
                             setLevel(getlevel().getLevel() + 1);
                             speler.getScore().setScoreDoel(level.getLevel());
-                            if (speler.getScore().controlScore(getSpeler().getScore().getScore())){
+                            if (speler.getScore().controlScore(getSpeler().getScore().getScore())) {
                                 JOptionPane.showMessageDialog(null, "Proficiat! Op naar level " + level.getLevel(), "InfoBox: " + "Win", JOptionPane.INFORMATION_MESSAGE);
                                 startSpel("Time");
-                            }else{
+                            } else {
                                 JOptionPane.showMessageDialog(null, "Je hebt het level niet gehaald", "InfoBox: " + "Lose", JOptionPane.INFORMATION_MESSAGE);
                                 getGuiSpel().eindigSpel();
                             }
@@ -138,7 +144,7 @@ public class SpelController {
                 });
                 break;
         }
-        veld = new Veld(6,6,this);
+        veld = new Veld(6, 6, this);
         guiSpel.setModus(modus);
 
         guiFrame.updateFrame("startSpel");

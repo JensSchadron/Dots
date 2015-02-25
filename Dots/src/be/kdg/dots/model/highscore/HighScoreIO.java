@@ -31,7 +31,7 @@ public class HighScoreIO {
     protected void saveHighScores(ArrayList<String> decodedHighScores) {
         ArrayList<String> encodedHighScores = new ArrayList<>();
         for (int i = 0; i < decodedHighScores.size(); i++) {
-            encodedHighScores.add(i,encodeHighScore(decodedHighScores.get(i)));
+            encodedHighScores.add(i, encodeHighScore(decodedHighScores.get(i)));
         }
 
         try {
@@ -46,7 +46,7 @@ public class HighScoreIO {
         for (int i = 0; i < 3; i++) {
             decodedHighScores.add("");
         }
-        if(Files.exists(filePath)) {
+        if (Files.exists(filePath)) {
             List<String> encodedHighScores = new ArrayList<>();
             try {
                 encodedHighScores = Files.readAllLines(filePath);

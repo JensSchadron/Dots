@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 /**
  * Created by jens & alexander on 17/02/2015.
  */
-public class GUIAboutPane extends JPanel{
+public class GUIAboutPane extends JPanel {
     private Container contentPane;
     private JButton btnClose;
     private JTextArea txtAreaInfo;
@@ -34,13 +34,13 @@ public class GUIAboutPane extends JPanel{
                 "\n" +
                 "En dan nu een beetje info over onszelf.\n" +
                 "Had je nu echt gedacht dat je nu al info over ons hier zou vinden? Het kan best zijn dat deze er nog komt op een later tijdstip ;)"
-                );
+        );
         txtAreaInfo.setLineWrap(true);
         txtAreaInfo.setWrapStyleWord(true);
         txtAreaInfo.setOpaque(false);
         txtAreaInfo.setEditable(false);
         txtAreaInfo.setHighlighter(null);
-        txtAreaInfo.setMargin(new Insets(10,10,10,10));
+        txtAreaInfo.setMargin(new Insets(10, 10, 10, 10));
         btnClose = new JButton("Close");
     }
 
@@ -56,8 +56,8 @@ public class GUIAboutPane extends JPanel{
         Graphics2D g = (Graphics2D) gr;
 
         //create transparency
-        AlphaComposite transparent = AlphaComposite.getInstance(AlphaComposite.SRC_OVER , .9f);
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING , RenderingHints.VALUE_ANTIALIAS_ON);
+        AlphaComposite transparent = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .9f);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setComposite(transparent);
 
         contentPane.paint(gr);

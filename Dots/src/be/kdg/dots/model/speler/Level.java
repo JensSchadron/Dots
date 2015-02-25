@@ -7,14 +7,12 @@ public class Level {
     private Speler speler;
     private int level;
 
-
     public Level(Speler speler) {
         this.speler = speler;
         level = 1;
-
     }
 
-    public void setLevel(int level){
+    public void setLevel(int level) {
         this.level = level;
     }
 
