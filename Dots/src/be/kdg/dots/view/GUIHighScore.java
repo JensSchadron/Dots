@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 public class GUIHighScore extends JPanel {
     private Container contentPane;
     private JButton btnClose;
-    private JPanel panelTime, panelInifinty;
+    private JPanel panelTime, panelInifinty, panelButton, mainPanel;
     private JTabbedPane tabbedPane;
     private JTextArea txtTest;
     private SpelController controller;
@@ -48,8 +48,16 @@ public class GUIHighScore extends JPanel {
 
     private void MakeLayout() {
         btnClose.setForeground(Color.BLUE);
-        //add(btnClose);
-        add(tabbedPane);
+        panelButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setOpaque(false);
+        panelButton.setOpaque(false);
+
+        panelButton.add(btnClose);
+        //add(tabbedPane);
+        mainPanel.add(panelButton, BorderLayout.NORTH);
+        mainPanel.add(tabbedPane, BorderLayout.CENTER);
+        add(mainPanel);
         btnClose.setBounds(40, getHeight() / 2, 350, 30);
         tabbedPane.setBounds(0,0, this.getWidth(), this.getHeight());
         tabbedPane.setVisible(true);

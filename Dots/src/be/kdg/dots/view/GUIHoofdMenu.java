@@ -78,7 +78,8 @@ public class GUIHoofdMenu extends JPanel {
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
         gameMode = new JPanel(new GridLayout(2, 2, 10, 10));
-        southPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 10));
+        southPanel = new JPanel(new GridLayout(1,4));
+                //southPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 30, 10));
         loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,30,10));
         rightPanel = new JPanel(new BorderLayout());
         gameMode.setSize(50, 50);
@@ -92,10 +93,11 @@ public class GUIHoofdMenu extends JPanel {
         southPanel.add(btnAbout);
         southPanel.add(btnSettings);
         southPanel.add(btnHelp);
+        southPanel.add(btnInloggen);
         rightPanel.add(lblBanner, BorderLayout.CENTER);
-        rightPanel.add(loginPanel, BorderLayout.EAST);
+        //rightPanel.add(loginPanel, BorderLayout.EAST);
 
-        loginPanel.add(btnInloggen, BorderLayout.NORTH);
+        //loginPanel.add(btnInloggen, BorderLayout.NORTH);
         main.add(rightPanel, BorderLayout.NORTH);
         main.add(gameMode, BorderLayout.CENTER);
         main.add(southPanel, BorderLayout.SOUTH);
