@@ -5,6 +5,8 @@ import be.kdg.dots.controller.SpelController;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
@@ -14,7 +16,7 @@ import java.awt.geom.Point2D;
  */
 public class GUISettingsPane extends JPanel {
     private Container contentPane;
-    private JButton btnSave;
+    private JButton btnSave, btnResetHighscore;
     private JTextArea txtName;
     private JPanel centerPanel;
     private SpelController controller;
@@ -31,6 +33,7 @@ public class GUISettingsPane extends JPanel {
 
     private void MakeComponents() {
         btnSave = new JButton("Save settings");
+        btnResetHighscore = new JButton("Reset highscores");
         slider = new JSlider();
         slider.setUI(new SliderUI(slider));
         System.out.println(slider.getValue());
@@ -41,7 +44,7 @@ public class GUISettingsPane extends JPanel {
         }else{
             txtName = new JTextArea("Information:\n\nU bent ingelogd als: " + controller.getSpeler().getUsername());
         }
-        centerPanel = new JPanel(new GridLayout(3,1));
+        centerPanel = new JPanel(new GridLayout(4,1));
     }
 
     private void MakeLayout() {
@@ -49,6 +52,7 @@ public class GUISettingsPane extends JPanel {
         super.add(btnSave, BorderLayout.SOUTH);
         centerPanel.add(txtName);
         centerPanel.add(slider);
+        centerPanel.add(btnResetHighscore);
         centerPanel.setOpaque(false);
         txtName.setOpaque(false);
         txtName.setMargin(new Insets(20, 20, 20, 20));
@@ -79,6 +83,12 @@ public class GUISettingsPane extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 setVisible(false);
+            }
+        });
+        btnResetHighscore.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.getHighscore().resetHighScores();
             }
         });
     }
