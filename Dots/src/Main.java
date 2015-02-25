@@ -27,5 +27,5 @@ public class Main {
         }
         new SpelController();
     }
-    //TODO: Help, instellingen, move modus, inloggen, (uitbreidingen: achievements)
+    //TODO: Help, instellingen (kleur veranderen, reset highscores, ...), move modus, inloggen, (uitbreidingen: achievements)
 }

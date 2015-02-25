@@ -74,8 +74,12 @@ public class GUILogin extends JPanel {
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.setSpeler(txtUsername.getText());
-                setVisible(false);
+                if (txtUsername.getText().length()>2){
+                    controller.setSpeler(txtUsername.getText());
+                    setVisible(false);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Gelieve een username op te geven langer dan 2 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
     }
