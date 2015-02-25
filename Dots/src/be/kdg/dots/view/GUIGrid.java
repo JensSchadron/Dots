@@ -112,6 +112,7 @@ public class GUIGrid extends JPanel {
                 GUIGrid.this.lijnUI.clear();
                 guiSpel.getController().getVeld().clearConnectedDots();
                 repaint();
+                //guiSpel.getController().checkScore();
                 //System.out.println("Mouse release detected");
             }
         });

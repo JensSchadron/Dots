@@ -111,24 +111,17 @@ public class SpelController {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         guiSpel.updateTimer(--aantalSeconden);
+
+                        /*else{
+                            //JOptionPane.showMessageDialog(null, "Je hebt het level niet gehaald", "InfoBox: " + "Lose", JOptionPane.INFORMATION_MESSAGE);
+                            getGuiSpel().eindigSpel();
+                            speler.getScore().setScoreDoel(level.getLevel());
+                        }*/
                         if (aantalSeconden == 0) {
                             timer.stop(); //actionPerformed wordt nog eens getriggerd als timer.stop(); wordt aangeroepen!
                         }
                         System.out.println("Debug info - Time: " + aantalSeconden);
-                        if (aantalSeconden == 0) {
-                            //
-                            setLevel(getlevel().getLevel() + 1);
-                            speler.getScore().setScoreDoel(level.getLevel());
-                            if (speler.getScore().controlScore(getSpeler().getScore().getScore())) {
-                                JOptionPane.showMessageDialog(null, "Proficiat! Op naar level " + level.getLevel(), "InfoBox: " + "Win", JOptionPane.INFORMATION_MESSAGE);
-                                startSpel("Time");
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Je hebt het level niet gehaald", "InfoBox: " + "Lose", JOptionPane.INFORMATION_MESSAGE);
-                                getGuiSpel().eindigSpel();
-                            }
 
-
-                        }
                     }
                 });
                 break;
@@ -150,5 +143,16 @@ public class SpelController {
         guiFrame.updateFrame("startSpel");
         speler.getScore().resetScore();
         timer.start();
+    }
+
+    public void checkScore() {
+
+        if (speler.getScore().controlScore(getSpeler().getScore().getScore())) {
+            setLevel(getlevel().getLevel() + 1);
+            speler.getScore().setScoreDoel(level.getLevel());
+            guiSpel.updateLevel(level.getLevel());
+            //JOptionPane.showMessageDialog(null, "Proficiat! Op naar level " + level.getLevel(), "InfoBox: " + "Win", JOptionPane.INFORMATION_MESSAGE);
+            //startSpel("Time");
+        }
     }
 }

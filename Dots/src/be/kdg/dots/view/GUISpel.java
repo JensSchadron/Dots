@@ -127,6 +127,7 @@ public class GUISpel extends JPanel {
 
     public void updateScore(int score, int doel) {
         lblScore.setText("Score: " + score + " / " + doel);
+        controller.checkScore();
     }
 
     public void updateLevel(int level) {
