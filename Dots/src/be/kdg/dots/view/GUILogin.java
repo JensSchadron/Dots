@@ -39,11 +39,11 @@ public class GUILogin extends JPanel{
     }
 
     private void MakeLayout() {
-        panel = new JPanel(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        panel = new JPanel(new BorderLayout());
         panel.setOpaque(false);
         panel.add(lbllabel);
-        panel.add(txtUsername, panel);
-        panel.add(btnOK, panel);
+        panel.add(txtUsername);
+        panel.add(btnOK);
         this.add(panel);
     }
 

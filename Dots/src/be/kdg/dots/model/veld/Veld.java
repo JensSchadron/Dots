@@ -98,7 +98,8 @@ public class Veld {
                     rooster.set(i, dotOrNull);
                 }
             }
-            controller.getGuiSpel().updateScore(controller.getSpeler().getScore().getScore());
+            controller.getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
+
         }
         connectedDots.clear();
     }

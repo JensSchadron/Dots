@@ -2,13 +2,15 @@ package be.kdg.dots.controller;
 
 import be.kdg.dots.model.highscore.HighScoreIO;
 import be.kdg.dots.model.highscore.Highscore;
+import be.kdg.dots.model.speler.Level;
+import be.kdg.dots.model.speler.Score;
 import be.kdg.dots.model.speler.Speler;
 import be.kdg.dots.model.veld.Veld;
 import be.kdg.dots.view.GUIFrame;
 import be.kdg.dots.view.GUIHoofdMenu;
 import be.kdg.dots.view.GUISpel;
 
-import javax.swing.Timer;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,6 +21,8 @@ public class SpelController {
     private Veld veld;
     private Highscore highscore;
     private Speler speler;
+    private Score score;
+    private Level level;
     private Timer timer;
     private GUIHoofdMenu guiHoofdMenu;
     private GUISpel guiSpel;
@@ -37,6 +41,7 @@ public class SpelController {
         speler = new Speler(this, "Jens");
         guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
         guiFrame.getContentPane().add("startSpel", guiSpel);
+        level = new Level(speler);
         //guiFrame.getCl().addLayoutComponent(GUISpel, "guiSpel");
     }
 
@@ -60,6 +65,12 @@ public class SpelController {
         return highscore;
     }
 
+    public Level getlevel(){ return level;}
+
+    public void setLevel(int lvl){level.setLevel(lvl);}
+
+    public void setscoreDoel(int lvl){score.setScoreDoel(lvl);}
+
     public GUISpel getGuiSpel() {
         return guiSpel;
     }
@@ -67,6 +78,7 @@ public class SpelController {
     public Speler getSpeler() {
         return speler;
     }
+
     public void setSpeler(String username) {
         speler.setUsername(username);
     }
@@ -88,6 +100,7 @@ public class SpelController {
             case "Time":
                 aantalSeconden = MAX_AANTAL_SECONDEN;
                 guiSpel.updateTimer(aantalSeconden);
+                guiSpel.updateLevel(level.getLevel());
                 timer = new Timer(1000, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -97,7 +110,18 @@ public class SpelController {
                         }
                         System.out.println("Debug info - Time: " + aantalSeconden);
                         if(aantalSeconden == 0){
-                            getGuiSpel().eindigSpel();
+                            //
+                            setLevel(getlevel().getLevel() + 1);
+                            speler.getScore().setScoreDoel(level.getLevel());
+                            if (speler.getScore().controlScore(getSpeler().getScore().getScore())){
+                                JOptionPane.showMessageDialog(null, "Proficiat! Op naar level " + level.getLevel(), "InfoBox: " + "Win", JOptionPane.INFORMATION_MESSAGE);
+                                startSpel("Time");
+                            }else{
+                                JOptionPane.showMessageDialog(null, "Je hebt het level niet gehaald", "InfoBox: " + "Lose", JOptionPane.INFORMATION_MESSAGE);
+                                getGuiSpel().eindigSpel();
+                            }
+
+
                         }
                     }
                 });

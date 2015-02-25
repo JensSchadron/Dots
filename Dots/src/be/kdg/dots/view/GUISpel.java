@@ -125,8 +125,12 @@ public class GUISpel extends JPanel {
         lblTime.setText("Time: " + aantalSeconden);
     }
 
-    public void updateScore(int score) {
-        lblScore.setText("Score: " + score);
+    public void updateScore(int score, int doel) {
+        lblScore.setText("Score: " + score + " / " + doel);
+    }
+
+    public void updateLevel(int level){
+        lblLevel.setText("Level: " + level);
     }
 
     public SpelController getController() {
