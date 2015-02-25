@@ -86,18 +86,20 @@ public class GUISpel extends JPanel {
         lblPauze.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-               if (lblPauze.getName().equals("pauze")){
+                controller.stopTimer();
+                controller.getGuiFrame().updateFrame("pauzePanel");
+               /*if (lblPauze.getName().equals("pauze")){
                    iconPlay = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPlay.png")), 50,50));
                    lblPauze.setIcon(iconPlay);
                    lblPauze.setName("play");
                    controller.stopTimer();
-                   //controller.getGuiFrame().updateFrame("pauzePanel");
+                   controller.getGuiFrame().updateFrame("pauzePanel");
                }else {
                    iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPauze.png")), 50,50));
                    lblPauze.setName("pauze");
                    lblPauze.setIcon(iconPauze);
                    controller.startTimer();
-               }
+               }*/
             }
         });
         lblHome.addMouseListener(new MouseAdapter() {
