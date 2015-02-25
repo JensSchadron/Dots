@@ -12,8 +12,9 @@ public class Level {
         level = 1;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void incrementLevel() {
+        this.level++;
+        speler.getController().getGuiSpel().updateLevel(level);
     }
 
 

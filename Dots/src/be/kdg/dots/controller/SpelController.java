@@ -1,9 +1,7 @@
 package be.kdg.dots.controller;
 
-import be.kdg.dots.model.highscore.HighScoreIO;
 import be.kdg.dots.model.highscore.Highscore;
 import be.kdg.dots.model.speler.Level;
-import be.kdg.dots.model.speler.Score;
 import be.kdg.dots.model.speler.Speler;
 import be.kdg.dots.model.veld.Veld;
 import be.kdg.dots.view.GUIFrame;
@@ -21,8 +19,6 @@ public class SpelController {
     private Veld veld;
     private Highscore highscore;
     private Speler speler;
-    private Score score;
-    private Level level;
     private Timer timer;
     private GUIHoofdMenu guiHoofdMenu;
     private GUISpel guiSpel;
@@ -41,7 +37,6 @@ public class SpelController {
         speler = new Speler(this, null);
         guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
         guiFrame.getContentPane().add("startSpel", guiSpel);
-        level = new Level(speler);
         //guiFrame.getCl().addLayoutComponent(GUISpel, "guiSpel");
     }
 
@@ -63,18 +58,6 @@ public class SpelController {
 
     public Highscore getHighscore() {
         return highscore;
-    }
-
-    public Level getlevel() {
-        return level;
-    }
-
-    public void setLevel(int lvl) {
-        level.setLevel(lvl);
-    }
-
-    public void setscoreDoel(int lvl) {
-        score.setScoreDoel(lvl);
     }
 
     public GUISpel getGuiSpel() {
@@ -109,14 +92,14 @@ public class SpelController {
                 case "Time":
                     aantalSeconden = MAX_AANTAL_SECONDEN;
                     guiSpel.updateTimer(aantalSeconden);
-                    guiSpel.updateLevel(level.getLevel());
+                    //guiSpel.updateLevel(level.getLevel());
                     timer = new Timer(1000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             guiSpel.updateTimer(--aantalSeconden);
                             if (aantalSeconden == 0) {
                                 timer.stop(); //actionPerformed wordt nog eens getriggerd als timer.stop(); wordt aangeroepen!
-                                JOptionPane.showMessageDialog(null, "Proficiat! U hebt level " + level.getLevel() + " behaald", "InfoBox: " + "Winner", JOptionPane.INFORMATION_MESSAGE);
+                                //JOptionPane.showMessageDialog(null, "Proficiat! U hebt level " + level.getLevel() + " behaald", "InfoBox: " + "Winner", JOptionPane.INFORMATION_MESSAGE);
                                 guiSpel.eindigSpel();
                             }
                             System.out.println("Debug info - Time: " + aantalSeconden);
@@ -142,18 +125,6 @@ public class SpelController {
             guiFrame.updateFrame("startSpel");
             speler.getScore().resetScore();
             timer.start();
-        }
-
-    }
-
-    public void checkScore() {
-
-        if (speler.getScore().controlScore(getSpeler().getScore().getScore())) {
-            setLevel(getlevel().getLevel() + 1);
-            speler.getScore().setScoreDoel(level.getLevel());
-            guiSpel.updateLevel(level.getLevel());
-            //JOptionPane.showMessageDialog(null, "Proficiat! Op naar level " + level.getLevel(), "InfoBox: " + "Win", JOptionPane.INFORMATION_MESSAGE);
-            //startSpel("Time");
         }
     }
 }

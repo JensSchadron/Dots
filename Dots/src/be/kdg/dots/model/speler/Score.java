@@ -8,16 +8,23 @@ import java.util.ArrayList;
 public class Score {
     private Speler speler;
     private int score;
+    private int totaleScore;
     private int scoreDoel;
 
     public Score(Speler speler) {
         this.speler = speler;
         this.score = 0;
+        this.totaleScore = 0;
         scoreDoel = 100;
     }
 
     public void berekenScore(ArrayList<Integer> connectedDots) {
         score += Math.pow(connectedDots.size(), 2);
+        totaleScore += Math.pow(connectedDots.size(), 2);
+        if (controlScore(score)) {
+            speler.getLevel().incrementLevel();
+            setScoreDoel(speler.getLevel().getLevel());
+        }
         System.out.println("Debug info - Score: " + score);
     }
 
@@ -38,11 +45,7 @@ public class Score {
         speler.getController().getGuiSpel().updateScore(score, scoreDoel);
     }
 
-    public boolean controlScore(int achievedScore) {
-        if (achievedScore >= scoreDoel) {
-            return true;
-        } else {
-            return false;
-        }
+    private boolean controlScore(int achievedScore) {
+        return achievedScore >= scoreDoel;
     }
 }

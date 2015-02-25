@@ -12,11 +12,13 @@ public class Speler {
     private SpelController controller;
     private String username = "";
     private Score score;
+    private Level level;
 
 
     public Speler(SpelController controller, String username) {
         this.username = username;
         this.score = new Score(this);
+        this.level = new Level(this);
         this.controller = controller;
     }
 
@@ -34,6 +36,10 @@ public class Speler {
 
     public Score getScore() {
         return score;
+    }
+
+    public Level getLevel(){
+        return level;
     }
 
 

@@ -36,7 +36,6 @@ public class Highscore {
         return arr;
     }*/
 
-    //TODO: Methode uitbreiden
     public String getHighScores(String modus) {
         String result = "";
         switch (modus) {
@@ -154,7 +153,6 @@ public class Highscore {
             switch (i) {
                 case 0:
                     for (int j = 0; j < tmp.size(); j++) {
-                        System.out.println(tmp.get(0));
                         if (tmp.get(0).isEmpty()) {
                             timeHighScores.add("");
                             break;
@@ -164,7 +162,6 @@ public class Highscore {
                     break;
                 case 1:
                     for (int j = 0; j < tmp.size(); j++) {
-                        System.out.println(tmp.get(0));
                         if (tmp.get(0).isEmpty()) {
                             moveHighScores.add("");
                             break;
@@ -174,7 +171,6 @@ public class Highscore {
                     break;
                 case 2:
                     for (int j = 0; j < tmp.size(); j++) {
-                        System.out.println(tmp.get(0));
                         if (tmp.get(0).isEmpty()) {
                             infinityHighScores.add("");
                             break;
@@ -215,7 +211,6 @@ public class Highscore {
         decodedHighScores.add(2, tmp.deleteCharAt(tmp.length() - 1).toString());
         System.out.println(tmp.toString());
         tmp.delete(0, tmp.length());
-
 
         highScoreIO.saveHighScores(decodedHighScores);
     }

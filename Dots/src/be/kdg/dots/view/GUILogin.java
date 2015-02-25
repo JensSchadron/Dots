@@ -23,8 +23,7 @@ public class GUILogin extends JPanel {
         super();
         this.contentPane = contentPane;
         this.controller = controller;
-        setLayout(new BorderLayout());
-        //setLayout(null);
+        setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         MakeComponents();
         MakeLayout();
         MakeEventListener();
@@ -39,11 +38,18 @@ public class GUILogin extends JPanel {
     }
 
     private void MakeLayout() {
-        panel = new JPanel(new BorderLayout());
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
         panel.setOpaque(false);
-        panel.add(lbllabel, BorderLayout.NORTH);
-        panel.add(txtUsername, BorderLayout.CENTER);
-        panel.add(btnOK, BorderLayout.SOUTH);
+
+        btnCancel.setAlignmentX(CENTER_ALIGNMENT);
+        btnOK.setAlignmentX(CENTER_ALIGNMENT);
+        lbllabel.setAlignmentX(CENTER_ALIGNMENT);
+        txtUsername.setAlignmentX(CENTER_ALIGNMENT);
+
+        panel.add(lbllabel);
+        panel.add(txtUsername);
+        panel.add(btnOK);
         this.add(panel);
     }
 
