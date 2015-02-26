@@ -65,7 +65,9 @@ public class Spel {
             controller.getGuiSpel().setModus(modus);
             controller.getGuiFrame().updateFrame("startSpel");
             controller.getSpeler().getScore().resetScore();
-            timer.start();
+            if (!modus.equals("Move")){
+                timer.start();
+            }
         }
     }
 

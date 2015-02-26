@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.lang.reflect.Array;
 
 /**
  * Created by jens & alexander on 17/02/2015.
@@ -21,6 +22,7 @@ public class GUISettingsPane extends JPanel {
     private JPanel centerPanel;
     private SpelController controller;
     private JSlider slider;
+    private JComboBox comboBox;
 
     public GUISettingsPane(Container contentPane, SpelController controller) {
         this.contentPane = contentPane;
@@ -32,8 +34,13 @@ public class GUISettingsPane extends JPanel {
     }
 
     private void MakeComponents() {
+        String[] array = new String[6];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = (i+3) + " X " + (i+3) ;
+        }
         btnSave = new JButton("Save settings");
         btnResetHighscore = new JButton("Reset highscores");
+        comboBox = new JComboBox(array);
         slider = new JSlider();
         slider.setUI(new SliderUI(slider));
         System.out.println(slider.getValue());
@@ -53,6 +60,7 @@ public class GUISettingsPane extends JPanel {
         centerPanel.add(txtName);
         centerPanel.add(slider);
         centerPanel.add(btnResetHighscore);
+        centerPanel.add(comboBox);
         centerPanel.setOpaque(false);
         txtName.setOpaque(false);
         txtName.setMargin(new Insets(20, 20, 20, 20));

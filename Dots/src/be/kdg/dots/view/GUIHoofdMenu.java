@@ -125,7 +125,7 @@ public class GUIHoofdMenu extends JPanel {
         lblMove.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - Infinity mode selected");
+                System.out.println("Debug info - Move mode selected");
                 setVisible(false);
                 controller.startSpel("Move");
             }

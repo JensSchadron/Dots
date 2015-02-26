@@ -18,7 +18,7 @@ public class Score {
 
     public void berekenScore(ArrayList<Integer> connectedDots) {
         score += Math.pow(connectedDots.size(), 2);
-        if (controlScore(score)) {
+        while (controlScore(score)) {
             speler.getLevel().incrementLevel();
             setScoreDoel(speler.getLevel().getLevel());
         }

@@ -85,7 +85,7 @@ public class Highscore {
                     break;
                 }
                 for (int i = 0; i < moveHighScores.size(); i++) {
-                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(moveHighScores.get(i).substring(20,28).trim())) {
+                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(moveHighScores.get(i).substring(20,32).trim())) {
                         moveHighScores.add(i, String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                         break;
                     }
