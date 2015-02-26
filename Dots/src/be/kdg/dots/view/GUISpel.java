@@ -86,7 +86,7 @@ public class GUISpel extends JPanel {
         lblPauze.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                controller.stopTimer();
+                controller.getSpel().stopTimer();
                 controller.getGuiFrame().updateFrame("pauzePanel");
                /*if (lblPauze.getName().equals("pauze")){
                    iconPlay = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPlay.png")), 50,50));
@@ -112,7 +112,7 @@ public class GUISpel extends JPanel {
     }
 
     public void eindigSpel() {
-        controller.stopTimer();
+        controller.getSpel().stopTimer();
         controller.getHighscore().addHighScore(modus);
         controller.getGuiFrame().updateFrame("hoofdMenu");
     }

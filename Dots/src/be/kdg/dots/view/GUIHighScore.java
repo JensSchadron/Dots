@@ -14,9 +14,9 @@ import java.io.IOException;
 public class GUIHighScore extends JPanel {
     private Container contentPane;
     private JButton btnClose;
-    private JPanel panelTime, panelInifinty, panelButton, mainPanel;
+    private JPanel panelTime, panelInifinty, panelMove, panelButton, mainPanel;
     private JTabbedPane tabbedPane;
-    private JTextArea txtTime, txtInfinity;
+    private JTextArea txtTime, txtInfinity, txtMove;
     private SpelController controller;
     private JScrollBar scrollBarTime;
 
@@ -39,9 +39,12 @@ public class GUIHighScore extends JPanel {
 
         panelTime = new JPanel(new FlowLayout());
         panelInifinty = new JPanel(new FlowLayout());
+        panelMove = new JPanel(new FlowLayout());
         panelTime.setOpaque(false);
         panelInifinty.setOpaque(false);
+        panelMove.setOpaque(false);
         tabbedPane.addTab("Time", panelTime);
+        tabbedPane.addTab("Move", panelMove);
         tabbedPane.addTab("Infinity", panelInifinty);
 
         txtTime = new JTextArea(controller.getHighscore().getHighScores("Time"));
@@ -50,6 +53,9 @@ public class GUIHighScore extends JPanel {
         txtInfinity = new JTextArea(controller.getHighscore().getHighScores("Infinity"));
         txtInfinity.setOpaque(false);
         panelInifinty.add(txtInfinity);
+        txtMove = new JTextArea(controller.getHighscore().getHighScores("Move"));
+        txtMove.setOpaque(false);
+        panelMove.add(txtMove);
     }
 
     private void MakeLayout() {
@@ -81,6 +87,7 @@ public class GUIHighScore extends JPanel {
             tabbedPane.setFont(font);
             txtInfinity.setFont(font);
             txtTime.setFont(font);
+            txtMove.setFont(font);
             btnClose.setFont(font);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();

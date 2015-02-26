@@ -92,7 +92,7 @@ public class GUIPauzePane extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 setVisible(false);
-                controller.startTimer();
+                controller.getSpel().startTimer();
             }
         });
         lblHome.addMouseListener(new MouseAdapter() {

@@ -69,7 +69,7 @@ public class Highscore {
                     break;
                 }
                 for (int i = 0; i < timeHighScores.size(); i++) {
-                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(timeHighScores.get(i).substring(20).trim())) {
+                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(timeHighScores.get(i).substring(20,27).trim())) {
                         timeHighScores.add(i, String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getSpeler().getLevel().getLevel()));
                         break;
                     }
@@ -93,20 +93,20 @@ public class Highscore {
                         moveHighScores.add(moveHighScores.size(), String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                         break;
                     }
-                }
-                break;
-            case "Infinity":
-                if (infinityHighScores.get(0).isEmpty() || infinityHighScores.size() == 0) {
-                    infinityHighScores.set(0, String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getAantalSeconden()));
+        }
+        break;
+        case "Infinity":
+        if (infinityHighScores.get(0).isEmpty() || infinityHighScores.size() == 0) {
+            infinityHighScores.set(0, String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getSpel().getAantalSeconden()));
                     break;
                 }
                 for (int i = 0; i < infinityHighScores.size(); i++) {
                     if (controller.getSpeler().getScore().getScore() > Integer.parseInt(infinityHighScores.get(i).substring(20, 26).trim())) {
-                        infinityHighScores.add(i, String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getAantalSeconden()));
+                        infinityHighScores.add(i, String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getSpel().getAantalSeconden()));
                         break;
                     }
                     if (i == infinityHighScores.size() - 1) {
-                        infinityHighScores.add(infinityHighScores.size(), String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getAantalSeconden()));
+                        infinityHighScores.add(infinityHighScores.size(), String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getSpel().getAantalSeconden()));
                         break;
                     }
                 }

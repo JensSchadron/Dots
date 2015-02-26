@@ -3,6 +3,7 @@ package be.kdg.dots.controller;
 import be.kdg.dots.model.highscore.Highscore;
 import be.kdg.dots.model.speler.Level;
 import be.kdg.dots.model.speler.Speler;
+import be.kdg.dots.model.veld.Spel;
 import be.kdg.dots.model.veld.Veld;
 import be.kdg.dots.view.GUIFrame;
 import be.kdg.dots.view.GUIHoofdMenu;
@@ -19,29 +20,36 @@ public class SpelController {
     private Veld veld;
     private Highscore highscore;
     private Speler speler;
-    private Timer timer;
+    //private Timer timer;
     private GUIHoofdMenu guiHoofdMenu;
     private GUISpel guiSpel;
     private GUIFrame guiFrame;
+    private Spel spel;
 
     //Timer attributen
-    private static final int MAX_AANTAL_SECONDEN = 45;
+    /*private static final int MAX_AANTAL_SECONDEN = 45;
+    private static final int MAX_AANTAL_MOVES = 30;
     private int aantalSeconden;
+    private int aantalMoves;*/
 
     public SpelController() {
         veld = new Veld(6, 6, this);
         highscore = new Highscore(this);
         guiHoofdMenu = new GUIHoofdMenu(this);
         guiSpel = new GUISpel(this);
+        spel = new Spel(this);
         guiFrame = new GUIFrame(this);
         speler = new Speler(this, null);
         guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
         guiFrame.getContentPane().add("startSpel", guiSpel);
-        //guiFrame.getCl().addLayoutComponent(GUISpel, "guiSpel");
     }
 
     public Veld getVeld() {
         return veld;
+    }
+
+    public Spel getSpel() {
+        return spel;
     }
 
     public int getRow() {
@@ -72,7 +80,9 @@ public class SpelController {
         speler.setUsername(username);
     }
 
-    public void stopTimer() {
+
+
+   /* public void stopTimer() {
         timer.stop();
     }
 
@@ -82,9 +92,14 @@ public class SpelController {
 
     public int getAantalSeconden() {
         return aantalSeconden;
+    }*/
+
+    public void startSpel(String modus){
+        spel.startSpel(modus);
+        this.veld = new Veld(6, 6, this);
     }
 
-    public void startSpel(String modus) {
+   /* public void startSpel(String modus) {
         if (speler.getUsername()==null){
             JOptionPane.showMessageDialog(null, "Gelieve u eerst in te loggen alvorens te spelen", "InfoBox: " + "Inloggen", JOptionPane.INFORMATION_MESSAGE);
         }else{
@@ -118,6 +133,17 @@ public class SpelController {
                         }
                     });
                     break;
+                case "Move":
+                    aantalSeconden = 0;
+                    guiSpel.updateTimer(aantalSeconden);
+                    timer = new Timer(1000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            guiSpel.updateTimer(++aantalSeconden);
+                            System.out.println("Debug info - Time: " + aantalSeconden);
+                        }
+                    });
+                    break;
             }
             veld = new Veld(6, 6, this);
             guiSpel.setModus(modus);
@@ -126,5 +152,5 @@ public class SpelController {
             speler.getScore().resetScore();
             timer.start();
         }
-    }
+    }*/
 }

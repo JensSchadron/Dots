@@ -2,13 +2,11 @@ package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * Created by jens & alexander on 4/02/2015.
@@ -16,8 +14,8 @@ import java.net.URL;
 public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
     private JPanel main, gameMode, southPanel, loginPanel, rightPanel;
-    private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblSettings, lblBanner, lblHighscore;
-    private ImageIcon iconTimed, iconEndless, iconSettings, iconHighscore;
+    private JLabel lblTimeMode, lblEndlessMode, lblMove, lblBanner, lblHighscore;
+    private ImageIcon iconTimed, iconEndless, iconMove, iconHighscore;
     private JButton btnSettings, btnAbout, btnHelp, btnInloggen;
 
     public GUIHoofdMenu(SpelController controller) throws HeadlessException {
@@ -45,9 +43,9 @@ public class GUIHoofdMenu extends JPanel {
         lblEndlessMode = new JLabel("", JLabel.CENTER);
         lblEndlessMode.setIcon(iconEndless);
 
-        iconSettings = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnSettings.png")), 120, 120));
-        lblSettings = new JLabel("", JLabel.CENTER);
-        lblSettings.setIcon(iconSettings);
+        iconMove = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnMove.png")), 120, 120));
+        lblMove = new JLabel("", JLabel.CENTER);
+        lblMove.setIcon(iconMove);
 
         iconHighscore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnHighscore.png")), 120, 120));
         lblHighscore = new JLabel("", JLabel.CENTER);
@@ -89,8 +87,8 @@ public class GUIHoofdMenu extends JPanel {
         gameMode.setBackground(Color.white);
         loginPanel.setBackground(Color.white);
         gameMode.add(lblTimeMode);
+        gameMode.add(lblMove);
         gameMode.add(lblEndlessMode);
-        gameMode.add(lblSettings);
         gameMode.add(lblHighscore);
         southPanel.add(btnAbout);
         southPanel.add(btnSettings);
@@ -121,6 +119,15 @@ public class GUIHoofdMenu extends JPanel {
                 System.out.println("Debug info - Infinity mode selected");
                 setVisible(false);
                 controller.startSpel("Infinity");
+            }
+        });
+
+        lblMove.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("Debug info - Infinity mode selected");
+                setVisible(false);
+                controller.startSpel("Move");
             }
         });
 
