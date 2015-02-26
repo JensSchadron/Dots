@@ -80,7 +80,7 @@ public class GUIHighScore extends JPanel {
 
         try {
             //../fonts/
-            Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/be/kdg/dots/resources/fonts/AUdimat-Regular.ttf").openStream());
+            Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/be/kdg/dots/resources/fonts/UbuntuMono-R.ttf").openStream());
             GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             genv.registerFont(font);
             font = font.deriveFont(15f);

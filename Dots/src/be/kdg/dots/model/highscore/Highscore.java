@@ -46,7 +46,7 @@ public class Highscore {
                 }
                 break;
             case "Move":
-                result = String.format("%-20s %11s\n", "name", "score");
+                result = String.format("%-20s %15s\n", "name", "score");
                 for (String s : moveHighScores) {
                     result += s + "\n";
                 }
@@ -81,16 +81,16 @@ public class Highscore {
                 break;
             case "Move":
                 if (moveHighScores.get(0).isEmpty() || moveHighScores.size() == 0) {
-                    moveHighScores.set(0, String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
+                    moveHighScores.set(0, String.format("%-20s %15d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                     break;
                 }
                 for (int i = 0; i < moveHighScores.size(); i++) {
-                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(moveHighScores.get(i).substring(20,32).trim())) {
-                        moveHighScores.add(i, String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
+                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(moveHighScores.get(i).substring(20).trim())) {
+                        moveHighScores.add(i, String.format("%-20s %15d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                         break;
                     }
                     if (i == moveHighScores.size() - 1) {
-                        moveHighScores.add(moveHighScores.size(), String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
+                        moveHighScores.add(moveHighScores.size(), String.format("%-20s %15d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                         break;
                     }
         }
@@ -168,7 +168,7 @@ public class Highscore {
                             moveHighScores.add("");
                             break;
                         }
-                        moveHighScores.add(j,String.format("%-20s %11s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1]));
+                        moveHighScores.add(j,String.format("%-20s %15s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1]));
                     }
                     break;
                 case 2:

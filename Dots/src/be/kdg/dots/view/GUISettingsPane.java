@@ -19,7 +19,7 @@ public class GUISettingsPane extends JPanel {
     private Container contentPane;
     private JButton btnSave, btnResetHighscore;
     private JTextArea txtName;
-    private JPanel centerPanel;
+    private JPanel centerPanel, gridPanel;
     private SpelController controller;
     private JSlider slider;
     private JComboBox comboBox;
@@ -52,19 +52,21 @@ public class GUISettingsPane extends JPanel {
             txtName = new JTextArea("Information:\n\nU bent ingelogd als: " + controller.getSpeler().getUsername());
         }
         centerPanel = new JPanel(new GridLayout(4,1));
+        gridPanel = new JPanel(new GridLayout(1,3));
     }
 
     private void MakeLayout() {
         btnSave.setForeground(Color.BLUE);
-        super.add(btnSave, BorderLayout.SOUTH);
+        gridPanel.add(btnResetHighscore);
+        gridPanel.add(comboBox);
         centerPanel.add(txtName);
         centerPanel.add(slider);
-        centerPanel.add(btnResetHighscore);
-        centerPanel.add(comboBox);
+        centerPanel.add(gridPanel);
         centerPanel.setOpaque(false);
         txtName.setOpaque(false);
         txtName.setMargin(new Insets(20, 20, 20, 20));
         super.add(centerPanel, BorderLayout.CENTER);
+        super.add(btnSave, BorderLayout.SOUTH);
     }
 
     @Override

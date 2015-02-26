@@ -43,10 +43,18 @@ public class GUISpel extends JPanel {
         lblScore.setIcon(iconScore);
         lblScore.setForeground(Color.blue);
 
-        iconTime = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/lblTime.png")), 20, 20));
-        lblTime = new JLabel("Time: ");
-        lblTime.setIcon(iconTime);
-        lblTime.setForeground(Color.red);
+        if (!modus.equals("Move")){
+            iconTime = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/lblTime.png")), 20, 20));
+            lblTime = new JLabel("Time: ");
+            lblTime.setIcon(iconTime);
+            lblTime.setForeground(Color.red);
+        }else{
+            iconTime = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hashtag.png")), 20, 20));
+            lblTime = new JLabel("Move: ");
+            lblTime.setIcon(iconTime);
+            lblTime.setForeground(Color.red);
+        }
+
 
         iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPauze.png")), 50, 50));
         lblPauze = new JLabel("");
