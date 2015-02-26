@@ -46,7 +46,7 @@ public class Highscore {
                 }
                 break;
             case "Move":
-                result = String.format("%-20s %7s %7s\n", "name", "score", "moves");
+                result = String.format("%-20s %11s\n", "name", "score");
                 for (String s : moveHighScores) {
                     result += s + "\n";
                 }
@@ -69,7 +69,7 @@ public class Highscore {
                     break;
                 }
                 for (int i = 0; i < timeHighScores.size(); i++) {
-                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(timeHighScores.get(i).substring(20,27).trim())) {
+                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(timeHighScores.get(i).substring(20,28).trim())) {
                         timeHighScores.add(i, String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getSpeler().getLevel().getLevel()));
                         break;
                     }
@@ -81,11 +81,11 @@ public class Highscore {
                 break;
             case "Move":
                 if (moveHighScores.get(0).isEmpty() || moveHighScores.size() == 0) {
-                    timeHighScores.set(0, String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
+                    moveHighScores.set(0, String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                     break;
                 }
                 for (int i = 0; i < moveHighScores.size(); i++) {
-                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(moveHighScores.get(i).substring(20).trim())) {
+                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(moveHighScores.get(i).substring(20,28).trim())) {
                         moveHighScores.add(i, String.format("%-20s %11d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                         break;
                     }
@@ -101,7 +101,7 @@ public class Highscore {
                     break;
                 }
                 for (int i = 0; i < infinityHighScores.size(); i++) {
-                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(infinityHighScores.get(i).substring(20, 26).trim())) {
+                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(infinityHighScores.get(i).substring(20, 28).trim())) {
                         infinityHighScores.add(i, String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getSpel().getAantalSeconden()));
                         break;
                     }
@@ -158,7 +158,7 @@ public class Highscore {
                             timeHighScores.add("");
                             break;
                         }
-                        timeHighScores.add(String.format("%-20s %7s %7s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1], tmp.get(j).split(";")[2]));
+                        timeHighScores.add(j,String.format("%-20s %7s %7s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1], tmp.get(j).split(";")[2]));
                     }
                     break;
                 case 1:
@@ -168,7 +168,7 @@ public class Highscore {
                             moveHighScores.add("");
                             break;
                         }
-                        moveHighScores.add(String.format("%-20s %11s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1]));
+                        moveHighScores.add(j,String.format("%-20s %11s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1]));
                     }
                     break;
                 case 2:
@@ -178,7 +178,7 @@ public class Highscore {
                             infinityHighScores.add("");
                             break;
                         }
-                        infinityHighScores.add(String.format("%-20s %7s %7s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1], tmp.get(j).split(";")[2]));
+                        infinityHighScores.add(j,String.format("%-20s %7s %7s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1], tmp.get(j).split(";")[2]));
                     }
                     break;
             }

@@ -104,5 +104,13 @@ public class Veld {
         connectedDots.clear();
     }
 
+    private boolean gameOver(){
+        for (int i = 0; i < rooster.size(); i++) {
 
+        }
+
+
+
+        return false;
+    }
 }
