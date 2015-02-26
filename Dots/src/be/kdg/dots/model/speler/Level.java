@@ -21,4 +21,11 @@ public class Level {
     public int getLevel() {
         return level;
     }
+
+    public void resetLevel (){
+        level = 1;
+        speler.getController().getGuiSpel().updateLevel(level);
+    }
 }
+
+

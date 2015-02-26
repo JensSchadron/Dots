@@ -8,19 +8,16 @@ import java.util.ArrayList;
 public class Score {
     private Speler speler;
     private int score;
-    private int totaleScore;
     private int scoreDoel;
 
     public Score(Speler speler) {
         this.speler = speler;
         this.score = 0;
-        this.totaleScore = 0;
         scoreDoel = 100;
     }
 
     public void berekenScore(ArrayList<Integer> connectedDots) {
         score += Math.pow(connectedDots.size(), 2);
-        totaleScore += Math.pow(connectedDots.size(), 2);
         if (controlScore(score)) {
             speler.getLevel().incrementLevel();
             setScoreDoel(speler.getLevel().getLevel());
@@ -42,6 +39,7 @@ public class Score {
 
     public void resetScore() {
         score = 0;
+        speler.getLevel().resetLevel();
         speler.getController().getGuiSpel().updateScore(score, scoreDoel);
     }
 

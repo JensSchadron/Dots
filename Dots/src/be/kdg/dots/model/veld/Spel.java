@@ -1,7 +1,6 @@
 package be.kdg.dots.model.veld;
 
 import be.kdg.dots.controller.SpelController;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,15 +46,8 @@ public class Spel {
                     });
                     break;
                 case "Move":
-                    aantalSeconden = 0;
+                    aantalMoves = MAX_AANTAL_MOVES;
                     controller.getGuiSpel().updateTimer(aantalSeconden);
-                    timer = new Timer(1000, new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            controller.getGuiSpel().updateTimer(++aantalSeconden);
-                            System.out.println("Debug info - Time: " + aantalSeconden);
-                        }
-                    });
                     break;
                 case "Infinity":
                     aantalSeconden = 0;
