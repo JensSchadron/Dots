@@ -21,11 +21,11 @@ public class Main {
             // shouldn't happen for localhost
         } catch (IOException e) {
             // port taken, so app is already running
-            JOptionPane.showMessageDialog(null, "Application has already started.", "Dots", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Applicatie is al opgestart..", "Dots", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("Application has already started");
             System.exit(0);
         }
         new SpelController();
     }
-    //TODO: Help, instellingen (kleur veranderen, reset highscores, current user, grootte dotjesveld, ...), move modus, inloggen, (uitbreidingen: achievements)
+    //TODO: Help, instellingen (kleur veranderen, reset highscores, current user, grootte dotjesveld, ...), move modus, inloggen, (uitbreidingen: achievements), check voor gameOver
 }

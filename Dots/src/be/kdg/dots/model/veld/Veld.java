@@ -41,6 +41,7 @@ public class Veld {
         for (int i = 0; i < this.row * this.colum; i++) {
             rooster.add(new Dot());
         }
+        gameOver();
     }
 
     public ArrayList<Dot> getVeld() {
@@ -99,18 +100,46 @@ public class Veld {
                 }
             }
             controller.getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
-
+            gameOver();
         }
         connectedDots.clear();
     }
 
-    private boolean gameOver(){
-        for (int i = 0; i < rooster.size(); i++) {
+    private boolean gameOver() {
+        int[] check = {1, this.colum + 1, this.colum, this.colum - 1};
+        for (int i = 0; i < rooster.size()-1; i++) {
+            DotKleur kleur = rooster.get(i).getDotKleur();
 
+            if (i < rooster.size() - this.colum) {
+
+                if (!((i % this.colum) == 0 || (i % this.colum) == (this.colum - 1))) {
+                    for (int j = 0; j < check.length; j++) {
+                        if (kleur.equals(rooster.get(i + check[j]).getDotKleur())) {
+                            return false;
+                        }
+                    }
+                } else if (i % this.colum == this.colum - 1) {
+                    for (int j = 2; j < check.length; j++) {
+                        if(kleur.equals(rooster.get(i + check[j]).getDotKleur())){
+                            return false;
+                        }
+                    }
+                } else if (i % this.colum == 0) {
+                    for (int j = 0; j < check.length - 1; j++) {
+                        if (kleur.equals(rooster.get(i + check[j]).getDotKleur())) {
+                            return false;
+                        }
+                    }
+                }
+
+            } else if (i >= rooster.size() - this.colum) {
+                if (kleur.equals(rooster.get(i + check[0]).getDotKleur())) {
+                    return false;
+                }
+            }
         }
 
-
-
-        return false;
+        System.out.println("Tja, game over hé");
+        return true;
     }
 }

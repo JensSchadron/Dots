@@ -1,6 +1,7 @@
 package be.kdg.dots.controller;
 
 import be.kdg.dots.model.highscore.Highscore;
+import be.kdg.dots.model.settings.Settings;
 import be.kdg.dots.model.speler.Level;
 import be.kdg.dots.model.speler.Speler;
 import be.kdg.dots.model.veld.Spel;
@@ -17,6 +18,7 @@ import java.awt.event.ActionListener;
  * Created by alexander on 4/02/2015.
  */
 public class SpelController {
+    private Settings settings;
     private Veld veld;
     private Highscore highscore;
     private Speler speler;
@@ -33,7 +35,8 @@ public class SpelController {
     private int aantalMoves;*/
 
     public SpelController() {
-        veld = new Veld(6, 6, this);
+        settings = new Settings(this);
+        veld = new Veld(settings.getRow(), settings.getColum(), this);
         highscore = new Highscore(this);
         guiHoofdMenu = new GUIHoofdMenu(this);
         guiSpel = new GUISpel(this);
@@ -50,14 +53,6 @@ public class SpelController {
 
     public Spel getSpel() {
         return spel;
-    }
-
-    public int getRow() {
-        return veld.getRow();
-    }
-
-    public int getColum() {
-        return veld.getColum();
     }
 
     public GUIFrame getGuiFrame() {
@@ -80,8 +75,6 @@ public class SpelController {
         speler.setUsername(username);
     }
 
-
-
    /* public void stopTimer() {
         timer.stop();
     }
@@ -96,7 +89,7 @@ public class SpelController {
 
     public void startSpel(String modus){
         spel.startSpel(modus);
-        this.veld = new Veld(6, 6, this);
+        this.veld = new Veld(settings.getRow(), settings.getColum(), this);
     }
 
    /* public void startSpel(String modus) {

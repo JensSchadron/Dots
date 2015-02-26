@@ -47,7 +47,7 @@ public class GUISettingsPane extends JPanel {
 
 
         if (controller.getSpeler().getUsername()==null){
-            txtName = new JTextArea("Information:\n\nU bent ingelogd als: Nobody");
+            txtName = new JTextArea("Information:\n\nU bent niet ingelogd.");
         }else{
             txtName = new JTextArea("Information:\n\nU bent ingelogd als: " + controller.getSpeler().getUsername());
         }
