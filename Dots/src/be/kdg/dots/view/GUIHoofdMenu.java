@@ -154,6 +154,13 @@ public class GUIHoofdMenu extends JPanel {
                 //controller.setSpeler(username);
             }
         });
+        btnHelp.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                System.out.println("");
+                System.out.println("Achievement get: Missing common sense...");
+            }
+        });
         lblHighscore.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {

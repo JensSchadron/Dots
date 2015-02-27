@@ -34,7 +34,6 @@ public class GUILogin extends JPanel {
         btnOK = new JButton("OK");
         lbllabel = new JLabel("Give a username:");
         txtUsername = new JTextField(controller.getSpeler().getUsername());
-
     }
 
     private void MakeLayout() {
@@ -46,6 +45,7 @@ public class GUILogin extends JPanel {
         btnOK.setAlignmentX(CENTER_ALIGNMENT);
         lbllabel.setAlignmentX(CENTER_ALIGNMENT);
         txtUsername.setAlignmentX(CENTER_ALIGNMENT);
+        txtUsername.setOpaque(false);
 
         panel.add(lbllabel);
         panel.add(txtUsername);

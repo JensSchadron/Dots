@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
-import java.lang.reflect.Array;
 
 /**
  * Created by jens & alexander on 17/02/2015.
