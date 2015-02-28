@@ -35,7 +35,7 @@ public class HighScoreIO {
         }
 
         try {
-            Files.write(filePath, encodedHighScores, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(filePath, encodedHighScores, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
         }

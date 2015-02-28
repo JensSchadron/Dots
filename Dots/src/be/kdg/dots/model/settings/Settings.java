@@ -10,22 +10,22 @@ import java.awt.*;
 public class Settings {
     private SpelController controller;
     private SettingsIO settingsIO;
-    private int colum;
+    private int column;
     private int row;
     private Color backgroundColor;
 
     public Settings(SpelController controller) {
         this.controller = controller;
         settingsIO = new SettingsIO(this);
-        this.colum = 6;
+        this.column = 6;
         this.row = 6;
         this.backgroundColor = Color.white;
 
         loadSettings();
     }
 
-    public int getColum() {
-        return colum;
+    public int getColumn() {
+        return column;
     }
 
     public int getRow() {

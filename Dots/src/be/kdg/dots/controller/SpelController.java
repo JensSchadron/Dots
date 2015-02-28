@@ -2,17 +2,12 @@ package be.kdg.dots.controller;
 
 import be.kdg.dots.model.highscore.Highscore;
 import be.kdg.dots.model.settings.Settings;
-import be.kdg.dots.model.speler.Level;
 import be.kdg.dots.model.speler.Speler;
 import be.kdg.dots.model.veld.Spel;
 import be.kdg.dots.model.veld.Veld;
 import be.kdg.dots.view.GUIFrame;
 import be.kdg.dots.view.GUIHoofdMenu;
 import be.kdg.dots.view.GUISpel;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by alexander on 4/02/2015.
@@ -36,7 +31,7 @@ public class SpelController {
 
     public SpelController() {
         settings = new Settings(this);
-        veld = new Veld(settings.getRow(), settings.getColum(), this);
+        veld = new Veld(settings.getRow(), settings.getColumn(), this);
         highscore = new Highscore(this);
         guiHoofdMenu = new GUIHoofdMenu(this);
         guiSpel = new GUISpel(this);
@@ -89,7 +84,7 @@ public class SpelController {
 
     public void startSpel(String modus){
         spel.startSpel(modus);
-        this.veld = new Veld(settings.getRow(), settings.getColum(), this);
+        this.veld = new Veld(settings.getRow(), settings.getColumn(), this);
     }
 
    /* public void startSpel(String modus) {

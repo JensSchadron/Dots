@@ -52,6 +52,12 @@ public class GUISettingsPane extends JPanel {
         }
         centerPanel = new JPanel(new GridLayout(4,1));
         gridPanel = new JPanel(new GridLayout(1,3));
+        txtName.setLineWrap(true);
+        txtName.setWrapStyleWord(true);
+        txtName.setOpaque(false);
+        txtName.setEditable(false);
+        txtName.setHighlighter(null);
+        txtName.setMargin(new Insets(10, 10, 10, 10));
     }
 
     private void MakeLayout() {
