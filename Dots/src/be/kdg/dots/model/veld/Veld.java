@@ -45,6 +45,7 @@ public class Veld {
         for (int i = 0; i < this.row * this.column; i++) {
             rooster.add(new Dot());
         }
+        calculateBestMove();
         gameOver();
     }
 
@@ -104,6 +105,7 @@ public class Veld {
                 }
             }
             controller.getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
+            calculateBestMove();
             gameOver(); //TODO: extra code schrijven om spel te beëindigen
         }
         connectedDots.clear();
@@ -151,34 +153,59 @@ public class Veld {
         for (int i = 0; i < rooster.size(); i++) {
             calculateNextMove(i);
         }
+        String result ="";
+        for (int i = 0; i < besteMove.size(); i++) {
+            result += besteMove.get(i) + ", ";
+        }
+        System.out.println(result);
     }
 
     private void calculateNextMove(int currentIndex) {
         currentMove.add(currentIndex);
-        for (int i = 0; i < dotIndexCheck.length; i++) {
-            if (!(currentIndex < this.column || currentIndex >= rooster.size() - this.column || currentIndex % this.column == 0 || currentIndex % this.column == this.column - 1)) { //controleren of dot niet aan zijkant ligt van speelveld.
-                if (rooster.get(currentIndex).getDotKleur().equals(rooster.get(currentIndex + dotIndexCheck[i]).getDotKleur())) {
+
+        if (!(currentIndex < this.column || currentIndex >= rooster.size() - this.column || currentIndex % this.column == 0 || currentIndex % this.column == this.column - 1)) { //controleren of dot niet aan zijkant ligt van speelveld.
+            for (int i = 0; i < dotIndexCheck.length; i++) {
+                if (rooster.get(currentIndex).getDotKleur().equals(rooster.get(currentIndex + dotIndexCheck[i]).getDotKleur()) && !currentMove.contains(currentIndex)) {
                     calculateNextMove(currentIndex + dotIndexCheck[i]);
                 }
-            } else {
-                if (currentIndex < this.column && currentIndex % this.column == 0) {
+            }
+        } else {
+            int[] tmpIndexArray = new int[0];
+            if (currentIndex < this.column && currentIndex % this.column == 0) {
+                tmpIndexArray = new int[]{4, 6, 7};
 
-                } else if (currentIndex < this.column) {
+            } else if (currentIndex < this.column && currentIndex % this.column == this.column - 1) {
+                tmpIndexArray = new int[]{3, 5, 6};
 
-                } else if (currentIndex < this.column && currentIndex % this.column == this.column - 1) {
+            } else if (currentIndex >= rooster.size() - this.column && currentIndex % this.column == this.column - 1) {
+                tmpIndexArray = new int[]{0, 1, 3};
 
-                } else if (currentIndex % this.column == this.column - 1) {
+            } else if (currentIndex >= rooster.size() - this.column && currentIndex % this.column == 0) {
+                tmpIndexArray = new int[]{1, 2, 4};
 
-                } else if (currentIndex >= rooster.size() - this.column && currentIndex % this.column == this.column - 1) {
+            } else if (currentIndex < this.column) {
+                tmpIndexArray = new int[]{3, 4, 5, 6, 7};
 
-                } else if (currentIndex >= rooster.size() - this.column) {
+            } else if (currentIndex % this.column == this.column - 1) {
+                tmpIndexArray = new int[]{0, 1, 3, 5, 6};
 
-                } else if (currentIndex >= rooster.size() - this.column && currentIndex % this.column == 0) {
+            } else if (currentIndex >= rooster.size() - this.column) {
+                tmpIndexArray = new int[]{0, 1, 2, 3, 4};
 
-                } else if (currentIndex % this.column == 0) {
+            } else if (currentIndex % this.column == 0) {
+                tmpIndexArray = new int[]{1, 2, 4, 6, 7};
 
+            }
+            for (int i = 0; i < tmpIndexArray.length; i++) {
+                if (rooster.get(currentIndex).getDotKleur().equals(rooster.get(currentIndex + dotIndexCheck[tmpIndexArray[i]]).getDotKleur()) && !currentMove.contains(currentIndex)) {
+                    calculateNextMove(currentIndex + dotIndexCheck[tmpIndexArray[i]]);
                 }
             }
         }
+
+        if (currentMove.size() > besteMove.size()) {
+            besteMove = new ArrayList<>(currentMove);
+        }
+        currentMove.remove(currentMove.size() - 1);
     }
 }
