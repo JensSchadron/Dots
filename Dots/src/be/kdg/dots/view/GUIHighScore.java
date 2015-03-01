@@ -17,14 +17,15 @@ public class GUIHighScore extends JPanel {
     private JPanel panelTime, panelInifinty, panelMove, panelButton, mainPanel;
     private JTabbedPane tabbedPane;
     private JTextArea txtTime, txtInfinity, txtMove;
-    private SpelController controller;
+    private GUIHoofdMenu guiHoofdMenu;
+
     private JScrollBar scrollBarTime;
 
-    public GUIHighScore(Container contentPane, SpelController controller) {
+    public GUIHighScore(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         super();
         this.contentPane = contentPane;
         setLayout(new GridLayout(1, 1));
-        this.controller = controller;
+        this.guiHoofdMenu = guiHoofdMenu;
         MakeComponents();
         MakeLayout();
         MakeEventListener();
@@ -47,13 +48,13 @@ public class GUIHighScore extends JPanel {
         tabbedPane.addTab("Move", panelMove);
         tabbedPane.addTab("Infinity", panelInifinty);
 
-        txtTime = new JTextArea(controller.getHighscore().getHighScores("Time"));
+        txtTime = new JTextArea(guiHoofdMenu.getController().getHighscore().getHighScores("Time"));
         txtTime.setOpaque(false);
         panelTime.add(txtTime);
-        txtInfinity = new JTextArea(controller.getHighscore().getHighScores("Infinity"));
+        txtInfinity = new JTextArea(guiHoofdMenu.getController().getHighscore().getHighScores("Infinity"));
         txtInfinity.setOpaque(false);
         panelInifinty.add(txtInfinity);
-        txtMove = new JTextArea(controller.getHighscore().getHighScores("Move"));
+        txtMove = new JTextArea(guiHoofdMenu.getController().getHighscore().getHighScores("Move"));
         txtMove.setOpaque(false);
         panelMove.add(txtMove);
     }

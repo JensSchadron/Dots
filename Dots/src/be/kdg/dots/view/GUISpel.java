@@ -11,20 +11,24 @@ import java.awt.event.MouseEvent;
  * Created by alexander on 4/02/2015.
  */
 public class GUISpel extends JPanel {
+    private GUIFrame guiFrame;
     private JPanel gamePanel, panelNorth, flowLayout;
     private GUIGrid gridGame;
     private JLabel lblLevel, lblScore, lblTime, lblPauze, lblHome;
     private SpelController controller;
     private ImageIcon iconLevel, iconScore, iconTime, iconPauze, iconPlay, iconHome;
     private String modus;
+    private Integer move;
     private boolean paused;
 
-    public GUISpel(SpelController controller) throws HeadlessException {
+    public GUISpel(SpelController controller, GUIFrame guiFrame, String modus) throws HeadlessException {
         super.setLayout(new BorderLayout());
         setOpaque(true);
         setBackground(Color.white);
         this.controller = controller;
-        this.modus = "";
+        this.guiFrame = guiFrame;
+        this.modus = modus;
+        this.move=30;
         MakeComponents();
         MakeLayout();
         MakeEventListener();
@@ -50,11 +54,10 @@ public class GUISpel extends JPanel {
             lblTime.setForeground(Color.red);
         }else{
             iconTime = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hashtag.png")), 20, 20));
-            lblTime = new JLabel("Move: ");
+            lblTime = new JLabel("Move: " + move);
             lblTime.setIcon(iconTime);
             lblTime.setForeground(Color.red);
         }
-
 
         iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPauze.png")), 50, 50));
         lblPauze = new JLabel("");
@@ -95,19 +98,9 @@ public class GUISpel extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 controller.getSpel().stopTimer();
-                controller.getGuiFrame().updateFrame("pauzePanel");
-               /*if (lblPauze.getName().equals("pauze")){
-                   iconPlay = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPlay.png")), 50,50));
-                   lblPauze.setIcon(iconPlay);
-                   lblPauze.setName("play");
-                   controller.stopTimer();
-                   controller.getGuiFrame().updateFrame("pauzePanel");
-               }else {
-                   iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPauze.png")), 50,50));
-                   lblPauze.setName("pauze");
-                   lblPauze.setIcon(iconPauze);
-                   controller.startTimer();
-               }*/
+                guiFrame.updateFrame("pauzePanel");
+                //controller.getGuiFrame().updateFrame("pauzePanel");
+
             }
         });
         lblHome.addMouseListener(new MouseAdapter() {
@@ -124,11 +117,12 @@ public class GUISpel extends JPanel {
             controller.getSpel().stopTimer();
         }
         controller.getHighscore().addHighScore(modus);
-        controller.getGuiFrame().updateFrame("hoofdMenu");
+        guiFrame.updateFrame("hoofdMenu");
+        //controller.getGuiFrame().updateFrame("hoofdMenu");
     }
 
-    public void setModus(String modus) {
-        this.modus = modus;
+    public void setMove() {
+        lblTime.setText("Move: " + --move);
     }
 
     public void updateTimer(int aantalSeconden) {

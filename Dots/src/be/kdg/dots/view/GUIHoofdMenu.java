@@ -13,15 +13,33 @@ import java.io.IOException;
  */
 public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
+    private GUIFrame guiFrame;
+    private GUISpel guiSpel;
+
     private JPanel main, gameMode, southPanel, loginPanel, rightPanel;
     private JLabel lblTimeMode, lblEndlessMode, lblMove, lblBanner, lblHighscore;
     private ImageIcon iconTimed, iconEndless, iconMove, iconHighscore;
     private JButton btnSettings, btnAbout, btnHelp, btnInloggen;
 
+    public GUIFrame getGuiFrame() {
+        return guiFrame;
+    }
+
+    public GUISpel getGuiSpel() {
+        return guiSpel;
+    }
+
+    public SpelController getController() {
+        return controller;
+    }
+
     public GUIHoofdMenu(SpelController controller) throws HeadlessException {
         setOpaque(true);
         setBackground(Color.white);
         this.controller = controller;
+        guiFrame = new GUIFrame(controller, this);
+        guiFrame.getContentPane().add("hoofdMenu", this);
+
         MakeComponents();
         MakeLayout();
         MakeEventListener();
@@ -103,13 +121,20 @@ public class GUIHoofdMenu extends JPanel {
         super.revalidate();
     }
 
+    private void startSpel(String modus){
+        guiSpel = new GUISpel(controller, guiFrame, modus);
+        guiFrame.getContentPane().add("startSpel", guiSpel);
+    }
+
     private void MakeEventListener() {
         lblTimeMode.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Time mode selected");
                 setVisible(false);
+                startSpel("Time");
                 controller.startSpel("Time");
+
             }
         });
 
@@ -118,7 +143,9 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Infinity mode selected");
                 setVisible(false);
+                startSpel("Infinity");
                 controller.startSpel("Infinity");
+
             }
         });
 
@@ -127,6 +154,7 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Move mode selected");
                 setVisible(false);
+                startSpel("Move");
                 controller.startSpel("Move");
             }
         });
@@ -135,14 +163,16 @@ public class GUIHoofdMenu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Settings selected");
-                controller.getGuiFrame().updateFrame("instellingenPanel");
+                //controller.getGuiFrame().updateFrame("instellingenPanel");
+                guiFrame.updateFrame("instellingenPanel");
             }
         });
         btnAbout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - About selected");
-                controller.getGuiFrame().updateFrame("aboutPanel");
+                guiFrame.updateFrame("aboutPanel");
+                //controller.getGuiFrame().updateFrame("aboutPanel");
             }
         });
         btnInloggen.addMouseListener(new MouseAdapter() {
@@ -150,7 +180,8 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Login selected");
                 //String username = JOptionPane.showInputDialog("Give a username",JOptionPane.PLAIN_MESSAGE);
-                controller.getGuiFrame().updateFrame("login");
+                //controller.getGuiFrame().updateFrame("login");
+                guiFrame.updateFrame("login");
                 //controller.setSpeler(username);
             }
         });
@@ -164,7 +195,8 @@ public class GUIHoofdMenu extends JPanel {
         lblHighscore.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                controller.getGuiFrame().updateFrame("highScorePanel");
+                //controller.getGuiFrame().updateFrame("highScorePanel");
+                guiFrame.updateFrame("highScorePanel");
             }
         });
         /*

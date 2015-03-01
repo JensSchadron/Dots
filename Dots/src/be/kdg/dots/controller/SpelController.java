@@ -19,8 +19,8 @@ public class SpelController {
     private Speler speler;
     //private Timer timer;
     private GUIHoofdMenu guiHoofdMenu;
-    private GUISpel guiSpel;
-    private GUIFrame guiFrame;
+    //private GUISpel guiSpel;
+    //private GUIFrame guiFrame;
     private Spel spel;
 
     //Timer attributen
@@ -34,12 +34,14 @@ public class SpelController {
         veld = new Veld(settings.getRow(), settings.getColumn(), this);
         highscore = new Highscore(this);
         guiHoofdMenu = new GUIHoofdMenu(this);
-        guiSpel = new GUISpel(this);
+
+        //guiSpel = new GUISpel(this);
         spel = new Spel(this);
-        guiFrame = new GUIFrame(this);
+        //guiFrame = new GUIFrame(this);
         speler = new Speler(this, null);
-        guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
-        guiFrame.getContentPane().add("startSpel", guiSpel);
+
+        //guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
+        //guiFrame.getContentPane().add("startSpel", guiSpel);
     }
 
     public Veld getVeld() {
@@ -51,7 +53,7 @@ public class SpelController {
     }
 
     public GUIFrame getGuiFrame() {
-        return guiFrame;
+        return guiHoofdMenu.getGuiFrame();
     }
 
     public Highscore getHighscore() {
@@ -59,7 +61,7 @@ public class SpelController {
     }
 
     public GUISpel getGuiSpel() {
-        return guiSpel;
+        return guiHoofdMenu.getGuiSpel();
     }
 
     public Speler getSpeler() {

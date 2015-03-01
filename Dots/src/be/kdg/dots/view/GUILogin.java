@@ -13,16 +13,16 @@ import java.awt.event.MouseAdapter;
  */
 public class GUILogin extends JPanel {
     private Container contentPane;
-    private SpelController controller;
+    private GUIHoofdMenu guiHoofdMenu;
     private JLabel lbllabel;
     private JTextField txtUsername;
     private JButton btnCancel, btnOK;
     private JPanel panel;
 
-    public GUILogin(Container contentPane, SpelController controller) {
+    public GUILogin(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         super();
         this.contentPane = contentPane;
-        this.controller = controller;
+        this.guiHoofdMenu = guiHoofdMenu;
         setLayout(new BoxLayout(this,BoxLayout.PAGE_AXIS));
         MakeComponents();
         MakeLayout();
@@ -33,7 +33,7 @@ public class GUILogin extends JPanel {
         btnCancel = new JButton("Cancel");
         btnOK = new JButton("OK");
         lbllabel = new JLabel("Give a username:");
-        txtUsername = new JTextField(controller.getSpeler().getUsername());
+        txtUsername = new JTextField(guiHoofdMenu.getController().getSpeler().getUsername());
     }
 
     private void MakeLayout() {
@@ -81,7 +81,7 @@ public class GUILogin extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (txtUsername.getText().length()>2){
-                    controller.setSpeler(txtUsername.getText());
+                    guiHoofdMenu.getController().setSpeler(txtUsername.getText());
                     setVisible(false);
                 }else{
                     JOptionPane.showMessageDialog(null, "Gelieve een username op te geven langer dan 2 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE);

@@ -47,7 +47,7 @@ public class Spel {
                     break;
                 case "Move":
                     aantalMoves = MAX_AANTAL_MOVES;
-                    controller.getGuiSpel().updateTimer(aantalSeconden);
+                    //controller.getGuiSpel().updateTimer(aantalSeconden);
                     break;
                 case "Infinity":
                     aantalSeconden = 0;
@@ -62,7 +62,7 @@ public class Spel {
                     break;
             }
 
-            controller.getGuiSpel().setModus(modus);
+            //controller.getGuiSpel().setModus(modus);
             controller.getGuiFrame().updateFrame("startSpel");
             controller.getSpeler().getScore().resetScore();
             if (!modus.equals("Move")){

@@ -18,16 +18,15 @@ import java.awt.image.BufferedImage;
  */
 public class GUIPauzePane extends JPanel {
     private Container contentPane;
-    //private GUIFrame guiFrame;
     private JButton btnContinue, btnGoHome;
     private ImageIcon iconPauze, iconHome;
     private JLabel lblPauze, lblHome;
     private String modus;
-    private SpelController controller;
+    private GUIHoofdMenu guiHoofdMenu;
 
-    public GUIPauzePane(Container contentPane, SpelController controller) {
+    public GUIPauzePane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         this.contentPane = contentPane;
-        this.controller = controller;
+        this.guiHoofdMenu = guiHoofdMenu;
         //this.guiFrame = guiFrame;
         setLayout(new FlowLayout(FlowLayout.CENTER, 30, 10));
         this.modus = "";
@@ -92,7 +91,8 @@ public class GUIPauzePane extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 setVisible(false);
-                controller.getSpel().startTimer();
+                guiHoofdMenu.getController().getSpel().startTimer();
+                //controller.getSpel().startTimer();
             }
         });
         lblHome.addMouseListener(new MouseAdapter() {
@@ -106,7 +106,7 @@ public class GUIPauzePane extends JPanel {
     }
 
     public void eindigSpel() {
-        controller.getHighscore().addHighScore(modus);
-        controller.getGuiFrame().updateFrame("hoofdMenu");
+        guiHoofdMenu.getController().getHighscore().addHighScore(modus);
+        guiHoofdMenu.getController().getGuiFrame().updateFrame("hoofdMenu");
     }
 }

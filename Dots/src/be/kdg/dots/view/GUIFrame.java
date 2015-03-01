@@ -12,16 +12,28 @@ import java.awt.event.KeyEvent;
  */
 public class GUIFrame extends JFrame {
     private CardLayout cl;
-    private SpelController controller;
+    //private SpelController controller;
+    private GUIHoofdMenu guiHoofdMenu;
+    private ImageIcon iconLoading;
+    private JPanel loadingPanel;
+    private JLabel loading;
 
-    public GUIFrame(SpelController controller) throws HeadlessException {
+    public GUIFrame(SpelController controller, GUIHoofdMenu guiHoofdMenu) throws HeadlessException {
         super("Dots");
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         cl = new CardLayout();
         setLayout(cl);
-        this.controller = controller;
+        //guiHoofdMenu = new GUIHoofdMenu(controller);
+        this.guiHoofdMenu = guiHoofdMenu;
+        //this.controller = controller;
         super.setSize(500, 500);
         super.setVisible(true);
+        /*loadingPanel = new JPanel(new BorderLayout());
+        iconLoading = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/infinity.png"));
+        loading = new JLabel("", JLabel.CENTER);
+        loading.setIcon(iconLoading);
+        loadingPanel.add(loading);
+        cl.show(this.getContentPane(), "test");*/
     }
 
     public void updateFrame(String optie) {
@@ -35,11 +47,11 @@ public class GUIFrame extends JFrame {
                 super.setSize(500, 650);
                 break;
             case "pauzePanel":
-                setGlassPane(new GUIPauzePane(getContentPane(), controller));
+                setGlassPane(new GUIPauzePane(getContentPane(), guiHoofdMenu));
                 getGlassPane().setVisible(true);
                 break;
             case "instellingenPanel":
-                setGlassPane(new GUISettingsPane(getContentPane(), controller));
+                setGlassPane(new GUISettingsPane(getContentPane(), guiHoofdMenu));
                 getGlassPane().setVisible(true);
                 break;
             case "aboutPanel":
@@ -47,17 +59,14 @@ public class GUIFrame extends JFrame {
                 getGlassPane().setVisible(true);
                 break;
             case "highScorePanel":
-                setGlassPane(new GUIHighScore(getContentPane(), controller));
+                setGlassPane(new GUIHighScore(getContentPane(), guiHoofdMenu));
                 getGlassPane().setVisible(true);
                 break;
             case "login":
-                setGlassPane(new GUILogin(getContentPane(), controller));
+                setGlassPane(new GUILogin(getContentPane(), guiHoofdMenu));
                 getGlassPane().setVisible(true);
                 break;
         }
     }
 
-    public SpelController getController() {
-        return controller;
-    }
 }

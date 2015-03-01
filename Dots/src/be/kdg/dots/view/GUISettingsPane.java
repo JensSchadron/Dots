@@ -19,13 +19,13 @@ public class GUISettingsPane extends JPanel {
     private JButton btnSave, btnResetHighscore;
     private JTextArea txtName;
     private JPanel centerPanel, gridPanel;
-    private SpelController controller;
+    private GUIHoofdMenu guiHoofdMenu;
     private JSlider slider;
     private JComboBox comboBox;
 
-    public GUISettingsPane(Container contentPane, SpelController controller) {
+    public GUISettingsPane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         this.contentPane = contentPane;
-        this.controller = controller;
+        this.guiHoofdMenu = guiHoofdMenu;
         setLayout(new BorderLayout());
         MakeComponents();
         MakeLayout();
@@ -45,10 +45,10 @@ public class GUISettingsPane extends JPanel {
         System.out.println(slider.getValue());
 
 
-        if (controller.getSpeler().getUsername()==null){
+        if (guiHoofdMenu.getController().getSpeler().getUsername()==null){
             txtName = new JTextArea("Information:\n\nU bent niet ingelogd.");
         }else{
-            txtName = new JTextArea("Information:\n\nU bent ingelogd als: " + controller.getSpeler().getUsername());
+            txtName = new JTextArea("Information:\n\nU bent ingelogd als: " + guiHoofdMenu.getController().getSpeler().getUsername());
         }
         centerPanel = new JPanel(new GridLayout(4,1));
         gridPanel = new JPanel(new GridLayout(1,3));
@@ -103,7 +103,7 @@ public class GUISettingsPane extends JPanel {
         btnResetHighscore.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controller.getHighscore().resetHighScores();
+                guiHoofdMenu.getController().getHighscore().resetHighScores();
             }
         });
     }
