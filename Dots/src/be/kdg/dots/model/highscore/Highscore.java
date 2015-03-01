@@ -193,7 +193,9 @@ public class Highscore {
 
         //timeHighScores omvormen naar datastructuur om op te slaan
         for (String timeHighScore : timeHighScores) {
-            tmp.append(timeHighScore.replaceAll("[ ]+", ";")).append("㏠");
+            //TODO: aanpassen methode zodat programma niet crasht op laden van de highscores als er spaties in de naam zitten!
+            tmp.append(timeHighScore.substring(0, 20).trim()).append(";").append(timeHighScore.substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
+            //tmp.append(timeHighScore.replaceAll("[ ]+", ";")).append("㏠");
         }
         decodedHighScores.add(0, tmp.deleteCharAt(tmp.length() - 1).toString());
         //System.out.println(tmp.toString());
@@ -201,7 +203,9 @@ public class Highscore {
 
         //moveHighScores omvormen naar datastructuur om op te slaan
         for (String moveHighScore : moveHighScores) {
-            tmp.append(moveHighScore.replaceAll("[ ]+", ";")).append("㏠");
+            //TODO: ook hier aanpassen!!!
+            tmp.append(moveHighScore.substring(0, 20).trim()).append(";").append(moveHighScore.substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
+            //tmp.append(moveHighScore.replaceAll("[ ]+", ";")).append("㏠");
         }
         decodedHighScores.add(1, tmp.deleteCharAt(tmp.length() - 1).toString());
         System.out.println(tmp.toString());
@@ -209,7 +213,9 @@ public class Highscore {
 
         //infinityHighScores omvormen naar datastructuur om op te slaan
         for (String infinityHighScore : infinityHighScores) {
-            tmp.append(infinityHighScore.replaceAll("[ ]+", ";")).append("㏠");
+            //TODO: en hier!!!
+            tmp.append(infinityHighScore.substring(0, 20).trim()).append(";").append(infinityHighScore.substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
+            //tmp.append(infinityHighScore.replaceAll("[ ]+", ";")).append("㏠");
         }
         decodedHighScores.add(2, tmp.deleteCharAt(tmp.length() - 1).toString());
         System.out.println(tmp.toString());

@@ -16,6 +16,8 @@ public class Veld {
     private final int row;
     private final int column;
     private SpelController controller;
+    private Thread threadBestMove;
+    private boolean killFlag;
 
     public Veld(int row, int column, SpelController controller) {
         this.controller = controller;
@@ -25,6 +27,8 @@ public class Veld {
         this.connectedDots = new ArrayList<>();
         this.besteMove = new ArrayList<>(this.row * this.column);
         this.currentMove = new ArrayList<>(this.row * this.column);
+        this.threadBestMove = new Thread(new BestMove());
+        this.killFlag = false;
         vuldotIndexCheck();
         vulVeld();
     }
@@ -45,7 +49,10 @@ public class Veld {
         for (int i = 0; i < this.row * this.column; i++) {
             rooster.add(new Dot());
         }
-        calculateBestMove();
+        //bestMove.start();
+        this.threadBestMove = new Thread(new BestMove());
+        this.threadBestMove.start();
+        //calculateBestMove();
         gameOver();
     }
 
@@ -69,8 +76,37 @@ public class Veld {
         if (!connectedDots.contains(index)) {
             if (connectedDots.size() > 0) {
                 int lastDotIndex = connectedDots.get(connectedDots.size() - 1);
-                for (int dotIndex : dotIndexCheck) {
-                    if (lastDotIndex + dotIndex == index) {
+                int[] tmpIndexArray;
+                if (lastDotIndex < this.column && lastDotIndex % this.column == 0) {
+                    tmpIndexArray = new int[]{4, 6, 7};
+
+                } else if (lastDotIndex < this.column && lastDotIndex % this.column == this.column - 1) {
+                    tmpIndexArray = new int[]{3, 5, 6};
+
+                } else if (lastDotIndex >= rooster.size() - this.column && lastDotIndex % this.column == this.column - 1) {
+                    tmpIndexArray = new int[]{0, 1, 3};
+
+                } else if (lastDotIndex >= rooster.size() - this.column && lastDotIndex % this.column == 0) {
+                    tmpIndexArray = new int[]{1, 2, 4};
+
+                } else if (lastDotIndex < this.column) {
+                    tmpIndexArray = new int[]{3, 4, 5, 6, 7};
+
+                } else if (lastDotIndex % this.column == this.column - 1) {
+                    tmpIndexArray = new int[]{0, 1, 3, 5, 6};
+
+                } else if (lastDotIndex >= rooster.size() - this.column) {
+                    tmpIndexArray = new int[]{0, 1, 2, 3, 4};
+
+                } else if (lastDotIndex % this.column == 0) {
+                    tmpIndexArray = new int[]{1, 2, 4, 6, 7};
+
+                } else {
+                    tmpIndexArray = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
+                }
+
+                for (int i = 0; i < tmpIndexArray.length; i++) {
+                    if (lastDotIndex + dotIndexCheck[tmpIndexArray[i]] == index) {
                         connectedDots.add(index);
                         break;
                     }
@@ -86,7 +122,10 @@ public class Veld {
     }
 
     public void clearConnectedDots() {
+
         if (connectedDots.size() >= 2) {
+            threadBestMove.interrupt();
+            //killCalculateBestMove();
             for (Integer connectedDot : connectedDots) {
                 rooster.set(connectedDot.intValue(), null);
             }
@@ -109,7 +148,10 @@ public class Veld {
                 }
             }
             controller.getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
-            calculateBestMove();
+            //bestMove.start();
+            this.threadBestMove = new Thread(new BestMove());
+            this.threadBestMove.start();
+
             gameOver(); //TODO: extra code schrijven om spel te beëindigen
         }
         connectedDots.clear();
@@ -153,8 +195,23 @@ public class Veld {
         return true;
     }
 
+    public class BestMove implements Runnable {
+        @Override
+        public void run() {
+            System.out.println("Debug info - Calculating started...");
+            calculateBestMove();
+            System.out.println("Debug info - Calculating stopped...");
+        }
+    }
+
     public void calculateBestMove() {
+        besteMove.clear();
+        currentMove.clear();
         for (int i = 0; i < rooster.size(); i++) {
+            if (Thread.interrupted()) {
+                System.out.println("Busy with stopping calculateBestMove");
+                return;
+            }
             calculateNextMove(i);
         }
         String result = "";
@@ -162,13 +219,24 @@ public class Veld {
             result += besteMove.get(i) + ", ";
         }
         System.out.println(result);
+        //killFlag = false;
+
     }
+
+    /*public void killCalculateBestMove() {
+        System.out.println("Initiating kill calculateBestMove...");
+        this.killFlag = true;
+    }*/
 
     private void calculateNextMove(int currentIndex) {
         currentMove.add(currentIndex);
         DotKleur kleur = rooster.get(currentIndex).getDotKleur();
         if (!(currentIndex < this.column || currentIndex >= rooster.size() - this.column || currentIndex % this.column == 0 || currentIndex % this.column == this.column - 1)) { //controleren of dot niet aan zijkant ligt van speelveld.
             for (int i = 0; i < dotIndexCheck.length; i++) {
+                if (Thread.interrupted()) {
+                    System.out.println("Busy with stopping calculateNextMove");
+                    return;
+                }
                 if (kleur.equals(rooster.get(currentIndex + dotIndexCheck[i]).getDotKleur()) && !currentMove.contains(currentIndex + dotIndexCheck[i])) {
                     calculateNextMove(currentIndex + dotIndexCheck[i]);
                 }
@@ -201,11 +269,18 @@ public class Veld {
 
             }
             for (int i = 0; i < tmpIndexArray.length; i++) {
-
+                if (Thread.interrupted()) {
+                    System.out.println("Busy with stopping calculateNextMove");
+                    return;
+                }
                 if (kleur.equals(rooster.get(currentIndex + dotIndexCheck[tmpIndexArray[i]]).getDotKleur()) && !currentMove.contains(currentIndex + dotIndexCheck[tmpIndexArray[i]])) {
                     calculateNextMove(currentIndex + dotIndexCheck[tmpIndexArray[i]]);
                 }
             }
+        }
+        if (Thread.interrupted()) {
+            System.out.println("Busy with stopping calculateNextMove");
+            return;
         }
 
         if (currentMove.size() > besteMove.size()) {
