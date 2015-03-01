@@ -22,6 +22,8 @@ public class GUIGrid extends JPanel {
     private ArrayList<LijnUI> lijnUI;
     private Color dotKleur;
 
+    private ArrayList<LijnUI> hintUI;
+
     private ArrayList<DotUI> dotUI;
     private GUISpel guiSpel;
 
@@ -30,6 +32,7 @@ public class GUIGrid extends JPanel {
         setBackground(Color.BLUE);
 
         lijnUI = new ArrayList<>();
+        hintUI = new ArrayList<>();
 
         this.guiSpel = guiSpel;
         //this.controller = controller;
@@ -70,6 +73,17 @@ public class GUIGrid extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        //Dikte van lijnen instellen
+        g2d.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
+
+        //Teken hints
+        reloadHintUI();
+        g2d.setColor(Color.LIGHT_GRAY);
+        for (LijnUI hint : hintUI) {
+            g2d.draw(hint);
+        }
+
         //Teken dot(s)
         for (int i = 0; i < dotUI.size(); i++) {
             DotUI dot = dotUI.get(i);
@@ -80,10 +94,22 @@ public class GUIGrid extends JPanel {
 
         //Teken lijn(en)
         g2d.setColor(dotKleur);
-        g2d.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
         for (LijnUI lijn : lijnUI) {
             g2d.draw(lijn);
         }
+    }
+
+    private void reloadHintUI() {
+        hintUI.clear();
+        ArrayList<Integer> dotIndexHints = guiSpel.getController().getVeld().getBesteMove();
+        for (int i = 0; i < dotIndexHints.size() - 1; i++) {
+            if (dotIndexHints.size() >= 2) {
+                int indexDot1 = dotIndexHints.get(i);
+                int indexDot2 = dotIndexHints.get(i + 1);
+                hintUI.add(new LijnUI(dotUI.get(indexDot1).getCenterX(), dotUI.get(indexDot1).getCenterY(), dotUI.get(indexDot2).getCenterX(), dotUI.get(indexDot2).getCenterY()));
+            }
+        }
+
 
     }
 

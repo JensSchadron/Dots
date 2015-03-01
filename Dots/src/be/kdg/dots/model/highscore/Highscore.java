@@ -69,7 +69,7 @@ public class Highscore {
                     break;
                 }
                 for (int i = 0; i < timeHighScores.size(); i++) {
-                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(timeHighScores.get(i).substring(20,28).trim())) {
+                    if (controller.getSpeler().getScore().getScore() > Integer.parseInt(timeHighScores.get(i).substring(20, 28).trim())) {
                         timeHighScores.add(i, String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getSpeler().getLevel().getLevel()));
                         break;
                     }
@@ -93,11 +93,11 @@ public class Highscore {
                         moveHighScores.add(moveHighScores.size(), String.format("%-20s %15d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore()));
                         break;
                     }
-        }
-        break;
-        case "Infinity":
-        if (infinityHighScores.get(0).isEmpty() || infinityHighScores.size() == 0) {
-            infinityHighScores.set(0, String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getSpel().getAantalSeconden()));
+                }
+                break;
+            case "Infinity":
+                if (infinityHighScores.get(0).isEmpty() || infinityHighScores.size() == 0) {
+                    infinityHighScores.set(0, String.format("%-20s %7d %7d", controller.getSpeler().getUsername(), controller.getSpeler().getScore().getScore(), controller.getSpel().getAantalSeconden()));
                     break;
                 }
                 for (int i = 0; i < infinityHighScores.size(); i++) {
@@ -158,7 +158,7 @@ public class Highscore {
                             timeHighScores.add("");
                             break;
                         }
-                        timeHighScores.add(j,String.format("%-20s %7s %7s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1], tmp.get(j).split(";")[2]));
+                        timeHighScores.add(j, String.format("%-20s %7s %7s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1], tmp.get(j).split(";")[2]));
                     }
                     break;
                 case 1:
@@ -168,7 +168,7 @@ public class Highscore {
                             moveHighScores.add("");
                             break;
                         }
-                        moveHighScores.add(j,String.format("%-20s %15s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1]));
+                        moveHighScores.add(j, String.format("%-20s %15s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1]));
                     }
                     break;
                 case 2:
@@ -178,7 +178,7 @@ public class Highscore {
                             infinityHighScores.add("");
                             break;
                         }
-                        infinityHighScores.add(j,String.format("%-20s %7s %7s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1], tmp.get(j).split(";")[2]));
+                        infinityHighScores.add(j, String.format("%-20s %7s %7s", tmp.get(j).split(";")[0], tmp.get(j).split(";")[1], tmp.get(j).split(";")[2]));
                     }
                     break;
             }
@@ -192,30 +192,36 @@ public class Highscore {
         //Delimiter: Unicode number: U+33E0 --> ㏠ (Ideographic Telegraph Symbol for Day One)
 
         //timeHighScores omvormen naar datastructuur om op te slaan
-        for (String timeHighScore : timeHighScores) {
-            //TODO: aanpassen methode zodat programma niet crasht op laden van de highscores als er spaties in de naam zitten!
-            tmp.append(timeHighScore.substring(0, 20).trim()).append(";").append(timeHighScore.substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
-            //tmp.append(timeHighScore.replaceAll("[ ]+", ";")).append("㏠");
+        for (int i = 0; i < timeHighScores.size(); i++) {
+            if (!timeHighScores.get(i).isEmpty()) {
+                tmp.append(timeHighScores.get(i).substring(0, 20).trim()).append(";").append(timeHighScores.get(i).substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
+            } else {
+                tmp.append("㏠");
+            }
         }
         decodedHighScores.add(0, tmp.deleteCharAt(tmp.length() - 1).toString());
         //System.out.println(tmp.toString());
         tmp.delete(0, tmp.length());
 
         //moveHighScores omvormen naar datastructuur om op te slaan
-        for (String moveHighScore : moveHighScores) {
-            //TODO: ook hier aanpassen!!!
-            tmp.append(moveHighScore.substring(0, 20).trim()).append(";").append(moveHighScore.substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
-            //tmp.append(moveHighScore.replaceAll("[ ]+", ";")).append("㏠");
+        for (int i = 0; i < moveHighScores.size(); i++) {
+            if (!moveHighScores.get(i).isEmpty()) {
+                tmp.append(moveHighScores.get(i).substring(0, 20).trim()).append(";").append(moveHighScores.get(i).substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
+            } else {
+                tmp.append("㏠");
+            }
         }
         decodedHighScores.add(1, tmp.deleteCharAt(tmp.length() - 1).toString());
         System.out.println(tmp.toString());
         tmp.delete(0, tmp.length());
 
         //infinityHighScores omvormen naar datastructuur om op te slaan
-        for (String infinityHighScore : infinityHighScores) {
-            //TODO: en hier!!!
-            tmp.append(infinityHighScore.substring(0, 20).trim()).append(";").append(infinityHighScore.substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
-            //tmp.append(infinityHighScore.replaceAll("[ ]+", ";")).append("㏠");
+        for (int i = 0; i < infinityHighScores.size(); i++) {
+            if (!infinityHighScores.get(i).isEmpty()) {
+                tmp.append(infinityHighScores.get(i).substring(0, 20).trim()).append(";").append(infinityHighScores.get(i).substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
+            } else {
+                tmp.append("㏠");
+            }
         }
         decodedHighScores.add(2, tmp.deleteCharAt(tmp.length() - 1).toString());
         System.out.println(tmp.toString());

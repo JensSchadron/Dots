@@ -17,7 +17,7 @@ public class Veld {
     private final int column;
     private SpelController controller;
     private Thread threadBestMove;
-    private boolean killFlag;
+    private boolean interruptFlag;
 
     public Veld(int row, int column, SpelController controller) {
         this.controller = controller;
@@ -28,7 +28,7 @@ public class Veld {
         this.besteMove = new ArrayList<>(this.row * this.column);
         this.currentMove = new ArrayList<>(this.row * this.column);
         this.threadBestMove = new Thread(new BestMove());
-        this.killFlag = false;
+        this.interruptFlag = false;
         vuldotIndexCheck();
         vulVeld();
     }
@@ -102,7 +102,7 @@ public class Veld {
                     tmpIndexArray = new int[]{1, 2, 4, 6, 7};
 
                 } else {
-                    tmpIndexArray = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8};
+                    tmpIndexArray = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
                 }
 
                 for (int i = 0; i < tmpIndexArray.length; i++) {
@@ -149,6 +149,9 @@ public class Veld {
             }
             controller.getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
             //bestMove.start();
+            while (threadBestMove.isAlive()) {
+
+            }
             this.threadBestMove = new Thread(new BestMove());
             this.threadBestMove.start();
 
@@ -208,7 +211,7 @@ public class Veld {
         besteMove.clear();
         currentMove.clear();
         for (int i = 0; i < rooster.size(); i++) {
-            if (Thread.interrupted()) {
+            if (Thread.interrupted() || interruptFlag) {
                 System.out.println("Busy with stopping calculateBestMove");
                 return;
             }
@@ -219,22 +222,18 @@ public class Veld {
             result += besteMove.get(i) + ", ";
         }
         System.out.println(result);
-        //killFlag = false;
+        interruptFlag = false;
 
     }
-
-    /*public void killCalculateBestMove() {
-        System.out.println("Initiating kill calculateBestMove...");
-        this.killFlag = true;
-    }*/
 
     private void calculateNextMove(int currentIndex) {
         currentMove.add(currentIndex);
         DotKleur kleur = rooster.get(currentIndex).getDotKleur();
         if (!(currentIndex < this.column || currentIndex >= rooster.size() - this.column || currentIndex % this.column == 0 || currentIndex % this.column == this.column - 1)) { //controleren of dot niet aan zijkant ligt van speelveld.
             for (int i = 0; i < dotIndexCheck.length; i++) {
-                if (Thread.interrupted()) {
+                if (Thread.interrupted() || interruptFlag) {
                     System.out.println("Busy with stopping calculateNextMove");
+                    interruptFlag = true;
                     return;
                 }
                 if (kleur.equals(rooster.get(currentIndex + dotIndexCheck[i]).getDotKleur()) && !currentMove.contains(currentIndex + dotIndexCheck[i])) {
@@ -269,8 +268,9 @@ public class Veld {
 
             }
             for (int i = 0; i < tmpIndexArray.length; i++) {
-                if (Thread.interrupted()) {
+                if (Thread.interrupted() || interruptFlag) {
                     System.out.println("Busy with stopping calculateNextMove");
+                    interruptFlag = true;
                     return;
                 }
                 if (kleur.equals(rooster.get(currentIndex + dotIndexCheck[tmpIndexArray[i]]).getDotKleur()) && !currentMove.contains(currentIndex + dotIndexCheck[tmpIndexArray[i]])) {
@@ -278,8 +278,9 @@ public class Veld {
                 }
             }
         }
-        if (Thread.interrupted()) {
+        if (Thread.interrupted() || interruptFlag) {
             System.out.println("Busy with stopping calculateNextMove");
+            interruptFlag = true;
             return;
         }
 
