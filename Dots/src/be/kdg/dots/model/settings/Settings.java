@@ -17,8 +17,8 @@ public class Settings {
     public Settings(SpelController controller) {
         this.controller = controller;
         settingsIO = new SettingsIO(this);
-        this.column = 3;
-        this.row = 3;
+        this.column = 6;
+        this.row = 6;
         this.backgroundColor = Color.white;
 
         loadSettings();

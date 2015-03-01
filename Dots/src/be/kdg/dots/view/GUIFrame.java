@@ -4,6 +4,8 @@ import be.kdg.dots.controller.SpelController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by jens & alexander on 16/02/2015.

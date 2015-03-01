@@ -61,6 +61,10 @@ public class Veld {
         return row;
     }
 
+    public ArrayList<Integer> getBesteMove() {
+        return besteMove;
+    }
+
     public void voegConnectedDotToe(int index) { //TODO: Methode aanpassen vanwege bugs in code (zie gameover-methode)
         if (!connectedDots.contains(index)) {
             if (connectedDots.size() > 0) {
@@ -153,7 +157,7 @@ public class Veld {
         for (int i = 0; i < rooster.size(); i++) {
             calculateNextMove(i);
         }
-        String result ="";
+        String result = "";
         for (int i = 0; i < besteMove.size(); i++) {
             result += besteMove.get(i) + ", ";
         }
@@ -162,10 +166,10 @@ public class Veld {
 
     private void calculateNextMove(int currentIndex) {
         currentMove.add(currentIndex);
-
+        DotKleur kleur = rooster.get(currentIndex).getDotKleur();
         if (!(currentIndex < this.column || currentIndex >= rooster.size() - this.column || currentIndex % this.column == 0 || currentIndex % this.column == this.column - 1)) { //controleren of dot niet aan zijkant ligt van speelveld.
             for (int i = 0; i < dotIndexCheck.length; i++) {
-                if (rooster.get(currentIndex).getDotKleur().equals(rooster.get(currentIndex + dotIndexCheck[i]).getDotKleur()) && !currentMove.contains(currentIndex)) {
+                if (kleur.equals(rooster.get(currentIndex + dotIndexCheck[i]).getDotKleur()) && !currentMove.contains(currentIndex + dotIndexCheck[i])) {
                     calculateNextMove(currentIndex + dotIndexCheck[i]);
                 }
             }
@@ -197,7 +201,8 @@ public class Veld {
 
             }
             for (int i = 0; i < tmpIndexArray.length; i++) {
-                if (rooster.get(currentIndex).getDotKleur().equals(rooster.get(currentIndex + dotIndexCheck[tmpIndexArray[i]]).getDotKleur()) && !currentMove.contains(currentIndex)) {
+
+                if (kleur.equals(rooster.get(currentIndex + dotIndexCheck[tmpIndexArray[i]]).getDotKleur()) && !currentMove.contains(currentIndex + dotIndexCheck[tmpIndexArray[i]])) {
                     calculateNextMove(currentIndex + dotIndexCheck[tmpIndexArray[i]]);
                 }
             }
