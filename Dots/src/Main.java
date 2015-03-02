@@ -27,5 +27,5 @@ public class Main {
         }
         new SpelController();
     }
-    //TODO: Help, instellingen (kleur veranderen, reset highscores, current user, grootte dotjesveld, ...), move modus, inloggen, (uitbreidingen: achievements), check voor gameOver
+    //TODO: Help, instellingen (reset highscores, current user, grootte dotjesveld, ...), move modus, inloggen, (uitbreidingen: achievements), check voor gameOver
 }
