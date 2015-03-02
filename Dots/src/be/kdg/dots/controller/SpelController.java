@@ -105,12 +105,12 @@ public class SpelController {
             switch (modus) {
                 case "Time":
                     aantalSeconden = MAX_AANTAL_SECONDEN;
-                    guiSpel.updateTimer(aantalSeconden);
+                    guiSpel.updateTimerOrMoves(aantalSeconden);
                     //guiSpel.updateLevel(level.getLevel());
                     timer = new Timer(1000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            guiSpel.updateTimer(--aantalSeconden);
+                            guiSpel.updateTimerOrMoves(--aantalSeconden);
                             if (aantalSeconden == 0) {
                                 timer.stop(); //actionPerformed wordt nog eens getriggerd als timer.stop(); wordt aangeroepen!
                                 //JOptionPane.showMessageDialog(null, "Proficiat! U hebt level " + level.getLevel() + " behaald", "InfoBox: " + "Winner", JOptionPane.INFORMATION_MESSAGE);
@@ -123,22 +123,22 @@ public class SpelController {
                     break;
                 case "Infinity":
                     aantalSeconden = 0;
-                    guiSpel.updateTimer(aantalSeconden);
+                    guiSpel.updateTimerOrMoves(aantalSeconden);
                     timer = new Timer(1000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            guiSpel.updateTimer(++aantalSeconden);
+                            guiSpel.updateTimerOrMoves(++aantalSeconden);
                             System.out.println("Debug info - Time: " + aantalSeconden);
                         }
                     });
                     break;
                 case "Move":
                     aantalSeconden = 0;
-                    guiSpel.updateTimer(aantalSeconden);
+                    guiSpel.updateTimerOrMoves(aantalSeconden);
                     timer = new Timer(1000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            guiSpel.updateTimer(++aantalSeconden);
+                            guiSpel.updateTimerOrMoves(++aantalSeconden);
                             System.out.println("Debug info - Time: " + aantalSeconden);
                         }
                     });

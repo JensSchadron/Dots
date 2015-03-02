@@ -14,12 +14,10 @@ public class GUISpel extends JPanel {
     private GUIFrame guiFrame;
     private JPanel gamePanel, panelNorth, flowLayout;
     private GUIGrid gridGame;
-    private JLabel lblLevel, lblScore, lblTime, lblPauze, lblHome;
+    private JLabel lblLevel, lblScore, lblTimeOrMoves, lblPauze, lblHome;
     private SpelController controller;
-    private ImageIcon iconLevel, iconScore, iconTime, iconPauze, iconPlay, iconHome;
+    private ImageIcon iconLevel, iconScore, iconTimeOrMoves, iconPauze, iconPlay, iconHome;
     private String modus;
-    private Integer move;
-    private boolean paused;
 
     public GUISpel(SpelController controller, GUIFrame guiFrame, String modus) throws HeadlessException {
         super.setLayout(new BorderLayout());
@@ -28,7 +26,6 @@ public class GUISpel extends JPanel {
         this.controller = controller;
         this.guiFrame = guiFrame;
         this.modus = modus;
-        this.move=30;
         MakeComponents();
         MakeLayout();
         MakeEventListener();
@@ -47,16 +44,16 @@ public class GUISpel extends JPanel {
         lblScore.setIcon(iconScore);
         lblScore.setForeground(Color.blue);
 
-        if (!modus.equals("Move")){
-            iconTime = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/lblTime.png")), 20, 20));
-            lblTime = new JLabel("Time: ");
-            lblTime.setIcon(iconTime);
-            lblTime.setForeground(Color.red);
-        }else{
-            iconTime = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hashtag.png")), 20, 20));
-            lblTime = new JLabel("Move: " + move);
-            lblTime.setIcon(iconTime);
-            lblTime.setForeground(Color.red);
+        if (!modus.equals("Move")) {
+            iconTimeOrMoves = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/lblTime.png")), 20, 20));
+            lblTimeOrMoves = new JLabel("Time: ");
+            lblTimeOrMoves.setIcon(iconTimeOrMoves);
+            lblTimeOrMoves.setForeground(Color.red);
+        } else {
+            iconTimeOrMoves = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hashtag.png")), 20, 20));
+            lblTimeOrMoves = new JLabel("Move: ");
+            lblTimeOrMoves.setIcon(iconTimeOrMoves);
+            lblTimeOrMoves.setForeground(Color.red);
         }
 
         iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPauze.png")), 50, 50));
@@ -84,7 +81,7 @@ public class GUISpel extends JPanel {
         panelNorth.setBackground(Color.white);
         flowLayout.add(lblLevel);
         flowLayout.add(lblScore);
-        flowLayout.add(lblTime);
+        flowLayout.add(lblTimeOrMoves);
         panelNorth.add(lblPauze);
         panelNorth.add(lblHome);
         gamePanel.add(panelNorth, BorderLayout.NORTH);
@@ -111,23 +108,31 @@ public class GUISpel extends JPanel {
     }
 
     public void eindigSpel() {
-        if (!modus.equals("Move")){
+        if (!modus.equals("Move")) {
             controller.getSpel().stopTimer();
         }
         controller.getHighscore().addHighScore(modus);
         guiFrame.updateFrame("hoofdMenu");
     }
 
-    public void setMove() {
-        if (--move==0){
+    /*public void setMove() {
+        if (--move == 0) {
             controller.getGuiSpel().eindigSpel();
-        }else {
-            lblTime.setText("Move: " + move);
+        } else {
+            lblTimeOrMoves.setText("Move: " + move);
         }
-    }
+    }*/
 
-    public void updateTimer(int aantalSeconden) {
-        lblTime.setText("Time: " + aantalSeconden);
+    public void updateTimerOrMoves(int aantalSecondenOfMoves) {
+        switch (modus) {
+            case "Move":
+                lblTimeOrMoves.setText("Move: " + aantalSecondenOfMoves);
+                break;
+            default:
+                lblTimeOrMoves.setText("Time: " + aantalSecondenOfMoves);
+                break;
+        }
+
     }
 
     public void updateScore(int score, int doel) {
@@ -140,5 +145,9 @@ public class GUISpel extends JPanel {
 
     public SpelController getController() {
         return controller;
+    }
+
+    public String getModus() {
+        return modus;
     }
 }

@@ -1,6 +1,7 @@
 package be.kdg.dots.model.veld;
 
 import be.kdg.dots.controller.SpelController;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,12 +30,12 @@ public class Spel {
             switch (modus) {
                 case "Time":
                     aantalSeconden = MAX_AANTAL_SECONDEN;
-                    controller.getGuiSpel().updateTimer(aantalSeconden);
+                    controller.getGuiSpel().updateTimerOrMoves(aantalSeconden);
                     //guiSpel.updateLevel(level.getLevel());
                     timer = new Timer(1000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            controller.getGuiSpel().updateTimer(--aantalSeconden);
+                            controller.getGuiSpel().updateTimerOrMoves(--aantalSeconden);
                             if (aantalSeconden == 0) {
                                 timer.stop(); //actionPerformed wordt nog eens getriggerd als timer.stop(); wordt aangeroepen!
                                 //JOptionPane.showMessageDialog(null, "Proficiat! U hebt level " + level.getLevel() + " behaald", "InfoBox: " + "Winner", JOptionPane.INFORMATION_MESSAGE);
@@ -47,15 +48,15 @@ public class Spel {
                     break;
                 case "Move":
                     aantalMoves = MAX_AANTAL_MOVES;
-                    //controller.getGuiSpel().updateTimer(aantalSeconden);
+                    controller.getGuiSpel().updateTimerOrMoves(aantalMoves);
                     break;
                 case "Infinity":
                     aantalSeconden = 0;
-                    controller.getGuiSpel().updateTimer(aantalSeconden);
+                    controller.getGuiSpel().updateTimerOrMoves(aantalSeconden);
                     timer = new Timer(1000, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            controller.getGuiSpel().updateTimer(++aantalSeconden);
+                            controller.getGuiSpel().updateTimerOrMoves(++aantalSeconden);
                             System.out.println("Debug info - Time: " + aantalSeconden);
                         }
                     });
@@ -65,7 +66,7 @@ public class Spel {
             //controller.getGuiSpel().setModus(modus);
             controller.getGuiFrame().updateFrame("startSpel");
             controller.getSpeler().getScore().resetScore();
-            if (!modus.equals("Move")){
+            if (!modus.equals("Move")) {
                 timer.start();
             }
         }
@@ -83,7 +84,12 @@ public class Spel {
         return aantalSeconden;
     }
 
-    public int getAantalMoves() {
-        return aantalMoves;
+    public void decrementMoves() {
+        if (controller.getGuiSpel().getModus().equals("Move")) {
+            if (aantalMoves == 0) {
+                controller.getGuiSpel().eindigSpel();
+            }
+            controller.getGuiSpel().updateTimerOrMoves(--aantalMoves);
+        }
     }
 }

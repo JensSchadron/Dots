@@ -126,6 +126,7 @@ public class Veld {
         if (connectedDots.size() >= 2) {
             threadBestMove.interrupt();
             //killCalculateBestMove();
+            controller.getSpel().decrementMoves();
             for (Integer connectedDot : connectedDots) {
                 rooster.set(connectedDot.intValue(), null);
             }
@@ -213,6 +214,7 @@ public class Veld {
         for (int i = 0; i < rooster.size(); i++) {
             if (Thread.interrupted() || interruptFlag) {
                 System.out.println("Busy with stopping calculateBestMove");
+                interruptFlag = false;
                 return;
             }
             calculateNextMove(i);
@@ -222,7 +224,7 @@ public class Veld {
             result += besteMove.get(i) + ", ";
         }
         System.out.println(result);
-        interruptFlag = false;
+
 
     }
 
