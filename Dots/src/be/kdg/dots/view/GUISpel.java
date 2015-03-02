@@ -99,8 +99,6 @@ public class GUISpel extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 controller.getSpel().stopTimer();
                 guiFrame.updateFrame("pauzePanel");
-                //controller.getGuiFrame().updateFrame("pauzePanel");
-
             }
         });
         lblHome.addMouseListener(new MouseAdapter() {
@@ -118,11 +116,14 @@ public class GUISpel extends JPanel {
         }
         controller.getHighscore().addHighScore(modus);
         guiFrame.updateFrame("hoofdMenu");
-        //controller.getGuiFrame().updateFrame("hoofdMenu");
     }
 
     public void setMove() {
-        lblTime.setText("Move: " + --move);
+        if (--move==0){
+            controller.getGuiSpel().eindigSpel();
+        }else {
+            lblTime.setText("Move: " + move);
+        }
     }
 
     public void updateTimer(int aantalSeconden) {

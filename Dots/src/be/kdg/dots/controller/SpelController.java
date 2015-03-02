@@ -9,6 +9,8 @@ import be.kdg.dots.view.GUIFrame;
 import be.kdg.dots.view.GUIHoofdMenu;
 import be.kdg.dots.view.GUISpel;
 
+import javax.swing.*;
+
 /**
  * Created by alexander on 4/02/2015.
  */
@@ -70,6 +72,13 @@ public class SpelController {
 
     public void setSpeler(String username) {
         speler.setUsername(username);
+    }
+
+    public void checkSpeler(){
+        if (speler.getUsername()==null) {
+            speler.setUsername(JOptionPane.showInputDialog(null, "Gelieve een username op te geven langer dan 2 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE));
+
+        }
     }
 
    /* public void stopTimer() {

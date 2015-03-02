@@ -3,6 +3,8 @@ package be.kdg.dots.view;
 import be.kdg.dots.controller.SpelController;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicSliderUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,11 +19,12 @@ import java.awt.geom.Point2D;
 public class GUISettingsPane extends JPanel {
     private Container contentPane;
     private JButton btnSave, btnResetHighscore;
-    private JTextArea txtName;
+    private JTextArea txtName, txtTestColor;
     private JPanel centerPanel, gridPanel;
     private GUIHoofdMenu guiHoofdMenu;
     private JSlider slider;
     private JComboBox comboBox;
+    private SliderUI sliderUI;
 
     public GUISettingsPane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         this.contentPane = contentPane;
@@ -35,23 +38,23 @@ public class GUISettingsPane extends JPanel {
     private void MakeComponents() {
         String[] array = new String[6];
         for (int i = 0; i < array.length; i++) {
-            array[i] = (i+3) + " X " + (i+3) ;
+            array[i] = (i + 3) + " X " + (i + 3);
         }
         btnSave = new JButton("Save settings");
         btnResetHighscore = new JButton("Reset highscores");
         comboBox = new JComboBox(array);
         slider = new JSlider();
-        slider.setUI(new SliderUI(slider));
-        System.out.println(slider.getValue());
+        slider.setUI(sliderUI = new SliderUI(slider));
+        slider.setOpaque(false);
+        txtTestColor = new JTextArea("");
 
-
-        if (guiHoofdMenu.getController().getSpeler().getUsername()==null){
+        if (guiHoofdMenu.getController().getSpeler().getUsername() == null) {
             txtName = new JTextArea("Information:\n\nU bent niet ingelogd.");
-        }else{
+        } else {
             txtName = new JTextArea("Information:\n\nU bent ingelogd als: " + guiHoofdMenu.getController().getSpeler().getUsername());
         }
-        centerPanel = new JPanel(new GridLayout(4,1));
-        gridPanel = new JPanel(new GridLayout(1,3));
+        centerPanel = new JPanel(new GridLayout(4, 1));
+        gridPanel = new JPanel(new GridLayout(1, 3));
         txtName.setLineWrap(true);
         txtName.setWrapStyleWord(true);
         txtName.setOpaque(false);
@@ -67,6 +70,7 @@ public class GUISettingsPane extends JPanel {
         centerPanel.add(txtName);
         centerPanel.add(slider);
         centerPanel.add(gridPanel);
+        centerPanel.add(txtTestColor);
         centerPanel.setOpaque(false);
         txtName.setOpaque(false);
         txtName.setMargin(new Insets(20, 20, 20, 20));
@@ -87,10 +91,6 @@ public class GUISettingsPane extends JPanel {
         contentPane.paint(gr);
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
-
-        /*AlphaComposite solid = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
-        g.setComposite(solid);
-        g.setColor(Color.black);*/
     }
 
     private void MakeEventListener() {
@@ -106,44 +106,52 @@ public class GUISettingsPane extends JPanel {
                 guiHoofdMenu.getController().getHighscore().resetHighScores();
             }
         });
+        slider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                guiHoofdMenu.setBackground(sliderUI.getColors()[slider.getValue() / 4]);
+                txtTestColor.setBackground(sliderUI.getColors()[slider.getValue() / 4]);
+            }
+        });
+
     }
 
     private static class SliderUI extends BasicSliderUI {
 
-        private static float[] fracs = {0.0f, 0.2f, 0.4f, 0.6f, 0.8f, 1.0f};
+        private float[] fracs;
         private LinearGradientPaint p;
 
         public SliderUI(JSlider slider) {
             super(slider);
         }
 
+        public final Color[] getColors() {
+            return p.getColors();
+        }
+
         @Override
         public void paintTrack(Graphics g) {
+            fracs = new float[25];
+            int teller = 0;
+            for (double i = 0; i < 25; i++) {
+                fracs[teller++] = (float) ((i) / 25);
+            }
+
             Graphics2D g2d = (Graphics2D) g;
             Rectangle t = trackRect;
             Point2D start = new Point2D.Float(t.x, t.y);
             Point2D end = new Point2D.Float(t.width, t.height);
-            Color[] colors = {Color.magenta, Color.blue, Color.cyan,
-                    Color.green, Color.yellow, Color.red};
-            p = new LinearGradientPaint(start, end, fracs, colors);
+            //Color[] colors = {Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow, Color.red};
+            Color[] colors2 = {new Color(136, 0, 229), new Color(120, 0, 228), new Color(103, 0, 227), new Color(80, 0, 226), new Color(60, 0, 225), new Color(40, 0, 224), new Color(0, 75, 221), new Color(0, 106, 219), new Color(0, 137, 218), new Color(0, 168, 217), new Color(0, 213, 169), new Color(0, 212, 137), new Color(0, 210, 90), new Color(0, 207, 0), new Color(59, 204, 0), new Color(88, 203, 0), new Color(131, 201, 0), new Color(173, 200, 0), new Color(198, 196, 0), new Color(197, 166, 0), new Color(195, 122, 0), new Color(195, 107, 0), new Color(194, 79, 0), new Color(192, 50, 0), new Color(191, 22, 0)};
+            p = new LinearGradientPaint(start, end, fracs, colors2);
             g2d.setPaint(p);
             g2d.fillRect(t.x, t.y, t.width, t.height);
-
-            if (!this.slider.isEnabled()){
-                for (int i=0 ; i<colors.length ; i++) {
-                    float[] hsv = Color.RGBtoHSB(colors[i].getRed(),colors[i].getGreen(),colors[i].getBlue(),null);
-                    System.out.println(colors[i] = new Color(Color.HSBtoRGB(hsv[0], 0.25f, hsv[2])));
-                }
-            }
-
         }
 
         @Override
         public void paintThumb(Graphics g) {
             Graphics2D g2d = (Graphics2D) g;
-            g2d.setRenderingHint(
-                    RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             Rectangle t = thumbRect;
             g2d.setColor(Color.black);
             int tw2 = t.width / 2;

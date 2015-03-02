@@ -17,9 +17,9 @@ public class GUIHoofdMenu extends JPanel {
     private GUISpel guiSpel;
 
     private JPanel main, gameMode, southPanel, loginPanel, rightPanel;
-    private JLabel lblTimeMode, lblEndlessMode, lblMove, lblBanner, lblHighscore;
+    private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblBanner, lblHighscore;
     private ImageIcon iconTimed, iconEndless, iconMove, iconHighscore;
-    private JButton btnSettings, btnAbout, btnHelp, btnInloggen;
+    private JButton btnSettings, btnAbout, btnHelp;
 
     public GUIFrame getGuiFrame() {
         return guiFrame;
@@ -49,9 +49,6 @@ public class GUIHoofdMenu extends JPanel {
         btnSettings = new JButton("Settings");
         btnAbout = new JButton("About");
         btnHelp = new JButton("Help");
-        btnInloggen = new JButton("Inloggen");
-
-        btnInloggen.setSize(200, 50);
 
         iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120, 120));
         lblTimeMode = new JLabel("", JLabel.CENTER);
@@ -62,8 +59,8 @@ public class GUIHoofdMenu extends JPanel {
         lblEndlessMode.setIcon(iconEndless);
 
         iconMove = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnMove.png")), 120, 120));
-        lblMove = new JLabel("", JLabel.CENTER);
-        lblMove.setIcon(iconMove);
+        lblMoveMode = new JLabel("", JLabel.CENTER);
+        lblMoveMode.setIcon(iconMove);
 
         iconHighscore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnHighscore.png")), 120, 120));
         lblHighscore = new JLabel("", JLabel.CENTER);
@@ -72,13 +69,13 @@ public class GUIHoofdMenu extends JPanel {
         lblBanner = new JLabel("Dots");
         lblBanner.setForeground(new Color(83, 93, 245));
         lblBanner.setHorizontalAlignment(SwingConstants.HORIZONTAL);
-        /*lblMoveMode.setBorder(new RoundedBorder(20));
-        lblMoveMode.setBackground(new Color(45, 24, 185));
-        lblMoveMode.setForeground(Color.white);
-        lblMoveMode.setFocusPainted(false);*/
+
+        lblTimeMode.setOpaque(false);
+        lblEndlessMode.setOpaque(false);
+        lblMoveMode.setOpaque(false);
 
         try {
-            //../fonts/
+            //fonts
             Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/be/kdg/dots/resources/fonts/dotness.ttf").openStream());
             GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             genv.registerFont(font);
@@ -101,24 +98,26 @@ public class GUIHoofdMenu extends JPanel {
         southPanel = new JPanel(new GridLayout(1, 4));
         loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
         gameMode.setSize(50, 50);
-        main.setBackground(Color.white);
-        gameMode.setBackground(Color.white);
-        loginPanel.setBackground(Color.white);
+        main.setOpaque(false);
+        gameMode.setOpaque(false);
+        loginPanel.setOpaque(false);
         gameMode.add(lblTimeMode);
-        gameMode.add(lblMove);
+        gameMode.add(lblMoveMode);
         gameMode.add(lblEndlessMode);
         gameMode.add(lblHighscore);
         southPanel.add(btnAbout);
         southPanel.add(btnSettings);
         southPanel.add(btnHelp);
-        southPanel.add(btnInloggen);
 
         main.add(lblBanner, BorderLayout.NORTH);
         main.add(gameMode, BorderLayout.CENTER);
         main.add(southPanel, BorderLayout.SOUTH);
-        //main.add(loginPanel, BorderLayout.EAST);
         super.add(main);
         super.revalidate();
+    }
+
+    private void setBackgroundColor(Color color){
+        this.setBackground(color);
     }
 
     private void startSpel(String modus){
@@ -132,9 +131,9 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Time mode selected");
                 setVisible(false);
+                controller.checkSpeler();
                 startSpel("Time");
                 controller.startSpel("Time");
-
             }
         });
 
@@ -143,17 +142,18 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Infinity mode selected");
                 setVisible(false);
+                controller.checkSpeler();
                 startSpel("Infinity");
                 controller.startSpel("Infinity");
-
             }
         });
 
-        lblMove.addMouseListener(new MouseAdapter() {
+        lblMoveMode.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Move mode selected");
                 setVisible(false);
+                controller.checkSpeler();
                 startSpel("Move");
                 controller.startSpel("Move");
             }
@@ -175,16 +175,6 @@ public class GUIHoofdMenu extends JPanel {
                 //controller.getGuiFrame().updateFrame("aboutPanel");
             }
         });
-        btnInloggen.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - Login selected");
-                //String username = JOptionPane.showInputDialog("Give a username",JOptionPane.PLAIN_MESSAGE);
-                //controller.getGuiFrame().updateFrame("login");
-                guiFrame.updateFrame("login");
-                //controller.setSpeler(username);
-            }
-        });
         btnHelp.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -199,21 +189,6 @@ public class GUIHoofdMenu extends JPanel {
                 guiFrame.updateFrame("highScorePanel");
             }
         });
-        /*
-        lblTimeMode.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                controller.startSpel();
-            }
-        });
-        lblMoveMode.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);
-                controller.startSpel();
-            }
-        });*/
     }
 
 
