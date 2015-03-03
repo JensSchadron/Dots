@@ -50,12 +50,21 @@ public class GUIHighScore extends JPanel {
 
         txtTime = new JTextArea(guiHoofdMenu.getController().getHighscore().getHighScores("Time"));
         txtTime.setOpaque(false);
+        txtTime.setEditable(false);
+        txtTime.setHighlighter(null);
+        txtTime.setMargin(new Insets(10, 10, 10, 10));
         panelTime.add(txtTime);
         txtInfinity = new JTextArea(guiHoofdMenu.getController().getHighscore().getHighScores("Infinity"));
         txtInfinity.setOpaque(false);
+        txtInfinity.setEditable(false);
+        txtInfinity.setHighlighter(null);
+        txtInfinity.setMargin(new Insets(10, 10, 10, 10));
         panelInifinty.add(txtInfinity);
         txtMove = new JTextArea(guiHoofdMenu.getController().getHighscore().getHighScores("Move"));
         txtMove.setOpaque(false);
+        txtMove.setEditable(false);
+        txtMove.setHighlighter(null);
+        txtMove.setMargin(new Insets(10, 10, 10, 10));
         panelMove.add(txtMove);
     }
 

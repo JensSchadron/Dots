@@ -125,12 +125,15 @@ public class Highscore {
         switch (modus) {
             case "Time":
                 timeHighScores.clear();
+                timeHighScores.add("");
                 break;
             case "Move":
                 moveHighScores.clear();
+                moveHighScores.add("");
                 break;
             case "Infinity":
                 infinityHighScores.clear();
+                infinityHighScores.add("");
                 break;
         }
         saveHighScores();
@@ -212,7 +215,7 @@ public class Highscore {
             }
         }
         decodedHighScores.add(1, tmp.deleteCharAt(tmp.length() - 1).toString());
-        System.out.println(tmp.toString());
+        //System.out.println(tmp.toString());
         tmp.delete(0, tmp.length());
 
         //infinityHighScores omvormen naar datastructuur om op te slaan
@@ -224,7 +227,7 @@ public class Highscore {
             }
         }
         decodedHighScores.add(2, tmp.deleteCharAt(tmp.length() - 1).toString());
-        System.out.println(tmp.toString());
+        //System.out.println(tmp.toString());
         tmp.delete(0, tmp.length());
 
 

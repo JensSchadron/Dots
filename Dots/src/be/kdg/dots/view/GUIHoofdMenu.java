@@ -6,7 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by jens & alexander on 4/02/2015.
@@ -50,7 +53,8 @@ public class GUIHoofdMenu extends JPanel {
         btnAbout = new JButton("About");
         btnHelp = new JButton("Help");
 
-        iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120, 120));
+        //iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120, 120));
+        iconTimed = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/knop-groen.png")).getImage(), 120, 120));
         lblTimeMode = new JLabel("", JLabel.CENTER);
         lblTimeMode.setIcon(iconTimed);
 
@@ -86,10 +90,19 @@ public class GUIHoofdMenu extends JPanel {
         }
     }
 
+    private Image getScaledImage(Image srcImg, int w, int h){
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
+        Graphics2D g2 = resizedImg.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.drawImage(srcImg, 0, 0, w, h, null);
+        g2.dispose();
+        return resizedImg;
+    }
+
     public static Image resize(ImageIcon imageIcon, int width, int height) {
         Image image = imageIcon.getImage();
-        Image newImg = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
-        return newImg;
+        return image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
     }
 
     private void MakeLayout() {
