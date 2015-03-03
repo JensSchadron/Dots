@@ -142,7 +142,7 @@ public class GUISettingsPane extends JPanel {
             Point2D start = new Point2D.Float(t.x, t.y);
             Point2D end = new Point2D.Float(t.width, t.height);
             //Color[] colors = {Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow, Color.red};
-            Color[] colors2 = {new Color(136, 0, 229), new Color(120, 0, 228), new Color(103, 0, 227), new Color(80, 0, 226), new Color(60, 0, 225), new Color(40, 0, 224), new Color(0, 75, 221), new Color(0, 106, 219), new Color(0, 137, 218), new Color(0, 168, 217), new Color(0, 213, 169), new Color(0, 212, 137), new Color(0, 210, 90), new Color(0, 207, 0), new Color(59, 204, 0), new Color(88, 203, 0), new Color(131, 201, 0), new Color(173, 200, 0), new Color(198, 196, 0), new Color(197, 166, 0), new Color(195, 122, 0), new Color(195, 107, 0), new Color(194, 79, 0), new Color(192, 50, 0), new Color(191, 22, 0)};
+            Color[] colors2 = {Color.white, new Color(120, 0, 228), new Color(103, 0, 227), new Color(80, 0, 226), new Color(60, 0, 225), new Color(40, 0, 224), new Color(0, 75, 221), new Color(0, 106, 219), new Color(0, 137, 218), new Color(0, 168, 217), new Color(0, 213, 169), new Color(0, 212, 137), new Color(0, 210, 90), new Color(0, 207, 0), new Color(59, 204, 0), new Color(88, 203, 0), new Color(131, 201, 0), new Color(173, 200, 0), new Color(198, 196, 0), new Color(197, 166, 0), new Color(195, 122, 0), new Color(195, 107, 0), new Color(194, 79, 0), new Color(192, 50, 0), Color.black};
             p = new LinearGradientPaint(start, end, fracs, colors2);
             g2d.setPaint(p);
             g2d.fillRect(t.x, t.y, t.width, t.height);

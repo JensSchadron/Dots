@@ -21,7 +21,7 @@ public class GUIHoofdMenu extends JPanel {
 
     private JPanel main, gameMode, southPanel, loginPanel, rightPanel;
     private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblBanner, lblHighscore;
-    private ImageIcon iconTimed, iconEndless, iconMove, iconHighscore;
+    private ImageIcon iconTimed, iconEndless, iconMove, iconHighscore, iconBanner;
     private JButton btnSettings, btnAbout, btnHelp;
 
     public GUIFrame getGuiFrame() {
@@ -55,24 +55,30 @@ public class GUIHoofdMenu extends JPanel {
 
         //iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120, 120));
         iconTimed = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/knop-groen.png")).getImage(), 120, 120));
-        lblTimeMode = new JLabel("", JLabel.CENTER);
+        lblTimeMode = new JLabel("", JLabel.RIGHT);
         lblTimeMode.setIcon(iconTimed);
 
-        iconEndless = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png")), 120, 120));
-        lblEndlessMode = new JLabel("", JLabel.CENTER);
+        //iconEndless = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png")), 120, 120));
+        iconEndless = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/knop-paars.png")).getImage(), 120, 120));
+        lblEndlessMode = new JLabel("", JLabel.RIGHT);
         lblEndlessMode.setIcon(iconEndless);
 
-        iconMove = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnMove.png")), 120, 120));
-        lblMoveMode = new JLabel("", JLabel.CENTER);
+        //iconMove = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnMove.png")), 120, 120));
+        iconMove = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/knop-roos.png")).getImage(), 120, 120));
+        lblMoveMode = new JLabel("", JLabel.LEFT);
         lblMoveMode.setIcon(iconMove);
 
-        iconHighscore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnHighscore.png")), 120, 120));
-        lblHighscore = new JLabel("", JLabel.CENTER);
+        //iconHighscore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnHighscore.png")), 120, 120));
+        iconHighscore = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/knop-blauw.png")).getImage(), 120, 120));
+        lblHighscore = new JLabel("", JLabel.LEFT);
         lblHighscore.setIcon(iconHighscore);
 
-        lblBanner = new JLabel("Dots");
-        lblBanner.setForeground(new Color(83, 93, 245));
-        lblBanner.setHorizontalAlignment(SwingConstants.HORIZONTAL);
+        iconBanner = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/logo-dots.png")).getImage(), 400, 150));
+        lblBanner = new JLabel("", JLabel.CENTER);
+        lblBanner.setIcon(iconBanner);
+        //lblBanner = new JLabel("Dots");
+        //lblBanner.setForeground(new Color(83, 93, 245));
+        //lblBanner.setHorizontalAlignment(SwingConstants.HORIZONTAL);
 
         lblTimeMode.setOpaque(false);
         lblEndlessMode.setOpaque(false);

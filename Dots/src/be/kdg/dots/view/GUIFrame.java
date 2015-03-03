@@ -14,13 +14,15 @@ public class GUIFrame extends JFrame {
     private CardLayout cl;
     //private SpelController controller;
     private GUIHoofdMenu guiHoofdMenu;
-    private ImageIcon iconLoading;
+    private Image iconLoading;
     private JPanel loadingPanel;
     private JLabel loading;
 
     public GUIFrame(SpelController controller, GUIHoofdMenu guiHoofdMenu) throws HeadlessException {
         super("Dots");
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        iconLoading = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/dots-logo.png")).getImage();
+        super.setIconImage(iconLoading);
         cl = new CardLayout();
         setLayout(cl);
         //guiHoofdMenu = new GUIHoofdMenu(controller);
