@@ -94,7 +94,9 @@ public class GUISpel extends JPanel {
         lblPauze.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                controller.getSpel().stopTimer();
+                if (!modus.equals("Move")){
+                    controller.getSpel().stopTimer();
+                }
                 guiFrame.updateFrame("pauzePanel");
             }
         });

@@ -29,7 +29,7 @@ public class GUIPauzePane extends JPanel {
         this.guiHoofdMenu = guiHoofdMenu;
         //this.guiFrame = guiFrame;
         setLayout(new FlowLayout(FlowLayout.CENTER, 30, 10));
-        this.modus = "";
+        this.modus = guiHoofdMenu.getGuiSpel().getModus();
         makeComponents();
         makeLayout();
         MakeEventListener();
@@ -91,8 +91,9 @@ public class GUIPauzePane extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 setVisible(false);
-                guiHoofdMenu.getController().getSpel().startTimer();
-                //controller.getSpel().startTimer();
+                if (!modus.equals("Move")){
+                    guiHoofdMenu.getController().getSpel().startTimer();
+                }
             }
         });
         lblHome.addMouseListener(new MouseAdapter() {

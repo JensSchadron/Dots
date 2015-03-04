@@ -73,7 +73,7 @@ public class Spel {
     }
 
     public void stopTimer() {
-        timer.stop();
+            timer.stop();
     }
 
     public void startTimer() {
