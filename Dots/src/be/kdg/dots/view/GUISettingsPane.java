@@ -69,12 +69,13 @@ public class GUISettingsPane extends JPanel {
 
     private void MakeLayout() {
         btnSave.setForeground(Color.BLUE);
+        gridPanel.add(txtTestColor);
         gridPanel.add(btnResetHighscore);
-        gridPanel.add(veldSlider);
+        //gridPanel.add();
         centerPanel.add(txtName);
         centerPanel.add(colorSlider);
         centerPanel.add(gridPanel);
-        centerPanel.add(txtTestColor);
+        centerPanel.add(veldSlider);
         centerPanel.setOpaque(false);
         txtName.setOpaque(false);
         txtName.setMargin(new Insets(20, 20, 20, 20));

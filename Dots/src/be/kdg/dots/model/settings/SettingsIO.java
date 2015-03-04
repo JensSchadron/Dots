@@ -63,7 +63,6 @@ public class SettingsIO {
         } catch (IOException e) {
             System.out.println("Fout bij aanmaken properties-bestand");
         }
-
     }
 
     public void readProperties() {
