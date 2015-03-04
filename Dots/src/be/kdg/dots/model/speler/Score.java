@@ -38,8 +38,9 @@ public class Score {
     }
 
     public void resetScore() {
-        score = 0;
         speler.getLevel().resetLevel();
+        score = 0;
+        setScoreDoel(speler.getLevel().getLevel());
         speler.getController().getGuiSpel().updateScore(score, scoreDoel);
     }
 
