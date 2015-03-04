@@ -16,12 +16,8 @@ public class Settings {
 
     public Settings(SpelController controller) {
         this.controller = controller;
-        settingsIO = new SettingsIO(this);
         this.column = 6;
         this.row = 6;
-        this.backgroundColor = Color.white;
-
-        loadSettings();
     }
 
     public int getColumn() {
@@ -36,11 +32,26 @@ public class Settings {
         return backgroundColor;
     }
 
-    public void loadSettings(){
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
+        controller.getGuiHoofdMenu().setBackgroundColor(this.backgroundColor);
+    }
 
+    public void loadSettings(){
+        settingsIO = new SettingsIO(controller);
+        settingsIO.readProperties();
     }
 
     public void saveSettings(){
-
+        settingsIO.writeProperties(controller);
     }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
 }

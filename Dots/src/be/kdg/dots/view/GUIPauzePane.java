@@ -36,12 +36,12 @@ public class GUIPauzePane extends JPanel {
     }
 
     private void makeComponents() {
-        iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnPlay.png")), 50, 50));
+        iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/spelMenu/btnPlay.png")), 50, 50));
         lblPauze = new JLabel("");
         lblPauze.setName("pauze");
         lblPauze.setIcon(iconPauze);
 
-        iconHome = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnHome.png")), 250, 50));
+        iconHome = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/spelMenu/btnHome.png")), 250, 50));
         lblHome = new JLabel("");
         lblHome.setIcon(iconHome);
     }

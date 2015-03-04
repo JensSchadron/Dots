@@ -31,16 +31,21 @@ public class SpelController {
     private int aantalSeconden;
     private int aantalMoves;*/
 
+    public GUIHoofdMenu getGuiHoofdMenu() {
+        return guiHoofdMenu;
+    }
+
     public SpelController() {
+
         settings = new Settings(this);
         veld = new Veld(settings.getRow(), settings.getColumn(), this);
         highscore = new Highscore(this);
         guiHoofdMenu = new GUIHoofdMenu(this);
 
-        //guiSpel = new GUISpel(this);
         spel = new Spel(this);
-        //guiFrame = new GUIFrame(this);
         speler = new Speler(this, null);
+
+        loadSettings();
 
         //guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
         //guiFrame.getContentPane().add("startSpel", guiSpel);
@@ -77,11 +82,26 @@ public class SpelController {
     public void checkSpeler(){
         if (speler.getUsername()==null) {
             speler.setUsername(JOptionPane.showInputDialog(null, "Gelieve een username op te geven langer dan 2 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE));
-
         }
     }
 
-   /* public void stopTimer() {
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void loadSettings(){
+        settings.loadSettings();
+    }
+
+    public void saveSettings() {
+        settings.saveSettings();
+    }
+
+    public void setNewVeld(){
+        veld = new Veld(settings.getRow(), settings.getColumn(), this);
+    }
+
+    /* public void stopTimer() {
         timer.stop();
     }
 

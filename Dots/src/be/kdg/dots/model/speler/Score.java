@@ -7,8 +7,8 @@ import java.util.ArrayList;
  */
 public class Score {
     private Speler speler;
-    private int score;
-    private int scoreDoel;
+    private int score=0;
+    private int scoreDoel=0;
 
     public Score(Speler speler) {
         this.speler = speler;

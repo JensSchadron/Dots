@@ -19,7 +19,7 @@ public class GUIHoofdMenu extends JPanel {
     private GUIFrame guiFrame;
     private GUISpel guiSpel;
 
-    private JPanel main, gameMode, southPanel, loginPanel, rightPanel;
+    private JPanel main, gameMode, southPanel, loginPanel;
     private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblBanner, lblHighscore;
     private ImageIcon iconTimed, iconEndless, iconMove, iconHighscore, iconBanner;
     private JButton btnSettings, btnAbout, btnHelp;
@@ -40,7 +40,7 @@ public class GUIHoofdMenu extends JPanel {
         setOpaque(true);
         setBackground(Color.white);
         this.controller = controller;
-        guiFrame = new GUIFrame(controller, this);
+        guiFrame = new GUIFrame(this);
         guiFrame.getContentPane().add("hoofdMenu", this);
 
         MakeComponents();
@@ -135,7 +135,7 @@ public class GUIHoofdMenu extends JPanel {
         super.revalidate();
     }
 
-    private void setBackgroundColor(Color color){
+    public void setBackgroundColor(Color color){
         this.setBackground(color);
     }
 

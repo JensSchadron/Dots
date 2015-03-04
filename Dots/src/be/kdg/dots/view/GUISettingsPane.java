@@ -1,7 +1,5 @@
 package be.kdg.dots.view;
 
-import be.kdg.dots.controller.SpelController;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -12,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.util.Hashtable;
 
 /**
  * Created by jens & alexander on 17/02/2015.
@@ -22,8 +21,7 @@ public class GUISettingsPane extends JPanel {
     private JTextArea txtName, txtTestColor;
     private JPanel centerPanel, gridPanel;
     private GUIHoofdMenu guiHoofdMenu;
-    private JSlider slider;
-    private JComboBox comboBox;
+    private JSlider colorSlider, veldSlider;
     private SliderUI sliderUI;
 
     public GUISettingsPane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
@@ -36,16 +34,22 @@ public class GUISettingsPane extends JPanel {
     }
 
     private void MakeComponents() {
-        String[] array = new String[6];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = (i + 3) + " X " + (i + 3);
-        }
         btnSave = new JButton("Save settings");
         btnResetHighscore = new JButton("Reset highscores");
-        comboBox = new JComboBox(array);
-        slider = new JSlider();
-        slider.setUI(sliderUI = new SliderUI(slider));
-        slider.setOpaque(false);
+        veldSlider = new JSlider(2,8,guiHoofdMenu.getController().getVeld().getRow());
+        veldSlider.setMinorTickSpacing(1);
+        veldSlider.setPaintLabels(true);
+        veldSlider.setPaintTicks(true);
+        Hashtable labelTable = new Hashtable();
+        labelTable.put(new Integer(2), new JLabel("2X2"));
+        labelTable.put(new Integer(4), new JLabel("4X4"));
+        labelTable.put(new Integer(6), new JLabel("6X6"));
+        labelTable.put(new Integer(8), new JLabel("8X8"));
+        veldSlider.setLabelTable(labelTable);
+        veldSlider.setOpaque(false);
+        colorSlider = new JSlider();
+        colorSlider.setUI(sliderUI = new SliderUI(colorSlider));
+        colorSlider.setOpaque(false);
         txtTestColor = new JTextArea("");
 
         if (guiHoofdMenu.getController().getSpeler().getUsername() == null) {
@@ -66,9 +70,9 @@ public class GUISettingsPane extends JPanel {
     private void MakeLayout() {
         btnSave.setForeground(Color.BLUE);
         gridPanel.add(btnResetHighscore);
-        gridPanel.add(comboBox);
+        gridPanel.add(veldSlider);
         centerPanel.add(txtName);
-        centerPanel.add(slider);
+        centerPanel.add(colorSlider);
         centerPanel.add(gridPanel);
         centerPanel.add(txtTestColor);
         centerPanel.setOpaque(false);
@@ -98,6 +102,12 @@ public class GUISettingsPane extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 setVisible(false);
+                guiHoofdMenu.getController().getSettings().setColumn(veldSlider.getValue());
+                guiHoofdMenu.getController().getSettings().setRow(veldSlider.getValue());
+                guiHoofdMenu.getController().setNewVeld();
+                //guiHoofdMenu.setBackground(sliderUI.getColors()[colorSlider.getValue() / 4]);
+                guiHoofdMenu.getController().getSettings().setBackgroundColor(sliderUI.getColors()[colorSlider.getValue() / 4]);
+                guiHoofdMenu.getController().saveSettings();
             }
         });
         btnResetHighscore.addActionListener(new ActionListener() {
@@ -106,11 +116,10 @@ public class GUISettingsPane extends JPanel {
                 guiHoofdMenu.getController().getHighscore().resetHighScores();
             }
         });
-        slider.addChangeListener(new ChangeListener() {
+        colorSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                guiHoofdMenu.setBackground(sliderUI.getColors()[slider.getValue() / 4]);
-                txtTestColor.setBackground(sliderUI.getColors()[slider.getValue() / 4]);
+                txtTestColor.setBackground(sliderUI.getColors()[colorSlider.getValue() / 4]);
             }
         });
 

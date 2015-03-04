@@ -5,7 +5,7 @@ package be.kdg.dots.model.speler;
  */
 public class Level {
     private Speler speler;
-    private int level;
+    private int level=1;
 
     public Level(Speler speler) {
         this.speler = speler;
@@ -17,6 +17,9 @@ public class Level {
         speler.getController().getGuiSpel().updateLevel(level);
     }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     public int getLevel() {
         return level;

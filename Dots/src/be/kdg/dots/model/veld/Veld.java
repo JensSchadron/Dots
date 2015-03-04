@@ -50,9 +50,11 @@ public class Veld {
             rooster.add(new Dot());
         }
         //bestMove.start();
-        this.threadBestMove = new Thread(new BestMove());
-        this.threadBestMove.start();
-        //calculateBestMove();
+
+            this.threadBestMove = new Thread(new BestMove());
+            this.threadBestMove.start();
+
+
         gameOver();
     }
 
@@ -151,10 +153,10 @@ public class Veld {
             controller.getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
             //bestMove.start();
             while (threadBestMove.isAlive()) {
-
             }
-            this.threadBestMove = new Thread(new BestMove());
-            this.threadBestMove.start();
+
+                this.threadBestMove = new Thread(new BestMove());
+                this.threadBestMove.start();
 
             gameOver(); //TODO: extra code schrijven om spel te beëindigen
         }
