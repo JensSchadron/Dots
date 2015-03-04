@@ -3,6 +3,9 @@ package be.kdg.dots.model.veld;
 import be.kdg.dots.controller.SpelController;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by alexander on 4/02/2015.
@@ -10,14 +13,17 @@ import java.util.ArrayList;
 public class Veld {
     private ArrayList<Dot> rooster;
     private ArrayList<Integer> connectedDots;
-    private ArrayList<Integer> besteMove;
-    private ArrayList<Integer> currentMove;
     private final int[] dotIndexCheck = new int[8];
     private final int row;
     private final int column;
     private SpelController controller;
+
+    //Field voor het berekenen van de beste zet
+    private ArrayList<Integer> besteMove;
+    private ArrayList<Integer> currentMove;
     private Thread threadBestMove;
     private boolean interruptFlag;
+    private TreeMap<DotKleur, ArrayList<Integer>> indexMap;
 
     public Veld(int row, int column, SpelController controller) {
         this.controller = controller;
@@ -50,11 +56,9 @@ public class Veld {
             rooster.add(new Dot());
         }
         //bestMove.start();
-
-            this.threadBestMove = new Thread(new BestMove());
-            this.threadBestMove.start();
-
-
+        this.threadBestMove = new Thread(new BestMove());
+        this.threadBestMove.start();
+        //calculateBestMove();
         gameOver();
     }
 
@@ -153,10 +157,10 @@ public class Veld {
             controller.getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
             //bestMove.start();
             while (threadBestMove.isAlive()) {
-            }
 
-                this.threadBestMove = new Thread(new BestMove());
-                this.threadBestMove.start();
+            }
+            this.threadBestMove = new Thread(new BestMove());
+            this.threadBestMove.start();
 
             gameOver(); //TODO: extra code schrijven om spel te beëindigen
         }
@@ -204,13 +208,185 @@ public class Veld {
     public class BestMove implements Runnable {
         @Override
         public void run() {
+            long begin = System.nanoTime();
             System.out.println("Debug info - Calculating started...");
             calculateBestMove();
             System.out.println("Debug info - Calculating stopped...");
+            System.out.println("Debug info - Time taken: " + (double) (System.nanoTime() - begin) / 1000000000 + " sec");
         }
     }
 
+
+    //----------------------------------------------------------------------------------------------------------------//
     public void calculateBestMove() {
+        //Inner class comparator voor treemap
+        class TreeMapComparator implements Comparator<DotKleur> {
+            Map<DotKleur, ArrayList<Integer>> basis;
+
+            public TreeMapComparator(Map<DotKleur, ArrayList<Integer>> basis) {
+                this.basis = basis;
+            }
+
+            @Override
+            public int compare(DotKleur o1, DotKleur o2) {
+                if (o1.equals(o2)) {
+                    return 0;
+                }
+                if (basis.get(o1).size() > basis.get(o2).size()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        }
+
+        besteMove.clear();
+        currentMove.clear();
+
+        TreeMap<DotKleur, ArrayList<Integer>> tmpTreeMap = new TreeMap<>();
+
+        //Analyseren van rooster op dots die minstens één mogelijke zet hebben.
+        for (int i = 0; i < rooster.size(); i++) {
+            int[] tmpIndexArray;
+            if (i < this.column && i % this.column == 0) {
+                tmpIndexArray = new int[]{4, 6, 7};
+
+            } else if (i < this.column && i % this.column == this.column - 1) {
+                tmpIndexArray = new int[]{3, 5, 6};
+
+            } else if (i >= rooster.size() - this.column && i % this.column == this.column - 1) {
+                tmpIndexArray = new int[]{0, 1, 3};
+
+            } else if (i >= rooster.size() - this.column && i % this.column == 0) {
+                tmpIndexArray = new int[]{1, 2, 4};
+
+            } else if (i < this.column) {
+                tmpIndexArray = new int[]{3, 4, 5, 6, 7};
+
+            } else if (i % this.column == this.column - 1) {
+                tmpIndexArray = new int[]{0, 1, 3, 5, 6};
+
+            } else if (i >= rooster.size() - this.column) {
+                tmpIndexArray = new int[]{0, 1, 2, 3, 4};
+
+            } else if (i % this.column == 0) {
+                tmpIndexArray = new int[]{1, 2, 4, 6, 7};
+
+            } else {
+                tmpIndexArray = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
+            }
+            for (int j = 0; j < tmpIndexArray.length; j++) {
+                DotKleur kleur = rooster.get(i).getDotKleur();
+                if (kleur.equals(rooster.get(i + dotIndexCheck[tmpIndexArray[j]]).getDotKleur())) {
+                    ArrayList<Integer> tmpArrayList;
+                    if (tmpTreeMap.containsKey(kleur)) {
+                        tmpArrayList = tmpTreeMap.get(kleur);
+                    } else {
+                        tmpArrayList = new ArrayList<>();
+                    }
+                    tmpArrayList.add(i);
+                    tmpTreeMap.put(kleur, tmpArrayList);
+                    break;
+                }
+            }
+        }
+
+        TreeMapComparator c = new TreeMapComparator(tmpTreeMap);
+        indexMap = new TreeMap<>(c);
+        indexMap.putAll(tmpTreeMap);
+        System.out.println(indexMap);
+
+        for (DotKleur kleur : indexMap.keySet()) {
+            ArrayList<Integer> tmp = indexMap.get(kleur);
+
+            for (int i = 0; i < tmp.size(); i++) {
+                if (interruptFlag) {
+                    break;
+                }
+                calculateNextMove(tmp.get(i), tmp);
+            }
+
+            if (besteMove.size() > indexMap.get(indexMap.lowerKey(kleur)).size()) {
+                break;
+            }
+        }
+
+        //Debug info over beste zet.
+        String result = "";
+        for (int i = 0; i < besteMove.size(); i++) {
+            result += besteMove.get(i) + ", ";
+        }
+        System.out.println(result);
+
+    }
+
+    private void calculateNextMove(int currentIndex, ArrayList<Integer> indexArrayList) {
+        currentMove.add(currentIndex);
+        DotKleur kleur = rooster.get(currentIndex).getDotKleur();
+
+        int[] tmpIndexArray;
+        if (currentIndex < this.column && currentIndex % this.column == 0) {
+            tmpIndexArray = new int[]{4, 6, 7};
+
+        } else if (currentIndex < this.column && currentIndex % this.column == this.column - 1) {
+            tmpIndexArray = new int[]{3, 5, 6};
+
+        } else if (currentIndex >= rooster.size() - this.column && currentIndex % this.column == this.column - 1) {
+            tmpIndexArray = new int[]{0, 1, 3};
+
+        } else if (currentIndex >= rooster.size() - this.column && currentIndex % this.column == 0) {
+            tmpIndexArray = new int[]{1, 2, 4};
+
+        } else if (currentIndex < this.column) {
+            tmpIndexArray = new int[]{3, 4, 5, 6, 7};
+
+        } else if (currentIndex % this.column == this.column - 1) {
+            tmpIndexArray = new int[]{0, 1, 3, 5, 6};
+
+        } else if (currentIndex >= rooster.size() - this.column) {
+            tmpIndexArray = new int[]{0, 1, 2, 3, 4};
+
+        } else if (currentIndex % this.column == 0) {
+            tmpIndexArray = new int[]{1, 2, 4, 6, 7};
+
+        } else {
+            tmpIndexArray = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
+        }
+
+        for (int i = 0; i < tmpIndexArray.length; i++) {
+            if (interruptFlag || Thread.interrupted()) {
+                System.out.println("Busy with stopping calculateNextMove");
+                interruptFlag = true;
+                return;
+            }
+            if (kleur.equals(rooster.get(currentIndex + dotIndexCheck[tmpIndexArray[i]]).getDotKleur()) && !currentMove.contains(currentIndex + dotIndexCheck[tmpIndexArray[i]])) {
+                calculateNextMove(currentIndex + dotIndexCheck[tmpIndexArray[i]], indexArrayList);
+            }
+            if (besteMove.size() == indexArrayList.size()) {
+                interruptFlag = true;
+            }
+        }
+
+
+        if (Thread.interrupted() || interruptFlag) {
+            System.out.println("Busy with stopping calculateNextMove");
+            interruptFlag = true;
+            return;
+        }
+
+        if (currentMove.size() > besteMove.size()) {
+            besteMove = new ArrayList<>(currentMove);
+        }
+
+        currentMove.remove(currentMove.size() - 1);
+
+
+    }
+
+//----------------------------------------------------------------------------------------------------------------//
+
+
+    /*public void calculateBestMove() {
         besteMove.clear();
         currentMove.clear();
         for (int i = 0; i < rooster.size(); i++) {
@@ -292,5 +468,5 @@ public class Veld {
             besteMove = new ArrayList<>(currentMove);
         }
         currentMove.remove(currentMove.size() - 1);
-    }
+    }*/
 }

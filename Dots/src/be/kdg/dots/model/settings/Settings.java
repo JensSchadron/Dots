@@ -37,12 +37,12 @@ public class Settings {
         controller.getGuiHoofdMenu().setBackgroundColor(this.backgroundColor);
     }
 
-    public void loadSettings(){
+    public void loadSettings() {
         settingsIO = new SettingsIO(controller);
         settingsIO.readProperties();
     }
 
-    public void saveSettings(){
+    public void saveSettings() {
         settingsIO.writeProperties(controller);
     }
 

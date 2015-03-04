@@ -49,10 +49,10 @@ public class SettingsIO {
             if (speler.getUsername() != null) {
                 properties.setProperty("username", speler.getUsername());
             }
-           // if (settings.getBackgroundColor() != null) {
-                String hex = "#" + Integer.toHexString(settings.getBackgroundColor().getRGB()).substring(2);
-                properties.setProperty("background", hex);
-           // }
+            // if (settings.getBackgroundColor() != null) {
+            String hex = "#" + Integer.toHexString(settings.getBackgroundColor().getRGB()).substring(2);
+            properties.setProperty("background", hex);
+            // }
             properties.setProperty("column", Integer.toString(settings.getColumn()));
             properties.setProperty("row", Integer.toString(settings.getRow()));
             properties.setProperty("level", Integer.toString(speler.getLevel().getLevel()));
