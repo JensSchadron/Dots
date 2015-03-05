@@ -50,8 +50,8 @@ public class SettingsIO {
                 properties.setProperty("username", speler.getUsername());
             }
             // if (settings.getBackgroundColor() != null) {
-            String hex = "#" + Integer.toHexString(settings.getBackgroundColor().getRGB()).substring(2);
-            properties.setProperty("background", hex);
+            //String hex = "#" + Integer.toHexString(settings.getBackgroundColor().getRGB()).substring(2);
+            //properties.setProperty("background", hex);
             // }
             properties.setProperty("column", Integer.toString(settings.getColumn()));
             properties.setProperty("row", Integer.toString(settings.getRow()));

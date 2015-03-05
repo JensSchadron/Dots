@@ -49,8 +49,8 @@ public class GUIHighScore extends JPanel {
         JScrollPane scrollPaneInfinity = new JScrollPane(panelInifinty);
         JScrollPane scrollPaneMove = new JScrollPane(panelMove);
         tabbedPane.addTab("Time", scrollPaneTime);
-        tabbedPane.addTab("Move", scrollPaneInfinity);
-        tabbedPane.addTab("Infinity", scrollPaneMove);
+        tabbedPane.addTab("Move", scrollPaneMove);
+        tabbedPane.addTab("Infinity", scrollPaneInfinity);
 
         txtTime = new JTextArea(guiHoofdMenu.getController().getHighscore().getHighScores("Time"));
         txtTime.setOpaque(false);

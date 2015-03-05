@@ -1,11 +1,9 @@
 package be.kdg.dots.model.veld;
 
 import be.kdg.dots.controller.SpelController;
+import com.sun.istack.internal.NotNull;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by alexander on 4/02/2015.
@@ -23,7 +21,8 @@ public class Veld {
     private ArrayList<Integer> currentMove;
     private Thread threadBestMove;
     private boolean interruptFlag;
-    private TreeMap<DotKleur, ArrayList<Integer>> indexMap;
+    private ArrayList<KleurDotIndexPair> indexMap;
+    //private TreeMap<DotKleur, ArrayList<Integer>> indexMap;
 
     public Veld(int row, int column, SpelController controller) {
         this.controller = controller;
@@ -33,8 +32,10 @@ public class Veld {
         this.connectedDots = new ArrayList<>();
         this.besteMove = new ArrayList<>(this.row * this.column);
         this.currentMove = new ArrayList<>(this.row * this.column);
+        this.indexMap = new ArrayList<>(DotKleur.values().length);
         this.threadBestMove = new Thread(new BestMove());
         this.interruptFlag = false;
+
         vuldotIndexCheck();
         vulVeld();
     }
@@ -218,32 +219,38 @@ public class Veld {
 
 
     //----------------------------------------------------------------------------------------------------------------//
-    public void calculateBestMove() {
-        //Inner class comparator voor treemap
-        class TreeMapComparator implements Comparator<DotKleur> {
-            Map<DotKleur, ArrayList<Integer>> basis;
+    private class KleurDotIndexPair implements Comparable<KleurDotIndexPair> {
+        private DotKleur kleur;
+        private ArrayList<Integer> dotIndexes;
 
-            public TreeMapComparator(Map<DotKleur, ArrayList<Integer>> basis) {
-                this.basis = basis;
-            }
-
-            @Override
-            public int compare(DotKleur o1, DotKleur o2) {
-                if (o1.equals(o2)) {
-                    return 0;
-                }
-                if (basis.get(o1).size() > basis.get(o2).size()) {
-                    return -1;
-                } else {
-                    return 1;
-                }
-            }
+        public KleurDotIndexPair(DotKleur kleur, ArrayList<Integer> dotIndexes) {
+            this.dotIndexes = dotIndexes;
+            this.kleur = kleur;
         }
 
+        public ArrayList<Integer> getDotIndexes() {
+            return dotIndexes;
+        }
+
+        public void setDotIndexes(ArrayList<Integer> dotIndexes) {
+            this.dotIndexes = dotIndexes;
+        }
+
+        public DotKleur getKleur() {
+            return kleur;
+        }
+
+        @Override
+        public int compareTo(KleurDotIndexPair o) {
+            return ((Integer) o.getDotIndexes().size()).compareTo(this.getDotIndexes().size());
+        }
+    }
+
+
+    public void calculateBestMove() {
+        indexMap.clear();
         besteMove.clear();
         currentMove.clear();
-
-        TreeMap<DotKleur, ArrayList<Integer>> tmpTreeMap = new TreeMap<>();
 
         //Analyseren van rooster op dots die minstens één mogelijke zet hebben.
         for (int i = 0; i < rooster.size(); i++) {
@@ -278,26 +285,51 @@ public class Veld {
             for (int j = 0; j < tmpIndexArray.length; j++) {
                 DotKleur kleur = rooster.get(i).getDotKleur();
                 if (kleur.equals(rooster.get(i + dotIndexCheck[tmpIndexArray[j]]).getDotKleur())) {
-                    ArrayList<Integer> tmpArrayList;
-                    if (tmpTreeMap.containsKey(kleur)) {
-                        tmpArrayList = tmpTreeMap.get(kleur);
-                    } else {
-                        tmpArrayList = new ArrayList<>();
+
+                    int index = -1;
+                    for (int k = 0; k < indexMap.size(); k++) {
+                        if (indexMap.get(k).getKleur().equals(kleur)) {
+                            index = k;
+                        }
                     }
-                    tmpArrayList.add(i);
-                    tmpTreeMap.put(kleur, tmpArrayList);
+                    KleurDotIndexPair tmpPair;
+                    ArrayList<Integer> tmpArrayList;
+                    if (index == -1) {
+                        tmpArrayList = new ArrayList<>();
+                        tmpArrayList.add(i);
+                        tmpPair = new KleurDotIndexPair(kleur, tmpArrayList);
+                        indexMap.add(tmpPair);
+                    } else {
+                        tmpPair = indexMap.get(index);
+                        tmpArrayList = tmpPair.getDotIndexes();
+                        tmpArrayList.add(i);
+                        tmpPair.setDotIndexes(tmpArrayList);
+                        indexMap.set(index, tmpPair);
+                    }
                     break;
                 }
             }
         }
 
-        TreeMapComparator c = new TreeMapComparator(tmpTreeMap);
-        indexMap = new TreeMap<>(c);
-        indexMap.putAll(tmpTreeMap);
-        System.out.println(indexMap);
+        Collections.sort(indexMap);
+        for (KleurDotIndexPair anIndexMap : indexMap) {
+            System.out.println(anIndexMap.getKleur() + " = " + anIndexMap.getDotIndexes());
+        }
 
-        for (DotKleur kleur : indexMap.keySet()) {
-            ArrayList<Integer> tmp = indexMap.get(kleur);
+        outerForLoop:
+        for (int i = 0; i < indexMap.size(); i++) {
+            ArrayList<Integer> tmp = indexMap.get(i).getDotIndexes();
+            for (int j = 0; j < tmp.size(); j++) {
+                if (interruptFlag) {
+                    break outerForLoop;
+                }
+                calculateNextMove(tmp.get(j), tmp);
+            }
+        }
+
+        interruptFlag = false;
+
+            /*ArrayList<Integer> tmp = indexMap.get(kleur);
 
             for (int i = 0; i < tmp.size(); i++) {
                 if (interruptFlag) {
@@ -308,8 +340,8 @@ public class Veld {
 
             if (besteMove.size() > indexMap.get(indexMap.lowerKey(kleur)).size()) {
                 break;
-            }
-        }
+            }*/
+
 
         //Debug info over beste zet.
         String result = "";
