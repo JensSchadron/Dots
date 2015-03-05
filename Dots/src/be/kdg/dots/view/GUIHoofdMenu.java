@@ -18,6 +18,7 @@ public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
     private GUIFrame guiFrame;
     private GUISpel guiSpel;
+    private SplashScreen splashScreen;
 
     private JPanel main, gameMode, southPanel, loginPanel;
     private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblBanner, lblHighscore;
@@ -40,6 +41,10 @@ public class GUIHoofdMenu extends JPanel {
         setOpaque(true);
         setBackground(Color.white);
         this.controller = controller;
+        //guiFrame = new GUIFrame(this);
+        //guiFrame.getContentPane().add("hoofdMenu", this);
+
+        splashScreen = new SplashScreen();
         guiFrame = new GUIFrame(this);
         guiFrame.getContentPane().add("hoofdMenu", this);
 

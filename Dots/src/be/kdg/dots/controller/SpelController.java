@@ -75,10 +75,6 @@ public class SpelController {
         return speler;
     }
 
-    public void setSpeler(String username) {
-        speler.setUsername(username);
-    }
-
     public void checkSpeler(){
         if (speler.getUsername()==null) {
             speler.setUsername(JOptionPane.showInputDialog(null, "Gelieve een username op te geven langer dan 2 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE));

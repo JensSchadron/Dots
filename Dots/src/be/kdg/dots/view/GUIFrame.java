@@ -9,8 +9,9 @@ import java.awt.*;
 public class GUIFrame extends JFrame {
     private CardLayout cl;
     private GUIHoofdMenu guiHoofdMenu;
+    //private SplashScreen splashScreen;
     private Image iconLoading;
-    private JPanel loadingPanel;
+    private JPanel panelClosing;
 
     public GUIFrame(final GUIHoofdMenu guiHoofdMenu) throws HeadlessException {
         super("Dots");
@@ -20,14 +21,15 @@ public class GUIFrame extends JFrame {
         cl = new CardLayout();
         setLayout(cl);
         this.guiHoofdMenu = guiHoofdMenu;
+        //this.splashScreen = splashScreen;
         super.setSize(500, 500);
         super.setVisible(true);
-        loadingPanel = new JPanel();
+        panelClosing = new JPanel();
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 guiHoofdMenu.getController().saveSettings();
-                if (JOptionPane.showConfirmDialog(loadingPanel, "Are you sure to close this window?", "Really Closing?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(panelClosing, "Bent u zeker dat u wilt afsluiten?", "Zeker sluiten?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
                     System.exit(1);
                 }
             }
@@ -60,10 +62,14 @@ public class GUIFrame extends JFrame {
                 setGlassPane(new GUIHighScore(getContentPane(), guiHoofdMenu));
                 getGlassPane().setVisible(true);
                 break;
-            case "login":
+            /*case "splashScreen":
+                cl.show(this.getContentPane(), "splashScreen");
+                super.setSize(300, 300);
+                break;*/
+            /*case "login":
                 setGlassPane(new GUILogin(getContentPane(), guiHoofdMenu));
                 getGlassPane().setVisible(true);
-                break;
+                break;*/
         }
     }
 

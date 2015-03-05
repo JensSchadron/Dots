@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 public class SettingsIO {
     private Settings settings;
     private Path settingsPath;
-    private Properties properties;
+    private Properties propertiesRead, propertiesWrite;
     private Speler speler;
     private SpelController controller;
 
@@ -45,20 +45,21 @@ public class SettingsIO {
         this.settings = controller.getSettings();
         this.speler = controller.getSpeler();
         try (FileOutputStream out = new FileOutputStream(settingsPath.toString())) {
-            properties = new Properties();
+            //propertiesWrite = new Properties();
             if (speler.getUsername() != null) {
-                properties.setProperty("username", speler.getUsername());
+                propertiesRead.setProperty("username", speler.getUsername());
             }
-            // if (settings.getBackgroundColor() != null) {
-            //String hex = "#" + Integer.toHexString(settings.getBackgroundColor().getRGB()).substring(2);
-            //properties.setProperty("background", hex);
-            // }
-            properties.setProperty("column", Integer.toString(settings.getColumn()));
-            properties.setProperty("row", Integer.toString(settings.getRow()));
-            properties.setProperty("level", Integer.toString(speler.getLevel().getLevel()));
-            properties.setProperty("score", Integer.toString(speler.getScore().getScore()));
-            properties.setProperty("scoredoel", Integer.toString(speler.getScore().getScoreDoel()));
-            properties.storeToXML(out, "Application properties");
+            if (settings.getBackgroundColor() != null) {
+            String hex = "#" + Integer.toHexString(settings.getBackgroundColor().getRGB()).substring(2);
+            propertiesRead.setProperty("background", hex);
+            }
+            propertiesRead.setProperty("column", Integer.toString(settings.getColumn()));
+            propertiesRead.setProperty("row", Integer.toString(settings.getRow()));
+            propertiesRead.setProperty("level", Integer.toString(speler.getLevel().getLevel()));
+            propertiesRead.setProperty("score", Integer.toString(speler.getScore().getScore()));
+            propertiesRead.setProperty("scoredoel", Integer.toString(speler.getScore().getScoreDoel()));
+
+            propertiesRead.storeToXML(out, "Application properties");
 
         } catch (IOException e) {
             System.out.println("Fout bij aanmaken properties-bestand");
@@ -67,20 +68,21 @@ public class SettingsIO {
 
     public void readProperties() {
         try (FileInputStream in = new FileInputStream(settingsPath.toString())) {
-            properties = new Properties();
-            properties.loadFromXML(in);
-            properties.list(System.out);
-            settings.setRow(Integer.parseInt(properties.getProperty("row")));
-            settings.setColumn(Integer.parseInt(properties.getProperty("column")));
-            if (properties.getProperty("username") != null) {
-                speler.setUsername((properties.getProperty("username")));
+            propertiesRead = new Properties();
+            propertiesRead.loadFromXML(in);
+            propertiesRead.list(System.out);
+
+            settings.setRow(Integer.parseInt(propertiesRead.getProperty("row")));
+            settings.setColumn(Integer.parseInt(propertiesRead.getProperty("column")));
+            if (propertiesRead.getProperty("username") != null) {
+                speler.setUsername((propertiesRead.getProperty("username")));
             }
-            if (properties.getProperty("level") != null) {
-                speler.getLevel().setLevel(Integer.parseInt(properties.getProperty("level")));
+            if (propertiesRead.getProperty("level") != null) {
+                speler.getLevel().setLevel(Integer.parseInt(propertiesRead.getProperty("level")));
             }
             controller.setNewVeld();
-            if (properties.getProperty("background") != null) {
-                String color = properties.getProperty("background");
+            if (propertiesRead.getProperty("background") != null) {
+                String color = propertiesRead.getProperty("background");
                 controller.getSettings().setBackgroundColor(new Color(Integer.valueOf(color.substring(1, 3), 16), Integer.valueOf(color.substring(3, 5), 16), Integer.valueOf(color.substring(5, 7), 16)));
             }
         } catch (IOException e) {

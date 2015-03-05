@@ -17,11 +17,11 @@ import java.util.Hashtable;
  */
 public class GUISettingsPane extends JPanel {
     private Container contentPane;
-    private JButton btnSave, btnResetHighscore;
+    private JButton btnSave, btnResetHighscore, btnResetUsername;
     private JTextArea txtName, txtTestColor;
-    private JPanel centerPanel, gridPanel;
+    private JPanel centerPanel, gridPanel, panelSouth;
     private GUIHoofdMenu guiHoofdMenu;
-    private JSlider colorSlider, veldSlider;
+    private JSlider sliderColor, sliderVeld;
     private SliderUI sliderUI;
 
     public GUISettingsPane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
@@ -34,22 +34,23 @@ public class GUISettingsPane extends JPanel {
     }
 
     private void MakeComponents() {
-        btnSave = new JButton("Save settings");
+        btnSave = new JButton("Opslaan settings");
         btnResetHighscore = new JButton("Reset highscores");
-        veldSlider = new JSlider(2,8,guiHoofdMenu.getController().getVeld().getRow());
-        veldSlider.setMinorTickSpacing(1);
-        veldSlider.setPaintLabels(true);
-        veldSlider.setPaintTicks(true);
+        btnResetUsername = new JButton("Nieuwe username");
+        sliderVeld = new JSlider(2,8,guiHoofdMenu.getController().getVeld().getRow());
+        sliderVeld.setMinorTickSpacing(1);
+        sliderVeld.setPaintLabels(true);
+        sliderVeld.setPaintTicks(true);
         Hashtable labelTable = new Hashtable();
         labelTable.put(new Integer(2), new JLabel("2X2"));
         labelTable.put(new Integer(4), new JLabel("4X4"));
         labelTable.put(new Integer(6), new JLabel("6X6"));
         labelTable.put(new Integer(8), new JLabel("8X8"));
-        veldSlider.setLabelTable(labelTable);
-        veldSlider.setOpaque(false);
-        colorSlider = new JSlider();
-        colorSlider.setUI(sliderUI = new SliderUI(colorSlider));
-        colorSlider.setOpaque(false);
+        sliderVeld.setLabelTable(labelTable);
+        sliderVeld.setOpaque(false);
+        sliderColor = new JSlider();
+        sliderColor.setUI(sliderUI = new SliderUI(sliderColor));
+        sliderColor.setOpaque(false);
         txtTestColor = new JTextArea("");
 
         if (guiHoofdMenu.getController().getSpeler().getUsername() == null) {
@@ -59,6 +60,8 @@ public class GUISettingsPane extends JPanel {
         }
         centerPanel = new JPanel(new GridLayout(4, 1));
         gridPanel = new JPanel(new GridLayout(1, 3));
+        panelSouth = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelSouth.setOpaque(false);
         txtName.setLineWrap(true);
         txtName.setWrapStyleWord(true);
         txtName.setOpaque(false);
@@ -69,13 +72,14 @@ public class GUISettingsPane extends JPanel {
 
     private void MakeLayout() {
         btnSave.setForeground(Color.BLUE);
+        panelSouth.add(txtName);
+        panelSouth.add(btnResetUsername);
+        panelSouth.add(btnResetHighscore);
         gridPanel.add(txtTestColor);
-        gridPanel.add(btnResetHighscore);
-        //gridPanel.add();
-        centerPanel.add(txtName);
-        centerPanel.add(colorSlider);
+        centerPanel.add(panelSouth);
+        centerPanel.add(sliderColor);
         centerPanel.add(gridPanel);
-        centerPanel.add(veldSlider);
+        centerPanel.add(sliderVeld);
         centerPanel.setOpaque(false);
         txtName.setOpaque(false);
         txtName.setMargin(new Insets(20, 20, 20, 20));
@@ -103,11 +107,11 @@ public class GUISettingsPane extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 setVisible(false);
-                guiHoofdMenu.getController().getSettings().setColumn(veldSlider.getValue());
-                guiHoofdMenu.getController().getSettings().setRow(veldSlider.getValue());
+                guiHoofdMenu.getController().getSettings().setColumn(sliderVeld.getValue());
+                guiHoofdMenu.getController().getSettings().setRow(sliderVeld.getValue());
                 guiHoofdMenu.getController().setNewVeld();
-                //guiHoofdMenu.setBackground(sliderUI.getColors()[colorSlider.getValue() / 4]);
-                guiHoofdMenu.getController().getSettings().setBackgroundColor(sliderUI.getColors()[colorSlider.getValue() / 4]);
+                //guiHoofdMenu.setBackground(sliderUI.getColors()[sliderColor.getValue() / 4]);
+                guiHoofdMenu.getController().getSettings().setBackgroundColor(sliderUI.getColors()[sliderColor.getValue() / 4]);
                 guiHoofdMenu.getController().saveSettings();
             }
         });
@@ -117,10 +121,10 @@ public class GUISettingsPane extends JPanel {
                 guiHoofdMenu.getController().getHighscore().resetHighScores();
             }
         });
-        colorSlider.addChangeListener(new ChangeListener() {
+        sliderColor.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                txtTestColor.setBackground(sliderUI.getColors()[colorSlider.getValue() / 4]);
+                txtTestColor.setBackground(sliderUI.getColors()[sliderColor.getValue() / 4]);
             }
         });
 
