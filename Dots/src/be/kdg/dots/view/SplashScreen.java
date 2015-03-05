@@ -11,7 +11,9 @@ public class SplashScreen extends JWindow {
     public SplashScreen() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         JLabel imageLabel = new JLabel(new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/logo-dots.png")).getImage(), 400, 150)));
+
         setSize(screenSize);
+        setAlwaysOnTop(true);
         setLayout(new BorderLayout());
         setBackground(new Color(0,0,0,0));
         add(imageLabel);

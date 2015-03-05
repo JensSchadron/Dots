@@ -19,10 +19,12 @@ public class GUISettingsPane extends JPanel {
     private Container contentPane;
     private JButton btnSave, btnResetHighscore, btnResetUsername;
     private JTextArea txtName, txtTestColor;
-    private JPanel centerPanel, gridPanel, panelSouth;
+    private JPanel centerPanel, gridPanel, panelSouth, panelButton;
     private GUIHoofdMenu guiHoofdMenu;
     private JSlider sliderColor, sliderVeld;
     private SliderUI sliderUI;
+    private JOptionPane optionPane;
+    private JCheckBox checkBox;
 
     public GUISettingsPane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         this.contentPane = contentPane;
@@ -37,7 +39,8 @@ public class GUISettingsPane extends JPanel {
         btnSave = new JButton("Opslaan settings");
         btnResetHighscore = new JButton("Reset highscores");
         btnResetUsername = new JButton("Nieuwe username");
-        sliderVeld = new JSlider(2,8,guiHoofdMenu.getController().getVeld().getRow());
+        checkBox = new JCheckBox("Hints tonen");
+        sliderVeld = new JSlider(2, 8, guiHoofdMenu.getController().getVeld().getRow());
         sliderVeld.setMinorTickSpacing(1);
         sliderVeld.setPaintLabels(true);
         sliderVeld.setPaintTicks(true);
@@ -75,6 +78,7 @@ public class GUISettingsPane extends JPanel {
         panelSouth.add(txtName);
         panelSouth.add(btnResetUsername);
         panelSouth.add(btnResetHighscore);
+        panelSouth.add(checkBox);
         gridPanel.add(txtTestColor);
         centerPanel.add(panelSouth);
         centerPanel.add(sliderColor);
@@ -127,6 +131,20 @@ public class GUISettingsPane extends JPanel {
                 txtTestColor.setBackground(sliderUI.getColors()[sliderColor.getValue() / 4]);
             }
         });
+        btnResetUsername.addActionListener(new ActionListener() {
+                                               @Override
+                                               public void actionPerformed(ActionEvent e) {
+                                                   optionPane = new JOptionPane();
+                                                   optionPane.setInputValue("");
+                                                   String text;
+                                                   do {
+                                                       text = optionPane.showInputDialog(null, "Gelieve een username op te geven langer dan 2 karakters", "InfoBox: " + "Username", optionPane.INFORMATION_MESSAGE);
+                                                   } while (text.length() < 2 || text.length() > 20);
+                                                   guiHoofdMenu.getController().getSpeler().setUsername(text);
+                                               }
+                                           }
+
+        );
 
     }
 
