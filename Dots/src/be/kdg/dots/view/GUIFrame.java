@@ -2,6 +2,8 @@ package be.kdg.dots.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Created by jens & alexander on 16/02/2015.
@@ -15,7 +17,7 @@ public class GUIFrame extends JFrame {
 
     public GUIFrame(final GUIHoofdMenu guiHoofdMenu) throws HeadlessException {
         super("Dots");
-        super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        super.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         iconLoading = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/dots-logo.png")).getImage();
         super.setIconImage(iconLoading);
         cl = new CardLayout();
@@ -23,17 +25,22 @@ public class GUIFrame extends JFrame {
         this.guiHoofdMenu = guiHoofdMenu;
         //this.splashScreen = splashScreen;
         super.setSize(500, 500);
-        super.setVisible(true);
+        setLocationRelativeTo(null);
+
         panelClosing = new JPanel();
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
+        this.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+            public void windowClosing(WindowEvent event) {
                 guiHoofdMenu.getController().saveSettings();
                 if (JOptionPane.showConfirmDialog(panelClosing, "Bent u zeker dat u wilt afsluiten?", "Zeker sluiten?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
-                    System.exit(1);
+                    System.err.println("Exiting application");
+                    System.exit(0);
                 }
             }
         });
+
+        super.setVisible(true);
+        super.requestFocus();
     }
 
     public void updateFrame(String optie) {

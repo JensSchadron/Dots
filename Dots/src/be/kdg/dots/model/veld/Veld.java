@@ -12,8 +12,8 @@ public class Veld {
     private ArrayList<Dot> rooster;
     private ArrayList<Integer> connectedDots;
     private final int[] dotIndexCheck = new int[8];
-    private final int row;
-    private final int column;
+    private int row;
+    private int column;
     private SpelController controller;
 
     //Field voor het berekenen van de beste zet
@@ -22,7 +22,6 @@ public class Veld {
     private Thread threadBestMove;
     private boolean interruptFlag;
     private ArrayList<KleurDotIndexPair> indexMap;
-    //private TreeMap<DotKleur, ArrayList<Integer>> indexMap;
 
     public Veld(int row, int column, SpelController controller) {
         this.controller = controller;
@@ -56,10 +55,7 @@ public class Veld {
         for (int i = 0; i < this.row * this.column; i++) {
             rooster.add(new Dot());
         }
-        //bestMove.start();
-        this.threadBestMove = new Thread(new BestMove());
-        this.threadBestMove.start();
-        //calculateBestMove();
+        startBerekenen();
         gameOver();
     }
 
@@ -79,7 +75,11 @@ public class Veld {
         return besteMove;
     }
 
-    public void voegConnectedDotToe(int index) { //TODO: Methode aanpassen vanwege bugs in code (zie gameover-methode)
+    public ArrayList<Integer> getCurrentMove() {
+        return currentMove;
+    }
+
+    public void voegConnectedDotToe(int index) {
         if (!connectedDots.contains(index)) {
             if (connectedDots.size() > 0) {
                 int lastDotIndex = connectedDots.get(connectedDots.size() - 1);
@@ -156,12 +156,7 @@ public class Veld {
                 }
             }
             controller.getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
-            //bestMove.start();
-            while (threadBestMove.isAlive()) {
-
-            }
-            this.threadBestMove = new Thread(new BestMove());
-            this.threadBestMove.start();
+            startBerekenen();
 
             gameOver(); //TODO: extra code schrijven om spel te beëindigen
         }
@@ -206,6 +201,11 @@ public class Veld {
         return true;
     }
 
+    public void startBerekenen() {
+        this.threadBestMove = new Thread(new BestMove());
+        this.threadBestMove.start();
+    }
+
     public class BestMove implements Runnable {
         @Override
         public void run() {
@@ -222,10 +222,12 @@ public class Veld {
     private class KleurDotIndexPair implements Comparable<KleurDotIndexPair> {
         private DotKleur kleur;
         private ArrayList<Integer> dotIndexes;
+        private ArrayList<Integer> dotsMet1Combinatie;
 
         public KleurDotIndexPair(DotKleur kleur, ArrayList<Integer> dotIndexes) {
-            this.dotIndexes = dotIndexes;
             this.kleur = kleur;
+            this.dotIndexes = dotIndexes;
+            this.dotsMet1Combinatie = new ArrayList<>();
         }
 
         public ArrayList<Integer> getDotIndexes() {
@@ -234,6 +236,14 @@ public class Veld {
 
         public void setDotIndexes(ArrayList<Integer> dotIndexes) {
             this.dotIndexes = dotIndexes;
+        }
+
+        public ArrayList<Integer> getDotsMet1Combinatie() {
+            return dotsMet1Combinatie;
+        }
+
+        public void setDotsMet1Combinatie(ArrayList<Integer> dotsMet1Combinatie) {
+            this.dotsMet1Combinatie = dotsMet1Combinatie;
         }
 
         public DotKleur getKleur() {
@@ -253,7 +263,13 @@ public class Veld {
         currentMove.clear();
 
         //Analyseren van rooster op dots die minstens één mogelijke zet hebben.
+
+        KleurDotIndexPair tmpPair;
+        ArrayList<Integer> tmpArrayList;
         for (int i = 0; i < rooster.size(); i++) {
+            int aantalMogelijkeCombinaties = 0;
+            int index;
+            int indexBackup = -1;
             int[] tmpIndexArray;
             if (i < this.column && i % this.column == 0) {
                 tmpIndexArray = new int[]{4, 6, 7};
@@ -285,30 +301,39 @@ public class Veld {
             for (int j = 0; j < tmpIndexArray.length; j++) {
                 DotKleur kleur = rooster.get(i).getDotKleur();
                 if (kleur.equals(rooster.get(i + dotIndexCheck[tmpIndexArray[j]]).getDotKleur())) {
-
-                    int index = -1;
+                    aantalMogelijkeCombinaties++;
+                    index = -1;
                     for (int k = 0; k < indexMap.size(); k++) {
                         if (indexMap.get(k).getKleur().equals(kleur)) {
                             index = k;
+                            indexBackup = k;
                         }
                     }
-                    KleurDotIndexPair tmpPair;
-                    ArrayList<Integer> tmpArrayList;
-                    if (index == -1) {
-                        tmpArrayList = new ArrayList<>();
+                    if(aantalMogelijkeCombinaties == 1) {
+                        if (index == -1) {
+                            tmpArrayList = new ArrayList<>();
+                            tmpArrayList.add(i);
+                            tmpPair = new KleurDotIndexPair(kleur, tmpArrayList);
+                            indexMap.add(tmpPair);
+                        } else {
+                            tmpPair = indexMap.get(index);
+                            tmpArrayList = tmpPair.getDotIndexes();
+                            tmpArrayList.add(i);
+                            tmpPair.setDotIndexes(tmpArrayList);
+                            indexMap.set(index, tmpPair);
+                        }
+                    }
+                    if (j == tmpIndexArray.length - 1 && aantalMogelijkeCombinaties == 1 && indexBackup != -1) {
+                        tmpPair = indexMap.get(indexBackup);
+                        tmpArrayList = tmpPair.getDotsMet1Combinatie();
                         tmpArrayList.add(i);
-                        tmpPair = new KleurDotIndexPair(kleur, tmpArrayList);
-                        indexMap.add(tmpPair);
-                    } else {
-                        tmpPair = indexMap.get(index);
-                        tmpArrayList = tmpPair.getDotIndexes();
-                        tmpArrayList.add(i);
-                        tmpPair.setDotIndexes(tmpArrayList);
+                        tmpPair.setDotsMet1Combinatie(tmpArrayList);
                         indexMap.set(index, tmpPair);
                     }
-                    break;
+
                 }
             }
+
         }
 
         Collections.sort(indexMap);
@@ -318,7 +343,7 @@ public class Veld {
 
         outerForLoop:
         for (int i = 0; i < indexMap.size(); i++) {
-            ArrayList<Integer> tmp = indexMap.get(i).getDotIndexes();
+            ArrayList<Integer> tmp = (indexMap.get(i).dotsMet1Combinatie.size() == 0) ? indexMap.get(i).getDotIndexes() : indexMap.get(i).dotsMet1Combinatie;
             for (int j = 0; j < tmp.size(); j++) {
                 if (interruptFlag) {
                     break outerForLoop;
@@ -328,20 +353,6 @@ public class Veld {
         }
 
         interruptFlag = false;
-
-            /*ArrayList<Integer> tmp = indexMap.get(kleur);
-
-            for (int i = 0; i < tmp.size(); i++) {
-                if (interruptFlag) {
-                    break;
-                }
-                calculateNextMove(tmp.get(i), tmp);
-            }
-
-            if (besteMove.size() > indexMap.get(indexMap.lowerKey(kleur)).size()) {
-                break;
-            }*/
-
 
         //Debug info over beste zet.
         String result = "";
@@ -353,6 +364,7 @@ public class Veld {
     }
 
     private void calculateNextMove(int currentIndex, ArrayList<Integer> indexArrayList) {
+
         currentMove.add(currentIndex);
         DotKleur kleur = rooster.get(currentIndex).getDotKleur();
 
@@ -411,8 +423,6 @@ public class Veld {
         }
 
         currentMove.remove(currentMove.size() - 1);
-
-
     }
 
 //----------------------------------------------------------------------------------------------------------------//

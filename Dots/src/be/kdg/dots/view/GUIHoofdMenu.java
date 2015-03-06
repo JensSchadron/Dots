@@ -155,7 +155,7 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Time mode selected");
                 setVisible(false);
-                controller.checkSpeler();
+                checkSpeler();
                 startSpel("Time");
                 controller.startSpel("Time");
             }
@@ -166,7 +166,7 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Infinity mode selected");
                 setVisible(false);
-                controller.checkSpeler();
+                checkSpeler();
                 startSpel("Infinity");
                 controller.startSpel("Infinity");
             }
@@ -177,7 +177,7 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Move mode selected");
                 setVisible(false);
-                controller.checkSpeler();
+                checkSpeler();
                 startSpel("Move");
                 controller.startSpel("Move");
             }
@@ -213,6 +213,19 @@ public class GUIHoofdMenu extends JPanel {
                 guiFrame.updateFrame("highScorePanel");
             }
         });
+    }
+
+    public void checkSpeler(){
+        if (controller.getSpeler().getUsername()==null){
+            String userName;
+            do{
+                userName = JOptionPane.showInputDialog(this, "Gelieve een username op te geven met minimum 2 en maximum 20 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE);
+                if(userName == null){
+                    return;
+                }
+            } while(userName.length()<2||userName.length()>20);
+            controller.getSpeler().setUsername(userName);
+        }
     }
 
 

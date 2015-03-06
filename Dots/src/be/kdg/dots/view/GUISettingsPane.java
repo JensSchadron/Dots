@@ -56,11 +56,7 @@ public class GUISettingsPane extends JPanel {
         sliderColor.setOpaque(false);
         txtTestColor = new JTextArea("");
 
-        if (guiHoofdMenu.getController().getSpeler().getUsername() == null) {
-            txtName = new JTextArea("Information:\n\nU bent niet ingelogd.");
-        } else {
-            txtName = new JTextArea("Information:\n\nU bent ingelogd als: " + guiHoofdMenu.getController().getSpeler().getUsername());
-        }
+        updateUserInfo();
         centerPanel = new JPanel(new GridLayout(4, 1));
         gridPanel = new JPanel(new GridLayout(1, 3));
         panelSouth = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -71,6 +67,14 @@ public class GUISettingsPane extends JPanel {
         txtName.setEditable(false);
         txtName.setHighlighter(null);
         txtName.setMargin(new Insets(10, 10, 10, 10));
+    }
+
+    private void updateUserInfo(){
+        if (guiHoofdMenu.getController().getSpeler().getUsername() == null) {
+            txtName = new JTextArea("Information:\n\nU bent niet ingelogd.");
+        } else {
+            txtName = new JTextArea("Information:\n\nU bent ingelogd als: " + guiHoofdMenu.getController().getSpeler().getUsername());
+        }
     }
 
     private void MakeLayout() {
@@ -134,13 +138,19 @@ public class GUISettingsPane extends JPanel {
         btnResetUsername.addActionListener(new ActionListener() {
                                                @Override
                                                public void actionPerformed(ActionEvent e) {
-                                                   optionPane = new JOptionPane();
-                                                   optionPane.setInputValue("");
+                                                   /*optionPane = new JOptionPane();
+                                                   optionPane.setInputValue("");*/
                                                    String text;
                                                    do {
-                                                       text = optionPane.showInputDialog(null, "Gelieve een username op te geven langer dan 2 karakters", "InfoBox: " + "Username", optionPane.INFORMATION_MESSAGE);
+                                                       text = JOptionPane.showInputDialog(null, "Gelieve een username op te geven langer dan 2 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE);
+                                                       if(text == null){
+                                                           return;
+                                                       }
                                                    } while (text.length() < 2 || text.length() > 20);
                                                    guiHoofdMenu.getController().getSpeler().setUsername(text);
+                                                   guiHoofdMenu.getController().getSettings().saveSettings();
+                                                   updateUserInfo();
+                                                   repaint();
                                                }
                                            }
 

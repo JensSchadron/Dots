@@ -99,7 +99,7 @@ public class GUIGrid extends JPanel {
         }
     }
 
-    private void reloadHintUI() {
+    public void reloadHintUI() {
         hintUI.clear();
         ArrayList<Integer> dotIndexHints = guiSpel.getController().getVeld().getBesteMove();
         for (int i = 0; i < dotIndexHints.size() - 1; i++) {

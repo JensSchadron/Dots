@@ -45,21 +45,21 @@ public class SettingsIO {
         this.settings = controller.getSettings();
         this.speler = controller.getSpeler();
         try (FileOutputStream out = new FileOutputStream(settingsPath.toString())) {
-            //propertiesWrite = new Properties();
-            if (speler.getUsername() != null) {
-                propertiesRead.setProperty("username", speler.getUsername());
+            propertiesWrite = new Properties();
+            if (speler.getUsername() != null && !speler.getUsername().isEmpty()) {
+                propertiesWrite.setProperty("username", speler.getUsername());
             }
             if (settings.getBackgroundColor() != null) {
-            String hex = "#" + Integer.toHexString(settings.getBackgroundColor().getRGB()).substring(2);
-            propertiesRead.setProperty("background", hex);
+                String hex = "#" + Integer.toHexString(settings.getBackgroundColor().getRGB()).substring(2);
+                propertiesWrite.setProperty("background", hex);
             }
-            propertiesRead.setProperty("column", Integer.toString(settings.getColumn()));
-            propertiesRead.setProperty("row", Integer.toString(settings.getRow()));
-            propertiesRead.setProperty("level", Integer.toString(speler.getLevel().getLevel()));
-            propertiesRead.setProperty("score", Integer.toString(speler.getScore().getScore()));
-            propertiesRead.setProperty("scoredoel", Integer.toString(speler.getScore().getScoreDoel()));
+            propertiesWrite.setProperty("column", Integer.toString(settings.getColumn()));
+            propertiesWrite.setProperty("row", Integer.toString(settings.getRow()));
+            propertiesWrite.setProperty("level", Integer.toString(speler.getLevel().getLevel()));
+            propertiesWrite.setProperty("score", Integer.toString(speler.getScore().getScore()));
+            propertiesWrite.setProperty("scoredoel", Integer.toString(speler.getScore().getScoreDoel()));
 
-            propertiesRead.storeToXML(out, "Application properties");
+            propertiesWrite.storeToXML(out, "Application properties");
 
         } catch (IOException e) {
             System.out.println("Fout bij aanmaken properties-bestand");
@@ -67,7 +67,12 @@ public class SettingsIO {
     }
 
     public void readProperties() {
+        if (!Files.exists(settingsPath)) {
+            return;
+        }
         try (FileInputStream in = new FileInputStream(settingsPath.toString())) {
+
+
             propertiesRead = new Properties();
             propertiesRead.loadFromXML(in);
             propertiesRead.list(System.out);
@@ -86,6 +91,7 @@ public class SettingsIO {
                 controller.getSettings().setBackgroundColor(new Color(Integer.valueOf(color.substring(1, 3), 16), Integer.valueOf(color.substring(3, 5), 16), Integer.valueOf(color.substring(5, 7), 16)));
             }
         } catch (IOException e) {
+            e.printStackTrace();
             System.out.println("Fout bij het ophalen van properties");
         }
     }

@@ -152,4 +152,8 @@ public class GUISpel extends JPanel {
     public String getModus() {
         return modus;
     }
+
+    public GUIGrid getGridGame() {
+        return gridGame;
+    }
 }
