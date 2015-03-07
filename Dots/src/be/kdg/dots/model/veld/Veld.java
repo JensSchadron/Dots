@@ -209,11 +209,15 @@ public class Veld {
     public class BestMove implements Runnable {
         @Override
         public void run() {
-            long begin = System.nanoTime();
-            System.out.println("Debug info - Calculating started...");
-            calculateBestMove();
-            System.out.println("Debug info - Calculating stopped...");
-            System.out.println("Debug info - Time taken: " + (double) (System.nanoTime() - begin) / 1000000000 + " sec");
+            if(controller.getSettings().isHintsEnabled()) {
+                long begin = System.nanoTime();
+                System.out.println("Debug info - Calculating started...");
+                calculateBestMove();
+                System.out.println("Debug info - Calculating stopped...");
+                System.out.println("Debug info - Time taken: " + (double) (System.nanoTime() - begin) / 1000000000 + " sec");
+            } else {
+                System.out.println("Hints zijn uitgeschakeld");
+            }
         }
     }
 
@@ -268,7 +272,7 @@ public class Veld {
         ArrayList<Integer> tmpArrayList;
         for (int i = 0; i < rooster.size(); i++) {
             int aantalMogelijkeCombinaties = 0;
-            int index;
+            int index = -1;
             int indexBackup = -1;
             int[] tmpIndexArray;
             if (i < this.column && i % this.column == 0) {
@@ -309,7 +313,7 @@ public class Veld {
                             indexBackup = k;
                         }
                     }
-                    if(aantalMogelijkeCombinaties == 1) {
+                    if (aantalMogelijkeCombinaties == 1) {
                         if (index == -1) {
                             tmpArrayList = new ArrayList<>();
                             tmpArrayList.add(i);
@@ -323,32 +327,47 @@ public class Veld {
                             indexMap.set(index, tmpPair);
                         }
                     }
-                    if (j == tmpIndexArray.length - 1 && aantalMogelijkeCombinaties == 1 && indexBackup != -1) {
-                        tmpPair = indexMap.get(indexBackup);
-                        tmpArrayList = tmpPair.getDotsMet1Combinatie();
-                        tmpArrayList.add(i);
-                        tmpPair.setDotsMet1Combinatie(tmpArrayList);
-                        indexMap.set(index, tmpPair);
-                    }
-
                 }
+                /*if (j == tmpIndexArray.length - 1 && aantalMogelijkeCombinaties == 1 && indexBackup != -1) {
+                    tmpPair = indexMap.get(indexBackup);
+                    tmpArrayList = tmpPair.getDotsMet1Combinatie();
+                    tmpArrayList.add(i);
+                    tmpPair.setDotsMet1Combinatie(tmpArrayList);
+                    indexMap.set(indexBackup, tmpPair);
+                }*/
             }
 
         }
 
         Collections.sort(indexMap);
         for (KleurDotIndexPair anIndexMap : indexMap) {
-            System.out.println(anIndexMap.getKleur() + " = " + anIndexMap.getDotIndexes());
+            System.out.println("Kleur: " + anIndexMap.getKleur() + ", Mogelijke startpunten: " + anIndexMap.getDotsMet1Combinatie() + ", dots die verbonden kunnen worden: " + anIndexMap.getDotIndexes());
         }
 
         outerForLoop:
         for (int i = 0; i < indexMap.size(); i++) {
-            ArrayList<Integer> tmp = (indexMap.get(i).dotsMet1Combinatie.size() == 0) ? indexMap.get(i).getDotIndexes() : indexMap.get(i).dotsMet1Combinatie;
+            //boolean fasterAlgorithmEnabled = false;
+            ArrayList<Integer> tmp;
+            if (indexMap.get(i).dotsMet1Combinatie.size() == 0) {
+                tmp = indexMap.get(i).getDotIndexes();
+            } else {
+                tmp = indexMap.get(i).getDotsMet1Combinatie();
+                //fasterAlgorithmEnabled = true;
+            }
+
+
+            //tmp = (indexMap.get(i).dotsMet1Combinatie.size() == 0) ? (indexMap.get(i).getDotIndexes();
+            //fasterAlgorithmEnabled = true;):indexMap.get(i).dotsMet1Combinatie;
             for (int j = 0; j < tmp.size(); j++) {
                 if (interruptFlag) {
                     break outerForLoop;
                 }
-                calculateNextMove(tmp.get(j), tmp);
+                calculateNextMove(tmp.get(j), indexMap.get(i).getDotIndexes());
+                /*if (j == tmp.size() - 1 && fasterAlgorithmEnabled) {
+                    tmp = indexMap.get(i).getDotIndexes();
+                    fasterAlgorithmEnabled = false;
+                    j = -1;
+                }*/
             }
         }
 

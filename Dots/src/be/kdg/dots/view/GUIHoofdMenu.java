@@ -44,8 +44,9 @@ public class GUIHoofdMenu extends JPanel {
         //guiFrame = new GUIFrame(this);
         //guiFrame.getContentPane().add("hoofdMenu", this);
 
-        splashScreen = new SplashScreen();
+
         guiFrame = new GUIFrame(this);
+        splashScreen = new SplashScreen(this);
         guiFrame.getContentPane().add("hoofdMenu", this);
 
         MakeComponents();

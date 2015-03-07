@@ -13,6 +13,7 @@ public class Settings {
     private int column;
     private int row;
     private Color backgroundColor;
+    private boolean hintsEnabled;
 
     public Settings(SpelController controller) {
         this.controller = controller;
@@ -35,6 +36,14 @@ public class Settings {
     public void setBackgroundColor(Color backgroundColor) {
         this.backgroundColor = backgroundColor;
         controller.getGuiHoofdMenu().setBackgroundColor(this.backgroundColor);
+    }
+
+    public boolean isHintsEnabled() {
+        return hintsEnabled;
+    }
+
+    public void setHintsEnabled(boolean hintsEnabled) {
+        this.hintsEnabled = hintsEnabled;
     }
 
     public void loadSettings() {

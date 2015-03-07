@@ -18,7 +18,7 @@ import java.awt.image.BufferedImage;
  */
 public class GUIPauzePane extends JPanel {
     private Container contentPane;
-    private JButton btnContinue, btnGoHome;
+    //private JButton btnContinue, btnGoHome;
     private ImageIcon iconPauze, iconHome;
     private JLabel lblPauze, lblHome;
     private String modus;

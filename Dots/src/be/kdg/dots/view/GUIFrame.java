@@ -24,7 +24,7 @@ public class GUIFrame extends JFrame {
         setLayout(cl);
         this.guiHoofdMenu = guiHoofdMenu;
         //this.splashScreen = splashScreen;
-        super.setSize(500, 500);
+        super.setSize(550, 500);
         setLocationRelativeTo(null);
 
         panelClosing = new JPanel();
@@ -38,7 +38,9 @@ public class GUIFrame extends JFrame {
                 }
             }
         });
+    }
 
+    public void showFrame(){
         super.setVisible(true);
         super.requestFocus();
     }

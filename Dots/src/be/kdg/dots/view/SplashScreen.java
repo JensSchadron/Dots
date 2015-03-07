@@ -2,13 +2,15 @@ package be.kdg.dots.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 /**
  * Created by alexander on 5/03/2015.
  */
 public class SplashScreen extends JWindow {
-    public SplashScreen() {
+    public SplashScreen(final GUIHoofdMenu guiHoofdMenu) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         JLabel imageLabel = new JLabel(new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/logo-dots.png")).getImage(), 400, 150)));
 
@@ -19,12 +21,21 @@ public class SplashScreen extends JWindow {
         add(imageLabel);
         setVisible(true);
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
+        Timer timer = new Timer(5000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-        }
-        this.dispose();
+                if(guiHoofdMenu.getController().isLadenCompleet()) {
+                    SplashScreen.this.dispose();
+                    guiHoofdMenu.getGuiFrame().showFrame();
+                    ((Timer) e.getSource()).stop();
+                } else {
+                    ((Timer) e.getSource()).setDelay(500);
+                }
+            }
+        });
+
+        timer.start();
 
     }
 

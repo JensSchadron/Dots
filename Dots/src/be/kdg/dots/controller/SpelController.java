@@ -19,17 +19,11 @@ public class SpelController {
     private Veld veld;
     private Highscore highscore;
     private Speler speler;
-    //private Timer timer;
     private GUIHoofdMenu guiHoofdMenu;
     //private GUISpel guiSpel;
     //private GUIFrame guiFrame;
     private Spel spel;
-
-    //Timer attributen
-    /*private static final int MAX_AANTAL_SECONDEN = 45;
-    private static final int MAX_AANTAL_MOVES = 30;
-    private int aantalSeconden;
-    private int aantalMoves;*/
+    private boolean ladenCompleet = false;
 
     public GUIHoofdMenu getGuiHoofdMenu() {
         return guiHoofdMenu;
@@ -46,6 +40,9 @@ public class SpelController {
         speler = new Speler(this, null);
 
         loadSettings();
+
+        ladenCompleet = true;
+        System.out.println("Laden compleet!");
 
         //guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
         //guiFrame.getContentPane().add("startSpel", guiSpel);
@@ -108,7 +105,11 @@ public class SpelController {
         this.veld = new Veld(settings.getRow(), settings.getColumn(), this);
     }
 
-   /* public void startSpel(String modus) {
+    public boolean isLadenCompleet() {
+        return ladenCompleet;
+    }
+
+    /* public void startSpel(String modus) {
         if (speler.getUsername()==null){
             JOptionPane.showMessageDialog(null, "Gelieve u eerst in te loggen alvorens te spelen", "InfoBox: " + "Inloggen", JOptionPane.INFORMATION_MESSAGE);
         }else{

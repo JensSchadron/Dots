@@ -40,21 +40,26 @@ public class GUISettingsPane extends JPanel {
         btnResetHighscore = new JButton("Reset highscores");
         btnResetUsername = new JButton("Nieuwe username");
         checkBox = new JCheckBox("Hints tonen");
+        checkBox.setSelected(guiHoofdMenu.getController().getSettings().isHintsEnabled());
+        checkBox.setOpaque(false);
         sliderVeld = new JSlider(2, 8, guiHoofdMenu.getController().getVeld().getRow());
         sliderVeld.setMinorTickSpacing(1);
         sliderVeld.setPaintLabels(true);
         sliderVeld.setPaintTicks(true);
-        Hashtable labelTable = new Hashtable();
-        labelTable.put(new Integer(2), new JLabel("2X2"));
-        labelTable.put(new Integer(4), new JLabel("4X4"));
-        labelTable.put(new Integer(6), new JLabel("6X6"));
-        labelTable.put(new Integer(8), new JLabel("8X8"));
+        Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
+        labelTable.put(2, new JLabel("2X2"));
+        labelTable.put(4, new JLabel("4X4"));
+        labelTable.put(6, new JLabel("6X6"));
+        labelTable.put(8, new JLabel("8X8"));
         sliderVeld.setLabelTable(labelTable);
         sliderVeld.setOpaque(false);
+
         sliderColor = new JSlider();
         sliderColor.setUI(sliderUI = new SliderUI(sliderColor));
         sliderColor.setOpaque(false);
         txtTestColor = new JTextArea("");
+        txtTestColor.setEditable(false);
+        txtTestColor.setHighlighter(null);
 
         updateUserInfo();
         centerPanel = new JPanel(new GridLayout(4, 1));
@@ -83,12 +88,16 @@ public class GUISettingsPane extends JPanel {
         panelSouth.add(btnResetUsername);
         panelSouth.add(btnResetHighscore);
         panelSouth.add(checkBox);
+        gridPanel.add(sliderColor);
         gridPanel.add(txtTestColor);
+        gridPanel.setBorder(BorderFactory.createTitledBorder("Achtergrondkleur"));
+        gridPanel.setOpaque(false);
         centerPanel.add(panelSouth);
-        centerPanel.add(sliderColor);
         centerPanel.add(gridPanel);
+        sliderVeld.setBorder(BorderFactory.createTitledBorder("Grootte veld"));
         centerPanel.add(sliderVeld);
         centerPanel.setOpaque(false);
+
         txtName.setOpaque(false);
         txtName.setMargin(new Insets(20, 20, 20, 20));
         super.add(centerPanel, BorderLayout.CENTER);
@@ -111,6 +120,8 @@ public class GUISettingsPane extends JPanel {
     }
 
     private void MakeEventListener() {
+        this.addMouseListener(new MouseAdapter() {
+        });
         btnSave.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -118,6 +129,7 @@ public class GUISettingsPane extends JPanel {
                 guiHoofdMenu.getController().getSettings().setColumn(sliderVeld.getValue());
                 guiHoofdMenu.getController().getSettings().setRow(sliderVeld.getValue());
                 guiHoofdMenu.getController().setNewVeld();
+                guiHoofdMenu.getController().getSettings().setHintsEnabled(checkBox.isSelected());
                 //guiHoofdMenu.setBackground(sliderUI.getColors()[sliderColor.getValue() / 4]);
                 guiHoofdMenu.getController().getSettings().setBackgroundColor(sliderUI.getColors()[sliderColor.getValue() / 4]);
                 guiHoofdMenu.getController().saveSettings();
@@ -158,13 +170,21 @@ public class GUISettingsPane extends JPanel {
 
     }
 
-    private static class SliderUI extends BasicSliderUI {
+    private class SliderUI extends BasicSliderUI {
 
         private float[] fracs;
         private LinearGradientPaint p;
+        private final Color[] colors2 = {Color.white, new Color(120, 0, 228), new Color(103, 0, 227), new Color(80, 0, 226), new Color(60, 0, 225), new Color(40, 0, 224), new Color(0, 75, 221), new Color(0, 106, 219), new Color(0, 137, 218), new Color(0, 168, 217), new Color(0, 213, 169), new Color(0, 212, 137), new Color(0, 210, 90), new Color(0, 207, 0), new Color(59, 204, 0), new Color(88, 203, 0), new Color(131, 201, 0), new Color(173, 200, 0), new Color(198, 196, 0), new Color(197, 166, 0), new Color(195, 122, 0), new Color(195, 107, 0), new Color(194, 79, 0), new Color(192, 50, 0), Color.black};
+        //private int tw2;
 
         public SliderUI(JSlider slider) {
             super(slider);
+            Color kleur = guiHoofdMenu.getController().getSettings().getBackgroundColor();
+            for (int i = 0; i < colors2.length; i++) {
+                if(colors2[i]==kleur){
+                    super.setThumbLocation(i*(slider.getWidth()/colors2.length), (int) thumbRect.getY());
+                }
+            }
         }
 
         public final Color[] getColors() {
@@ -184,7 +204,7 @@ public class GUISettingsPane extends JPanel {
             Point2D start = new Point2D.Float(t.x, t.y);
             Point2D end = new Point2D.Float(t.width, t.height);
             //Color[] colors = {Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow, Color.red};
-            Color[] colors2 = {Color.white, new Color(120, 0, 228), new Color(103, 0, 227), new Color(80, 0, 226), new Color(60, 0, 225), new Color(40, 0, 224), new Color(0, 75, 221), new Color(0, 106, 219), new Color(0, 137, 218), new Color(0, 168, 217), new Color(0, 213, 169), new Color(0, 212, 137), new Color(0, 210, 90), new Color(0, 207, 0), new Color(59, 204, 0), new Color(88, 203, 0), new Color(131, 201, 0), new Color(173, 200, 0), new Color(198, 196, 0), new Color(197, 166, 0), new Color(195, 122, 0), new Color(195, 107, 0), new Color(194, 79, 0), new Color(192, 50, 0), Color.black};
+            //Color[] colors2 = {Color.white, new Color(120, 0, 228), new Color(103, 0, 227), new Color(80, 0, 226), new Color(60, 0, 225), new Color(40, 0, 224), new Color(0, 75, 221), new Color(0, 106, 219), new Color(0, 137, 218), new Color(0, 168, 217), new Color(0, 213, 169), new Color(0, 212, 137), new Color(0, 210, 90), new Color(0, 207, 0), new Color(59, 204, 0), new Color(88, 203, 0), new Color(131, 201, 0), new Color(173, 200, 0), new Color(198, 196, 0), new Color(197, 166, 0), new Color(195, 122, 0), new Color(195, 107, 0), new Color(194, 79, 0), new Color(192, 50, 0), Color.black};
             p = new LinearGradientPaint(start, end, fracs, colors2);
             g2d.setPaint(p);
             g2d.fillRect(t.x, t.y, t.width, t.height);

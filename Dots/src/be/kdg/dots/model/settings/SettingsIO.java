@@ -58,6 +58,7 @@ public class SettingsIO {
             propertiesWrite.setProperty("level", Integer.toString(speler.getLevel().getLevel()));
             propertiesWrite.setProperty("score", Integer.toString(speler.getScore().getScore()));
             propertiesWrite.setProperty("scoredoel", Integer.toString(speler.getScore().getScoreDoel()));
+            propertiesWrite.setProperty("hintsenabled", Boolean.toString(settings.isHintsEnabled()));
 
             propertiesWrite.storeToXML(out, "Application properties");
 
@@ -89,6 +90,9 @@ public class SettingsIO {
             if (propertiesRead.getProperty("background") != null) {
                 String color = propertiesRead.getProperty("background");
                 controller.getSettings().setBackgroundColor(new Color(Integer.valueOf(color.substring(1, 3), 16), Integer.valueOf(color.substring(3, 5), 16), Integer.valueOf(color.substring(5, 7), 16)));
+            }
+            if(propertiesRead.getProperty("hintsenabled") != null){
+                settings.setHintsEnabled(Boolean.parseBoolean(propertiesRead.getProperty("hintsenabled")));
             }
         } catch (IOException e) {
             e.printStackTrace();
