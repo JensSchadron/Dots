@@ -30,10 +30,10 @@ public class SettingsIO {
     private Speler speler;
     private SpelController controller;
 
-    public SettingsIO(SpelController controller) {
-        this.settings = controller.getSettings();
-        this.speler = controller.getSpeler();
-        this.controller = controller;
+    public SettingsIO(Settings settings) {
+        this.settings = settings;
+        this.speler = settings.getController().getSpeler();
+        this.controller = settings.getController();
         try {
             settingsPath = Paths.get(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().toString(), "settings.dat");
         } catch (URISyntaxException e) {
@@ -41,9 +41,9 @@ public class SettingsIO {
         }
     }
 
-    public void writeProperties(SpelController controller) {
-        this.settings = controller.getSettings();
-        this.speler = controller.getSpeler();
+    public void writeProperties(Settings settings) {
+        this.settings = settings;
+        this.speler = settings.getController().getSpeler();
         try (FileOutputStream out = new FileOutputStream(settingsPath.toString())) {
             propertiesWrite = new Properties();
             if (speler.getUsername() != null && !speler.getUsername().isEmpty()) {

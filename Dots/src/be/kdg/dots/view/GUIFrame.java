@@ -71,6 +71,10 @@ public class GUIFrame extends JFrame {
                 setGlassPane(new GUIHighScore(getContentPane(), guiHoofdMenu));
                 getGlassPane().setVisible(true);
                 break;
+            case "gameEndPanel":
+                setGlassPane(new GUIGameEnd(getContentPane(), guiHoofdMenu));
+                getGlassPane().setVisible(true);
+                break;
             /*case "splashScreen":
                 cl.show(this.getContentPane(), "splashScreen");
                 super.setSize(300, 300);

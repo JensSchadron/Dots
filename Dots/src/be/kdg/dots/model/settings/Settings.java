@@ -47,12 +47,12 @@ public class Settings {
     }
 
     public void loadSettings() {
-        settingsIO = new SettingsIO(controller);
+        settingsIO = new SettingsIO(this);
         settingsIO.readProperties();
     }
 
     public void saveSettings() {
-        settingsIO.writeProperties(controller);
+        settingsIO.writeProperties(this);
     }
 
     public void setColumn(int column) {
@@ -63,4 +63,7 @@ public class Settings {
         this.row = row;
     }
 
+    public SpelController getController() {
+        return controller;
+    }
 }

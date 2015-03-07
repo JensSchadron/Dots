@@ -196,7 +196,7 @@ public class GUIHoofdMenu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - About selected");
-                guiFrame.updateFrame("aboutPanel");
+                //guiFrame.updateFrame("aboutPanel");
                 //controller.getGuiFrame().updateFrame("aboutPanel");
             }
         });
@@ -204,6 +204,7 @@ public class GUIHoofdMenu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("");
+                guiFrame.updateFrame("gameEndPanel");
                 System.out.println("Achievement get: Missing common sense...");
             }
         });

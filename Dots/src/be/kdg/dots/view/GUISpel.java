@@ -114,16 +114,9 @@ public class GUISpel extends JPanel {
             controller.getSpel().stopTimer();
         }
         controller.getHighscore().addHighScore(modus);
-        guiFrame.updateFrame("hoofdMenu");
+        guiFrame.updateFrame("gameEndPanel");
+        //guiFrame.updateFrame("hoofdMenu");
     }
-
-    /*public void setMove() {
-        if (--move == 0) {
-            controller.getGuiSpel().eindigSpel();
-        } else {
-            lblTimeOrMoves.setText("Move: " + move);
-        }
-    }*/
 
     public void updateTimerOrMoves(int aantalSecondenOfMoves) {
         switch (modus) {
