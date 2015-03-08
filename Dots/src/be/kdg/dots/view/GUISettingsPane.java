@@ -19,12 +19,11 @@ public class GUISettingsPane extends JPanel {
     private Container contentPane;
     private JButton btnSave, btnResetHighscore, btnResetUsername;
     private JTextArea txtName, txtTestColor;
-    private JPanel centerPanel, gridPanel, panelSouth, panelButton;
+    private JPanel centerPanel, gridPanel, panelSouth, hintPanel;
     private GUIHoofdMenu guiHoofdMenu;
-    private JSlider sliderColor, sliderVeld;
+    private JSlider sliderColor, sliderVeld, sliderHintVertraging;
     private SliderUI sliderUI;
-    private JOptionPane optionPane;
-    private JCheckBox checkBox;
+    private JCheckBox hintCheckBox;
 
     public GUISettingsPane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         this.contentPane = contentPane;
@@ -39,9 +38,16 @@ public class GUISettingsPane extends JPanel {
         btnSave = new JButton("Opslaan settings");
         btnResetHighscore = new JButton("Reset highscores");
         btnResetUsername = new JButton("Nieuwe username");
-        checkBox = new JCheckBox("Hints tonen");
-        checkBox.setSelected(guiHoofdMenu.getController().getSettings().isHintsEnabled());
-        checkBox.setOpaque(false);
+        hintCheckBox = new JCheckBox("Hints tonen");
+        hintCheckBox.setSelected(guiHoofdMenu.getController().getSettings().isHintsEnabled());
+        hintCheckBox.setOpaque(false);
+        sliderHintVertraging = new JSlider(0, 5, guiHoofdMenu.getController().getSettings().getHintVertraging() / 1000);
+        sliderHintVertraging.setMinorTickSpacing(1);
+        sliderHintVertraging.setPaintLabels(true);
+        sliderHintVertraging.setPaintTicks(true);
+        sliderHintVertraging.createStandardLabels(5, 0);
+        sliderHintVertraging.setOpaque(false);
+
         sliderVeld = new JSlider(2, 8, guiHoofdMenu.getController().getVeld().getRow());
         sliderVeld.setMinorTickSpacing(1);
         sliderVeld.setPaintLabels(true);
@@ -62,10 +68,13 @@ public class GUISettingsPane extends JPanel {
         txtTestColor.setHighlighter(null);
 
         updateUserInfo();
-        centerPanel = new JPanel(new GridLayout(4, 1));
+        centerPanel = new JPanel(new GridLayout(5, 1));
         gridPanel = new JPanel(new GridLayout(1, 3));
         panelSouth = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelSouth.setOpaque(false);
+        hintPanel = new JPanel(new GridLayout(2,1));
+        hintPanel.setOpaque(false);
+
         txtName.setLineWrap(true);
         txtName.setWrapStyleWord(true);
         txtName.setOpaque(false);
@@ -74,7 +83,7 @@ public class GUISettingsPane extends JPanel {
         txtName.setMargin(new Insets(10, 10, 10, 10));
     }
 
-    private void updateUserInfo(){
+    private void updateUserInfo() {
         if (guiHoofdMenu.getController().getSpeler().getUsername() == null) {
             txtName = new JTextArea("Information:\n\nU bent niet ingelogd.");
         } else {
@@ -87,7 +96,10 @@ public class GUISettingsPane extends JPanel {
         panelSouth.add(txtName);
         panelSouth.add(btnResetUsername);
         panelSouth.add(btnResetHighscore);
-        panelSouth.add(checkBox);
+        hintPanel.add(hintCheckBox);
+        sliderHintVertraging.setBorder(BorderFactory.createTitledBorder(null, "Hint laten zien na x seconden"));
+        hintPanel.add(sliderHintVertraging);
+        hintPanel.setBorder(BorderFactory.createTitledBorder("Hints"));
         gridPanel.add(sliderColor);
         gridPanel.add(txtTestColor);
         gridPanel.setBorder(BorderFactory.createTitledBorder("Achtergrondkleur"));
@@ -96,6 +108,7 @@ public class GUISettingsPane extends JPanel {
         centerPanel.add(gridPanel);
         sliderVeld.setBorder(BorderFactory.createTitledBorder("Grootte veld"));
         centerPanel.add(sliderVeld);
+        centerPanel.add(hintPanel);
         centerPanel.setOpaque(false);
 
         txtName.setOpaque(false);
@@ -129,10 +142,10 @@ public class GUISettingsPane extends JPanel {
                 guiHoofdMenu.getController().getSettings().setColumn(sliderVeld.getValue());
                 guiHoofdMenu.getController().getSettings().setRow(sliderVeld.getValue());
                 guiHoofdMenu.getController().setNewVeld();
-                guiHoofdMenu.getController().getSettings().setHintsEnabled(checkBox.isSelected());
-                //guiHoofdMenu.setBackground(sliderUI.getColors()[sliderColor.getValue() / 4]);
+                guiHoofdMenu.getController().getSettings().setHintsEnabled(hintCheckBox.isSelected());
+                guiHoofdMenu.getController().getSettings().setHintVertraging(sliderHintVertraging.getValue() * 1000);
                 guiHoofdMenu.getController().getSettings().setBackgroundColor(sliderUI.getColors()[sliderColor.getValue() / 4]);
-                guiHoofdMenu.getController().saveSettings();
+                guiHoofdMenu.getController().getSettings().saveSettings();
             }
         });
         btnResetHighscore.addActionListener(new ActionListener() {
@@ -150,12 +163,10 @@ public class GUISettingsPane extends JPanel {
         btnResetUsername.addActionListener(new ActionListener() {
                                                @Override
                                                public void actionPerformed(ActionEvent e) {
-                                                   /*optionPane = new JOptionPane();
-                                                   optionPane.setInputValue("");*/
                                                    String text;
                                                    do {
                                                        text = JOptionPane.showInputDialog(null, "Gelieve een username op te geven langer dan 2 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE);
-                                                       if(text == null){
+                                                       if (text == null) {
                                                            return;
                                                        }
                                                    } while (text.length() < 2 || text.length() > 20);
@@ -171,20 +182,12 @@ public class GUISettingsPane extends JPanel {
     }
 
     private class SliderUI extends BasicSliderUI {
-
         private float[] fracs;
         private LinearGradientPaint p;
         private final Color[] colors2 = {Color.white, new Color(120, 0, 228), new Color(103, 0, 227), new Color(80, 0, 226), new Color(60, 0, 225), new Color(40, 0, 224), new Color(0, 75, 221), new Color(0, 106, 219), new Color(0, 137, 218), new Color(0, 168, 217), new Color(0, 213, 169), new Color(0, 212, 137), new Color(0, 210, 90), new Color(0, 207, 0), new Color(59, 204, 0), new Color(88, 203, 0), new Color(131, 201, 0), new Color(173, 200, 0), new Color(198, 196, 0), new Color(197, 166, 0), new Color(195, 122, 0), new Color(195, 107, 0), new Color(194, 79, 0), new Color(192, 50, 0), Color.black};
-        //private int tw2;
 
         public SliderUI(JSlider slider) {
             super(slider);
-            Color kleur = guiHoofdMenu.getController().getSettings().getBackgroundColor();
-            for (int i = 0; i < colors2.length; i++) {
-                if(colors2[i]==kleur){
-                    super.setThumbLocation(i*(slider.getWidth()/colors2.length), (int) thumbRect.getY());
-                }
-            }
         }
 
         public final Color[] getColors() {

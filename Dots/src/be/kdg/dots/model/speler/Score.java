@@ -41,7 +41,7 @@ public class Score {
         speler.getLevel().resetLevel();
         score = 0;
         setScoreDoel(speler.getLevel().getLevel());
-        speler.getController().getGuiSpel().updateScore(score, scoreDoel);
+        speler.getController().getGuiHoofdMenu().getGuiSpel().updateScore(score, scoreDoel);
     }
 
     private boolean controlScore(int achievedScore) {

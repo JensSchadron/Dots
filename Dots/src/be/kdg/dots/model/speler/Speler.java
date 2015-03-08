@@ -24,7 +24,7 @@ public class Speler {
 
     public void setUsername(String username) {
         this.username = username;
-        controller.saveSettings();
+        controller.getSettings().saveSettings();
     }
 
     public String getUsername() {

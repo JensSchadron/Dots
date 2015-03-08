@@ -4,6 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jens & alexander on 17/02/2015.
@@ -22,19 +28,18 @@ public class GUIAboutPane extends JPanel {
     }
 
     private void MakeComponents() {
-        txtAreaInfo = new JTextArea("Hey daar.\n" +
-                "\n" +
-                "Welkom bij de info van ons spel.\n" +
-                "Moest je het nog niet door hebben wat precies de bedoeling is van het spel, dan kan je hier alvast een " +
-                "deeltje van de uitleg vinden.\n" +
-                "Dots is een spel waarbij gekleurde bolletjes, de zogenaamde dots, een zo lang mogelijke ketting moeten " +
-                "vormen. Er zijn wel twéé voorwaarden: De dots moeten aangrenzend zijn en ze moeten dezelfde kleur hebben.\n" +
-                "Als je nog steeds niet goed door hebt hoe je het spel precies moet spelen, dan kan je nog steeds terecht bij " +
-                "de help die je bereikt door op de help-knop in het hoofdmenu te drukken.\n" +
-                "\n" +
-                "En dan nu een beetje info over onszelf.\n" +
-                "Had je nu echt gedacht dat je nu al info over ons hier zou vinden? Het kan best zijn dat deze er nog komt op een later tijdstip ;)"
-        );
+        String info = "";
+        List<String> infoArray = new ArrayList<>();
+        try {
+            infoArray = Files.readAllLines(Paths.get(getClass().getResource("/be/kdg/dots/resources/text/spelAbout/about.txt").toURI()));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        for (String anInfoArray : infoArray) {
+            info += anInfoArray;
+        }
+        info = info.replaceAll("\\\\n","\n");
+        txtAreaInfo = new JTextArea(info);
         txtAreaInfo.setLineWrap(true);
         txtAreaInfo.setWrapStyleWord(true);
         txtAreaInfo.setOpaque(false);

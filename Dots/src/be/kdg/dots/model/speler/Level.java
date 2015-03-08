@@ -14,7 +14,7 @@ public class Level {
 
     public void incrementLevel() {
         this.level++;
-        speler.getController().getGuiSpel().updateLevel(level);
+        speler.getController().getGuiHoofdMenu().getGuiSpel().updateLevel(level);
     }
 
     public void setLevel(int level) {
@@ -27,7 +27,7 @@ public class Level {
 
     public void resetLevel (){
         level = 1;
-        speler.getController().getGuiSpel().updateLevel(level);
+        speler.getController().getGuiHoofdMenu().getGuiSpel().updateLevel(level);
     }
 }
 

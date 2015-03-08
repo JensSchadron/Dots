@@ -1,17 +1,11 @@
 package be.kdg.dots.view;
 
-import be.kdg.dots.controller.SpelController;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 /**
  * Created by Jens on 24-2-2015.
@@ -108,6 +102,6 @@ public class GUIPauzePane extends JPanel {
 
     public void eindigSpel() {
         guiHoofdMenu.getController().getHighscore().addHighScore(modus);
-        guiHoofdMenu.getController().getGuiFrame().updateFrame("hoofdMenu");
+        guiHoofdMenu.getController().getGuiHoofdMenu().getGuiFrame().updateFrame("hoofdMenu");
     }
 }

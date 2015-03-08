@@ -75,10 +75,6 @@ public class Veld {
         return besteMove;
     }
 
-    public ArrayList<Integer> getCurrentMove() {
-        return currentMove;
-    }
-
     public void voegConnectedDotToe(int index) {
         if (!connectedDots.contains(index)) {
             if (connectedDots.size() > 0) {
@@ -155,7 +151,7 @@ public class Veld {
                     rooster.set(i, dotOrNull);
                 }
             }
-            controller.getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
+            controller.getGuiHoofdMenu().getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
             startBerekenen();
 
             gameOver(); //TODO: extra code schrijven om spel te beëindigen
@@ -206,10 +202,16 @@ public class Veld {
         this.threadBestMove.start();
     }
 
+    public void stopBerekenen(){
+        if(this.threadBestMove.isAlive()){
+            interruptFlag = true;
+        }
+    }
+
     public class BestMove implements Runnable {
         @Override
         public void run() {
-            if(controller.getSettings().isHintsEnabled()) {
+            if (controller.getSettings().isHintsEnabled()) {
                 long begin = System.nanoTime();
                 System.out.println("Debug info - Calculating started...");
                 calculateBestMove();
@@ -272,7 +274,6 @@ public class Veld {
         ArrayList<Integer> tmpArrayList;
         for (int i = 0; i < rooster.size(); i++) {
             int aantalMogelijkeCombinaties = 0;
-            int index = -1;
             int indexBackup = -1;
             int[] tmpIndexArray;
             if (i < this.column && i % this.column == 0) {
@@ -306,7 +307,7 @@ public class Veld {
                 DotKleur kleur = rooster.get(i).getDotKleur();
                 if (kleur.equals(rooster.get(i + dotIndexCheck[tmpIndexArray[j]]).getDotKleur())) {
                     aantalMogelijkeCombinaties++;
-                    index = -1;
+                    int index = -1;
                     for (int k = 0; k < indexMap.size(); k++) {
                         if (indexMap.get(k).getKleur().equals(kleur)) {
                             index = k;
@@ -328,46 +329,49 @@ public class Veld {
                         }
                     }
                 }
-                /*if (j == tmpIndexArray.length - 1 && aantalMogelijkeCombinaties == 1 && indexBackup != -1) {
-                    tmpPair = indexMap.get(indexBackup);
-                    tmpArrayList = tmpPair.getDotsMet1Combinatie();
-                    tmpArrayList.add(i);
-                    tmpPair.setDotsMet1Combinatie(tmpArrayList);
-                    indexMap.set(indexBackup, tmpPair);
-                }*/
+
+            }
+            if (aantalMogelijkeCombinaties == 1 && indexBackup != -1) {
+                tmpPair = indexMap.get(indexBackup);
+                tmpArrayList = tmpPair.getDotsMet1Combinatie();
+                tmpArrayList.add(i);
+                tmpPair.setDotsMet1Combinatie(tmpArrayList);
+                indexMap.set(indexBackup, tmpPair);
             }
 
         }
 
         Collections.sort(indexMap);
+        System.out.println("Debug info - Niet geoptimaliseerde index lijst");
+        for (KleurDotIndexPair anIndexMap : indexMap) {
+            System.out.println("Kleur: " + anIndexMap.getKleur() + ", Mogelijke startpunten: " + anIndexMap.getDotsMet1Combinatie() + ", dots die verbonden kunnen worden: " + anIndexMap.getDotIndexes());
+        }
+
+        //Algoritme versnellen door dots met maar één combinatie vooraan te plaatsen.
+        for (int i = 0; i < indexMap.size(); i++) {
+            tmpPair = indexMap.get(i);
+            ArrayList<Integer> dotsMet1Combinatie = tmpPair.dotsMet1Combinatie;
+            //Collections.reverse(dotsMet1Combinatie);
+            ArrayList<Integer> dotIndexes = tmpPair.getDotIndexes();
+            for (int j = 0; j < dotsMet1Combinatie.size(); j++) {
+                dotIndexes.remove(dotsMet1Combinatie.get(j));
+                dotIndexes.add(j,dotsMet1Combinatie.get(j));
+            }
+        }
+
+        System.out.println("Debug info - Geoptimaliseerde index lijst");
         for (KleurDotIndexPair anIndexMap : indexMap) {
             System.out.println("Kleur: " + anIndexMap.getKleur() + ", Mogelijke startpunten: " + anIndexMap.getDotsMet1Combinatie() + ", dots die verbonden kunnen worden: " + anIndexMap.getDotIndexes());
         }
 
         outerForLoop:
         for (int i = 0; i < indexMap.size(); i++) {
-            //boolean fasterAlgorithmEnabled = false;
-            ArrayList<Integer> tmp;
-            if (indexMap.get(i).dotsMet1Combinatie.size() == 0) {
-                tmp = indexMap.get(i).getDotIndexes();
-            } else {
-                tmp = indexMap.get(i).getDotsMet1Combinatie();
-                //fasterAlgorithmEnabled = true;
-            }
-
-
-            //tmp = (indexMap.get(i).dotsMet1Combinatie.size() == 0) ? (indexMap.get(i).getDotIndexes();
-            //fasterAlgorithmEnabled = true;):indexMap.get(i).dotsMet1Combinatie;
+            ArrayList<Integer> tmp = indexMap.get(i).getDotIndexes();
             for (int j = 0; j < tmp.size(); j++) {
                 if (interruptFlag) {
                     break outerForLoop;
                 }
                 calculateNextMove(tmp.get(j), indexMap.get(i).getDotIndexes());
-                /*if (j == tmp.size() - 1 && fasterAlgorithmEnabled) {
-                    tmp = indexMap.get(i).getDotIndexes();
-                    fasterAlgorithmEnabled = false;
-                    j = -1;
-                }*/
             }
         }
 

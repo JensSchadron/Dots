@@ -14,11 +14,29 @@ public class Settings {
     private int row;
     private Color backgroundColor;
     private boolean hintsEnabled;
+    private int hintVertraging;
 
     public Settings(SpelController controller) {
         this.controller = controller;
         this.column = 6;
         this.row = 6;
+        this.hintVertraging = 1000;
+    }
+
+    public boolean isHintsEnabled() {
+        return hintsEnabled;
+    }
+
+    public void setHintsEnabled(boolean hintsEnabled) {
+        this.hintsEnabled = hintsEnabled;
+    }
+
+    public int getHintVertraging() {
+        return hintVertraging;
+    }
+
+    public void setHintVertraging(int hintVertraging) {
+        this.hintVertraging = hintVertraging;
     }
 
     public int getColumn() {
@@ -36,14 +54,6 @@ public class Settings {
     public void setBackgroundColor(Color backgroundColor) {
         this.backgroundColor = backgroundColor;
         controller.getGuiHoofdMenu().setBackgroundColor(this.backgroundColor);
-    }
-
-    public boolean isHintsEnabled() {
-        return hintsEnabled;
-    }
-
-    public void setHintsEnabled(boolean hintsEnabled) {
-        this.hintsEnabled = hintsEnabled;
     }
 
     public void loadSettings() {

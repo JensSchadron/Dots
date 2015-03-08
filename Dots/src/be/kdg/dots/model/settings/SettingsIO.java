@@ -2,23 +2,17 @@ package be.kdg.dots.model.settings;
 
 import be.kdg.dots.controller.SpelController;
 import be.kdg.dots.model.speler.Speler;
-import be.kdg.dots.model.veld.Spel;
 
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Jens on 19-2-2015.
@@ -59,6 +53,7 @@ public class SettingsIO {
             propertiesWrite.setProperty("score", Integer.toString(speler.getScore().getScore()));
             propertiesWrite.setProperty("scoredoel", Integer.toString(speler.getScore().getScoreDoel()));
             propertiesWrite.setProperty("hintsenabled", Boolean.toString(settings.isHintsEnabled()));
+            propertiesWrite.setProperty("hintvertraging", Integer.toString(settings.getHintVertraging()));
 
             propertiesWrite.storeToXML(out, "Application properties");
 
@@ -91,8 +86,11 @@ public class SettingsIO {
                 String color = propertiesRead.getProperty("background");
                 controller.getSettings().setBackgroundColor(new Color(Integer.valueOf(color.substring(1, 3), 16), Integer.valueOf(color.substring(3, 5), 16), Integer.valueOf(color.substring(5, 7), 16)));
             }
-            if(propertiesRead.getProperty("hintsenabled") != null){
+            if(propertiesRead.getProperty("hintsenabled") != null) {
                 settings.setHintsEnabled(Boolean.parseBoolean(propertiesRead.getProperty("hintsenabled")));
+            }
+            if(propertiesRead.getProperty("hintvertraging") != null) {
+                settings.setHintVertraging(Integer.parseInt(propertiesRead.getProperty("hintvertraging")));
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -2,7 +2,6 @@ package be.kdg.dots.model.highscore;
 
 import be.kdg.dots.controller.SpelController;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -28,31 +27,23 @@ public class Highscore {
         loadHighScores();
     }
 
-    /*public String[][] getTimeHighScores() {
-        String[][] arr = timeHighScores.toArray(new String[timeHighScores.size()][]);
-        for (int i = 0; i < timeHighScores.size(); i++) {
-            arr[i] = timeHighScores.get(i).toObjectArray();
-        }
-        return arr;
-    }*/
-
     public String getHighScores(String modus) {
         String result = "";
         switch (modus) {
             case "Time":
-                result = String.format("%-20s %7s %7s\n", "name", "score", "level");//"name \t score \n";
+                result = String.format("%-20s %7s %7s\n", "Naam", "Score", "Level");
                 for (String s : timeHighScores) {
                     result += s + "\n";
                 }
                 break;
             case "Move":
-                result = String.format("%-20s %15s\n", "name", "score");
+                result = String.format("%-20s %15s\n", "Naam", "Score");
                 for (String s : moveHighScores) {
                     result += s + "\n";
                 }
                 break;
             case "Infinity":
-                result = String.format("%-20s %7s %7s\n", "name", "score", "time");
+                result = String.format("%-20s %7s %7s\n", "Naam", "Score", "Tijd");
                 for (String s : infinityHighScores) {
                     result += s + "\n";
                 }
@@ -140,15 +131,6 @@ public class Highscore {
     }
 
     private void loadHighScores() {
-        /*ArrayList<String> decodedHighScores = highScoreIO.loadHighScores();
-        System.out.println("Debug info - decodedHighScores.size(): " + decodedHighScores.size());
-        //System.out.println("Debug info - TimeHighScores: " + decodedHighScores.get(0));
-        timeHighScores = new ArrayList<>(Arrays.asList(decodedHighScores.get(0).split("㏠")));
-        //System.out.println("Debug info - MoveHighScores: " + decodedHighScores.get(1));
-        moveHighScores = new ArrayList<>(Arrays.asList(decodedHighScores.get(1).split("㏠")));
-        //System.out.println("Debug info - InfinityHighScores: " + decodedHighScores.get(2));
-        infinityHighScores = new ArrayList<>(Arrays.asList(decodedHighScores.get(2).split("㏠")));*/
-
         ArrayList<String> decodedHighScores = highScoreIO.loadHighScores();
         ArrayList<String> tmp;
         for (int i = 0; i < decodedHighScores.size(); i++) {
@@ -156,7 +138,6 @@ public class Highscore {
             switch (i) {
                 case 0:
                     for (int j = 0; j < tmp.size(); j++) {
-                        //System.out.println(tmp.get(0));
                         if (tmp.get(0).isEmpty()) {
                             timeHighScores.add("");
                             break;
@@ -166,7 +147,6 @@ public class Highscore {
                     break;
                 case 1:
                     for (int j = 0; j < tmp.size(); j++) {
-                        //System.out.println(tmp.get(0));
                         if (tmp.get(0).isEmpty()) {
                             moveHighScores.add("");
                             break;
@@ -176,7 +156,6 @@ public class Highscore {
                     break;
                 case 2:
                     for (int j = 0; j < tmp.size(); j++) {
-                        //System.out.println(tmp.get(0));
                         if (tmp.get(0).isEmpty()) {
                             infinityHighScores.add("");
                             break;
@@ -203,7 +182,6 @@ public class Highscore {
             }
         }
         decodedHighScores.add(0, tmp.deleteCharAt(tmp.length() - 1).toString());
-        //System.out.println(tmp.toString());
         tmp.delete(0, tmp.length());
 
         //moveHighScores omvormen naar datastructuur om op te slaan
@@ -215,7 +193,6 @@ public class Highscore {
             }
         }
         decodedHighScores.add(1, tmp.deleteCharAt(tmp.length() - 1).toString());
-        //System.out.println(tmp.toString());
         tmp.delete(0, tmp.length());
 
         //infinityHighScores omvormen naar datastructuur om op te slaan
@@ -227,12 +204,9 @@ public class Highscore {
             }
         }
         decodedHighScores.add(2, tmp.deleteCharAt(tmp.length() - 1).toString());
-        //System.out.println(tmp.toString());
         tmp.delete(0, tmp.length());
 
 
         highScoreIO.saveHighScores(decodedHighScores);
     }
-
-
 }

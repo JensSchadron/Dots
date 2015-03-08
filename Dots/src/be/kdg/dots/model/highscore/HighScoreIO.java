@@ -72,7 +72,7 @@ public class HighScoreIO {
     }
 
     private String decodeHighScore(String encodedHighScores) {
-        String decodedString = "";
+        String decodedString;
         try {
             decodedString = new String(Base64.getDecoder().decode(encodedHighScores));
         } catch (IllegalArgumentException e) {

@@ -11,14 +11,12 @@ import java.awt.event.WindowEvent;
 public class GUIFrame extends JFrame {
     private CardLayout cl;
     private GUIHoofdMenu guiHoofdMenu;
-    //private SplashScreen splashScreen;
-    private Image iconLoading;
     private JPanel panelClosing;
 
     public GUIFrame(final GUIHoofdMenu guiHoofdMenu) throws HeadlessException {
         super("Dots");
         super.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        iconLoading = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/dots-logo.png")).getImage();
+        Image iconLoading = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/dots-logo.png")).getImage();
         super.setIconImage(iconLoading);
         cl = new CardLayout();
         setLayout(cl);
@@ -31,7 +29,7 @@ public class GUIFrame extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
-                guiHoofdMenu.getController().saveSettings();
+                guiHoofdMenu.getController().getSettings().saveSettings();
                 if (JOptionPane.showConfirmDialog(panelClosing, "Bent u zeker dat u wilt afsluiten?", "Zeker sluiten?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
                     System.err.println("Exiting application");
                     System.exit(0);

@@ -8,17 +8,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Created by jens & alexander on 4/02/2015.
  */
 public class GUIHoofdMenu extends JPanel {
+    private final SplashScreen splashScreen;
     private SpelController controller;
     private GUIFrame guiFrame;
     private GUISpel guiSpel;
-    private SplashScreen splashScreen;
 
     private JPanel main, gameMode, southPanel, loginPanel;
     private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblBanner, lblHighscore;
@@ -112,10 +110,10 @@ public class GUIHoofdMenu extends JPanel {
         return resizedImg;
     }
 
-    public static Image resize(ImageIcon imageIcon, int width, int height) {
+    /*public static Image resize(ImageIcon imageIcon, int width, int height) {
         Image image = imageIcon.getImage();
         return image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-    }
+    }*/
 
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
@@ -196,7 +194,7 @@ public class GUIHoofdMenu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - About selected");
-                //guiFrame.updateFrame("aboutPanel");
+                guiFrame.updateFrame("aboutPanel");
                 //controller.getGuiFrame().updateFrame("aboutPanel");
             }
         });
@@ -204,7 +202,8 @@ public class GUIHoofdMenu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("");
-                guiFrame.updateFrame("gameEndPanel");
+                //guiFrame.updateFrame("gameEndPanel");
+                new GUIAchievement("Missing common sense...");
                 System.out.println("Achievement get: Missing common sense...");
             }
         });

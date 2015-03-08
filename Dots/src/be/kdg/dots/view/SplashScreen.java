@@ -13,7 +13,6 @@ public class SplashScreen extends JWindow {
     public SplashScreen(final GUIHoofdMenu guiHoofdMenu) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         JLabel imageLabel = new JLabel(new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/logo-dots.png")).getImage(), 400, 150)));
-
         setSize(screenSize);
         setAlwaysOnTop(true);
         setLayout(new BorderLayout());
@@ -24,7 +23,6 @@ public class SplashScreen extends JWindow {
         Timer timer = new Timer(5000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 if(guiHoofdMenu.getController().isLadenCompleet()) {
                     SplashScreen.this.dispose();
                     guiHoofdMenu.getGuiFrame().showFrame();

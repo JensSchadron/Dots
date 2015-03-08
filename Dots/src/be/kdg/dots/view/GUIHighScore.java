@@ -1,7 +1,5 @@
 package be.kdg.dots.view;
 
-import be.kdg.dots.controller.SpelController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -14,12 +12,9 @@ import java.io.IOException;
 public class GUIHighScore extends JPanel {
     private Container contentPane;
     private JButton btnClose;
-    private JPanel panelTime, panelInifinty, panelMove, panelButton, mainPanel;
     private JTabbedPane tabbedPane;
     private JTextArea txtTime, txtInfinity, txtMove;
     private GUIHoofdMenu guiHoofdMenu;
-
-    private JScrollBar scrollBarTime;
 
     public GUIHighScore(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         super();
@@ -38,15 +33,15 @@ public class GUIHighScore extends JPanel {
         tabbedPane.setOpaque(false);
         //scrollBarTime = new JScrollBar(Adjustable.VERTICAL);
 
-        panelTime = new JPanel(new FlowLayout());
-        panelInifinty = new JPanel(new FlowLayout());
-        panelMove = new JPanel(new FlowLayout());
+        JPanel panelTime = new JPanel(new FlowLayout());
+        JPanel panelInfinty = new JPanel(new FlowLayout());
+        JPanel panelMove = new JPanel(new FlowLayout());
 
         panelTime.setOpaque(false);
-        panelInifinty.setOpaque(false);
+        panelInfinty.setOpaque(false);
         panelMove.setOpaque(false);
         JScrollPane scrollPaneTime = new JScrollPane(panelTime);
-        JScrollPane scrollPaneInfinity = new JScrollPane(panelInifinty);
+        JScrollPane scrollPaneInfinity = new JScrollPane(panelInfinty);
         JScrollPane scrollPaneMove = new JScrollPane(panelMove);
         scrollPaneTime.setOpaque(false);
         scrollPaneTime.getViewport().setOpaque(false);
@@ -72,7 +67,7 @@ public class GUIHighScore extends JPanel {
         txtInfinity.setEditable(false);
         txtInfinity.setHighlighter(null);
         txtInfinity.setMargin(new Insets(10, 10, 10, 10));
-        panelInifinty.add(txtInfinity);
+        panelInfinty.add(txtInfinity);
         txtMove = new JTextArea(guiHoofdMenu.getController().getHighscore().getHighScores("Move"));
         txtMove.setOpaque(false);
         txtMove.setEditable(false);
@@ -83,8 +78,8 @@ public class GUIHighScore extends JPanel {
 
     private void MakeLayout() {
         btnClose.setForeground(Color.BLUE);
-        panelButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        mainPanel = new JPanel(new BorderLayout());
+        JPanel panelButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setOpaque(false);
         panelButton.setOpaque(false);
         //scrollBarTime.add(tabbedPane);

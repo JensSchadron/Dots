@@ -110,12 +110,12 @@ public class GUISpel extends JPanel {
     }
 
     public void eindigSpel() {
+        controller.getVeld().stopBerekenen();
         if (!modus.equals("Move")) {
             controller.getSpel().stopTimer();
         }
         controller.getHighscore().addHighScore(modus);
         guiFrame.updateFrame("gameEndPanel");
-        //guiFrame.updateFrame("hoofdMenu");
     }
 
     public void updateTimerOrMoves(int aantalSecondenOfMoves) {
@@ -144,9 +144,5 @@ public class GUISpel extends JPanel {
 
     public String getModus() {
         return modus;
-    }
-
-    public GUIGrid getGridGame() {
-        return gridGame;
     }
 }

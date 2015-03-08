@@ -16,7 +16,6 @@ public class GUIGrid extends JPanel {
     //Variabelen nodig om dots te resizen als erover gehoverd wordt
     private int dotIndex;
     private int dotIndexAmount;
-    private MouseMotionListener[] listeners;
 
     //Variabelen nodig om een lijn te tekenen tussen dots
     private ArrayList<LijnUI> lijnUI;
@@ -27,6 +26,9 @@ public class GUIGrid extends JPanel {
     private ArrayList<DotUI> dotUI;
     private GUISpel guiSpel;
 
+    private Timer hintTimer;
+    private boolean toonHints = false;
+
     public GUIGrid(GUISpel guiSpel) throws HeadlessException {
         setOpaque(false);
         setBackground(Color.BLUE);
@@ -35,13 +37,24 @@ public class GUIGrid extends JPanel {
         hintUI = new ArrayList<>();
 
         this.guiSpel = guiSpel;
-        //this.controller = controller;
         this.dotIndex = -1;
         this.dotIndexAmount = 0;
+        if(guiSpel.getController().getSettings().getHintVertraging()!=0) {
+            hintTimer = new Timer(guiSpel.getController().getSettings().getHintVertraging(), new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    toonHints = true;
+                    repaint();
+                }
+            });
+            hintTimer.setRepeats(false);
+            hintTimer.start();
+        } else {
+            toonHints = true;
+        }
 
         makeComponents(guiSpel.getController().getVeld());
         makeEventListener();
-        //setEnabledAll(this, false);
     }
 
     protected void makeComponents(Veld veld) {
@@ -78,10 +91,12 @@ public class GUIGrid extends JPanel {
         g2d.setStroke(new BasicStroke(5, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER));
 
         //Teken hints
-        reloadHintUI();
-        g2d.setColor(Color.LIGHT_GRAY);
-        for (LijnUI hint : hintUI) {
-            g2d.draw(hint);
+        if (toonHints) {
+            reloadHintUI();
+            g2d.setColor(Color.LIGHT_GRAY);
+            for (LijnUI hint : hintUI) {
+                g2d.draw(hint);
+            }
         }
 
         //Teken dot(s)
@@ -134,10 +149,15 @@ public class GUIGrid extends JPanel {
                         System.out.println("Debug info - Mouse release detected on dot " + i);
                     }
                 }*/
+                if (GUIGrid.this.lijnUI.size() >= 1 && guiSpel.getController().getSettings().getHintVertraging() != 0) {
+                    hintTimer.start();
+                    toonHints = false;
+                }
                 dotKleur = null;
                 GUIGrid.this.lijnUI.clear();
                 guiSpel.getController().getVeld().clearConnectedDots();
                 repaint();
+
                 //guiSpel.setMove();
                 //guiSpel.getController().checkScore();
                 //System.out.println("Mouse release detected");
@@ -194,6 +214,9 @@ public class GUIGrid extends JPanel {
                             guiSpel.getController().getVeld().voegConnectedDotToe(i);
                             ArrayList connectedDots = guiSpel.getController().getVeld().getConnectedDots();
                             if (connectedDots.size() >= 2) {
+                                if(guiSpel.getController().getSettings().getHintVertraging()!=0) {
+                                    hintTimer.stop();
+                                }
                                 int indexDot1 = (int) connectedDots.get(connectedDots.size() - 2);
                                 int indexDot2 = (int) connectedDots.get(connectedDots.size() - 1);
                                 lijnUI.add(new LijnUI(dotUI.get(indexDot1).getCenterX(), dotUI.get(indexDot1).getCenterY(), dotUI.get(indexDot2).getCenterX(), dotUI.get(indexDot2).getCenterY()));
