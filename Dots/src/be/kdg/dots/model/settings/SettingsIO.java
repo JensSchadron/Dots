@@ -54,6 +54,7 @@ public class SettingsIO {
             propertiesWrite.setProperty("scoredoel", Integer.toString(speler.getScore().getScoreDoel()));
             propertiesWrite.setProperty("hintsenabled", Boolean.toString(settings.isHintsEnabled()));
             propertiesWrite.setProperty("hintvertraging", Integer.toString(settings.getHintVertraging()));
+            propertiesWrite.setProperty("achievements", settings.getAchievements());
 
             propertiesWrite.storeToXML(out, "Application properties");
 
@@ -88,9 +89,18 @@ public class SettingsIO {
             }
             if(propertiesRead.getProperty("hintsenabled") != null) {
                 settings.setHintsEnabled(Boolean.parseBoolean(propertiesRead.getProperty("hintsenabled")));
+            } else {
+                settings.setHintsEnabled(true);
             }
             if(propertiesRead.getProperty("hintvertraging") != null) {
                 settings.setHintVertraging(Integer.parseInt(propertiesRead.getProperty("hintvertraging")));
+            } else {
+                settings.setHintVertraging(1000);
+            }
+            if(propertiesRead.getProperty("achievements") != null){
+                settings.setAchievements(propertiesRead.getProperty("achievements"));
+            } else {
+                settings.setAchievements("");
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -15,8 +15,8 @@ import java.util.Hashtable;
 /**
  * Created by jens & alexander on 17/02/2015.
  */
-public class GUISettingsPane extends JPanel {
-    private Container contentPane;
+public class GUISettingsPane extends GUIGlassPane {
+    //private Container contentPane;
     private JButton btnSave, btnResetHighscore, btnResetUsername;
     private JTextArea txtName, txtTestColor;
     private JPanel centerPanel, gridPanel, panelSouth, hintPanel;
@@ -26,7 +26,7 @@ public class GUISettingsPane extends JPanel {
     private JCheckBox hintCheckBox;
 
     public GUISettingsPane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
-        this.contentPane = contentPane;
+        super(contentPane);
         this.guiHoofdMenu = guiHoofdMenu;
         setLayout(new BorderLayout());
         MakeComponents();
@@ -45,7 +45,7 @@ public class GUISettingsPane extends JPanel {
         sliderHintVertraging.setMinorTickSpacing(1);
         sliderHintVertraging.setPaintLabels(true);
         sliderHintVertraging.setPaintTicks(true);
-        sliderHintVertraging.createStandardLabels(5, 0);
+        sliderHintVertraging.setLabelTable(sliderHintVertraging.createStandardLabels(1, 0));
         sliderHintVertraging.setOpaque(false);
 
         sliderVeld = new JSlider(2, 8, guiHoofdMenu.getController().getVeld().getRow());
@@ -72,7 +72,7 @@ public class GUISettingsPane extends JPanel {
         gridPanel = new JPanel(new GridLayout(1, 3));
         panelSouth = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelSouth.setOpaque(false);
-        hintPanel = new JPanel(new GridLayout(2,1));
+        hintPanel = new JPanel(new BorderLayout(10,5));
         hintPanel.setOpaque(false);
 
         txtName.setLineWrap(true);
@@ -96,9 +96,9 @@ public class GUISettingsPane extends JPanel {
         panelSouth.add(txtName);
         panelSouth.add(btnResetUsername);
         panelSouth.add(btnResetHighscore);
-        hintPanel.add(hintCheckBox);
+        hintPanel.add(hintCheckBox, BorderLayout.WEST);
         sliderHintVertraging.setBorder(BorderFactory.createTitledBorder(null, "Hint laten zien na x seconden"));
-        hintPanel.add(sliderHintVertraging);
+        hintPanel.add(sliderHintVertraging, BorderLayout.CENTER);
         hintPanel.setBorder(BorderFactory.createTitledBorder("Hints"));
         gridPanel.add(sliderColor);
         gridPanel.add(txtTestColor);
@@ -117,7 +117,7 @@ public class GUISettingsPane extends JPanel {
         super.add(btnSave, BorderLayout.SOUTH);
     }
 
-    @Override
+    /*@Override
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g = (Graphics2D) gr;
@@ -130,7 +130,7 @@ public class GUISettingsPane extends JPanel {
         contentPane.paint(gr);
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
-    }
+    }*/
 
     private void MakeEventListener() {
         this.addMouseListener(new MouseAdapter() {

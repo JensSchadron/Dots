@@ -10,8 +10,7 @@ import java.awt.geom.AffineTransform;
 /**
  * Created by Jens on 24-2-2015.
  */
-public class GUIPauzePane extends JPanel {
-    private Container contentPane;
+public class GUIPauzePane extends GUIGlassPane {
     //private JButton btnContinue, btnGoHome;
     private ImageIcon iconPauze, iconHome;
     private JLabel lblPauze, lblHome;
@@ -19,7 +18,7 @@ public class GUIPauzePane extends JPanel {
     private GUIHoofdMenu guiHoofdMenu;
 
     public GUIPauzePane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
-        this.contentPane = contentPane;
+        super(contentPane);
         this.guiHoofdMenu = guiHoofdMenu;
         //this.guiFrame = guiFrame;
         setLayout(new FlowLayout(FlowLayout.CENTER, 30, 10));
@@ -62,7 +61,7 @@ public class GUIPauzePane extends JPanel {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setComposite(transparent);
 
-        contentPane.paint(gr);
+        super.getContentPane().paint(gr);
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
 

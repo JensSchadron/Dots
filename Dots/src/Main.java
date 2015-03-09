@@ -12,11 +12,12 @@ import java.net.UnknownHostException;
  */
 public class Main {
     private static final int PORT = 25566;
+    private static ServerSocket socket;
 
     public static void main(String[] args) {
         try {
             //opent een lokale poort, als poort bezet is geeft hij een exception
-            new ServerSocket(PORT, 10, InetAddress.getByAddress(new byte[]{127, 0, 0, 1}));
+            socket = new ServerSocket(PORT, 10, InetAddress.getByAddress(new byte[]{127, 0, 0, 1}));
         } catch (UnknownHostException e) {
             // shouldn't happen for localhost
         } catch (IOException e) {

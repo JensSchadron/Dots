@@ -20,6 +20,7 @@ public class GUIAchievement extends JWindow {
         System.out.println(getLocation());
         setLayout(new BorderLayout());
         setBackground(new Color(0.5f, 0.5f, 0.5f, 0.7f));
+        setAlwaysOnTop(true);
 
         JLabel tekst = new JLabel();
         tekst.setText("<html><font size =+1><b>Achievement get!</b></font><br><font>" + achievement + "</font></html>");

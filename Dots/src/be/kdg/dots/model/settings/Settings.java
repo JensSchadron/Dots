@@ -1,6 +1,7 @@
 package be.kdg.dots.model.settings;
 
 import be.kdg.dots.controller.SpelController;
+import be.kdg.dots.view.GUIAchievement;
 
 import java.awt.*;
 
@@ -15,11 +16,13 @@ public class Settings {
     private Color backgroundColor;
     private boolean hintsEnabled;
     private int hintVertraging;
+    private String achievements;
 
     public Settings(SpelController controller) {
         this.controller = controller;
         this.column = 6;
         this.row = 6;
+        this.hintsEnabled = true;
         this.hintVertraging = 1000;
     }
 
@@ -37,6 +40,70 @@ public class Settings {
 
     public void setHintVertraging(int hintVertraging) {
         this.hintVertraging = hintVertraging;
+    }
+
+    public String getAchievements() {
+        if(achievements==null){
+            return "";
+        }
+        return achievements;
+    }
+
+    public void setAchievements(String achievements) {
+        this.achievements = achievements;
+    }
+
+    public void addAchievements(String achievements) {
+        String afkorting = "";
+        achievements = achievements.replace("BLUE", "Blauw").replace("RED", "Rood").replace("GREEN", "Groen").replace("YELLOW", "Geel").replace("PURPLE", "Paars");
+        switch (achievements) {
+            case "Missing common sense...":
+                afkorting = "mcs";
+                break;
+
+            case "Geel domineert het spel!":
+                afkorting = "ged";
+                break;
+            case "Paars domineert het spel!":
+                afkorting = "pad";
+                break;
+            case "Blauw domineert het spel!":
+                afkorting = "bld";
+                break;
+            case "Groen domineert het spel!":
+                afkorting = "grd";
+                break;
+            case "Rood domineert het spel!":
+                afkorting = "rod";
+                break;
+
+            case "Geel is uitgeroeid!":
+                afkorting = "geu";
+                break;
+            case "Paars is uitgeroeid!":
+                afkorting = "pau";
+                break;
+            case "Blauw is uitgeroeid!":
+                afkorting = "blu";
+                break;
+            case "Groen is uitgeroeid!":
+                afkorting = "gru";
+                break;
+            case "Rood is uitgeroeid!":
+                afkorting = "rou";
+                break;
+        }
+        System.out.println(this.achievements);
+        if ((this.achievements == null || this.achievements.isEmpty())|| !this.achievements.contains(afkorting)) {
+            if (this.achievements == null) {
+                this.achievements = afkorting + ";";
+            } else {
+                this.achievements += afkorting + ";";
+            }
+            new GUIAchievement(achievements); //TODO: GUIAchievent aanroepen vanuit controller of uit view, niet rechtstreeks vanaf hier
+            saveSettings();
+        }
+
     }
 
     public int getColumn() {

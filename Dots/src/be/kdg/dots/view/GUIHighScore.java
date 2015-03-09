@@ -9,16 +9,16 @@ import java.io.IOException;
 /**
  * Created by alexander on 23/02/2015.
  */
-public class GUIHighScore extends JPanel {
-    private Container contentPane;
+public class GUIHighScore extends GUIGlassPane {
+    //private Container contentPane;
     private JButton btnClose;
     private JTabbedPane tabbedPane;
     private JTextArea txtTime, txtInfinity, txtMove;
     private GUIHoofdMenu guiHoofdMenu;
 
     public GUIHighScore(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
-        super();
-        this.contentPane = contentPane;
+        super(contentPane);
+        //this.contentPane = contentPane;
         setLayout(new GridLayout(1, 1));
         this.guiHoofdMenu = guiHoofdMenu;
         MakeComponents();
@@ -112,7 +112,7 @@ public class GUIHighScore extends JPanel {
         }
     }
 
-    @Override
+    /*@Override
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         //tabbedPane.paintComponents(gr);
@@ -128,11 +128,11 @@ public class GUIHighScore extends JPanel {
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        AlphaComposite solid = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
+        /*AlphaComposite solid = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
         g.setComposite(solid);
         g.setColor(Color.black);
         //g.drawString("Highscore", 50, 100);
-    }
+    }*/
 
     private void MakeEventListener() {
         btnClose.addMouseListener(new MouseAdapter() {

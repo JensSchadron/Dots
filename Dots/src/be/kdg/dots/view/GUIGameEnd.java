@@ -8,9 +8,8 @@ import java.awt.event.MouseEvent;
 /**
  * Created by alexander on 7/03/2015.
  */
-public class GUIGameEnd extends JPanel {
+public class GUIGameEnd extends GUIGlassPane {
 
-    private Container contentPane;
     private ImageIcon imageWinner;
     private JLabel lblWinner, lblScore, lblLevel;
     private GUIHoofdMenu guiHoofdMenu;
@@ -18,7 +17,7 @@ public class GUIGameEnd extends JPanel {
     private JButton btnClose;
 
     public GUIGameEnd(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
-        this.contentPane = contentPane;
+        super(contentPane);
         this.guiHoofdMenu = guiHoofdMenu;
         setLayout(new BorderLayout());
         makeComponents();
@@ -73,7 +72,7 @@ public class GUIGameEnd extends JPanel {
         add(panelButton, BorderLayout.NORTH);
     }
 
-    @Override
+    /*@Override
     protected void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g = (Graphics2D) gr;
@@ -83,7 +82,7 @@ public class GUIGameEnd extends JPanel {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setComposite(transparent);
 
-        contentPane.paint(gr);
+        super.getContentPane().paint(gr);
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
 
@@ -96,8 +95,8 @@ public class GUIGameEnd extends JPanel {
         Font font = new Font("TimesRoman", Font.PLAIN, 80);
         g.setFont(font);
         int textwidth = (int) (font.getStringBounds(txtWinner, frc).getWidth());
-        g.drawString(txtWinner, getWidth() / 2 - textwidth / 2, getHeight() / 2);*/
-    }
+        g.drawString(txtWinner, getWidth() / 2 - textwidth / 2, getHeight() / 2);
+    }*/
 
     private void MakeEventListener() {
         btnClose.addMouseListener(new MouseAdapter() {

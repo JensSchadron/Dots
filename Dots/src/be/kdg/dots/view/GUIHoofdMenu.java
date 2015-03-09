@@ -203,7 +203,8 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("");
                 //guiFrame.updateFrame("gameEndPanel");
-                new GUIAchievement("Missing common sense...");
+                controller.getSettings().addAchievements("Missing common sense...");
+                //new GUIAchievement("Missing common sense...");
                 System.out.println("Achievement get: Missing common sense...");
             }
         });

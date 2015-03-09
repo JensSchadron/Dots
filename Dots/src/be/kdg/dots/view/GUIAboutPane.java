@@ -14,13 +14,12 @@ import java.util.List;
 /**
  * Created by jens & alexander on 17/02/2015.
  */
-public class GUIAboutPane extends JPanel {
-    private Container contentPane;
+public class GUIAboutPane extends GUIGlassPane {
     private JButton btnClose;
     private JTextArea txtAreaInfo;
 
     public GUIAboutPane(Container contentPane) {
-        this.contentPane = contentPane;
+        super(contentPane);
         setLayout(new BorderLayout());
         MakeComponents();
         MakeLayout();
@@ -55,7 +54,7 @@ public class GUIAboutPane extends JPanel {
         add(btnClose, BorderLayout.SOUTH);
     }
 
-    @Override
+    /*@Override
     public void paintComponent(Graphics gr) {
         super.paintComponent(gr);
         Graphics2D g = (Graphics2D) gr;
@@ -65,10 +64,10 @@ public class GUIAboutPane extends JPanel {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setComposite(transparent);
 
-        contentPane.paint(gr);
+        super.getContentPane().paint(gr);
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
-    }
+    }*/
 
     private void MakeEventListener() {
         this.addMouseListener(new MouseAdapter() {

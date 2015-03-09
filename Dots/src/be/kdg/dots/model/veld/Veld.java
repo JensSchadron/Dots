@@ -1,7 +1,6 @@
 package be.kdg.dots.model.veld;
 
 import be.kdg.dots.controller.SpelController;
-import com.sun.istack.internal.NotNull;
 
 import java.util.*;
 
@@ -128,7 +127,6 @@ public class Veld {
 
         if (connectedDots.size() >= 2) {
             threadBestMove.interrupt();
-            //killCalculateBestMove();
             controller.getSpel().decrementMoves();
             for (Integer connectedDot : connectedDots) {
                 rooster.set(connectedDot.intValue(), null);
@@ -153,6 +151,7 @@ public class Veld {
             }
             controller.getGuiHoofdMenu().getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
             startBerekenen();
+            startCheckingAchievements();
 
             gameOver(); //TODO: extra code schrijven om spel te beëindigen
         }
@@ -207,6 +206,34 @@ public class Veld {
             interruptFlag = true;
         }
     }
+
+    public void startCheckingAchievements(){
+        Thread checkAchievements = new Thread(new CheckAchievements());
+        checkAchievements.start();
+    }
+
+    public class CheckAchievements implements Runnable{
+        @Override
+        public void run() {
+            TreeSet<DotKleur> dominerendeKleurHashSet = new TreeSet<>();
+            ArrayList<DotKleur> uitgeroeideKleurArrayList = new ArrayList<>(Arrays.asList(DotKleur.values()));
+            for (int i = 0; i < rooster.size(); i++) {
+                dominerendeKleurHashSet.add(rooster.get(i).getDotKleur());
+                uitgeroeideKleurArrayList.remove(rooster.get(i).getDotKleur());
+            }
+            //Achievements kleur uitgeroeid
+            for (DotKleur uitgeroeideKleur : uitgeroeideKleurArrayList) {
+                controller.getSettings().addAchievements(uitgeroeideKleur + " is uitgeroeid!");
+            }
+
+            //Achievements kleur domineert
+            if(dominerendeKleurHashSet.size()==1) {
+                controller.getSettings().addAchievements(dominerendeKleurHashSet.first() + " domineert het spel!");
+            }
+        }
+    }
+
+
 
     public class BestMove implements Runnable {
         @Override
@@ -269,7 +296,6 @@ public class Veld {
         currentMove.clear();
 
         //Analyseren van rooster op dots die minstens één mogelijke zet hebben.
-
         KleurDotIndexPair tmpPair;
         ArrayList<Integer> tmpArrayList;
         for (int i = 0; i < rooster.size(); i++) {
@@ -338,7 +364,6 @@ public class Veld {
                 tmpPair.setDotsMet1Combinatie(tmpArrayList);
                 indexMap.set(indexBackup, tmpPair);
             }
-
         }
 
         Collections.sort(indexMap);
