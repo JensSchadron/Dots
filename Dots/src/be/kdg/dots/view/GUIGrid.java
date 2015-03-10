@@ -39,7 +39,7 @@ public class GUIGrid extends JPanel {
         this.guiSpel = guiSpel;
         this.dotIndex = -1;
         this.dotIndexAmount = 0;
-        if(guiSpel.getController().getSettings().getHintVertraging()!=0) {
+        if (guiSpel.getController().getSettings().getHintVertraging() != 0) {
             hintTimer = new Timer(guiSpel.getController().getSettings().getHintVertraging(), new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -64,22 +64,13 @@ public class GUIGrid extends JPanel {
         double height = (this.getHeight() - (DotUI.getAfstandTussenDots() * (guiSpel.getController().getVeld().getColumn() - 1) + DotUI.getMaxDiameter() * guiSpel.getController().getVeld().getRow())) / 2;
 
         for (int i = 0; i < veld.getVeld().size(); i++) {
-            dotUI.add(new DotUI(width + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i % GUIGrid.this.guiSpel.getController().getVeld().getColumn()), height + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i / GUIGrid.this.guiSpel.getController().getVeld().getRow()))); //Bevat een array van dotUI objecten met kleur en grootte
+            /*double width2 = width + DotUI.getAfstandTussenDots() * (i % GUIGrid.this.guiSpel.getController().getVeld().getColumn() - 1) + DotUI.getMaxDiameter() * (i % GUIGrid.this.guiSpel.getController().getVeld().getColumn());
+            double height2 = height + DotUI.getAfstandTussenDots() * ((i>veld.getVeld().size()-veld.getColumn())? i : veld.getRow()-1)+ DotUI.getMaxDiameter() * (i / GUIGrid.this.guiSpel.getController().getVeld().getRow());
+            dotUI.add(new DotUI(width2,height2));*/
+            dotUI.add(new DotUI(width + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i % GUIGrid.this.guiSpel.getController().getVeld().getColumn()), height + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i / GUIGrid.this.guiSpel.getController().getVeld().getRow()))); //Bevat een array van dotUI objecten met hun grootte
         }
         repaint();
     }
-
-   /* public static void setEnabledAll(Container container, boolean enabled) {
-        Component[] components = container.getComponents();
-        if (components.length > 0) {
-            for (Component component : components) {
-                component.setEnabled(enabled);
-                if (component instanceof Container) { // has to be a container to contain components
-                    setEnabledAll((Container)component, enabled); // the recursive call
-                }
-            }
-        }
-    }*/
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -214,7 +205,7 @@ public class GUIGrid extends JPanel {
                             guiSpel.getController().getVeld().voegConnectedDotToe(i);
                             ArrayList connectedDots = guiSpel.getController().getVeld().getConnectedDots();
                             if (connectedDots.size() >= 2) {
-                                if(guiSpel.getController().getSettings().getHintVertraging()!=0) {
+                                if (guiSpel.getController().getSettings().getHintVertraging() != 0) {
                                     hintTimer.stop();
                                 }
                                 int indexDot1 = (int) connectedDots.get(connectedDots.size() - 2);
@@ -233,7 +224,6 @@ public class GUIGrid extends JPanel {
             public void componentResized(ComponentEvent e) {
                 double width = (GUIGrid.this.getWidth() - (DotUI.getAfstandTussenDots() * (guiSpel.getController().getVeld().getColumn() - 1) + DotUI.getMaxDiameter() * guiSpel.getController().getVeld().getColumn())) / 2;
                 double height = (GUIGrid.this.getHeight() - (DotUI.getAfstandTussenDots() * (guiSpel.getController().getVeld().getColumn() - 1) + DotUI.getMaxDiameter() * guiSpel.getController().getVeld().getRow())) / 2;
-
                 for (int i = 0; i < dotUI.size(); i++) {
                     dotUI.get(i).updateXY(width + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i % GUIGrid.this.guiSpel.getController().getVeld().getColumn()), height + (DotUI.getAfstandTussenDots() + DotUI.getMaxDiameter()) * (i / GUIGrid.this.guiSpel.getController().getVeld().getRow()));
                 }

@@ -9,7 +9,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by jens & alexander on 17/02/2015.
@@ -28,9 +27,9 @@ public class GUIAboutPane extends GUIGlassPane {
 
     private void MakeComponents() {
         String info = "";
-        List<String> infoArray = new ArrayList<>();
+        ArrayList<String> infoArray = new ArrayList<>();
         try {
-            infoArray = Files.readAllLines(Paths.get(getClass().getResource("/be/kdg/dots/resources/text/spelAbout/about.txt").toURI()));
+            infoArray = new ArrayList<>(Files.readAllLines(Paths.get(getClass().getResource("/text/about.txt").toURI())));
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
@@ -45,7 +44,7 @@ public class GUIAboutPane extends GUIGlassPane {
         txtAreaInfo.setEditable(false);
         txtAreaInfo.setHighlighter(null);
         txtAreaInfo.setMargin(new Insets(10, 10, 10, 10));
-        btnClose = new JButton("Close");
+        btnClose = new JButton("Sluiten");
     }
 
     private void MakeLayout() {

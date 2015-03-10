@@ -34,34 +34,34 @@ public class GUISpel extends JPanel {
     private void MakeComponents() {
         gridGame = new GUIGrid(this);
 
-        iconLevel = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/spelInfo/imgLevel.png")), 20, 20));
+        iconLevel = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelInfo/imgLevel.png")), 20, 20));
         lblLevel = new JLabel("Level:");
         lblLevel.setIcon(iconLevel);
         lblLevel.setForeground(new Color(0, 150, 75));
 
-        iconScore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/spelInfo/imgScore.png")), 20, 20));
+        iconScore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelInfo/imgScore.png")), 20, 20));
         lblScore = new JLabel("Score:");
         lblScore.setIcon(iconScore);
         lblScore.setForeground(Color.blue);
 
         if (!modus.equals("Move")) {
-            iconTimeOrMoves = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/spelInfo/imgTime.png")), 20, 20));
+            iconTimeOrMoves = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelInfo/imgTime.png")), 20, 20));
             lblTimeOrMoves = new JLabel("Time: ");
             lblTimeOrMoves.setIcon(iconTimeOrMoves);
             lblTimeOrMoves.setForeground(Color.red);
         } else {
-            iconTimeOrMoves = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/spelInfo/imgHashtag.png")), 20, 20));
+            iconTimeOrMoves = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelInfo/imgHashtag.png")), 20, 20));
             lblTimeOrMoves = new JLabel("Move: ");
             lblTimeOrMoves.setIcon(iconTimeOrMoves);
             lblTimeOrMoves.setForeground(Color.red);
         }
 
-        iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/spelMenu/btnPauze.png")), 50, 50));
+        iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelMenu/btnPauze.png")), 50, 50));
         lblPauze = new JLabel("");
         lblPauze.setName("pauze");
         lblPauze.setIcon(iconPauze);
 
-        iconHome = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/spelMenu/btnHome.png")), 250, 50));
+        iconHome = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelMenu/btnHome.png")), 250, 50));
         lblHome = new JLabel("");
         lblHome.setIcon(iconHome);
     }
@@ -127,7 +127,6 @@ public class GUISpel extends JPanel {
                 lblTimeOrMoves.setText("Time: " + aantalSecondenOfMoves);
                 break;
         }
-
     }
 
     public void updateScore(int score, int doel) {
@@ -140,6 +139,10 @@ public class GUISpel extends JPanel {
 
     public SpelController getController() {
         return controller;
+    }
+
+    public GUIGrid getGUIGrid(){
+        return gridGame;
     }
 
     public String getModus() {

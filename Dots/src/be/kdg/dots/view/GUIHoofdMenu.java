@@ -4,6 +4,8 @@ import be.kdg.dots.controller.SpelController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -39,9 +41,6 @@ public class GUIHoofdMenu extends JPanel {
         setOpaque(true);
         setBackground(Color.white);
         this.controller = controller;
-        //guiFrame = new GUIFrame(this);
-        //guiFrame.getContentPane().add("hoofdMenu", this);
-
 
         guiFrame = new GUIFrame(this);
         splashScreen = new SplashScreen(this);
@@ -58,26 +57,26 @@ public class GUIHoofdMenu extends JPanel {
         btnHelp = new JButton("Help");
 
         //iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120, 120));
-        iconTimed = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/knop-groen.png")).getImage(), 120, 120));
+        iconTimed = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-groen.png")).getImage(), 120, 120));
         lblTimeMode = new JLabel("", JLabel.RIGHT);
         lblTimeMode.setIcon(iconTimed);
 
         //iconEndless = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png")), 120, 120));
-        iconEndless = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/knop-paars.png")).getImage(), 120, 120));
+        iconEndless = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-paars.png")).getImage(), 120, 120));
         lblEndlessMode = new JLabel("", JLabel.RIGHT);
         lblEndlessMode.setIcon(iconEndless);
 
         //iconMove = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnMove.png")), 120, 120));
-        iconMove = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/knop-roos.png")).getImage(), 120, 120));
+        iconMove = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-roos.png")).getImage(), 120, 120));
         lblMoveMode = new JLabel("", JLabel.LEFT);
         lblMoveMode.setIcon(iconMove);
 
         //iconHighscore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnHighscore.png")), 120, 120));
-        iconHighscore = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/knop-blauw.png")).getImage(), 120, 120));
+        iconHighscore = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-blauw.png")).getImage(), 120, 120));
         lblHighscore = new JLabel("", JLabel.LEFT);
         lblHighscore.setIcon(iconHighscore);
 
-        iconBanner = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/hoofdmenu/logo-dots.png")).getImage(), 400, 150));
+        iconBanner = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/logo-dots.png")).getImage(), 400, 150));
         lblBanner = new JLabel("", JLabel.CENTER);
         lblBanner.setIcon(iconBanner);
         //lblBanner = new JLabel("Dots");
@@ -90,7 +89,7 @@ public class GUIHoofdMenu extends JPanel {
 
         try {
             //fonts
-            Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/be/kdg/dots/resources/fonts/dotness.ttf").openStream());
+            Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/fonts/dotness.ttf").openStream());
             GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             genv.registerFont(font);
             font = font.deriveFont(120f);
@@ -186,7 +185,6 @@ public class GUIHoofdMenu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - Settings selected");
-                //controller.getGuiFrame().updateFrame("instellingenPanel");
                 guiFrame.updateFrame("instellingenPanel");
             }
         });
@@ -195,24 +193,29 @@ public class GUIHoofdMenu extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 System.out.println("Debug info - About selected");
                 guiFrame.updateFrame("aboutPanel");
-                //controller.getGuiFrame().updateFrame("aboutPanel");
             }
         });
         btnHelp.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("");
-                //guiFrame.updateFrame("gameEndPanel");
+                System.out.println("Debug info - Help selected");
+                guiFrame.updateFrame("helpPanel");
                 controller.getSettings().addAchievements("Missing common sense...");
-                //new GUIAchievement("Missing common sense...");
-                System.out.println("Achievement get: Missing common sense...");
             }
         });
         lblHighscore.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                //controller.getGuiFrame().updateFrame("highScorePanel");
+                System.out.println("Debug info - Highscore selected");
                 guiFrame.updateFrame("highScorePanel");
+            }
+        });
+
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                System.out.println(getSize());
             }
         });
     }

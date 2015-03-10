@@ -2,13 +2,13 @@ package be.kdg.dots.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 
 /**
  * Created by jens & alexander on 16/02/2015.
  */
 public class GUIFrame extends JFrame {
+    private static final int MIN_GAME_WIDTH = 450;
     private CardLayout cl;
     private GUIHoofdMenu guiHoofdMenu;
     private JPanel panelClosing;
@@ -21,8 +21,8 @@ public class GUIFrame extends JFrame {
         cl = new CardLayout();
         setLayout(cl);
         this.guiHoofdMenu = guiHoofdMenu;
-        //this.splashScreen = splashScreen;
-        super.setSize(550, 500);
+        setMinimumSize(new Dimension(500, 500));
+        setPreferredSize(new Dimension(500, 500));
         setLocationRelativeTo(null);
 
         panelClosing = new JPanel();
@@ -38,20 +38,25 @@ public class GUIFrame extends JFrame {
         });
     }
 
-    public void showFrame(){
+    public void showFrame() {
         super.setVisible(true);
         super.requestFocus();
     }
 
     public void updateFrame(String optie) {
+        Dimension minSize = new Dimension(getMinimumSize());
+        Dimension prefSize = new Dimension(getPreferredSize());
         switch (optie) {
             case "hoofdMenu":
                 cl.show(this.getContentPane(), "hoofdMenu");
-                super.setSize(500, 500);
+                minSize = new Dimension(500, 500);
+                prefSize = new Dimension(500, 500);
                 break;
             case "startSpel":
                 cl.show(this.getContentPane(), "startSpel");
-                super.setSize(500, 650);
+                int width = (80 * guiHoofdMenu.getController().getSettings().getColumn()<MIN_GAME_WIDTH)?MIN_GAME_WIDTH:80 * guiHoofdMenu.getController().getSettings().getColumn();
+                minSize = new Dimension(width, 150 + 70 * guiHoofdMenu.getController().getSettings().getRow());
+                prefSize = new Dimension(width, 150 + 70 * guiHoofdMenu.getController().getSettings().getRow());
                 break;
             case "pauzePanel":
                 setGlassPane(new GUIPauzePane(getContentPane(), guiHoofdMenu));
@@ -63,6 +68,10 @@ public class GUIFrame extends JFrame {
                 break;
             case "aboutPanel":
                 setGlassPane(new GUIAboutPane(getContentPane()));
+                getGlassPane().setVisible(true);
+                break;
+            case "helpPanel":
+                setGlassPane(new GUIHelpPane(getContentPane()));
                 getGlassPane().setVisible(true);
                 break;
             case "highScorePanel":
@@ -82,6 +91,8 @@ public class GUIFrame extends JFrame {
                 getGlassPane().setVisible(true);
                 break;*/
         }
+        setLocationRelativeTo(null);
+        setMinimumSize(minSize);
+        setPreferredSize(prefSize);
     }
-
 }

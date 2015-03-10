@@ -10,7 +10,6 @@ import java.io.IOException;
  * Created by alexander on 23/02/2015.
  */
 public class GUIHighScore extends GUIGlassPane {
-    //private Container contentPane;
     private JButton btnClose;
     private JTabbedPane tabbedPane;
     private JTextArea txtTime, txtInfinity, txtMove;
@@ -18,7 +17,6 @@ public class GUIHighScore extends GUIGlassPane {
 
     public GUIHighScore(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         super(contentPane);
-        //this.contentPane = contentPane;
         setLayout(new GridLayout(1, 1));
         this.guiHoofdMenu = guiHoofdMenu;
         MakeComponents();
@@ -27,11 +25,10 @@ public class GUIHighScore extends GUIGlassPane {
     }
 
     private void MakeComponents() {
-        btnClose = new JButton("Close");
+        btnClose = new JButton("Sluiten");
         UIManager.put("TabbedPane.contentOpaque", Boolean.FALSE);
         tabbedPane = new JTabbedPane();
         tabbedPane.setOpaque(false);
-        //scrollBarTime = new JScrollBar(Adjustable.VERTICAL);
 
         JPanel panelTime = new JPanel(new FlowLayout());
         JPanel panelInfinty = new JPanel(new FlowLayout());
@@ -82,9 +79,7 @@ public class GUIHighScore extends GUIGlassPane {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setOpaque(false);
         panelButton.setOpaque(false);
-        //scrollBarTime.add(tabbedPane);
         panelButton.add(btnClose);
-        //add(tabbedPane);
         mainPanel.add(panelButton, BorderLayout.NORTH);
         mainPanel.add(tabbedPane, BorderLayout.CENTER);
         add(mainPanel);
@@ -97,7 +92,6 @@ public class GUIHighScore extends GUIGlassPane {
         });
 
         try {
-            //../fonts/
             Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/be/kdg/dots/resources/fonts/UbuntuMono-R.ttf").openStream());
             GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             genv.registerFont(font);
