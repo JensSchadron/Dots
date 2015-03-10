@@ -1,11 +1,6 @@
 package be.kdg.dots.view;
 
-
 import java.awt.geom.Ellipse2D;
-
-/**
- * Created by alexander on 6/02/2015.
- */
 
 public class DotUI extends Ellipse2D.Double {
     private static final double MIN_DIAMETER = 50;

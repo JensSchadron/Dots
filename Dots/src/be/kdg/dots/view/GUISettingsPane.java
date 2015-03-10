@@ -12,11 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.util.Hashtable;
 
-/**
- * Created by jens & alexander on 17/02/2015.
- */
 public class GUISettingsPane extends GUIGlassPane {
-    //private Container contentPane;
     private JButton btnSave, btnResetHighscore, btnResetUsername;
     private JTextArea txtName, txtTestColor;
     private JPanel centerPanel, gridPanel, panelSouth, hintPanel;
@@ -72,7 +68,7 @@ public class GUISettingsPane extends GUIGlassPane {
         gridPanel = new JPanel(new GridLayout(1, 3));
         panelSouth = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelSouth.setOpaque(false);
-        hintPanel = new JPanel(new BorderLayout(10,5));
+        hintPanel = new JPanel(new BorderLayout(10, 5));
         hintPanel.setOpaque(false);
 
         txtName.setLineWrap(true);
@@ -117,21 +113,6 @@ public class GUISettingsPane extends GUIGlassPane {
         super.add(btnSave, BorderLayout.SOUTH);
     }
 
-    /*@Override
-    public void paintComponent(Graphics gr) {
-        super.paintComponent(gr);
-        Graphics2D g = (Graphics2D) gr;
-
-        //create transparency
-        AlphaComposite transparent = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .9f);
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setComposite(transparent);
-
-        contentPane.paint(gr);
-        g.setColor(Color.white);
-        g.fillRect(0, 0, getWidth(), getHeight());
-    }*/
-
     private void MakeEventListener() {
         this.addMouseListener(new MouseAdapter() {
         });
@@ -161,24 +142,21 @@ public class GUISettingsPane extends GUIGlassPane {
             }
         });
         btnResetUsername.addActionListener(new ActionListener() {
-                                               @Override
-                                               public void actionPerformed(ActionEvent e) {
-                                                   String text;
-                                                   do {
-                                                       text = JOptionPane.showInputDialog(null, "Gelieve een username op te geven langer dan 2 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE);
-                                                       if (text == null) {
-                                                           return;
-                                                       }
-                                                   } while (text.length() < 2 || text.length() > 20);
-                                                   guiHoofdMenu.getController().getSpeler().setUsername(text);
-                                                   guiHoofdMenu.getController().getSettings().saveSettings();
-                                                   updateUserInfo();
-                                                   repaint();
-                                               }
-                                           }
-
-        );
-
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text;
+                do {
+                    text = JOptionPane.showInputDialog(null, "Gelieve een username op te geven langer dan 2 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE);
+                    if (text == null) {
+                        return;
+                    }
+                } while (text.length() < 2 || text.length() > 20);
+                guiHoofdMenu.getController().getSpeler().setUsername(text);
+                guiHoofdMenu.getController().getSettings().saveSettings();
+                updateUserInfo();
+                repaint();
+            }
+        });
     }
 
     private class SliderUI extends BasicSliderUI {
@@ -206,8 +184,6 @@ public class GUISettingsPane extends GUIGlassPane {
             Rectangle t = trackRect;
             Point2D start = new Point2D.Float(t.x, t.y);
             Point2D end = new Point2D.Float(t.width, t.height);
-            //Color[] colors = {Color.magenta, Color.blue, Color.cyan, Color.green, Color.yellow, Color.red};
-            //Color[] colors2 = {Color.white, new Color(120, 0, 228), new Color(103, 0, 227), new Color(80, 0, 226), new Color(60, 0, 225), new Color(40, 0, 224), new Color(0, 75, 221), new Color(0, 106, 219), new Color(0, 137, 218), new Color(0, 168, 217), new Color(0, 213, 169), new Color(0, 212, 137), new Color(0, 210, 90), new Color(0, 207, 0), new Color(59, 204, 0), new Color(88, 203, 0), new Color(131, 201, 0), new Color(173, 200, 0), new Color(198, 196, 0), new Color(197, 166, 0), new Color(195, 122, 0), new Color(195, 107, 0), new Color(194, 79, 0), new Color(192, 50, 0), Color.black};
             p = new LinearGradientPaint(start, end, fracs, colors2);
             g2d.setPaint(p);
             g2d.fillRect(t.x, t.y, t.width, t.height);

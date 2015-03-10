@@ -1,8 +1,5 @@
 package be.kdg.dots.model.speler;
 
-/**
- * Created by alexander on 25/02/2015.
- */
 public class Level {
     private Speler speler;
     private int level=1;

@@ -19,7 +19,6 @@ public class GUIHoofdMenu extends JPanel {
     private SpelController controller;
     private GUIFrame guiFrame;
     private GUISpel guiSpel;
-
     private JPanel main, gameMode, southPanel, loginPanel;
     private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblBanner, lblHighscore;
     private ImageIcon iconTimed, iconEndless, iconMove, iconHighscore, iconBanner;
@@ -56,22 +55,18 @@ public class GUIHoofdMenu extends JPanel {
         btnAbout = new JButton("About");
         btnHelp = new JButton("Help");
 
-        //iconTimed = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnTimed.png")), 120, 120));
         iconTimed = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-groen.png")).getImage(), 120, 120));
         lblTimeMode = new JLabel("", JLabel.RIGHT);
         lblTimeMode.setIcon(iconTimed);
 
-        //iconEndless = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnInfinity.png")), 120, 120));
         iconEndless = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-paars.png")).getImage(), 120, 120));
         lblEndlessMode = new JLabel("", JLabel.RIGHT);
         lblEndlessMode.setIcon(iconEndless);
 
-        //iconMove = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnMove.png")), 120, 120));
         iconMove = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-roos.png")).getImage(), 120, 120));
         lblMoveMode = new JLabel("", JLabel.LEFT);
         lblMoveMode.setIcon(iconMove);
 
-        //iconHighscore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/btnHighscore.png")), 120, 120));
         iconHighscore = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-blauw.png")).getImage(), 120, 120));
         lblHighscore = new JLabel("", JLabel.LEFT);
         lblHighscore.setIcon(iconHighscore);
@@ -79,27 +74,14 @@ public class GUIHoofdMenu extends JPanel {
         iconBanner = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/logo-dots.png")).getImage(), 400, 150));
         lblBanner = new JLabel("", JLabel.CENTER);
         lblBanner.setIcon(iconBanner);
-        //lblBanner = new JLabel("Dots");
-        //lblBanner.setForeground(new Color(83, 93, 245));
-        //lblBanner.setHorizontalAlignment(SwingConstants.HORIZONTAL);
 
         lblTimeMode.setOpaque(false);
         lblEndlessMode.setOpaque(false);
         lblMoveMode.setOpaque(false);
 
-        try {
-            //fonts
-            Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/fonts/dotness.ttf").openStream());
-            GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            genv.registerFont(font);
-            font = font.deriveFont(120f);
-            lblBanner.setFont(font);
-        } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
-        }
     }
 
-    private Image getScaledImage(Image srcImg, int w, int h){
+    private Image getScaledImage(Image srcImg, int w, int h) {
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
         Graphics2D g2 = resizedImg.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -108,11 +90,6 @@ public class GUIHoofdMenu extends JPanel {
         g2.dispose();
         return resizedImg;
     }
-
-    /*public static Image resize(ImageIcon imageIcon, int width, int height) {
-        Image image = imageIcon.getImage();
-        return image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-    }*/
 
     private void MakeLayout() {
         main = new JPanel(new BorderLayout());
@@ -130,7 +107,6 @@ public class GUIHoofdMenu extends JPanel {
         southPanel.add(btnAbout);
         southPanel.add(btnSettings);
         southPanel.add(btnHelp);
-
         main.add(lblBanner, BorderLayout.NORTH);
         main.add(gameMode, BorderLayout.CENTER);
         main.add(southPanel, BorderLayout.SOUTH);
@@ -138,11 +114,11 @@ public class GUIHoofdMenu extends JPanel {
         super.revalidate();
     }
 
-    public void setBackgroundColor(Color color){
+    public void setBackgroundColor(Color color) {
         this.setBackground(color);
     }
 
-    private void startSpel(String modus){
+    private void startSpel(String modus) {
         guiSpel = new GUISpel(controller, guiFrame, modus);
         guiFrame.getContentPane().add("startSpel", guiSpel);
     }
@@ -151,7 +127,6 @@ public class GUIHoofdMenu extends JPanel {
         lblTimeMode.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - Time mode selected");
                 setVisible(false);
                 checkSpeler();
                 startSpel("Time");
@@ -162,7 +137,6 @@ public class GUIHoofdMenu extends JPanel {
         lblEndlessMode.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - Infinity mode selected");
                 setVisible(false);
                 checkSpeler();
                 startSpel("Infinity");
@@ -173,7 +147,6 @@ public class GUIHoofdMenu extends JPanel {
         lblMoveMode.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - Move mode selected");
                 setVisible(false);
                 checkSpeler();
                 startSpel("Move");
@@ -184,21 +157,18 @@ public class GUIHoofdMenu extends JPanel {
         btnSettings.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - Settings selected");
                 guiFrame.updateFrame("instellingenPanel");
             }
         });
         btnAbout.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - About selected");
                 guiFrame.updateFrame("aboutPanel");
             }
         });
         btnHelp.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - Help selected");
                 guiFrame.updateFrame("helpPanel");
                 controller.getSettings().addAchievements("Missing common sense...");
             }
@@ -206,7 +176,6 @@ public class GUIHoofdMenu extends JPanel {
         lblHighscore.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - Highscore selected");
                 guiFrame.updateFrame("highScorePanel");
             }
         });
@@ -215,20 +184,19 @@ public class GUIHoofdMenu extends JPanel {
             @Override
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
-                System.out.println(getSize());
             }
         });
     }
 
-    public void checkSpeler(){
-        if (controller.getSpeler().getUsername()==null){
+    public void checkSpeler() {
+        if (controller.getSpeler().getUsername() == null) {
             String userName;
-            do{
-                userName = JOptionPane.showInputDialog(this, "Gelieve een username op te geven met minimum 2 en maximum 20 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE);
-                if(userName == null){
+            do {
+                userName = JOptionPane.showInputDialog(this, "Gelieve een username op te geven tussen de 2 tot 20 karakters", "InfoBox: " + "Username", JOptionPane.INFORMATION_MESSAGE);
+                if (userName == null) {
                     return;
                 }
-            } while(userName.length()<2||userName.length()>20);
+            } while (userName.length() < 2 || userName.length() > 20);
             controller.getSpeler().setUsername(userName);
         }
     }

@@ -4,9 +4,6 @@ import be.kdg.dots.controller.SpelController;
 
 import java.util.*;
 
-/**
- * Created by alexander on 4/02/2015.
- */
 public class Veld {
     private ArrayList<Dot> rooster;
     private ArrayList<Integer> connectedDots;
@@ -33,7 +30,6 @@ public class Veld {
         this.indexMap = new ArrayList<>(DotKleur.values().length);
         this.threadBestMove = new Thread(new BestMove());
         this.interruptFlag = false;
-
         vuldotIndexCheck();
         vulVeld();
     }
@@ -47,7 +43,6 @@ public class Veld {
         dotIndexCheck[5] = this.column - 1;
         dotIndexCheck[6] = this.column;
         dotIndexCheck[7] = this.column + 1;
-        //dotIndexCheck = {-this.column-1, -this.column, -this.column, -1, 1, this.column + 5, this.column + 6, this.column + 7};
     }
 
     public void vulVeld() {
@@ -132,8 +127,6 @@ public class Veld {
                 rooster.set(connectedDot.intValue(), null);
             }
             controller.getSpeler().getScore().berekenScore(connectedDots);
-
-
             for (int i = this.row * this.column - 1; i > -1; i--) {
                 Dot dotOrNull = rooster.get(i);
                 if (dotOrNull == null) {
@@ -152,7 +145,6 @@ public class Veld {
             controller.getGuiHoofdMenu().getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
             startBerekenen();
             startCheckingAchievements();
-
             gameOver(); //TODO: extra code schrijven om spel te beëindigen
         }
         connectedDots.clear();
@@ -192,7 +184,7 @@ public class Veld {
             }
         }
 
-        System.out.println("Tja, game over hé");
+        //System.out.println("Tja, game over hé");
         return true;
     }
 
@@ -201,18 +193,18 @@ public class Veld {
         this.threadBestMove.start();
     }
 
-    public void stopBerekenen(){
-        if(this.threadBestMove.isAlive()){
+    public void stopBerekenen() {
+        if (this.threadBestMove.isAlive()) {
             interruptFlag = true;
         }
     }
 
-    public void startCheckingAchievements(){
+    public void startCheckingAchievements() {
         Thread checkAchievements = new Thread(new CheckAchievements());
         checkAchievements.start();
     }
 
-    public class CheckAchievements implements Runnable{
+    public class CheckAchievements implements Runnable {
         @Override
         public void run() {
             TreeSet<DotKleur> dominerendeKleurHashSet = new TreeSet<>();
@@ -227,29 +219,26 @@ public class Veld {
             }
 
             //Achievements kleur domineert
-            if(dominerendeKleurHashSet.size()==1) {
+            if (dominerendeKleurHashSet.size() == 1) {
                 controller.getSettings().addAchievements(dominerendeKleurHashSet.first() + " domineert het spel!");
             }
         }
     }
-
-
 
     public class BestMove implements Runnable {
         @Override
         public void run() {
             if (controller.getSettings().isHintsEnabled()) {
                 long begin = System.nanoTime();
-                System.out.println("Debug info - Calculating started...");
+                //System.out.println("Debug info - Calculating started...");
                 calculateBestMove();
-                System.out.println("Debug info - Calculating stopped...");
-                System.out.println("Debug info - Time taken: " + (double) (System.nanoTime() - begin) / 1000000000 + " sec");
+                //System.out.println("Debug info - Calculating stopped...");
+                //System.out.println("Debug info - Time taken: " + (double) (System.nanoTime() - begin) / 1000000000 + " sec");
             } else {
-                System.out.println("Hints zijn uitgeschakeld");
+                //System.out.println("Hints zijn uitgeschakeld");
             }
         }
     }
-
 
     //----------------------------------------------------------------------------------------------------------------//
     private class KleurDotIndexPair implements Comparable<KleurDotIndexPair> {
@@ -288,7 +277,6 @@ public class Veld {
             return ((Integer) o.getDotIndexes().size()).compareTo(this.getDotIndexes().size());
         }
     }
-
 
     public void calculateBestMove() {
         indexMap.clear();
@@ -355,7 +343,6 @@ public class Veld {
                         }
                     }
                 }
-
             }
             if (aantalMogelijkeCombinaties == 1 && indexBackup != -1) {
                 tmpPair = indexMap.get(indexBackup);
@@ -367,10 +354,10 @@ public class Veld {
         }
 
         Collections.sort(indexMap);
-        System.out.println("Debug info - Niet geoptimaliseerde index lijst");
-        for (KleurDotIndexPair anIndexMap : indexMap) {
+        //System.out.println("Debug info - Niet geoptimaliseerde index lijst");
+        /*for (KleurDotIndexPair anIndexMap : indexMap) {
             System.out.println("Kleur: " + anIndexMap.getKleur() + ", Mogelijke startpunten: " + anIndexMap.getDotsMet1Combinatie() + ", dots die verbonden kunnen worden: " + anIndexMap.getDotIndexes());
-        }
+        }*/
 
         //Algoritme versnellen door dots met maar één combinatie vooraan te plaatsen.
         for (int i = 0; i < indexMap.size(); i++) {
@@ -380,14 +367,14 @@ public class Veld {
             ArrayList<Integer> dotIndexes = tmpPair.getDotIndexes();
             for (int j = 0; j < dotsMet1Combinatie.size(); j++) {
                 dotIndexes.remove(dotsMet1Combinatie.get(j));
-                dotIndexes.add(j,dotsMet1Combinatie.get(j));
+                dotIndexes.add(j, dotsMet1Combinatie.get(j));
             }
         }
 
-        System.out.println("Debug info - Geoptimaliseerde index lijst");
-        for (KleurDotIndexPair anIndexMap : indexMap) {
+        //System.out.println("Debug info - Geoptimaliseerde index lijst");
+        /*for (KleurDotIndexPair anIndexMap : indexMap) {
             System.out.println("Kleur: " + anIndexMap.getKleur() + ", Mogelijke startpunten: " + anIndexMap.getDotsMet1Combinatie() + ", dots die verbonden kunnen worden: " + anIndexMap.getDotIndexes());
-        }
+        }*/
 
         outerForLoop:
         for (int i = 0; i < indexMap.size(); i++) {
@@ -401,14 +388,12 @@ public class Veld {
         }
 
         interruptFlag = false;
-
         //Debug info over beste zet.
         String result = "";
         for (int i = 0; i < besteMove.size(); i++) {
             result += besteMove.get(i) + ", ";
         }
-        System.out.println(result);
-
+        //System.out.println(result);
     }
 
     private void calculateNextMove(int currentIndex, ArrayList<Integer> indexArrayList) {
@@ -447,7 +432,7 @@ public class Veld {
 
         for (int i = 0; i < tmpIndexArray.length; i++) {
             if (interruptFlag || Thread.interrupted()) {
-                System.out.println("Busy with stopping calculateNextMove");
+                //System.out.println("Busy with stopping calculateNextMove");
                 interruptFlag = true;
                 return;
             }
@@ -459,9 +444,8 @@ public class Veld {
             }
         }
 
-
         if (Thread.interrupted() || interruptFlag) {
-            System.out.println("Busy with stopping calculateNextMove");
+            //System.out.println("Busy with stopping calculateNextMove");
             interruptFlag = true;
             return;
         }

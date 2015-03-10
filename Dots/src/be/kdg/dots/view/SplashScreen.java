@@ -6,9 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
-/**
- * Created by alexander on 5/03/2015.
- */
 public class SplashScreen extends JWindow {
     public SplashScreen(final GUIHoofdMenu guiHoofdMenu) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -32,9 +29,7 @@ public class SplashScreen extends JWindow {
                 }
             }
         });
-
         timer.start();
-
     }
 
     private Image getScaledImage(Image srcImg, int w, int h){

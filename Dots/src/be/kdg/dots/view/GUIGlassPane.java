@@ -3,9 +3,6 @@ package be.kdg.dots.view;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by Jens on 9-3-2015.
- */
 public class GUIGlassPane extends JPanel {
     private Container contentPane;
 

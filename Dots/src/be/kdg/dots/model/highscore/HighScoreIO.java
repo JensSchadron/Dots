@@ -1,5 +1,7 @@
 package be.kdg.dots.model.highscore;
 
+import be.kdg.dots.model.exception.DotsException;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -12,18 +14,14 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-/**
- * Created by Jens on 16-2-2015.
- */
 public class HighScoreIO {
     private Path filePath;
 
     protected HighScoreIO() {
         try {
             this.filePath = Paths.get(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().toString(), "highscores.txt");
-            System.out.println(filePath);
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            throw new DotsException("Er is een fout opgetreden bij het ophalen van het highscore bestand.");
         }
         loadHighScores();
     }
@@ -33,11 +31,10 @@ public class HighScoreIO {
         for (int i = 0; i < decodedHighScores.size(); i++) {
             encodedHighScores.add(i, encodeHighScore(decodedHighScores.get(i)));
         }
-
         try {
             Files.write(filePath, encodedHighScores, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new DotsException("Er is een fout opgetreden bij het opslaan van het highscore bestand.");
         }
     }
 
@@ -51,7 +48,7 @@ public class HighScoreIO {
             try {
                 encodedHighScores = Files.readAllLines(filePath);
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new DotsException("Er is een fout opgetreden bij het encoderen van de highscore bestand.");
             }
 
             for (int i = 0; i < encodedHighScores.size(); i++) {
@@ -61,7 +58,7 @@ public class HighScoreIO {
             try {
                 Files.createFile(filePath);
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new DotsException("Er is een fout opgetreden bij het creëren van de highscore bestand.");
             }
         }
         return decodedHighScores;
@@ -77,6 +74,7 @@ public class HighScoreIO {
             decodedString = new String(Base64.getDecoder().decode(encodedHighScores));
         } catch (IllegalArgumentException e) {
             decodedString = "You tried to cheat, you little bastard!";
+            throw new DotsException("Er is iets foutgelopen bij het decoderen van de highscore bestand.");
         }
         return decodedString;
     }

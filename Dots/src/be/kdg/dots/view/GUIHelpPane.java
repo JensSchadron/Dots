@@ -11,9 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-/**
- * Created by Jens on 9-3-2015.
- */
 public class GUIHelpPane extends GUIGlassPane {
     private JPanel centerPanel;
     private JTextArea helpInfo;

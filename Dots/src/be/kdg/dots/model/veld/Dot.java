@@ -2,9 +2,6 @@ package be.kdg.dots.model.veld;
 
 import java.util.Random;
 
-/**
- * Created by alexander on 4/02/2015.
- */
 public class Dot {
     private DotKleur dotKleur;
 

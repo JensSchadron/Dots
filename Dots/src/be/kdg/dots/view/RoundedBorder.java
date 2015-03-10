@@ -3,9 +3,6 @@ package be.kdg.dots.view;
 import javax.swing.border.Border;
 import java.awt.*;
 
-/**
- * Created by alexander on 10/02/2015.
- */
 public class RoundedBorder implements Border {
 
     private int radius;

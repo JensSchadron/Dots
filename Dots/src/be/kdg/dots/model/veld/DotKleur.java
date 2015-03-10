@@ -1,9 +1,5 @@
 package be.kdg.dots.model.veld;
 
-/**
- * Created by alexander on 4/02/2015.
- */
-
 public enum DotKleur {
     BLUE(127, 26, 243), RED(245, 0, 82), GREEN(0, 245, 122), YELLOW(255, 255, 0), PURPLE(255, 0, 255);
 

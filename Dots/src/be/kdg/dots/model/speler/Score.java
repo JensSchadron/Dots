@@ -2,9 +2,6 @@ package be.kdg.dots.model.speler;
 
 import java.util.ArrayList;
 
-/**
- * Created by Jens on 19-2-2015.
- */
 public class Score {
     private Speler speler;
     private int score=0;
@@ -22,7 +19,7 @@ public class Score {
             speler.getLevel().incrementLevel();
             setScoreDoel(speler.getLevel().getLevel());
         }
-        System.out.println("Debug info - Score: " + score);
+        //System.out.println("Debug info - Score: " + score);
     }
 
     public void setScoreDoel(int level) {

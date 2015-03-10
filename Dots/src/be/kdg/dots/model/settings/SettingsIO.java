@@ -1,8 +1,8 @@
 package be.kdg.dots.model.settings;
 
 import be.kdg.dots.controller.SpelController;
+import be.kdg.dots.model.exception.DotsException;
 import be.kdg.dots.model.speler.Speler;
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,9 +14,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-/**
- * Created by Jens on 19-2-2015.
- */
 public class SettingsIO {
     private Settings settings;
     private Path settingsPath;
@@ -31,7 +28,7 @@ public class SettingsIO {
         try {
             settingsPath = Paths.get(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().toString(), "settings.dat");
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            throw new DotsException("Er is een fout opgetreden bij het creëren van het path van het settings bestand.");
         }
     }
 
@@ -57,9 +54,8 @@ public class SettingsIO {
             propertiesWrite.setProperty("achievements", settings.getAchievements());
 
             propertiesWrite.storeToXML(out, "Application properties");
-
         } catch (IOException e) {
-            System.out.println("Fout bij aanmaken properties-bestand");
+            throw new DotsException("Er is een fout opgetreden bij het wegschrijven van het settings bestand.");
         }
     }
 
@@ -69,10 +65,9 @@ public class SettingsIO {
         }
         try (FileInputStream in = new FileInputStream(settingsPath.toString())) {
 
-
             propertiesRead = new Properties();
             propertiesRead.loadFromXML(in);
-            propertiesRead.list(System.out);
+            //propertiesRead.list(System.out);
 
             settings.setRow(Integer.parseInt(propertiesRead.getProperty("row")));
             settings.setColumn(Integer.parseInt(propertiesRead.getProperty("column")));
@@ -103,8 +98,7 @@ public class SettingsIO {
                 settings.setAchievements("");
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Fout bij het ophalen van properties");
+            throw new DotsException("Er is een fout opgetreden bij het lezen van het settings bestand.");
         }
     }
 

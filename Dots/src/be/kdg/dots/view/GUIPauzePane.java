@@ -7,11 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 
-/**
- * Created by Jens on 24-2-2015.
- */
 public class GUIPauzePane extends GUIGlassPane {
-    //private JButton btnContinue, btnGoHome;
     private ImageIcon iconPauze, iconHome;
     private JLabel lblPauze, lblHome;
     private String modus;
@@ -20,7 +16,6 @@ public class GUIPauzePane extends GUIGlassPane {
     public GUIPauzePane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         super(contentPane);
         this.guiHoofdMenu = guiHoofdMenu;
-        //this.guiFrame = guiFrame;
         setLayout(new FlowLayout(FlowLayout.CENTER, 30, 10));
         this.modus = guiHoofdMenu.getGuiSpel().getModus();
         makeComponents();
@@ -44,7 +39,6 @@ public class GUIPauzePane extends GUIGlassPane {
         image = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
         return image;
     }
-
 
     public void makeLayout() {
         add(lblPauze);

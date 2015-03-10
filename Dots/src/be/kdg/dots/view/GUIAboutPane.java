@@ -1,5 +1,7 @@
 package be.kdg.dots.view;
 
+import be.kdg.dots.model.exception.DotsException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -10,9 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-/**
- * Created by jens & alexander on 17/02/2015.
- */
 public class GUIAboutPane extends GUIGlassPane {
     private JButton btnClose;
     private JTextArea txtAreaInfo;
@@ -31,12 +30,12 @@ public class GUIAboutPane extends GUIGlassPane {
         try {
             infoArray = new ArrayList<>(Files.readAllLines(Paths.get(getClass().getResource("/text/about.txt").toURI())));
         } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+            throw new DotsException("Er is een fout opgetreden bij het lezen van het about bestand.");
         }
         for (String anInfoArray : infoArray) {
             info += anInfoArray;
         }
-        info = info.replaceAll("\\\\n","\n");
+        info = info.replaceAll("\\\\n", "\n");
         txtAreaInfo = new JTextArea(info);
         txtAreaInfo.setLineWrap(true);
         txtAreaInfo.setWrapStyleWord(true);
@@ -52,21 +51,6 @@ public class GUIAboutPane extends GUIGlassPane {
         btnClose.setForeground(Color.BLUE);
         add(btnClose, BorderLayout.SOUTH);
     }
-
-    /*@Override
-    public void paintComponent(Graphics gr) {
-        super.paintComponent(gr);
-        Graphics2D g = (Graphics2D) gr;
-
-        //create transparency
-        AlphaComposite transparent = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .9f);
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setComposite(transparent);
-
-        super.getContentPane().paint(gr);
-        g.setColor(Color.white);
-        g.fillRect(0, 0, getWidth(), getHeight());
-    }*/
 
     private void MakeEventListener() {
         this.addMouseListener(new MouseAdapter() {

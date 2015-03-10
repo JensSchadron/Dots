@@ -7,9 +7,6 @@ import be.kdg.dots.model.veld.Spel;
 import be.kdg.dots.model.veld.Veld;
 import be.kdg.dots.view.GUIHoofdMenu;
 
-/**
- * Created by alexander on 4/02/2015.
- */
 public class SpelController {
     private Settings settings;
     private Veld veld;
@@ -36,10 +33,7 @@ public class SpelController {
         settings.loadSettings();
 
         ladenCompleet = true;
-        System.out.println("Laden compleet!");
-
-        //guiFrame.getContentPane().add("hoofdMenu", guiHoofdMenu);
-        //guiFrame.getContentPane().add("startSpel", guiSpel);
+        //System.out.println("Laden compleet!");
     }
 
     public Veld getVeld() {
@@ -62,11 +56,11 @@ public class SpelController {
         return settings;
     }
 
-    public void setNewVeld(){
+    public void setNewVeld() {
         veld = new Veld(settings.getRow(), settings.getColumn(), this);
     }
 
-    public void startSpel(String modus){
+    public void startSpel(String modus) {
         spel.startSpel(modus);
         this.veld = new Veld(settings.getRow(), settings.getColumn(), this);
     }

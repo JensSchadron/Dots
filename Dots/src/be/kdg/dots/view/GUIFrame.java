@@ -4,9 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-/**
- * Created by jens & alexander on 16/02/2015.
- */
 public class GUIFrame extends JFrame {
     private static final int MIN_GAME_WIDTH = 450;
     private CardLayout cl;
@@ -31,7 +28,7 @@ public class GUIFrame extends JFrame {
             public void windowClosing(WindowEvent event) {
                 guiHoofdMenu.getController().getSettings().saveSettings();
                 if (JOptionPane.showConfirmDialog(panelClosing, "Bent u zeker dat u wilt afsluiten?", "Zeker sluiten?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
-                    System.err.println("Exiting application");
+                    //System.err.println("Exiting application");
                     System.exit(0);
                 }
             }
@@ -53,7 +50,7 @@ public class GUIFrame extends JFrame {
                 break;
             case "startSpel":
                 cl.show(this.getContentPane(), "startSpel");
-                int width = (80 * guiHoofdMenu.getController().getSettings().getColumn()<MIN_GAME_WIDTH)?MIN_GAME_WIDTH:80 * guiHoofdMenu.getController().getSettings().getColumn();
+                int width = (80 * guiHoofdMenu.getController().getSettings().getColumn() < MIN_GAME_WIDTH) ? MIN_GAME_WIDTH : 80 * guiHoofdMenu.getController().getSettings().getColumn();
                 setMinimumSize(new Dimension(width, 150 + 70 * guiHoofdMenu.getController().getSettings().getRow()));
                 setPreferredSize(new Dimension(width, 150 + 70 * guiHoofdMenu.getController().getSettings().getRow()));
                 setLocationRelativeTo(null);
@@ -82,14 +79,6 @@ public class GUIFrame extends JFrame {
                 setGlassPane(new GUIGameEnd(getContentPane(), guiHoofdMenu));
                 getGlassPane().setVisible(true);
                 break;
-            /*case "splashScreen":
-                cl.show(this.getContentPane(), "splashScreen");
-                super.setSize(300, 300);
-                break;*/
-            /*case "login":
-                setGlassPane(new GUILogin(getContentPane(), guiHoofdMenu));
-                getGlassPane().setVisible(true);
-                break;*/
         }
     }
 }

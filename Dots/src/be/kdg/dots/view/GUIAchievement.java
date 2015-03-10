@@ -5,9 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by Jens on 8-3-2015.
- */
 public class GUIAchievement extends JWindow {
     private final Rectangle maxBounds;
     private static final int DISTANCE_FROM_BORDER = 10;
@@ -53,7 +50,6 @@ public class GUIAchievement extends JWindow {
             }
         });
         scrollOutDelayTimer.setRepeats(false);
-
         scrollTimer.start();
         scrollOutDelayTimer.start();
         setVisible(true);
@@ -74,6 +70,4 @@ public class GUIAchievement extends JWindow {
         });
         scrollTimer.start();
     }
-
-
 }

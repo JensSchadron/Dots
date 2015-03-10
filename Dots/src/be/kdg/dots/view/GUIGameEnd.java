@@ -5,15 +5,12 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/**
- * Created by alexander on 7/03/2015.
- */
 public class GUIGameEnd extends GUIGlassPane {
 
     private ImageIcon imageWinner;
     private JLabel lblWinner, lblScore, lblLevel;
     private GUIHoofdMenu guiHoofdMenu;
-    private JPanel panel, panel2,panel3, panelLabels, panelButton;
+    private JPanel panel, panel2, panel3, panelLabels, panelButton;
     private JButton btnClose;
 
     public GUIGameEnd(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
@@ -31,7 +28,7 @@ public class GUIGameEnd extends GUIGlassPane {
         lblWinner.setIcon(imageWinner);
 
         lblScore = new JLabel("Proficiat, u hebt een score van " + Integer.toString(guiHoofdMenu.getController().getSpeler().getScore().getScore()));
-        lblLevel = new JLabel( "en level " + Integer.toString(guiHoofdMenu.getController().getSpeler().getLevel().getLevel()) + " behaald");
+        lblLevel = new JLabel("en level " + Integer.toString(guiHoofdMenu.getController().getSpeler().getLevel().getLevel()) + " behaald");
         lblScore.setFont(new Font("Serif", Font.PLAIN, 25));
         lblLevel.setFont(new Font("Serif", Font.PLAIN, 25));
 
@@ -49,7 +46,7 @@ public class GUIGameEnd extends GUIGlassPane {
         panel = new JPanel(new FlowLayout());
         panel2 = new JPanel(new FlowLayout());
         panel3 = new JPanel(new FlowLayout());
-        panelLabels = new JPanel(new GridLayout(3,1));
+        panelLabels = new JPanel(new GridLayout(3, 1));
         panelButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panel.setOpaque(false);
         panel2.setOpaque(false);
@@ -72,32 +69,6 @@ public class GUIGameEnd extends GUIGlassPane {
         add(panelButton, BorderLayout.NORTH);
     }
 
-    /*@Override
-    protected void paintComponent(Graphics gr) {
-        super.paintComponent(gr);
-        Graphics2D g = (Graphics2D) gr;
-
-        //create transparency
-        AlphaComposite transparent = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .9f);
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setComposite(transparent);
-
-        super.getContentPane().paint(gr);
-        g.setColor(Color.white);
-        g.fillRect(0, 0, getWidth(), getHeight());
-
-        AlphaComposite solid = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
-        g.setComposite(solid);
-        g.setColor(Color.black);
-        /*String txtWinner = "OVERWINNING";
-        AffineTransform affinetransform = new AffineTransform();
-        FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
-        Font font = new Font("TimesRoman", Font.PLAIN, 80);
-        g.setFont(font);
-        int textwidth = (int) (font.getStringBounds(txtWinner, frc).getWidth());
-        g.drawString(txtWinner, getWidth() / 2 - textwidth / 2, getHeight() / 2);
-    }*/
-
     private void MakeEventListener() {
         btnClose.addMouseListener(new MouseAdapter() {
             @Override
@@ -106,10 +77,5 @@ public class GUIGameEnd extends GUIGlassPane {
                 guiHoofdMenu.getGuiFrame().updateFrame("hoofdMenu");
             }
         });
-    }
-
-    public void eindigSpel() {
-        //guiHoofdMenu.getController().getHighscore().addHighScore(modus);
-        //guiHoofdMenu.getController().getGuiFrame().updateFrame("hoofdMenu");
     }
 }

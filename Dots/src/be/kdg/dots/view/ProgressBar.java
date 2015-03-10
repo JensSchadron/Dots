@@ -6,9 +6,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-/**
- * Created by alexander on 5/03/2015.
- */
 public class ProgressBar extends JPanel{
 
         private final int minValue, maxValue;

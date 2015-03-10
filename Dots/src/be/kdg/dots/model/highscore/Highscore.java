@@ -5,9 +5,6 @@ import be.kdg.dots.controller.SpelController;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-/**
- * Created by Jens on 10-2-2015.
- */
 public class Highscore {
     private SpelController controller;
     private HighScoreIO highScoreIO;
@@ -205,8 +202,6 @@ public class Highscore {
         }
         decodedHighScores.add(2, tmp.deleteCharAt(tmp.length() - 1).toString());
         tmp.delete(0, tmp.length());
-
-
         highScoreIO.saveHighScores(decodedHighScores);
     }
 }

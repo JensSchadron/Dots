@@ -1,15 +1,11 @@
 package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-/**
- * Created by alexander on 4/02/2015.
- */
 public class GUISpel extends JPanel {
     private GUIFrame guiFrame;
     private JPanel gamePanel, panelNorth, flowLayout;
@@ -139,10 +135,6 @@ public class GUISpel extends JPanel {
 
     public SpelController getController() {
         return controller;
-    }
-
-    public GUIGrid getGUIGrid(){
-        return gridGame;
     }
 
     public String getModus() {

@@ -2,12 +2,8 @@ package be.kdg.dots.model.settings;
 
 import be.kdg.dots.controller.SpelController;
 import be.kdg.dots.view.GUIAchievement;
-
 import java.awt.*;
 
-/**
- * Created by Jens on 23-2-2015.
- */
 public class Settings {
     private SpelController controller;
     private SettingsIO settingsIO;
@@ -43,7 +39,7 @@ public class Settings {
     }
 
     public String getAchievements() {
-        if(achievements==null){
+        if (achievements == null) {
             return "";
         }
         return achievements;
@@ -76,7 +72,6 @@ public class Settings {
             case "Rood domineert het spel!":
                 afkorting = "rod";
                 break;
-
             case "Geel is uitgeroeid!":
                 afkorting = "geu";
                 break;
@@ -93,8 +88,7 @@ public class Settings {
                 afkorting = "rou";
                 break;
         }
-        System.out.println(this.achievements);
-        if ((this.achievements == null || this.achievements.isEmpty())|| !this.achievements.contains(afkorting)) {
+        if ((this.achievements == null || this.achievements.isEmpty()) || !this.achievements.contains(afkorting)) {
             if (this.achievements == null) {
                 this.achievements = afkorting + ";";
             } else {
@@ -103,7 +97,6 @@ public class Settings {
             new GUIAchievement(achievements); //TODO: GUIAchievent aanroepen vanuit controller of uit view, niet rechtstreeks vanaf hier
             saveSettings();
         }
-
     }
 
     public int getColumn() {

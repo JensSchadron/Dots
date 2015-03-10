@@ -6,9 +6,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-/**
- * Created by alexander on 23/02/2015.
- */
 public class GUIHighScore extends GUIGlassPane {
     private JButton btnClose;
     private JTabbedPane tabbedPane;
@@ -92,7 +89,7 @@ public class GUIHighScore extends GUIGlassPane {
         });
 
         try {
-            Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/be/kdg/dots/resources/fonts/UbuntuMono-R.ttf").openStream());
+            Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/fonts/UbuntuMono-R.ttf").openStream());
             GraphicsEnvironment genv = GraphicsEnvironment.getLocalGraphicsEnvironment();
             genv.registerFont(font);
             font = font.deriveFont(15f);
@@ -105,28 +102,6 @@ public class GUIHighScore extends GUIGlassPane {
             e.printStackTrace();
         }
     }
-
-    /*@Override
-    public void paintComponent(Graphics gr) {
-        super.paintComponent(gr);
-        //tabbedPane.paintComponents(gr);
-        Graphics2D g = (Graphics2D) gr;
-
-        //create transparency
-        AlphaComposite transparent = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .9f);
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setComposite(transparent);
-
-        contentPane.paint(gr);
-        //tabbedPane.paint(gr);
-        g.setColor(Color.white);
-        g.fillRect(0, 0, getWidth(), getHeight());
-
-        /*AlphaComposite solid = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
-        g.setComposite(solid);
-        g.setColor(Color.black);
-        //g.drawString("Highscore", 50, 100);
-    }*/
 
     private void MakeEventListener() {
         btnClose.addMouseListener(new MouseAdapter() {
