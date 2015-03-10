@@ -44,19 +44,19 @@ public class GUIFrame extends JFrame {
     }
 
     public void updateFrame(String optie) {
-        Dimension minSize = new Dimension(getMinimumSize());
-        Dimension prefSize = new Dimension(getPreferredSize());
         switch (optie) {
             case "hoofdMenu":
                 cl.show(this.getContentPane(), "hoofdMenu");
-                minSize = new Dimension(500, 500);
-                prefSize = new Dimension(500, 500);
+                setMinimumSize(new Dimension(500, 500));
+                setPreferredSize(new Dimension(500, 500));
+                setLocationRelativeTo(null);
                 break;
             case "startSpel":
                 cl.show(this.getContentPane(), "startSpel");
                 int width = (80 * guiHoofdMenu.getController().getSettings().getColumn()<MIN_GAME_WIDTH)?MIN_GAME_WIDTH:80 * guiHoofdMenu.getController().getSettings().getColumn();
-                minSize = new Dimension(width, 150 + 70 * guiHoofdMenu.getController().getSettings().getRow());
-                prefSize = new Dimension(width, 150 + 70 * guiHoofdMenu.getController().getSettings().getRow());
+                setMinimumSize(new Dimension(width, 150 + 70 * guiHoofdMenu.getController().getSettings().getRow()));
+                setPreferredSize(new Dimension(width, 150 + 70 * guiHoofdMenu.getController().getSettings().getRow()));
+                setLocationRelativeTo(null);
                 break;
             case "pauzePanel":
                 setGlassPane(new GUIPauzePane(getContentPane(), guiHoofdMenu));
@@ -91,8 +91,5 @@ public class GUIFrame extends JFrame {
                 getGlassPane().setVisible(true);
                 break;*/
         }
-        setLocationRelativeTo(null);
-        setMinimumSize(minSize);
-        setPreferredSize(prefSize);
     }
 }
