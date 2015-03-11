@@ -13,7 +13,7 @@ public class GUIFrame extends JFrame {
     public GUIFrame(final GUIHoofdMenu guiHoofdMenu) throws HeadlessException {
         super("Dots");
         super.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        Image iconLoading = new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/dots-logo.png")).getImage();
+        Image iconLoading = new ImageIcon(getClass().getResource("/images/dots-logo.png")).getImage();
         super.setIconImage(iconLoading);
         cl = new CardLayout();
         setLayout(cl);

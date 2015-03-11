@@ -229,13 +229,13 @@ public class Veld {
         @Override
         public void run() {
             if (controller.getSettings().isHintsEnabled()) {
-                long begin = System.nanoTime();
+                //long begin = System.nanoTime();
                 //System.out.println("Debug info - Calculating started...");
                 calculateBestMove();
-                //System.out.println("Debug info - Calculating stopped...");
-                //System.out.println("Debug info - Time taken: " + (double) (System.nanoTime() - begin) / 1000000000 + " sec");
+                /*System.out.println("Debug info - Calculating stopped...");
+                System.out.println("Debug info - Time taken: " + (double) (System.nanoTime() - begin) / 1000000000 + " sec");
             } else {
-                //System.out.println("Hints zijn uitgeschakeld");
+                System.out.println("Hints zijn uitgeschakeld");*/
             }
         }
     }
@@ -354,10 +354,10 @@ public class Veld {
         }
 
         Collections.sort(indexMap);
-        //System.out.println("Debug info - Niet geoptimaliseerde index lijst");
-        /*for (KleurDotIndexPair anIndexMap : indexMap) {
+        System.out.println("Debug info - Niet geoptimaliseerde index lijst");
+        for (KleurDotIndexPair anIndexMap : indexMap) {
             System.out.println("Kleur: " + anIndexMap.getKleur() + ", Mogelijke startpunten: " + anIndexMap.getDotsMet1Combinatie() + ", dots die verbonden kunnen worden: " + anIndexMap.getDotIndexes());
-        }*/
+        }
 
         //Algoritme versnellen door dots met maar één combinatie vooraan te plaatsen.
         for (int i = 0; i < indexMap.size(); i++) {
@@ -371,10 +371,10 @@ public class Veld {
             }
         }
 
-        //System.out.println("Debug info - Geoptimaliseerde index lijst");
-        /*for (KleurDotIndexPair anIndexMap : indexMap) {
+        System.out.println("Debug info - Geoptimaliseerde index lijst");
+        for (KleurDotIndexPair anIndexMap : indexMap) {
             System.out.println("Kleur: " + anIndexMap.getKleur() + ", Mogelijke startpunten: " + anIndexMap.getDotsMet1Combinatie() + ", dots die verbonden kunnen worden: " + anIndexMap.getDotIndexes());
-        }*/
+        }
 
         outerForLoop:
         for (int i = 0; i < indexMap.size(); i++) {

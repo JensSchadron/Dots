@@ -9,7 +9,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+
 
 /**
  * Created by jens & alexander on 4/02/2015.
@@ -23,6 +23,7 @@ public class GUIHoofdMenu extends JPanel {
     private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblBanner, lblHighscore;
     private ImageIcon iconTimed, iconEndless, iconMove, iconHighscore, iconBanner;
     private JButton btnSettings, btnAbout, btnHelp;
+    private boolean minSize = true;
 
     public GUIFrame getGuiFrame() {
         return guiFrame;
@@ -37,6 +38,7 @@ public class GUIHoofdMenu extends JPanel {
     }
 
     public GUIHoofdMenu(SpelController controller) throws HeadlessException {
+        setLayout(new GridBagLayout());
         setOpaque(true);
         setBackground(Color.white);
         this.controller = controller;
@@ -45,14 +47,16 @@ public class GUIHoofdMenu extends JPanel {
         splashScreen = new SplashScreen(this);
         guiFrame.getContentPane().add("hoofdMenu", this);
 
-        MakeComponents();
-        MakeLayout();
+
+
+        makeComponents();
+        makeLayout();
         MakeEventListener();
     }
 
-    private void MakeComponents() {
-        btnSettings = new JButton("Settings");
-        btnAbout = new JButton("About");
+    private void makeComponents() {
+        btnSettings = new JButton("Instellingen");
+        btnAbout = new JButton("Over");
         btnHelp = new JButton("Help");
 
         iconTimed = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-groen.png")).getImage(), 120, 120));
@@ -81,6 +85,7 @@ public class GUIHoofdMenu extends JPanel {
 
     }
 
+
     private Image getScaledImage(Image srcImg, int w, int h) {
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
         Graphics2D g2 = resizedImg.createGraphics();
@@ -91,8 +96,8 @@ public class GUIHoofdMenu extends JPanel {
         return resizedImg;
     }
 
-    private void MakeLayout() {
-        main = new JPanel(new BorderLayout());
+    private void makeLayout() {
+        main = new JPanel(new BorderLayout(0,5));
         gameMode = new JPanel(new GridLayout(2, 2, 10, 10));
         southPanel = new JPanel(new GridLayout(1, 4));
         loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
@@ -183,7 +188,25 @@ public class GUIHoofdMenu extends JPanel {
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                super.componentResized(e);
+                //super.componentResized(e);
+                if(minSize){
+                    setMinimumSize(guiFrame.getContentPane().getSize());
+                    //System.out.println("GuiHoofdMenu: " + getMinimumSize());
+                    minSize = false;
+                }
+
+                double widthMultiplier = GUIHoofdMenu.this.getSize().getWidth() / GUIHoofdMenu.this.getMinimumSize().getWidth();
+                double heightMultiplier = GUIHoofdMenu.this.getSize().getHeight() / GUIHoofdMenu.this.getMinimumSize().getHeight();
+
+                int width = (int)(400 * ((widthMultiplier<heightMultiplier)? widthMultiplier : heightMultiplier));
+                int height = (int)(150 * ((widthMultiplier<heightMultiplier)? widthMultiplier : heightMultiplier));
+                GUIHoofdMenu.this.lblBanner.setIcon(new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/logo-dots.png")).getImage(), width, height)));
+
+                int afmeting = (int)(120 * ((widthMultiplier<heightMultiplier)? widthMultiplier : heightMultiplier));
+                lblTimeMode.setIcon(new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-groen.png")).getImage(), afmeting, afmeting)));
+                lblMoveMode.setIcon(new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-roos.png")).getImage(), afmeting, afmeting)));
+                lblEndlessMode.setIcon(new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-paars.png")).getImage(), afmeting, afmeting)));
+                lblHighscore.setIcon(new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-blauw.png")).getImage(), afmeting, afmeting)));
             }
         });
     }

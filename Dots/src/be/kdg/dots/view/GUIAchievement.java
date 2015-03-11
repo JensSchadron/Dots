@@ -14,7 +14,7 @@ public class GUIAchievement extends JWindow {
     public GUIAchievement(String achievement) {
         maxBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
         setSize(ACHIEVEMENT_WINDOW_WIDTH, 0);
-        System.out.println(getLocation());
+        //System.out.println(getLocation());
         setLayout(new BorderLayout());
         setBackground(new Color(0.5f, 0.5f, 0.5f, 0.7f));
         setAlwaysOnTop(true);
