@@ -1,5 +1,8 @@
 package be.kdg.dots.view;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 
 public class DotUI extends Ellipse2D.Double {
@@ -10,12 +13,28 @@ public class DotUI extends Ellipse2D.Double {
     private double x;
     private double y;
     private double diameter;
+    private int yVallen;
+    private int hoeveelDotsZakken;
+    private Timer valTimer;
 
     public DotUI(double x, double y) {
         super(x, y, MIN_DIAMETER, MIN_DIAMETER);
         this.x = x;
         this.y = y;
         this.diameter = MIN_DIAMETER;
+        this.yVallen = 0;
+        this.hoeveelDotsZakken = 0;
+        this.valTimer = new Timer(50, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isMaximized();
+                if (yVallen > hoeveelDotsZakken * (MAX_DIAMETER + AFSTAND_TUSSEN_DOTS) - 10) {
+                    ((Timer) e.getSource()).stop();
+                }
+                updateXY(getX(), getY() + 10);
+                yVallen += 10;
+            }
+        });
     }
 
     public void toggleDiameter() {
@@ -61,6 +80,20 @@ public class DotUI extends Ellipse2D.Double {
 
     public static double getAfstandTussenDots() {
         return AFSTAND_TUSSEN_DOTS;
+    }
+
+    public void isMaximized(){
+        if (diameter == MAX_DIAMETER) {
+            toggleDiameter();
+        }
+    }
+
+    public void setHoeveelDotsZakken(int hoeveelDotsZakken) {
+        this.hoeveelDotsZakken = hoeveelDotsZakken;
+    }
+
+    public void setVallen() {
+        this.valTimer.start();
     }
 
 }

@@ -26,7 +26,7 @@ public class GUIAboutPane extends GUIGlassPane {
 
     private void MakeComponents() {
         String info = "";
-        ArrayList<String> infoArray = new ArrayList<>();
+        ArrayList<String> infoArray;
         try {
             infoArray = new ArrayList<>(Files.readAllLines(Paths.get(getClass().getResource("/text/about.txt").toURI())));
         } catch (IOException | URISyntaxException e) {

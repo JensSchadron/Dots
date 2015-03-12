@@ -191,7 +191,6 @@ public class GUIHoofdMenu extends JPanel {
                 //super.componentResized(e);
                 if(minSize){
                     setMinimumSize(guiFrame.getContentPane().getSize());
-                    //System.out.println("GuiHoofdMenu: " + getMinimumSize());
                     minSize = false;
                 }
 

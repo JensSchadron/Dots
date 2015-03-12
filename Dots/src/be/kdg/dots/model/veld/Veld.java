@@ -1,6 +1,7 @@
 package be.kdg.dots.model.veld;
 
 import be.kdg.dots.controller.SpelController;
+import be.kdg.dots.view.DotUI;
 
 import java.util.*;
 
@@ -129,10 +130,15 @@ public class Veld {
             controller.getSpeler().getScore().berekenScore(connectedDots);
             for (int i = this.row * this.column - 1; i > -1; i--) {
                 Dot dotOrNull = rooster.get(i);
+                DotUI dotUI = null;
                 if (dotOrNull == null) {
-                    for (int j = i; j >= 0 && dotOrNull == null; j -= this.column) {
+                    controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().set(i, null);
+                    for (int j = i; j >= 0 && dotOrNull == null; j -= this.row) {
                         if (rooster.get(j) != null) {
                             dotOrNull = rooster.get(j);
+                            controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().get(j).setHoeveelDotsZakken((i - j) / this.row);
+                            dotUI = controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().get(j);
+                            controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().set(j, null);
                             rooster.set(j, null);
                         }
                     }
@@ -140,6 +146,10 @@ public class Veld {
                         dotOrNull = new Dot();
                     }
                     rooster.set(i, dotOrNull);
+                    controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().set(i, dotUI);
+                    if (controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().get(i) != null) {
+                        controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().get(i).setVallen();
+                    }
                 }
             }
             controller.getGuiHoofdMenu().getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
@@ -354,10 +364,10 @@ public class Veld {
         }
 
         Collections.sort(indexMap);
-        System.out.println("Debug info - Niet geoptimaliseerde index lijst");
+        /*System.out.println("Debug info - Niet geoptimaliseerde index lijst");
         for (KleurDotIndexPair anIndexMap : indexMap) {
             System.out.println("Kleur: " + anIndexMap.getKleur() + ", Mogelijke startpunten: " + anIndexMap.getDotsMet1Combinatie() + ", dots die verbonden kunnen worden: " + anIndexMap.getDotIndexes());
-        }
+        }*/
 
         //Algoritme versnellen door dots met maar één combinatie vooraan te plaatsen.
         for (int i = 0; i < indexMap.size(); i++) {
@@ -371,10 +381,10 @@ public class Veld {
             }
         }
 
-        System.out.println("Debug info - Geoptimaliseerde index lijst");
+        /*System.out.println("Debug info - Geoptimaliseerde index lijst");
         for (KleurDotIndexPair anIndexMap : indexMap) {
             System.out.println("Kleur: " + anIndexMap.getKleur() + ", Mogelijke startpunten: " + anIndexMap.getDotsMet1Combinatie() + ", dots die verbonden kunnen worden: " + anIndexMap.getDotIndexes());
-        }
+        }*/
 
         outerForLoop:
         for (int i = 0; i < indexMap.size(); i++) {

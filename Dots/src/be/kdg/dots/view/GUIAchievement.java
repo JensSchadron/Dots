@@ -22,7 +22,7 @@ public class GUIAchievement extends JWindow {
         JLabel tekst = new JLabel();
         tekst.setText("<html><font size =+1><b>Achievement get!</b></font><br><font>" + achievement + "</font></html>");
 
-        tekst.setIcon(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/Achievement_icon.png")));
+        tekst.setIcon(new ImageIcon(getClass().getResource("/images/Achievement_icon.png")));
         tekst.setHorizontalTextPosition(SwingConstants.RIGHT);
         tekst.setOpaque(false);
 

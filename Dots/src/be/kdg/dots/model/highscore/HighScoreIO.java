@@ -44,7 +44,7 @@ public class HighScoreIO {
             decodedHighScores.add("");
         }
         if (Files.exists(filePath)) {
-            List<String> encodedHighScores = new ArrayList<>();
+            List<String> encodedHighScores;
             try {
                 encodedHighScores = Files.readAllLines(filePath);
             } catch (IOException e) {
@@ -73,7 +73,6 @@ public class HighScoreIO {
         try {
             decodedString = new String(Base64.getDecoder().decode(encodedHighScores));
         } catch (IllegalArgumentException e) {
-            decodedString = "You tried to cheat, you little bastard!";
             throw new DotsException("Er is iets foutgelopen bij het decoderen van de highscore bestand.");
         }
         return decodedString;
