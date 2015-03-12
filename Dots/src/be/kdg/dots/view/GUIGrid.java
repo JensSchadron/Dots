@@ -54,9 +54,14 @@ public class GUIGrid extends JPanel {
         makeComponents(guiSpel.getController().getVeld());
         makeEventListener();
 
-        new Timer(100, new ActionListener() {
+        new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i < dotUI.size(); i++) {
+                    if(dotUI.get(i) != null && dotUI.get(i).moetVallen()){
+                        dotUI.get(i).vallen();
+                    }
+                }
                 repaint();
             }
         }).start();
@@ -102,7 +107,7 @@ public class GUIGrid extends JPanel {
             }
             DotKleur dotKleur = guiSpel.getController().getVeld().getVeld().get(i).getDotKleur();
             g2d.setColor(new Color(dotKleur.getRood(), dotKleur.getGroen(), dotKleur.getBlauw()));
-            System.out.println("#" + i +" X: " + dot.getX() + ", Y: " + dot.getY());
+            //System.out.println("#" + i +" X: " + dot.getX() + ", Y: " + dot.getY());
             g2d.fill(dot);
         }
 

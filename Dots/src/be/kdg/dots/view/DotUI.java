@@ -15,7 +15,8 @@ public class DotUI extends Ellipse2D.Double {
     private double diameter;
     private int yVallen;
     private int hoeveelDotsZakken;
-    private Timer valTimer;
+    private boolean moetVallen;
+    //private Timer valTimer;
 
     public DotUI(double x, double y) {
         super(x, y, MIN_DIAMETER, MIN_DIAMETER);
@@ -24,17 +25,19 @@ public class DotUI extends Ellipse2D.Double {
         this.diameter = MIN_DIAMETER;
         this.yVallen = 0;
         this.hoeveelDotsZakken = 0;
-        this.valTimer = new Timer(50, new ActionListener() {
+        this.moetVallen = false;
+        /*this.valTimer = new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 isMaximized();
-                if (yVallen > hoeveelDotsZakken * (MAX_DIAMETER + AFSTAND_TUSSEN_DOTS) - 10) {
+                if (yVallen >= hoeveelDotsZakken * (MAX_DIAMETER + AFSTAND_TUSSEN_DOTS) - 10) {
+                    hoeveelDotsZakken = 0;
                     ((Timer) e.getSource()).stop();
                 }
                 updateXY(getX(), getY() + 10);
                 yVallen += 10;
             }
-        });
+        });*/
     }
 
     public void toggleDiameter() {
@@ -88,12 +91,29 @@ public class DotUI extends Ellipse2D.Double {
         }
     }
 
+    public void vallen(){
+        isMaximized();
+        updateXY(getX(), getY() + 10);
+        yVallen += 10;
+
+        if (yVallen >= hoeveelDotsZakken * (MAX_DIAMETER + AFSTAND_TUSSEN_DOTS)) {
+            moetVallen = false;
+            yVallen = 0;
+            hoeveelDotsZakken = 0;
+            return;
+        }
+    }
+
     public void setHoeveelDotsZakken(int hoeveelDotsZakken) {
         this.hoeveelDotsZakken = hoeveelDotsZakken;
     }
 
     public void setVallen() {
-        this.valTimer.start();
+        this.moetVallen = true;
+    }
+
+    public boolean moetVallen(){
+        return moetVallen;
     }
 
 }

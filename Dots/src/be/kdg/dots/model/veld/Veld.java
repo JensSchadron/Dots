@@ -126,13 +126,15 @@ public class Veld {
             controller.getSpel().decrementMoves();
             for (Integer connectedDot : connectedDots) {
                 rooster.set(connectedDot.intValue(), null);
+                controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().set(connectedDot.intValue(), null);
             }
+
             controller.getSpeler().getScore().berekenScore(connectedDots);
             for (int i = this.row * this.column - 1; i > -1; i--) {
                 Dot dotOrNull = rooster.get(i);
                 DotUI dotUI = null;
                 if (dotOrNull == null) {
-                    controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().set(i, null);
+
                     for (int j = i; j >= 0 && dotOrNull == null; j -= this.row) {
                         if (rooster.get(j) != null) {
                             dotOrNull = rooster.get(j);
