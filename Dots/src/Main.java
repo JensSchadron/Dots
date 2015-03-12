@@ -28,5 +28,5 @@ class Main {
         }
         new SpelController();
     }
-    //TODO: Help, instellingen (checkbox voor algoritme + slider voor tijd), (uitbreidingen: achievements), check voor gameOver, hint tonen na x aantal seconden
+    //TODO: scherm voor gameover, tonen van message dialog als exceptions/errors optreden
 }

@@ -102,22 +102,14 @@ public class GUIGrid extends JPanel {
                 if (tmpDotUI.getHeight() == DotUI.getMaxDiameter()) {
                     tmpDotUI.isMaximized();
                 }
-                double y = tmpDotUI.getY() - ((tmpDotUI.getHoeveelDotsZakken()==0)? 2 : 1)*(DotUI.getMaxDiameter() + DotUI.getAfstandTussenDots());
-                /*if(tmpDotUI.getHoeveelDotsZakken()==0){
-                    y = tmpDotUI.getY() - 2*(DotUI.getMaxDiameter() - DotUI.getAfstandTussenDots());
-                } else {
-                    y = tmpDotUI.getY() - DotUI.getMaxDiameter() - DotUI.getAfstandTussenDots();
-                }*/
+                double y = tmpDotUI.getY() - ((tmpDotUI.getHoeveelDotsZakken() == 0) ? 2 : 1) * (DotUI.getMaxDiameter() + DotUI.getAfstandTussenDots());
                 dotUI.set(i, new DotUI(tmpDotUI.getX(), y));
-                if(tmpDotUI.getHoeveelDotsZakken()==0){
+                if (tmpDotUI.getHoeveelDotsZakken() == 0) {
                     dotUI.get(i).setHoeveelDotsZakken(1);
                 } else {
                     dotUI.get(i).setHoeveelDotsZakken(tmpDotUI.getHoeveelDotsZakken());
                 }
-                //if (dotUI.get(i).getHoeveelDotsZakken() != 0) {
-                    dotUI.get(i).setVallen();
-                //}
-
+                dotUI.get(i).setVallen();
             }
         }
 
@@ -208,7 +200,6 @@ public class GUIGrid extends JPanel {
                             for (DotUI aDotUI : dotUI) {
                                 aDotUI.isMaximized();
                             }
-                            //dotUI.get(dotIndex).toggleDiameter();
                         }
                         dotIndex = -1;
                         dotIndexAmount = 0;
