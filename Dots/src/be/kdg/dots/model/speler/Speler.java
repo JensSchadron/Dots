@@ -3,10 +3,10 @@ package be.kdg.dots.model.speler;
 import be.kdg.dots.controller.SpelController;
 
 public class Speler {
-    private SpelController controller;
+    private final SpelController controller;
     private String username = "";
-    private Score score;
-    private Level level;
+    private final Score score;
+    private final Level level;
 
 
     public Speler(SpelController controller, String username) {

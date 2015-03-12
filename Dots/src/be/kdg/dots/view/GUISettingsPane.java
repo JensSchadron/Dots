@@ -12,11 +12,11 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 import java.util.Hashtable;
 
-public class GUISettingsPane extends GUIGlassPane {
+class GUISettingsPane extends GUIGlassPane {
     private JButton btnSave, btnResetHighscore, btnResetUsername;
     private JTextArea txtName, txtTestColor;
     private JPanel centerPanel, gridPanel, panelSouth, hintPanel;
-    private GUIHoofdMenu guiHoofdMenu;
+    private final GUIHoofdMenu guiHoofdMenu;
     private JSlider sliderColor, sliderVeld, sliderHintVertraging;
     private SliderUI sliderUI;
     private JCheckBox hintCheckBox;

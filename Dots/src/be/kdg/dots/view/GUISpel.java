@@ -7,13 +7,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class GUISpel extends JPanel {
-    private GUIFrame guiFrame;
-    private JPanel gamePanel, panelNorth, flowLayout;
+    private final GUIFrame guiFrame;
     private GUIGrid gridGame;
     private JLabel lblLevel, lblScore, lblTimeOrMoves, lblPauze, lblHome;
-    private SpelController controller;
-    private ImageIcon iconLevel, iconScore, iconTimeOrMoves, iconPauze, iconHome;
-    private String modus;
+    private final SpelController controller;
+    private final String modus;
 
     public GUISpel(SpelController controller, GUIFrame guiFrame, String modus) throws HeadlessException {
         super.setLayout(new BorderLayout());
@@ -30,16 +28,17 @@ public class GUISpel extends JPanel {
     private void MakeComponents() {
         gridGame = new GUIGrid(this);
 
-        iconLevel = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelInfo/imgLevel.png")), 20, 20));
+        ImageIcon iconLevel = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelInfo/imgLevel.png")), 20, 20));
         lblLevel = new JLabel("Level:");
         lblLevel.setIcon(iconLevel);
         lblLevel.setForeground(new Color(0, 150, 75));
 
-        iconScore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelInfo/imgScore.png")), 20, 20));
+        ImageIcon iconScore = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelInfo/imgScore.png")), 20, 20));
         lblScore = new JLabel("Score:");
         lblScore.setIcon(iconScore);
         lblScore.setForeground(Color.blue);
 
+        ImageIcon iconTimeOrMoves;
         if (!modus.equals("Move")) {
             iconTimeOrMoves = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelInfo/imgTime.png")), 20, 20));
             lblTimeOrMoves = new JLabel("Time: ");
@@ -52,26 +51,26 @@ public class GUISpel extends JPanel {
             lblTimeOrMoves.setForeground(Color.red);
         }
 
-        iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelMenu/btnPauze.png")), 50, 50));
+        ImageIcon iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelMenu/btnPauze.png")), 50, 50));
         lblPauze = new JLabel("");
         lblPauze.setName("pauze");
         lblPauze.setIcon(iconPauze);
 
-        iconHome = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelMenu/btnHome.png")), 250, 50));
+        ImageIcon iconHome = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelMenu/btnHome.png")), 250, 50));
         lblHome = new JLabel("");
         lblHome.setIcon(iconHome);
     }
 
-    public static Image resize(ImageIcon imageIcon, int width, int height) {
+    private static Image resize(ImageIcon imageIcon, int width, int height) {
         Image image = imageIcon.getImage();
         image = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
         return image;
     }
 
     private void MakeLayout() {
-        gamePanel = new JPanel(new BorderLayout());
-        flowLayout = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 10));
-        panelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
+        JPanel gamePanel = new JPanel(new BorderLayout());
+        JPanel flowLayout = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 10));
+        JPanel panelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
         gamePanel.setBackground(Color.white);
         gridGame.setBackground(Color.white);
         panelNorth.setBackground(Color.white);
@@ -99,7 +98,6 @@ public class GUISpel extends JPanel {
         lblHome.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - Mouse release detected on Home button");
                 eindigSpel();
             }
         });

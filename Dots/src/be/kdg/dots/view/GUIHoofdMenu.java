@@ -10,18 +10,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-
-/**
- * Created by jens & alexander on 4/02/2015.
- */
 public class GUIHoofdMenu extends JPanel {
-    private final SplashScreen splashScreen;
-    private SpelController controller;
-    private GUIFrame guiFrame;
+    private final SpelController controller;
+    private final GUIFrame guiFrame;
     private GUISpel guiSpel;
-    private JPanel main, gameMode, southPanel, loginPanel;
     private JLabel lblTimeMode, lblEndlessMode, lblMoveMode, lblBanner, lblHighscore;
-    private ImageIcon iconTimed, iconEndless, iconMove, iconHighscore, iconBanner;
     private JButton btnSettings, btnAbout, btnHelp;
     private boolean minSize = true;
 
@@ -44,10 +37,8 @@ public class GUIHoofdMenu extends JPanel {
         this.controller = controller;
 
         guiFrame = new GUIFrame(this);
-        splashScreen = new SplashScreen(this);
+        new SplashScreen(this);
         guiFrame.getContentPane().add("hoofdMenu", this);
-
-
 
         makeComponents();
         makeLayout();
@@ -59,23 +50,23 @@ public class GUIHoofdMenu extends JPanel {
         btnAbout = new JButton("Over");
         btnHelp = new JButton("Help");
 
-        iconTimed = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-groen.png")).getImage(), 120, 120));
+        ImageIcon iconTimed = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-groen.png")).getImage(), 120, 120));
         lblTimeMode = new JLabel("", JLabel.RIGHT);
         lblTimeMode.setIcon(iconTimed);
 
-        iconEndless = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-paars.png")).getImage(), 120, 120));
+        ImageIcon iconEndless = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-paars.png")).getImage(), 120, 120));
         lblEndlessMode = new JLabel("", JLabel.RIGHT);
         lblEndlessMode.setIcon(iconEndless);
 
-        iconMove = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-roos.png")).getImage(), 120, 120));
+        ImageIcon iconMove = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-roos.png")).getImage(), 120, 120));
         lblMoveMode = new JLabel("", JLabel.LEFT);
         lblMoveMode.setIcon(iconMove);
 
-        iconHighscore = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-blauw.png")).getImage(), 120, 120));
+        ImageIcon iconHighscore = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/knop-blauw.png")).getImage(), 120, 120));
         lblHighscore = new JLabel("", JLabel.LEFT);
         lblHighscore.setIcon(iconHighscore);
 
-        iconBanner = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/logo-dots.png")).getImage(), 400, 150));
+        ImageIcon iconBanner = new ImageIcon(getScaledImage(new ImageIcon(getClass().getResource("/images/hoofdmenu/logo-dots.png")).getImage(), 400, 150));
         lblBanner = new JLabel("", JLabel.CENTER);
         lblBanner.setIcon(iconBanner);
 
@@ -97,14 +88,15 @@ public class GUIHoofdMenu extends JPanel {
     }
 
     private void makeLayout() {
-        main = new JPanel(new BorderLayout(0,5));
-        gameMode = new JPanel(new GridLayout(2, 2, 10, 10));
-        southPanel = new JPanel(new GridLayout(1, 4));
-        loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
+        JPanel main = new JPanel(new BorderLayout(0, 5));
+        JPanel gameMode = new JPanel(new GridLayout(2, 2, 10, 10));
+        JPanel southPanel = new JPanel(new GridLayout(1, 3, 10, 10));
+        JPanel loginPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
         gameMode.setSize(50, 50);
         main.setOpaque(false);
         gameMode.setOpaque(false);
         loginPanel.setOpaque(false);
+        southPanel.setOpaque(false);
         gameMode.add(lblTimeMode);
         gameMode.add(lblMoveMode);
         gameMode.add(lblEndlessMode);
@@ -210,7 +202,7 @@ public class GUIHoofdMenu extends JPanel {
         });
     }
 
-    public void checkSpeler() {
+    void checkSpeler() {
         if (controller.getSpeler().getUsername() == null) {
             String userName;
             do {

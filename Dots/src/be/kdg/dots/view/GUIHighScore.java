@@ -1,16 +1,18 @@
 package be.kdg.dots.view;
 
+import be.kdg.dots.model.exception.DotsException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-public class GUIHighScore extends GUIGlassPane {
+class GUIHighScore extends GUIGlassPane {
     private JButton btnClose;
     private JTabbedPane tabbedPane;
     private JTextArea txtTime, txtInfinity, txtMove;
-    private GUIHoofdMenu guiHoofdMenu;
+    private final GUIHoofdMenu guiHoofdMenu;
 
     public GUIHighScore(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         super(contentPane);
@@ -99,7 +101,7 @@ public class GUIHighScore extends GUIGlassPane {
             txtMove.setFont(font);
             btnClose.setFont(font);
         } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
+            throw new DotsException("Fout bij het laden van het lettertype UbuntuMono.");
         }
     }
 
@@ -110,6 +112,5 @@ public class GUIHighScore extends GUIGlassPane {
                 setVisible(false);
             }
         });
-
     }
 }

@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Spel {
-    private SpelController controller;
+    private final SpelController controller;
     private Timer timer;
     //Timer attributen
     private static final int MAX_AANTAL_SECONDEN = 45;

@@ -14,15 +14,15 @@ public class GUIGrid extends JPanel {
     private int dotIndexAmount;
 
     //Variabelen nodig om een lijn te tekenen tussen dots
-    private ArrayList<LijnUI> lijnUI;
+    private final ArrayList<LijnUI> lijnUI;
     private Color dotKleur;
 
-    private ArrayList<LijnUI> hintUI;
+    private final ArrayList<LijnUI> hintUI;
 
     private ArrayList<DotUI> dotUI;
     private double widthForDots;
     private double heightForDots;
-    private GUISpel guiSpel;
+    private final GUISpel guiSpel;
 
     private Timer hintTimer;
     private boolean toonHints = false;
@@ -57,9 +57,9 @@ public class GUIGrid extends JPanel {
         new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < dotUI.size(); i++) {
-                    if(dotUI.get(i) != null && dotUI.get(i).moetVallen()){
-                        dotUI.get(i).vallen();
+                for (DotUI aDotUI : dotUI) {
+                    if (aDotUI != null && aDotUI.moetVallen()) {
+                        aDotUI.vallen();
                     }
                 }
                 repaint();
@@ -67,7 +67,7 @@ public class GUIGrid extends JPanel {
         }).start();
     }
 
-    protected void makeComponents(Veld veld) {
+    void makeComponents(Veld veld) {
         dotUI = new ArrayList<>(guiSpel.getController().getVeld().getColumn() * guiSpel.getController().getVeld().getRow());
 
         widthForDots = (this.getWidth() - (DotUI.getAfstandTussenDots() * (guiSpel.getController().getVeld().getColumn() - 1) + DotUI.getMaxDiameter() * guiSpel.getController().getVeld().getColumn())) / 2;
@@ -118,7 +118,7 @@ public class GUIGrid extends JPanel {
         }
     }
 
-    public void reloadHintUI() {
+    void reloadHintUI() {
         hintUI.clear();
         ArrayList<Integer> dotIndexHints = guiSpel.getController().getVeld().getBesteMove();
         for (int i = 0; i < dotIndexHints.size() - 1; i++) {

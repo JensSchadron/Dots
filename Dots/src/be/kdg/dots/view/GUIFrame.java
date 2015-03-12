@@ -6,9 +6,9 @@ import java.awt.event.*;
 
 public class GUIFrame extends JFrame {
     private static final int MIN_GAME_WIDTH = 450;
-    private CardLayout cl;
-    private GUIHoofdMenu guiHoofdMenu;
-    private JPanel panelClosing;
+    private final CardLayout cl;
+    private final GUIHoofdMenu guiHoofdMenu;
+    private final JPanel panelClosing;
 
     public GUIFrame(final GUIHoofdMenu guiHoofdMenu) throws HeadlessException {
         super("Dots");

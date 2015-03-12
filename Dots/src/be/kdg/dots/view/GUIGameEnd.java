@@ -5,12 +5,10 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class GUIGameEnd extends GUIGlassPane {
+class GUIGameEnd extends GUIGlassPane {
 
-    private ImageIcon imageWinner;
     private JLabel lblWinner, lblScore, lblLevel;
-    private GUIHoofdMenu guiHoofdMenu;
-    private JPanel panel, panel2, panel3, panelLabels, panelButton;
+    private final GUIHoofdMenu guiHoofdMenu;
     private JButton btnClose;
 
     public GUIGameEnd(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
@@ -23,7 +21,7 @@ public class GUIGameEnd extends GUIGlassPane {
     }
 
     private void makeComponents() {
-        imageWinner = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/Winner.png")), 300, 150));
+        ImageIcon imageWinner = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/Winner.png")), 300, 150));
         lblWinner = new JLabel("");
         lblWinner.setIcon(imageWinner);
 
@@ -35,19 +33,19 @@ public class GUIGameEnd extends GUIGlassPane {
         btnClose = new JButton("Close");
     }
 
-    public static Image resize(ImageIcon imageIcon, int width, int height) {
+    private static Image resize(ImageIcon imageIcon, int width, int height) {
         Image image = imageIcon.getImage();
         image = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
         return image;
     }
 
 
-    public void makeLayout() {
-        panel = new JPanel(new FlowLayout());
-        panel2 = new JPanel(new FlowLayout());
-        panel3 = new JPanel(new FlowLayout());
-        panelLabels = new JPanel(new GridLayout(3, 1));
-        panelButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    void makeLayout() {
+        JPanel panel = new JPanel(new FlowLayout());
+        JPanel panel2 = new JPanel(new FlowLayout());
+        JPanel panel3 = new JPanel(new FlowLayout());
+        JPanel panelLabels = new JPanel(new GridLayout(3, 1));
+        JPanel panelButton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panel.setOpaque(false);
         panel2.setOpaque(false);
         panel3.setOpaque(false);

@@ -3,7 +3,7 @@ package be.kdg.dots.model.speler;
 import java.util.ArrayList;
 
 public class Score {
-    private Speler speler;
+    private final Speler speler;
     private int score=0;
     private int scoreDoel=0;
 
@@ -22,7 +22,7 @@ public class Score {
         //System.out.println("Debug info - Score: " + score);
     }
 
-    public void setScoreDoel(int level) {
+    void setScoreDoel(int level) {
         scoreDoel = 100 * level;
     }
 

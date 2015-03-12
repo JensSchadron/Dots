@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-public class HighScoreIO {
+class HighScoreIO {
     private Path filePath;
 
-    protected HighScoreIO() {
+    HighScoreIO() {
         try {
             this.filePath = Paths.get(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().toString(), "highscores.txt");
         } catch (URISyntaxException e) {
@@ -26,7 +26,7 @@ public class HighScoreIO {
         loadHighScores();
     }
 
-    protected void saveHighScores(ArrayList<String> decodedHighScores) {
+    void saveHighScores(ArrayList<String> decodedHighScores) {
         ArrayList<String> encodedHighScores = new ArrayList<>();
         for (int i = 0; i < decodedHighScores.size(); i++) {
             encodedHighScores.add(i, encodeHighScore(decodedHighScores.get(i)));
@@ -38,7 +38,7 @@ public class HighScoreIO {
         }
     }
 
-    protected ArrayList<String> loadHighScores() {
+    ArrayList<String> loadHighScores() {
         ArrayList<String> decodedHighScores = new ArrayList<>(3);
         for (int i = 0; i < 3; i++) {
             decodedHighScores.add("");

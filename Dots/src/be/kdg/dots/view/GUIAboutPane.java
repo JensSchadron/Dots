@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class GUIAboutPane extends GUIGlassPane {
+class GUIAboutPane extends GUIGlassPane {
     private JButton btnClose;
     private JTextArea txtAreaInfo;
 

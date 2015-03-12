@@ -6,19 +6,19 @@ import be.kdg.dots.view.DotUI;
 import java.util.*;
 
 public class Veld {
-    private ArrayList<Dot> rooster;
-    private ArrayList<Integer> connectedDots;
+    private final ArrayList<Dot> rooster;
+    private final ArrayList<Integer> connectedDots;
     private final int[] dotIndexCheck = new int[8];
-    private int row;
-    private int column;
-    private SpelController controller;
+    private final int row;
+    private final int column;
+    private final SpelController controller;
 
     //Field voor het berekenen van de beste zet
     private ArrayList<Integer> besteMove;
-    private ArrayList<Integer> currentMove;
+    private final ArrayList<Integer> currentMove;
     private Thread threadBestMove;
     private boolean interruptFlag;
-    private ArrayList<KleurDotIndexPair> indexMap;
+    private final ArrayList<KleurDotIndexPair> indexMap;
 
     public Veld(int row, int column, SpelController controller) {
         this.controller = controller;
@@ -35,7 +35,7 @@ public class Veld {
         vulVeld();
     }
 
-    public void vuldotIndexCheck() {
+    void vuldotIndexCheck() {
         dotIndexCheck[0] = -this.column - 1;
         dotIndexCheck[1] = -this.column;
         dotIndexCheck[2] = -this.column + 1;
@@ -46,7 +46,7 @@ public class Veld {
         dotIndexCheck[7] = this.column + 1;
     }
 
-    public void vulVeld() {
+    void vulVeld() {
         for (int i = 0; i < this.row * this.column; i++) {
             rooster.add(new Dot());
         }
@@ -200,7 +200,7 @@ public class Veld {
         return true;
     }
 
-    public void startBerekenen() {
+    void startBerekenen() {
         this.threadBestMove = new Thread(new BestMove());
         this.threadBestMove.start();
     }
@@ -211,12 +211,12 @@ public class Veld {
         }
     }
 
-    public void startCheckingAchievements() {
+    void startCheckingAchievements() {
         Thread checkAchievements = new Thread(new CheckAchievements());
         checkAchievements.start();
     }
 
-    public class CheckAchievements implements Runnable {
+    private class CheckAchievements implements Runnable {
         @Override
         public void run() {
             TreeSet<DotKleur> dominerendeKleurHashSet = new TreeSet<>();
@@ -237,7 +237,7 @@ public class Veld {
         }
     }
 
-    public class BestMove implements Runnable {
+    private class BestMove implements Runnable {
         @Override
         public void run() {
             if (controller.getSettings().isHintsEnabled()) {
@@ -254,7 +254,7 @@ public class Veld {
 
     //----------------------------------------------------------------------------------------------------------------//
     private class KleurDotIndexPair implements Comparable<KleurDotIndexPair> {
-        private DotKleur kleur;
+        private final DotKleur kleur;
         private ArrayList<Integer> dotIndexes;
         private ArrayList<Integer> dotsMet1Combinatie;
 
@@ -290,7 +290,7 @@ public class Veld {
         }
     }
 
-    public void calculateBestMove() {
+    void calculateBestMove() {
         indexMap.clear();
         besteMove.clear();
         currentMove.clear();
