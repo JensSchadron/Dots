@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Highscore {
-    private SpelController controller;
-    private HighScoreIO highScoreIO;
+    private final SpelController controller;
+    private final HighScoreIO highScoreIO;
 
-    private ArrayList<String> timeHighScores;
-    private ArrayList<String> moveHighScores;
-    private ArrayList<String> infinityHighScores;
+    private final ArrayList<String> timeHighScores;
+    private final ArrayList<String> moveHighScores;
+    private final ArrayList<String> infinityHighScores;
 
     public Highscore(SpelController controller) {
         this.controller = controller;
@@ -109,7 +109,7 @@ public class Highscore {
         resetHighScores("Infinity");
     }
 
-    public void resetHighScores(String modus) {
+    void resetHighScores(String modus) {
         switch (modus) {
             case "Time":
                 timeHighScores.clear();
@@ -171,9 +171,9 @@ public class Highscore {
         //Delimiter: Unicode number: U+33E0 --> ㏠ (Ideographic Telegraph Symbol for Day One)
 
         //timeHighScores omvormen naar datastructuur om op te slaan
-        for (int i = 0; i < timeHighScores.size(); i++) {
-            if (!timeHighScores.get(i).isEmpty()) {
-                tmp.append(timeHighScores.get(i).substring(0, 20).trim()).append(";").append(timeHighScores.get(i).substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
+        for (String timeHighScore : timeHighScores) {
+            if (!timeHighScore.isEmpty()) {
+                tmp.append(timeHighScore.substring(0, 20).trim()).append(";").append(timeHighScore.substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
             } else {
                 tmp.append("㏠");
             }
@@ -182,9 +182,9 @@ public class Highscore {
         tmp.delete(0, tmp.length());
 
         //moveHighScores omvormen naar datastructuur om op te slaan
-        for (int i = 0; i < moveHighScores.size(); i++) {
-            if (!moveHighScores.get(i).isEmpty()) {
-                tmp.append(moveHighScores.get(i).substring(0, 20).trim()).append(";").append(moveHighScores.get(i).substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
+        for (String moveHighScore : moveHighScores) {
+            if (!moveHighScore.isEmpty()) {
+                tmp.append(moveHighScore.substring(0, 20).trim()).append(";").append(moveHighScore.substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
             } else {
                 tmp.append("㏠");
             }
@@ -193,9 +193,9 @@ public class Highscore {
         tmp.delete(0, tmp.length());
 
         //infinityHighScores omvormen naar datastructuur om op te slaan
-        for (int i = 0; i < infinityHighScores.size(); i++) {
-            if (!infinityHighScores.get(i).isEmpty()) {
-                tmp.append(infinityHighScores.get(i).substring(0, 20).trim()).append(";").append(infinityHighScores.get(i).substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
+        for (String infinityHighScore : infinityHighScores) {
+            if (!infinityHighScore.isEmpty()) {
+                tmp.append(infinityHighScore.substring(0, 20).trim()).append(";").append(infinityHighScore.substring(20).trim().replaceAll("[ ]+", ";")).append("㏠");
             } else {
                 tmp.append("㏠");
             }

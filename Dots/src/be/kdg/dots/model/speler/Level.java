@@ -1,7 +1,7 @@
 package be.kdg.dots.model.speler;
 
 public class Level {
-    private Speler speler;
+    private final Speler speler;
     private int level=1;
 
     public Level(Speler speler) {

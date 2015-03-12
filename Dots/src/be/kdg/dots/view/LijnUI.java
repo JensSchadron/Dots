@@ -2,7 +2,7 @@ package be.kdg.dots.view;
 
 import java.awt.geom.Line2D;
 
-public class LijnUI extends Line2D.Double {
+class LijnUI extends Line2D.Double {
     public LijnUI(double x1, double y1, double x2, double y2) {
         super(x1, y1, x2, y2);
     }

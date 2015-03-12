@@ -8,10 +8,9 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 
 public class GUIPauzePane extends GUIGlassPane {
-    private ImageIcon iconPauze, iconHome;
     private JLabel lblPauze, lblHome;
-    private String modus;
-    private GUIHoofdMenu guiHoofdMenu;
+    private final String modus;
+    private final GUIHoofdMenu guiHoofdMenu;
 
     public GUIPauzePane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         super(contentPane);
@@ -24,23 +23,23 @@ public class GUIPauzePane extends GUIGlassPane {
     }
 
     private void makeComponents() {
-        iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelMenu/btnPlay.png")), 50, 50));
+        ImageIcon iconPauze = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelMenu/btnPlay.png")), 50, 50));
         lblPauze = new JLabel("");
         lblPauze.setName("pauze");
         lblPauze.setIcon(iconPauze);
 
-        iconHome = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelMenu/btnHome.png")), 250, 50));
+        ImageIcon iconHome = new ImageIcon(resize(new ImageIcon(getClass().getResource("/images/spelMenu/btnHome.png")), 250, 50));
         lblHome = new JLabel("");
         lblHome.setIcon(iconHome);
     }
 
-    public static Image resize(ImageIcon imageIcon, int width, int height) {
+    private static Image resize(ImageIcon imageIcon, int width, int height) {
         Image image = imageIcon.getImage();
         image = image.getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
         return image;
     }
 
-    public void makeLayout() {
+    void makeLayout() {
         add(lblPauze);
         add(lblHome);
     }
@@ -86,14 +85,13 @@ public class GUIPauzePane extends GUIGlassPane {
         lblHome.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                System.out.println("Debug info - Mouse release detected on Home button");
                 eindigSpel();
                 setVisible(false);
             }
         });
     }
 
-    public void eindigSpel() {
+    void eindigSpel() {
         guiHoofdMenu.getController().getHighscore().addHighScore(modus);
         guiHoofdMenu.getController().getGuiHoofdMenu().getGuiFrame().updateFrame("hoofdMenu");
     }

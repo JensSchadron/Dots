@@ -6,7 +6,11 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
 
-public class Main {
+/**
+ * Created by alexander on 29/01/2015.
+ */
+@SuppressWarnings("ALL")
+class Main {
     private static final int PORT = 25566;
     private static ServerSocket socket;
 

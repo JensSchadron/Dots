@@ -11,10 +11,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class GUIHelpPane extends GUIGlassPane {
+class GUIHelpPane extends GUIGlassPane {
     private JPanel centerPanel;
-    private JTextArea helpInfo;
-    private JLabel helpAnimation;
     private JButton btnClose;
 
     public GUIHelpPane(Container contentPane) {
@@ -25,7 +23,7 @@ public class GUIHelpPane extends GUIGlassPane {
         addEventHandlers();
     }
 
-    public void makeComponents() {
+    void makeComponents() {
         String help = "";
         ArrayList<String> helpArray = new ArrayList<>();
         try {
@@ -37,7 +35,7 @@ public class GUIHelpPane extends GUIGlassPane {
             help += anInfoArray;
         }
         help = help.replaceAll("\\\\n", "\n");
-        helpInfo = new JTextArea(help);
+        JTextArea helpInfo = new JTextArea(help);
         helpInfo.setLineWrap(true);
         helpInfo.setWrapStyleWord(true);
         helpInfo.setOpaque(false);
@@ -45,7 +43,7 @@ public class GUIHelpPane extends GUIGlassPane {
         helpInfo.setHighlighter(null);
         helpInfo.setMargin(new Insets(10, 10, 10, 10));
 
-        helpAnimation = new JLabel(new ImageIcon(getClass().getResource("/images/spelHelp/spelHelp.gif")));
+        JLabel helpAnimation = new JLabel(new ImageIcon(getClass().getResource("/images/spelHelp/spelHelp.gif")));
         helpAnimation.setHorizontalAlignment(SwingConstants.CENTER);
 
         centerPanel = new JPanel(new BorderLayout());
@@ -56,12 +54,12 @@ public class GUIHelpPane extends GUIGlassPane {
         btnClose = new JButton("Sluiten");
     }
 
-    public void makeLayout() {
+    void makeLayout() {
         add(centerPanel, BorderLayout.CENTER);
         add(btnClose, BorderLayout.SOUTH);
     }
 
-    public void addEventHandlers() {
+    void addEventHandlers() {
         this.addMouseListener(new MouseAdapter() {
         });
         btnClose.addActionListener(new ActionListener() {

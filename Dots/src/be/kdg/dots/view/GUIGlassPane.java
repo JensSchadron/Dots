@@ -3,14 +3,14 @@ package be.kdg.dots.view;
 import javax.swing.*;
 import java.awt.*;
 
-public class GUIGlassPane extends JPanel {
-    private Container contentPane;
+class GUIGlassPane extends JPanel {
+    private final Container contentPane;
 
-    public GUIGlassPane(Container contentPane){
+    GUIGlassPane(Container contentPane){
         this.contentPane = contentPane;
     }
 
-    public Container getContentPane() {
+    Container getContentPane() {
         return contentPane;
     }
 

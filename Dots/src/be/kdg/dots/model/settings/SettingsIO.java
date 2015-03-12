@@ -14,12 +14,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
 
-public class SettingsIO {
+class SettingsIO {
     private Settings settings;
     private Path settingsPath;
-    private Properties propertiesRead, propertiesWrite;
+    private Properties propertiesRead;
     private Speler speler;
-    private SpelController controller;
+    private final SpelController controller;
 
     public SettingsIO(Settings settings) {
         this.settings = settings;
@@ -36,7 +36,7 @@ public class SettingsIO {
         this.settings = settings;
         this.speler = settings.getController().getSpeler();
         try (FileOutputStream out = new FileOutputStream(settingsPath.toString())) {
-            propertiesWrite = new Properties();
+            Properties propertiesWrite = new Properties();
             if (speler.getUsername() != null && !speler.getUsername().isEmpty()) {
                 propertiesWrite.setProperty("username", speler.getUsername());
             }

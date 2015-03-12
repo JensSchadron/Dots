@@ -5,7 +5,7 @@ import be.kdg.dots.view.GUIAchievement;
 import java.awt.*;
 
 public class Settings {
-    private SpelController controller;
+    private final SpelController controller;
     private SettingsIO settingsIO;
     private int column;
     private int row;

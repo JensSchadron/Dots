@@ -3,7 +3,7 @@ package be.kdg.dots.model.veld;
 import java.util.Random;
 
 public class Dot {
-    private DotKleur dotKleur;
+    private final DotKleur dotKleur;
 
     public Dot() {
         int pick = new Random().nextInt(DotKleur.values().length);

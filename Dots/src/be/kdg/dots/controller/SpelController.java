@@ -8,12 +8,12 @@ import be.kdg.dots.model.veld.Veld;
 import be.kdg.dots.view.GUIHoofdMenu;
 
 public class SpelController {
-    private Settings settings;
+    private final Settings settings;
     private Veld veld;
-    private Highscore highscore;
-    private Speler speler;
-    private GUIHoofdMenu guiHoofdMenu;
-    private Spel spel;
+    private final Highscore highscore;
+    private final Speler speler;
+    private final GUIHoofdMenu guiHoofdMenu;
+    private final Spel spel;
     private boolean ladenCompleet = false;
 
     public GUIHoofdMenu getGuiHoofdMenu() {
