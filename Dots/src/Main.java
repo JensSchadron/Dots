@@ -1,15 +1,11 @@
 import be.kdg.dots.controller.SpelController;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
 
-/**
- * Created by alexander on 29/01/2015.
- */
 public class Main {
     private static final int PORT = 25566;
     private static ServerSocket socket;

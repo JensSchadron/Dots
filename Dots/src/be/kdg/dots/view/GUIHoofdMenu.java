@@ -10,10 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-
-/**
- * Created by jens & alexander on 4/02/2015.
- */
 public class GUIHoofdMenu extends JPanel {
     private final SplashScreen splashScreen;
     private SpelController controller;
