@@ -5,7 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,9 +16,11 @@ import java.util.ArrayList;
 class GUIHelpPane extends GUIGlassPane {
     private JPanel centerPanel;
     private JButton btnClose;
+    private GUIHoofdMenu guiHoofdMenu;
 
-    public GUIHelpPane(Container contentPane) {
+    public GUIHelpPane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         super(contentPane);
+        this.guiHoofdMenu = guiHoofdMenu;
         setLayout(new BorderLayout());
         makeComponents();
         makeLayout();
@@ -25,16 +29,18 @@ class GUIHelpPane extends GUIGlassPane {
 
     void makeComponents() {
         String help = "";
-        ArrayList<String> helpArray = new ArrayList<>();
         try {
-            helpArray = new ArrayList<>(Files.readAllLines(Paths.get(getClass().getResource("/text/help.txt").toURI())));
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+            BufferedReader input = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/text/help.txt")));
+            String tmp;
+            while ((tmp = input.readLine()) != null) {
+                help += tmp + "\n";
+            }
+        } catch (IOException e) {
+            guiHoofdMenu.getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het inlezen van het help bestand.", false);
+            help = "Er is een fout opgetreden bij het inlezen van het help bestand.\n" +
+                    "Gelieve ons te contacteren als deze fout zich blijft voordoen.";
         }
-        for (String anInfoArray : helpArray) {
-            help += anInfoArray;
-        }
-        help = help.replaceAll("\\\\n", "\n");
+
         JTextArea helpInfo = new JTextArea(help);
         helpInfo.setLineWrap(true);
         helpInfo.setWrapStyleWord(true);

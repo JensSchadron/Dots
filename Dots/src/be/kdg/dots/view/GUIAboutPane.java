@@ -1,23 +1,19 @@
 package be.kdg.dots.view;
 
-import be.kdg.dots.model.exception.DotsException;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.io.*;
 
 class GUIAboutPane extends GUIGlassPane {
     private JButton btnClose;
     private JTextArea txtAreaInfo;
+    private GUIHoofdMenu guiHoofdMenu;
 
-    public GUIAboutPane(Container contentPane) {
+    public GUIAboutPane(Container contentPane, GUIHoofdMenu guiHoofdMenu) {
         super(contentPane);
+        this.guiHoofdMenu = guiHoofdMenu;
         setLayout(new BorderLayout());
         MakeComponents();
         MakeLayout();
@@ -26,16 +22,17 @@ class GUIAboutPane extends GUIGlassPane {
 
     private void MakeComponents() {
         String info = "";
-        ArrayList<String> infoArray;
         try {
-            infoArray = new ArrayList<>(Files.readAllLines(Paths.get(getClass().getResource("/text/about.txt").toURI())));
-        } catch (IOException | URISyntaxException e) {
-            throw new DotsException("Er is een fout opgetreden bij het lezen van het about bestand.");
+            BufferedReader input = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/text/about.txt")));
+            String tmp;
+            while ((tmp = input.readLine()) != null) {
+                info += tmp + "\n";
+            }
+        } catch (IOException e) {
+            guiHoofdMenu.getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het lezen van het about bestand.", false);
+            info = "Er is een fout opgetreden bij het inlezen van het about bestand.\n" +
+                    "Gelieve ons te contacteren als deze fout zich blijft voordoen.";
         }
-        for (String anInfoArray : infoArray) {
-            info += anInfoArray;
-        }
-        info = info.replaceAll("\\\\n", "\n");
         txtAreaInfo = new JTextArea(info);
         txtAreaInfo.setLineWrap(true);
         txtAreaInfo.setWrapStyleWord(true);

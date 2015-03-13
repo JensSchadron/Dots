@@ -27,7 +27,7 @@ public class GUIFrame extends JFrame {
             @Override
             public void windowClosing(WindowEvent event) {
                 guiHoofdMenu.getController().getSettings().saveSettings();
-                if (JOptionPane.showConfirmDialog(panelClosing, "Bent u zeker dat u wilt afsluiten?", "Zeker sluiten?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(panelClosing, "Bent u zeker dat u wilt afsluiten?", "Zeker sluiten?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("/images/meldingen/Icon - info.png"))) == JOptionPane.YES_OPTION) {
                     //System.err.println("Exiting application");
                     System.exit(0);
                 }
@@ -64,11 +64,11 @@ public class GUIFrame extends JFrame {
                 getGlassPane().setVisible(true);
                 break;
             case "aboutPanel":
-                setGlassPane(new GUIAboutPane(getContentPane()));
+                setGlassPane(new GUIAboutPane(getContentPane(), guiHoofdMenu));
                 getGlassPane().setVisible(true);
                 break;
             case "helpPanel":
-                setGlassPane(new GUIHelpPane(getContentPane()));
+                setGlassPane(new GUIHelpPane(getContentPane(), guiHoofdMenu));
                 getGlassPane().setVisible(true);
                 break;
             case "highScorePanel":
@@ -79,6 +79,18 @@ public class GUIFrame extends JFrame {
                 setGlassPane(new GUIGameEnd(getContentPane(), guiHoofdMenu));
                 getGlassPane().setVisible(true);
                 break;
+        }
+    }
+
+    public void toonAchievement(String achievement) {
+        new GUIAchievement(achievement);
+    }
+
+    public void toonFoutBoodschap(String foutmelding, boolean severe) {
+        String boodschap = foutmelding + ((severe) ? " Om verdere fouten ten gevolge van deze fout in het spel te voorkomen wordt Dots afgesloten" : "") + "  Als dit probleem zich blijft voordoen, gelieve ons dan te contacteren.";
+        JOptionPane.showMessageDialog(this, boodschap, "Oeps...", JOptionPane.ERROR_MESSAGE, new ImageIcon(GUIFrame.class.getResource("/images/meldingen/Icon - error.png")));
+        if (severe) {
+            System.exit(1);
         }
     }
 }

@@ -1,8 +1,9 @@
 package be.kdg.dots.model.settings;
 
 import be.kdg.dots.controller.SpelController;
-import be.kdg.dots.model.exception.DotsException;
+//import be.kdg.dots.model.exception.DotsException;
 import be.kdg.dots.model.speler.Speler;
+
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,7 +18,6 @@ import java.util.Properties;
 class SettingsIO {
     private Settings settings;
     private Path settingsPath;
-    private Properties propertiesRead;
     private Speler speler;
     private final SpelController controller;
 
@@ -28,7 +28,8 @@ class SettingsIO {
         try {
             settingsPath = Paths.get(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().toString(), "settings.dat");
         } catch (URISyntaxException e) {
-            throw new DotsException("Er is een fout opgetreden bij het creëren van het path van het settings bestand.");
+            settings.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het creëren van het path van het settings bestand.", true);
+            //throw new DotsException("Er is een fout opgetreden bij het creëren van het path van het settings bestand.");
         }
     }
 
@@ -55,7 +56,8 @@ class SettingsIO {
 
             propertiesWrite.storeToXML(out, "Application properties");
         } catch (IOException e) {
-            throw new DotsException("Er is een fout opgetreden bij het wegschrijven van het settings bestand.");
+            settings.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het wegschrijven van het settings bestand.", true);
+            //throw new DotsException("Er is een fout opgetreden bij het wegschrijven van het settings bestand.");
         }
     }
 
@@ -65,7 +67,7 @@ class SettingsIO {
         }
         try (FileInputStream in = new FileInputStream(settingsPath.toString())) {
 
-            propertiesRead = new Properties();
+            Properties propertiesRead = new Properties();
             propertiesRead.loadFromXML(in);
             //propertiesRead.list(System.out);
 
@@ -98,7 +100,8 @@ class SettingsIO {
                 settings.setAchievements("");
             }
         } catch (IOException e) {
-            throw new DotsException("Er is een fout opgetreden bij het lezen van het settings bestand.");
+            settings.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het lezen van het settings bestand.", true);
+            //throw new DotsException("Er is een fout opgetreden bij het lezen van het settings bestand.");
         }
     }
 
