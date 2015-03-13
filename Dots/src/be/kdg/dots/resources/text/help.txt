@@ -1,7 +1,7 @@
 Hey,
 
 zoals je vermoedelijk al hebt gelezen bij about, is Dots een spel waarbij je bolletjes, de zogenaamde dots, met elkaar moet verbinden.
-Er zijn wel twéé voorwaarden: De dots moeten aangrenzend zijn en ze moeten dezelfde kleur hebben.
+Er zijn wel twee voorwaarden: De dots moeten aangrenzend zijn en ze moeten dezelfde kleur hebben.
 Je zal nu waarschijnlijk wel denken: "Ok, ik weet nu al wat de bedoeling is van dit spel, maar hoe bedien ik dit nu eigenlijk?".
 Wel, dit is eigenlijk zeer eenvoudig. We zullen dit even illustreren aan de hand van een voorbeeldje.
 Stel we willen een aantal blauwe dots verbinden. We gaan hierbij dan met de cursor op op de dot staan waar we willen beginnen met de lijn.

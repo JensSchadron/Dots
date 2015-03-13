@@ -160,7 +160,7 @@ public class Veld {
             startBerekenen();
             startCheckingAchievements();
             if (gameOver()) {
-                //TODO: extra code schrijven om spel te beëindigen
+                controller.getGuiHoofdMenu().getGuiSpel().eindigSpel(true);
             }
         }
         connectedDots.clear();

@@ -76,8 +76,15 @@ public class GUIFrame extends JFrame {
                 getGlassPane().setVisible(true);
                 break;
             case "gameEndPanel":
-                setGlassPane(new GUIGameEnd(getContentPane(), guiHoofdMenu));
-                getGlassPane().setVisible(true);
+                Timer timer = new Timer(1000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        setGlassPane(new GUIGameEnd(getContentPane(), guiHoofdMenu, true));
+                        getGlassPane().setVisible(true);
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
                 break;
         }
     }

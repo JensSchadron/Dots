@@ -1,7 +1,12 @@
 package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
+import javafx.scene.media.MediaPlayer;
 
+import javax.print.attribute.standard.Media;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -74,6 +79,18 @@ public class GUIHoofdMenu extends JPanel {
         lblEndlessMode.setOpaque(false);
         lblMoveMode.setOpaque(false);
 
+    }
+
+    private void startMusic(){
+        /*AudioInputStream audioIn = AudioSystem.getAudioInputStream(getClass().getResource("music.wav"));
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioIn);
+        clip.start();*/
+
+        /*String music = getClass().getResource("/images/spelHelp/spelHelp.gif").toString();
+        Media hit = new Media(music);
+        MediaPlayer mediaPlayer = new MediaPlayer(hit);
+        mediaPlayer.play();*/
     }
 
 

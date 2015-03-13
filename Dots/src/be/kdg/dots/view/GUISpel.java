@@ -98,12 +98,12 @@ public class GUISpel extends JPanel {
         lblHome.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                eindigSpel();
+                eindigSpel(false);
             }
         });
     }
 
-    public void eindigSpel() {
+    public void eindigSpel(boolean gameOver) {
         controller.getVeld().stopBerekenen();
         if (!modus.equals("Move")) {
             controller.getSpel().stopTimer();
