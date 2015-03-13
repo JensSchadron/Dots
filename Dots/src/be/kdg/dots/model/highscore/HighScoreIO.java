@@ -22,7 +22,6 @@ class HighScoreIO {
             this.filePath = Paths.get(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().toString(), "highscores.txt");
         } catch (URISyntaxException e) {
             highscore.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het ophalen van het highscore bestand.", true);
-            //throw new DotsException("Er is een fout opgetreden bij het ophalen van het highscore bestand.");
         }
         loadHighScores();
     }
@@ -36,7 +35,6 @@ class HighScoreIO {
             Files.write(filePath, encodedHighScores, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             highscore.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het opslaan van het highscore bestand.", true);
-            //throw new DotsException("Er is een fout opgetreden bij het opslaan van het highscore bestand.");
         }
     }
 
@@ -54,14 +52,12 @@ class HighScoreIO {
                 }
             } catch (IOException e) {
                 highscore.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het inlezen van het highscore bestand.", false);
-                //throw new DotsException("Er is een fout opgetreden bij het inlezen van het highscore bestand.");
             }
         } else {
             try {
                 Files.createFile(filePath);
             } catch (IOException e) {
                 highscore.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het creëren van een nieuw highscore bestand.", true);
-                //throw new DotsException("Er is een fout opgetreden bij het creëren van een nieuw highscore bestand.");
             }
         }
         return decodedHighScores;
@@ -77,7 +73,6 @@ class HighScoreIO {
             decodedString = new String(Base64.getDecoder().decode(encodedHighScores));
         } catch (IllegalArgumentException e) {
             highscore.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is iets foutgelopen bij het decoderen van de highscore bestand.", true);
-            //throw new DotsException("Er is iets foutgelopen bij het decoderen van de highscore bestand.");
             return "";
         }
         return decodedString;

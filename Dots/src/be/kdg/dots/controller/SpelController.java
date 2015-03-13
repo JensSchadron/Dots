@@ -33,7 +33,6 @@ public class SpelController {
         settings.loadSettings();
 
         ladenCompleet = true;
-        //System.out.println("Laden compleet!");
     }
 
     public Veld getVeld() {

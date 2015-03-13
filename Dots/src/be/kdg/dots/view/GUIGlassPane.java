@@ -19,7 +19,7 @@ class GUIGlassPane extends JPanel {
         super.paintComponent(gr);
         Graphics2D g = (Graphics2D) gr;
 
-        //create transparency
+        //Zorgt voor transparantie
         AlphaComposite transparent = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .9f);
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setComposite(transparent);

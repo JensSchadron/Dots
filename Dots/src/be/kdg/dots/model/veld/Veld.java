@@ -199,8 +199,6 @@ public class Veld {
                 }
             }
         }
-
-        //System.out.println("Tja, game over hé");
         return true;
     }
 
@@ -241,22 +239,17 @@ public class Veld {
         }
     }
 
+    //------------------------------------Algoritme om beste lijn te berekenen----------------------------------------//
+
     private class BestMove implements Runnable {
         @Override
         public void run() {
             if (controller.getSettings().isHintsEnabled()) {
-                //long begin = System.nanoTime();
-                //System.out.println("Debug info - Calculating started...");
                 calculateBestMove();
-                /*System.out.println("Debug info - Calculating stopped...");
-                System.out.println("Debug info - Time taken: " + (double) (System.nanoTime() - begin) / 1000000000 + " sec");
-            } else {
-                System.out.println("Hints zijn uitgeschakeld");*/
             }
         }
     }
 
-    //----------------------------------------------------------------------------------------------------------------//
     private class KleurDotIndexPair implements Comparable<KleurDotIndexPair> {
         private final DotKleur kleur;
         private ArrayList<Integer> dotIndexes;
@@ -370,27 +363,17 @@ public class Veld {
         }
 
         Collections.sort(indexMap);
-        /*System.out.println("Debug info - Niet geoptimaliseerde index lijst");
-        for (KleurDotIndexPair anIndexMap : indexMap) {
-            System.out.println("Kleur: " + anIndexMap.getKleur() + ", Mogelijke startpunten: " + anIndexMap.getDotsMet1Combinatie() + ", dots die verbonden kunnen worden: " + anIndexMap.getDotIndexes());
-        }*/
 
         //Algoritme versnellen door dots met maar één combinatie vooraan te plaatsen.
         for (int i = 0; i < indexMap.size(); i++) {
             tmpPair = indexMap.get(i);
             ArrayList<Integer> dotsMet1Combinatie = tmpPair.dotsMet1Combinatie;
-            //Collections.reverse(dotsMet1Combinatie);
             ArrayList<Integer> dotIndexes = tmpPair.getDotIndexes();
             for (int j = 0; j < dotsMet1Combinatie.size(); j++) {
                 dotIndexes.remove(dotsMet1Combinatie.get(j));
                 dotIndexes.add(j, dotsMet1Combinatie.get(j));
             }
         }
-
-        /*System.out.println("Debug info - Geoptimaliseerde index lijst");
-        for (KleurDotIndexPair anIndexMap : indexMap) {
-            System.out.println("Kleur: " + anIndexMap.getKleur() + ", Mogelijke startpunten: " + anIndexMap.getDotsMet1Combinatie() + ", dots die verbonden kunnen worden: " + anIndexMap.getDotIndexes());
-        }*/
 
         outerForLoop:
         for (int i = 0; i < indexMap.size(); i++) {
@@ -404,12 +387,6 @@ public class Veld {
         }
 
         interruptFlag = false;
-        //Debug info over beste zet.
-        String result = "";
-        for (int i = 0; i < besteMove.size(); i++) {
-            result += besteMove.get(i) + ", ";
-        }
-        //System.out.println(result);
     }
 
     private void calculateNextMove(int currentIndex, ArrayList<Integer> indexArrayList) {
@@ -448,7 +425,6 @@ public class Veld {
 
         for (int i = 0; i < tmpIndexArray.length; i++) {
             if (interruptFlag || Thread.interrupted()) {
-                //System.out.println("Busy with stopping calculateNextMove");
                 interruptFlag = true;
                 return;
             }
@@ -461,7 +437,6 @@ public class Veld {
         }
 
         if (Thread.interrupted() || interruptFlag) {
-            //System.out.println("Busy with stopping calculateNextMove");
             interruptFlag = true;
             return;
         }
@@ -472,91 +447,4 @@ public class Veld {
 
         currentMove.remove(currentMove.size() - 1);
     }
-
-//----------------------------------------------------------------------------------------------------------------//
-
-
-    /*public void calculateBestMove() {
-        besteMove.clear();
-        currentMove.clear();
-        for (int i = 0; i < rooster.size(); i++) {
-            if (Thread.interrupted() || interruptFlag) {
-                System.out.println("Busy with stopping calculateBestMove");
-                interruptFlag = false;
-                return;
-            }
-            calculateNextMove(i);
-        }
-        String result = "";
-        for (int i = 0; i < besteMove.size(); i++) {
-            result += besteMove.get(i) + ", ";
-        }
-        System.out.println(result);
-
-
-    }
-
-    private void calculateNextMove(int currentIndex) {
-        currentMove.add(currentIndex);
-        DotKleur kleur = rooster.get(currentIndex).getDotKleur();
-        if (!(currentIndex < this.column || currentIndex >= rooster.size() - this.column || currentIndex % this.column == 0 || currentIndex % this.column == this.column - 1)) { //controleren of dot niet aan zijkant ligt van speelveld.
-            for (int i = 0; i < dotIndexCheck.length; i++) {
-                if (Thread.interrupted() || interruptFlag) {
-                    System.out.println("Busy with stopping calculateNextMove");
-                    interruptFlag = true;
-                    return;
-                }
-                if (kleur.equals(rooster.get(currentIndex + dotIndexCheck[i]).getDotKleur()) && !currentMove.contains(currentIndex + dotIndexCheck[i])) {
-                    calculateNextMove(currentIndex + dotIndexCheck[i]);
-                }
-            }
-        } else {
-            int[] tmpIndexArray = new int[0];
-            if (currentIndex < this.column && currentIndex % this.column == 0) {
-                tmpIndexArray = new int[]{4, 6, 7};
-
-            } else if (currentIndex < this.column && currentIndex % this.column == this.column - 1) {
-                tmpIndexArray = new int[]{3, 5, 6};
-
-            } else if (currentIndex >= rooster.size() - this.column && currentIndex % this.column == this.column - 1) {
-                tmpIndexArray = new int[]{0, 1, 3};
-
-            } else if (currentIndex >= rooster.size() - this.column && currentIndex % this.column == 0) {
-                tmpIndexArray = new int[]{1, 2, 4};
-
-            } else if (currentIndex < this.column) {
-                tmpIndexArray = new int[]{3, 4, 5, 6, 7};
-
-            } else if (currentIndex % this.column == this.column - 1) {
-                tmpIndexArray = new int[]{0, 1, 3, 5, 6};
-
-            } else if (currentIndex >= rooster.size() - this.column) {
-                tmpIndexArray = new int[]{0, 1, 2, 3, 4};
-
-            } else if (currentIndex % this.column == 0) {
-                tmpIndexArray = new int[]{1, 2, 4, 6, 7};
-
-            }
-            for (int i = 0; i < tmpIndexArray.length; i++) {
-                if (Thread.interrupted() || interruptFlag) {
-                    System.out.println("Busy with stopping calculateNextMove");
-                    interruptFlag = true;
-                    return;
-                }
-                if (kleur.equals(rooster.get(currentIndex + dotIndexCheck[tmpIndexArray[i]]).getDotKleur()) && !currentMove.contains(currentIndex + dotIndexCheck[tmpIndexArray[i]])) {
-                    calculateNextMove(currentIndex + dotIndexCheck[tmpIndexArray[i]]);
-                }
-            }
-        }
-        if (Thread.interrupted() || interruptFlag) {
-            System.out.println("Busy with stopping calculateNextMove");
-            interruptFlag = true;
-            return;
-        }
-
-        if (currentMove.size() > besteMove.size()) {
-            besteMove = new ArrayList<>(currentMove);
-        }
-        currentMove.remove(currentMove.size() - 1);
-    }*/
 }

@@ -1,7 +1,6 @@
 package be.kdg.dots.model.settings;
 
 import be.kdg.dots.controller.SpelController;
-//import be.kdg.dots.model.exception.DotsException;
 import be.kdg.dots.model.speler.Speler;
 
 import java.awt.*;
@@ -29,7 +28,6 @@ class SettingsIO {
             settingsPath = Paths.get(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().toString(), "settings.dat");
         } catch (URISyntaxException e) {
             settings.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het creëren van het path van het settings bestand.", true);
-            //throw new DotsException("Er is een fout opgetreden bij het creëren van het path van het settings bestand.");
         }
     }
 
@@ -57,7 +55,6 @@ class SettingsIO {
             propertiesWrite.storeToXML(out, "Application properties");
         } catch (IOException e) {
             settings.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het wegschrijven van het settings bestand.", true);
-            //throw new DotsException("Er is een fout opgetreden bij het wegschrijven van het settings bestand.");
         }
     }
 
@@ -69,7 +66,6 @@ class SettingsIO {
 
             Properties propertiesRead = new Properties();
             propertiesRead.loadFromXML(in);
-            //propertiesRead.list(System.out);
 
             settings.setRow(Integer.parseInt(propertiesRead.getProperty("row")));
             settings.setColumn(Integer.parseInt(propertiesRead.getProperty("column")));
@@ -101,7 +97,6 @@ class SettingsIO {
             }
         } catch (IOException e) {
             settings.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het lezen van het settings bestand.", true);
-            //throw new DotsException("Er is een fout opgetreden bij het lezen van het settings bestand.");
         }
     }
 

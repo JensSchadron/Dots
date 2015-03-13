@@ -1,12 +1,7 @@
 package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
-import javafx.scene.media.MediaPlayer;
 
-import javax.print.attribute.standard.Media;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -80,19 +75,6 @@ public class GUIHoofdMenu extends JPanel {
         lblMoveMode.setOpaque(false);
 
     }
-
-    private void startMusic(){
-        /*AudioInputStream audioIn = AudioSystem.getAudioInputStream(getClass().getResource("music.wav"));
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioIn);
-        clip.start();*/
-
-        /*String music = getClass().getResource("/images/spelHelp/spelHelp.gif").toString();
-        Media hit = new Media(music);
-        MediaPlayer mediaPlayer = new MediaPlayer(hit);
-        mediaPlayer.play();*/
-    }
-
 
     private Image getScaledImage(Image srcImg, int w, int h) {
         BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
@@ -197,7 +179,6 @@ public class GUIHoofdMenu extends JPanel {
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                //super.componentResized(e);
                 if(minSize){
                     setMinimumSize(guiFrame.getContentPane().getSize());
                     minSize = false;

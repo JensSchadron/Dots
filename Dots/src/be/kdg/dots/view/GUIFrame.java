@@ -2,7 +2,10 @@ package be.kdg.dots.view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GUIFrame extends JFrame {
     private static final int MIN_GAME_WIDTH = 450;
@@ -28,7 +31,6 @@ public class GUIFrame extends JFrame {
             public void windowClosing(WindowEvent event) {
                 guiHoofdMenu.getController().getSettings().saveSettings();
                 if (JOptionPane.showConfirmDialog(panelClosing, "Bent u zeker dat u wilt afsluiten?", "Zeker sluiten?", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, new ImageIcon(getClass().getResource("/images/meldingen/Icon - info.png"))) == JOptionPane.YES_OPTION) {
-                    //System.err.println("Exiting application");
                     System.exit(0);
                 }
             }
@@ -95,7 +97,7 @@ public class GUIFrame extends JFrame {
 
     public void toonFoutBoodschap(String foutmelding, boolean severe) {
         String boodschap = foutmelding + ((severe) ? " Om verdere fouten ten gevolge van deze fout in het spel te voorkomen wordt Dots afgesloten" : "") + "  Als dit probleem zich blijft voordoen, gelieve ons dan te contacteren.";
-        JOptionPane.showMessageDialog(this, boodschap, "Oeps...", JOptionPane.ERROR_MESSAGE, new ImageIcon(GUIFrame.class.getResource("/images/Icon - error.png")));
+        JOptionPane.showMessageDialog(this, boodschap, "Oeps...", JOptionPane.ERROR_MESSAGE, new ImageIcon(GUIFrame.class.getResource("/images/meldingen/Icon - error.png")));
         if (severe) {
             System.exit(1);
         }

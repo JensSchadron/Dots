@@ -99,9 +99,8 @@ public class GUIGrid extends JPanel {
                 } else {
                     tmpDotUI = dotUI.get(i + guiSpel.getController().getVeld().getColumn());
                 }
-                if (tmpDotUI.getHeight() == DotUI.getMaxDiameter()) {
-                    tmpDotUI.isMaximized();
-                }
+                tmpDotUI.isMaximized();
+
                 double y = tmpDotUI.getY() - ((tmpDotUI.getHoeveelDotsZakken() == 0) ? 2 : 1) * (DotUI.getMaxDiameter() + DotUI.getAfstandTussenDots());
                 dotUI.set(i, new DotUI(tmpDotUI.getX(), y));
                 if (tmpDotUI.getHoeveelDotsZakken() == 0) {
@@ -207,10 +206,6 @@ public class GUIGrid extends JPanel {
                     }
                 }
                 if (dotIndex != -1 && dotIndexAmount == 1) {
-
-                    /*for (DotUI aDotUI : dotUI) {
-                        aDotUI.isMaximized();
-                    }*/
                     dotUI.get(dotIndex).toggleDiameter();
                     repaint();
                 }

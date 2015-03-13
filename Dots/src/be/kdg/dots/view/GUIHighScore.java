@@ -100,7 +100,6 @@ class GUIHighScore extends GUIGlassPane {
             btnClose.setFont(font);
         } catch (IOException | FontFormatException e) {
             guiHoofdMenu.getGuiFrame().toonFoutBoodschap("Fout bij het laden van het lettertype UbuntuMono.", true);
-            //throw new DotsException("Fout bij het laden van het lettertype UbuntuMono.");
         }
     }
 

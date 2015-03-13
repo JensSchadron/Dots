@@ -32,10 +32,9 @@ public class Spel {
                         public void actionPerformed(ActionEvent e) {
                             controller.getGuiHoofdMenu().getGuiSpel().updateTimerOrMoves(--aantalSeconden);
                             if (aantalSeconden == 0) {
-                                timer.stop(); //actionPerformed wordt nog eens getriggerd als timer.stop(); wordt aangeroepen!
+                                timer.stop();
                                 controller.getGuiHoofdMenu().getGuiSpel().eindigSpel(false);
                             }
-                            //System.out.println("Debug info - Time: " + aantalSeconden);
                         }
                     });
                     break;
@@ -50,7 +49,6 @@ public class Spel {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             controller.getGuiHoofdMenu().getGuiSpel().updateTimerOrMoves(++aantalSeconden);
-                            //System.out.println("Debug info - Time: " + aantalSeconden);
                         }
                     });
                     break;

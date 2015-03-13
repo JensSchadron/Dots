@@ -19,7 +19,6 @@ public class Score {
             speler.getLevel().incrementLevel();
             setScoreDoel(speler.getLevel().getLevel());
         }
-        //System.out.println("Debug info - Score: " + score);
     }
 
     void setScoreDoel(int level) {

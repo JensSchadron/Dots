@@ -1,6 +1,7 @@
 package be.kdg.dots.view;
 
 import be.kdg.dots.controller.SpelController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
