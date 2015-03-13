@@ -88,7 +88,7 @@ public class GUIFrame extends JFrame {
 
     public void toonFoutBoodschap(String foutmelding, boolean severe) {
         String boodschap = foutmelding + ((severe) ? " Om verdere fouten ten gevolge van deze fout in het spel te voorkomen wordt Dots afgesloten" : "") + "  Als dit probleem zich blijft voordoen, gelieve ons dan te contacteren.";
-        JOptionPane.showMessageDialog(this, boodschap, "Oeps...", JOptionPane.ERROR_MESSAGE, new ImageIcon(GUIFrame.class.getResource("/images/meldingen/Icon - error.png")));
+        JOptionPane.showMessageDialog(this, boodschap, "Oeps...", JOptionPane.ERROR_MESSAGE, new ImageIcon(GUIFrame.class.getResource("/images/Icon - error.png")));
         if (severe) {
             System.exit(1);
         }
