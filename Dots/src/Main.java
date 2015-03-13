@@ -22,7 +22,7 @@ class Main {
             // shouldn't happen for localhost
         } catch (IOException e) {
             // port taken, so app is already running
-            JOptionPane.showMessageDialog(null, "Applicatie is al opgestart..", "Dots", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Applicatie is al opgestart..", "Dots", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Main.class.getResource("/images/meldingen/Icon - waarschuwing.png")));
             System.out.println("Application has already started");
             System.exit(0);
         }

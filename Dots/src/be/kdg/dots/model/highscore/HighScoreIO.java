@@ -1,7 +1,5 @@
 package be.kdg.dots.model.highscore;
 
-import be.kdg.dots.model.exception.DotsException;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -16,12 +14,15 @@ import java.util.List;
 
 class HighScoreIO {
     private Path filePath;
+    private Highscore highscore;
 
-    HighScoreIO() {
+    HighScoreIO(Highscore highscore) {
+        this.highscore = highscore;
         try {
             this.filePath = Paths.get(new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().toString(), "highscores.txt");
         } catch (URISyntaxException e) {
-            throw new DotsException("Er is een fout opgetreden bij het ophalen van het highscore bestand.");
+            highscore.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het ophalen van het highscore bestand.", true);
+            //throw new DotsException("Er is een fout opgetreden bij het ophalen van het highscore bestand.");
         }
         loadHighScores();
     }
@@ -34,7 +35,8 @@ class HighScoreIO {
         try {
             Files.write(filePath, encodedHighScores, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
-            throw new DotsException("Er is een fout opgetreden bij het opslaan van het highscore bestand.");
+            highscore.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het opslaan van het highscore bestand.", true);
+            //throw new DotsException("Er is een fout opgetreden bij het opslaan van het highscore bestand.");
         }
     }
 
@@ -47,18 +49,19 @@ class HighScoreIO {
             List<String> encodedHighScores;
             try {
                 encodedHighScores = Files.readAllLines(filePath);
+                for (int i = 0; i < encodedHighScores.size(); i++) {
+                    decodedHighScores.set(i, decodeHighScore(encodedHighScores.get(i)));
+                }
             } catch (IOException e) {
-                throw new DotsException("Er is een fout opgetreden bij het encoderen van de highscore bestand.");
-            }
-
-            for (int i = 0; i < encodedHighScores.size(); i++) {
-                decodedHighScores.set(i, decodeHighScore(encodedHighScores.get(i)));
+                highscore.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het inlezen van het highscore bestand.", false);
+                //throw new DotsException("Er is een fout opgetreden bij het inlezen van het highscore bestand.");
             }
         } else {
             try {
                 Files.createFile(filePath);
             } catch (IOException e) {
-                throw new DotsException("Er is een fout opgetreden bij het creëren van de highscore bestand.");
+                highscore.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het creëren van een nieuw highscore bestand.", true);
+                //throw new DotsException("Er is een fout opgetreden bij het creëren van een nieuw highscore bestand.");
             }
         }
         return decodedHighScores;
@@ -73,7 +76,9 @@ class HighScoreIO {
         try {
             decodedString = new String(Base64.getDecoder().decode(encodedHighScores));
         } catch (IllegalArgumentException e) {
-            throw new DotsException("Er is iets foutgelopen bij het decoderen van de highscore bestand.");
+            highscore.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is iets foutgelopen bij het decoderen van de highscore bestand.", true);
+            //throw new DotsException("Er is iets foutgelopen bij het decoderen van de highscore bestand.");
+            return "";
         }
         return decodedString;
     }

@@ -1,7 +1,6 @@
 package be.kdg.dots.model.settings;
 
 import be.kdg.dots.controller.SpelController;
-import be.kdg.dots.view.GUIAchievement;
 import java.awt.*;
 
 public class Settings {
@@ -94,7 +93,7 @@ public class Settings {
             } else {
                 this.achievements += afkorting + ";";
             }
-            new GUIAchievement(achievements); //TODO: GUIAchievent aanroepen vanuit controller of uit view, niet rechtstreeks vanaf hier
+            controller.getGuiHoofdMenu().getGuiFrame().toonAchievement(achievements);
             saveSettings();
         }
     }

@@ -184,7 +184,7 @@ public class GUIGrid extends JPanel {
                 //Value op null zetten als we terug uit de dot gaan
 
                 for (int i = 0; i < dotUI.size(); i++) {
-                    if (dotUI.get(i) != null && dotUI.get(i).contains(e.getX(), e.getY())) {
+                    if (dotUI.get(i) != null && dotUI.get(i).contains(e.getX(), e.getY()) && !dotUI.get(i).moetVallen()) {
                         if (dotIndex != i) {
                             if (dotIndex != -1) {
                                 dotUI.get(dotIndex).toggleDiameter();

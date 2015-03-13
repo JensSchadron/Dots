@@ -51,7 +51,9 @@ public class Veld {
             rooster.add(new Dot());
         }
         startBerekenen();
-        gameOver();
+        if (gameOver()) {
+            vulVeld();
+        }
     }
 
     public ArrayList<Dot> getVeld() {
@@ -157,7 +159,9 @@ public class Veld {
             controller.getGuiHoofdMenu().getGuiSpel().updateScore(controller.getSpeler().getScore().getScore(), controller.getSpeler().getScore().getScoreDoel());
             startBerekenen();
             startCheckingAchievements();
-            gameOver(); //TODO: extra code schrijven om spel te beëindigen
+            if (gameOver()) {
+                //TODO: extra code schrijven om spel te beëindigen
+            }
         }
         connectedDots.clear();
     }

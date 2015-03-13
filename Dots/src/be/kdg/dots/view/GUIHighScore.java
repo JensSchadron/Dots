@@ -1,7 +1,5 @@
 package be.kdg.dots.view;
 
-import be.kdg.dots.model.exception.DotsException;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -101,7 +99,8 @@ class GUIHighScore extends GUIGlassPane {
             txtMove.setFont(font);
             btnClose.setFont(font);
         } catch (IOException | FontFormatException e) {
-            throw new DotsException("Fout bij het laden van het lettertype UbuntuMono.");
+            guiHoofdMenu.getGuiFrame().toonFoutBoodschap("Fout bij het laden van het lettertype UbuntuMono.", true);
+            //throw new DotsException("Fout bij het laden van het lettertype UbuntuMono.");
         }
     }
 

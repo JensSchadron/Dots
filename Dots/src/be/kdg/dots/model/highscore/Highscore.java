@@ -15,7 +15,7 @@ public class Highscore {
 
     public Highscore(SpelController controller) {
         this.controller = controller;
-        this.highScoreIO = new HighScoreIO();
+        this.highScoreIO = new HighScoreIO(this);
 
         timeHighScores = new ArrayList<>(3);
         moveHighScores = new ArrayList<>(3);
@@ -203,5 +203,9 @@ public class Highscore {
         decodedHighScores.add(2, tmp.deleteCharAt(tmp.length() - 1).toString());
         tmp.delete(0, tmp.length());
         highScoreIO.saveHighScores(decodedHighScores);
+    }
+
+    public SpelController getController() {
+        return controller;
     }
 }
