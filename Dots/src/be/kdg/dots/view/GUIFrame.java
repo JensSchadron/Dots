@@ -78,7 +78,7 @@ public class GUIFrame extends JFrame {
                 getGlassPane().setVisible(true);
                 break;
             case "gameEndPanel":
-                Timer timer = new Timer(1000, new ActionListener() {
+                Timer timer = new Timer(500, new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         setGlassPane(new GUIGameEnd(getContentPane(), guiHoofdMenu, true));

@@ -33,7 +33,7 @@ public class Spel {
                             controller.getGuiHoofdMenu().getGuiSpel().updateTimerOrMoves(--aantalSeconden);
                             if (aantalSeconden == 0) {
                                 timer.stop();
-                                controller.getGuiHoofdMenu().getGuiSpel().eindigSpel(false);
+                                controller.getGuiHoofdMenu().getGuiSpel().eindigSpel();
                             }
                         }
                     });
@@ -76,7 +76,7 @@ public class Spel {
     public void decrementMoves() {
         if (controller.getGuiHoofdMenu().getGuiSpel().getModus().equals("Move")) {
             if (aantalMoves == 0) {
-                controller.getGuiHoofdMenu().getGuiSpel().eindigSpel(false);
+                controller.getGuiHoofdMenu().getGuiSpel().eindigSpel();
             }
             controller.getGuiHoofdMenu().getGuiSpel().updateTimerOrMoves(--aantalMoves);
         }
