@@ -12,6 +12,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Properties;
 
 class SettingsIO {
@@ -51,6 +52,7 @@ class SettingsIO {
             propertiesWrite.setProperty("hintsenabled", Boolean.toString(settings.isHintsEnabled()));
             propertiesWrite.setProperty("hintvertraging", Integer.toString(settings.getHintVertraging()));
             propertiesWrite.setProperty("achievements", settings.getAchievements());
+            propertiesWrite.setProperty("laatstgeupdate", (settings.getLaatstGeupdate() != null) ? settings.getLaatstGeupdate().toString() : "");
 
             propertiesWrite.storeToXML(out, "Application properties");
         } catch (IOException e) {
@@ -94,6 +96,11 @@ class SettingsIO {
                 settings.setAchievements(propertiesRead.getProperty("achievements"));
             } else {
                 settings.setAchievements("");
+            }
+            if(propertiesRead.getProperty("laatstgeupdate") != null && !propertiesRead.getProperty("laatstgeupdate").isEmpty()){
+                settings.setLaatstGeupdate(UpdateChecker.parseDateTime(propertiesRead.getProperty("laatstgeupdate")));
+            } else {
+                settings.setLaatstGeupdate(LocalDateTime.MIN);
             }
         } catch (IOException e) {
             settings.getController().getGuiHoofdMenu().getGuiFrame().toonFoutBoodschap("Er is een fout opgetreden bij het lezen van het settings bestand.", true);

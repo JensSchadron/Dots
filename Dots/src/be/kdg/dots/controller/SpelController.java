@@ -2,6 +2,7 @@ package be.kdg.dots.controller;
 
 import be.kdg.dots.model.highscore.Highscore;
 import be.kdg.dots.model.settings.Settings;
+import be.kdg.dots.model.settings.UpdateChecker;
 import be.kdg.dots.model.speler.Speler;
 import be.kdg.dots.model.veld.Spel;
 import be.kdg.dots.model.veld.Veld;
@@ -33,6 +34,11 @@ public class SpelController {
         settings.loadSettings();
 
         ladenCompleet = true;
+
+        if(UpdateChecker.checkForUpdates(settings.getLaatstGeupdate())){
+            settings.setLaatstGeupdate(UpdateChecker.getLatestUpdateTime());
+            guiHoofdMenu.getGuiFrame().toonUpdateDialog();
+        }
     }
 
     public Veld getVeld() {

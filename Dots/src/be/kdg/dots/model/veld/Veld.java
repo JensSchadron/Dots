@@ -140,7 +140,7 @@ public class Veld {
                     for (int j = i; j >= 0 && dotOrNull == null; j -= this.row) {
                         if (rooster.get(j) != null) {
                             dotOrNull = rooster.get(j);
-                            controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().get(j).setHoeveelDotsZakken((i - j) / this.row);
+                            //controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().get(j).setHoeveelDotsZakken((i - j) / this.row);
                             dotUI = controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().get(j);
                             controller.getGuiHoofdMenu().getGuiSpel().getGUIGrid().getDotUI().set(j, null);
                             rooster.set(j, null);

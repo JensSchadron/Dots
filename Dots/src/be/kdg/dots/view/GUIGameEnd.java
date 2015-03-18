@@ -23,14 +23,9 @@ class GUIGameEnd extends GUIGlassPane {
     }
 
     private void makeComponents() {
-        ImageIcon imageWinnerLoser;
-        if (gameOver){
-            imageWinnerLoser = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/gameOver.png")), 300, 150));
-        }else {
-            imageWinnerLoser = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/Winner.png")), 300, 150));
-        }
+        ImageIcon imageGameover = new ImageIcon(resize(new ImageIcon(getClass().getResource("/be/kdg/dots/resources/images/gameOver.png")), 300, 150));
         lblWinner = new JLabel("");
-        lblWinner.setIcon(imageWinnerLoser);
+        lblWinner.setIcon(imageGameover);
 
         lblScore = new JLabel("Proficiat, u hebt een score van " + Integer.toString(guiHoofdMenu.getController().getSpeler().getScore().getScore()));
         lblLevel = new JLabel("en level " + Integer.toString(guiHoofdMenu.getController().getSpeler().getLevel().getLevel()) + " behaald");

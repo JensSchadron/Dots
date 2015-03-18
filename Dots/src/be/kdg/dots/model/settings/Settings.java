@@ -2,6 +2,7 @@ package be.kdg.dots.model.settings;
 
 import be.kdg.dots.controller.SpelController;
 import java.awt.*;
+import java.time.LocalDateTime;
 
 public class Settings {
     private final SpelController controller;
@@ -12,6 +13,7 @@ public class Settings {
     private boolean hintsEnabled;
     private int hintVertraging;
     private String achievements;
+    private LocalDateTime laatstGeupdate;
 
     public Settings(SpelController controller) {
         this.controller = controller;
@@ -19,6 +21,14 @@ public class Settings {
         this.row = 6;
         this.hintsEnabled = true;
         this.hintVertraging = 1000;
+    }
+
+    public LocalDateTime getLaatstGeupdate() {
+        return laatstGeupdate;
+    }
+
+    public void setLaatstGeupdate(LocalDateTime laatstGeupdate) {
+        this.laatstGeupdate = laatstGeupdate;
     }
 
     public boolean isHintsEnabled() {

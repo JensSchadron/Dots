@@ -10,9 +10,6 @@ public class DotUI extends Ellipse2D.Double {
     private double x;
     private double y;
     private double diameter;
-    private int yCurrVallen;
-    private int yMaxVallen;
-    private int hoeveelDotsZakken;
     private boolean moetVallen;
 
     public DotUI(double x, double y) {
@@ -20,9 +17,6 @@ public class DotUI extends Ellipse2D.Double {
         this.x = x;
         this.y = y;
         this.diameter = MIN_DIAMETER;
-        this.yCurrVallen = 0;
-        this.yMaxVallen = 0;
-        this.hoeveelDotsZakken = 0;
         this.moetVallen = false;
     }
 
@@ -77,27 +71,14 @@ public class DotUI extends Ellipse2D.Double {
         }
     }
 
-    public void vallen(){
+    public void vallen(double yPos) {
+        if(getY()==yPos){
+            moetVallen = false;
+            return;
+        }
+
         isMaximized();
         updateXY(getX(), getY() + 10);
-        yCurrVallen += 10;
-
-
-        if (yCurrVallen >= yMaxVallen) {
-            moetVallen = false;
-            yCurrVallen = 0;
-            yMaxVallen = 0;
-            hoeveelDotsZakken = 0;
-        }
-    }
-
-    public void setHoeveelDotsZakken(int hoeveelDotsZakken) {
-        this.hoeveelDotsZakken = hoeveelDotsZakken;
-        yMaxVallen += hoeveelDotsZakken * (MAX_DIAMETER + AFSTAND_TUSSEN_DOTS);
-    }
-
-    public int getHoeveelDotsZakken() {
-        return hoeveelDotsZakken;
     }
 
     public void setVallen() {

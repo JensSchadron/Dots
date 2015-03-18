@@ -6,6 +6,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class GUIFrame extends JFrame {
     private static final int MIN_GAME_WIDTH = 450;
@@ -40,6 +44,16 @@ public class GUIFrame extends JFrame {
     public void showFrame() {
         super.setVisible(true);
         super.requestFocus();
+    }
+
+    public void toonUpdateDialog() {
+        if (JOptionPane.showConfirmDialog(this, "Er is mogelijk een nieuwe versie beschikbaar. Wilt u deze downloaden?", "Nieuwe versie", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon(getClass().getResource("/images/meldingen/Icon - info.png"))) == JOptionPane.YES_OPTION) {
+            try {
+                Desktop.getDesktop().browse(new URI("https://github.com/JensSchadron/Dots/blob/master/out/artifacts/Dots_jar/Dots.jar?raw=true"));
+            } catch (IOException | URISyntaxException e) {
+                toonFoutBoodschap("De nieuwe versie kan momenteel niet worden gedownload, probeer dit later nog eens.", false);
+            }
+        }
     }
 
     public void updateFrame(String optie) {
@@ -96,7 +110,7 @@ public class GUIFrame extends JFrame {
     }
 
     public void toonFoutBoodschap(String foutmelding, boolean severe) {
-        String boodschap = foutmelding + ((severe) ? " Om verdere fouten ten gevolge van deze fout in het spel te voorkomen wordt Dots afgesloten" : "") + "  Als dit probleem zich blijft voordoen, gelieve ons dan te contacteren.";
+        String boodschap = foutmelding + ((severe) ? "\nOm verdere fouten ten gevolge van deze fout in het spel te voorkomen wordt Dots afgesloten." : "") + "\nAls dit probleem zich blijft voordoen, gelieve ons dan te contacteren.";
         JOptionPane.showMessageDialog(this, boodschap, "Oeps...", JOptionPane.ERROR_MESSAGE, new ImageIcon(GUIFrame.class.getResource("/images/meldingen/Icon - error.png")));
         if (severe) {
             System.exit(1);
